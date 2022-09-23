@@ -1,0 +1,234 @@
+<div class="AMACO">
+  <div class="skepsiLogo">
+    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+  </div>
+  <div *ngIf="timerActivo">
+    <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
+      preload="auto"></audio>
+    <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
+      preload="auto"></audio>
+    <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg"
+      preload="auto"></audio>
+  </div>
+  <div class="general">
+    <div *ngIf="tiempoDescanso" class="row">
+      <!-- BARRA DE PROGRESO Descanso -->
+      <div class="row progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="tTimerDescanso" [style.width]="(tTimerDescanso/segundosDescanso)*100+'%'"
+          aria-valuemin="0" aria-valuemax="20" style="margin:0px auto;">
+        </div>
+      </div>
+      <!-- BARRA DE PROGRESO FIN -->
+      <p class="titulo" style="margin:0px auto">Resultados:</p>
+      <div class="row">
+        <p class="titulo">
+          Tuviste {{ calificacionVista }} aciertos de {{ contadorEjer }}
+        </p>
+      </div>
+      <div class="row" *ngIf="tTimerDescanso<11">
+        <p class="titulo">Preparate para la siguiente actividad</p>
+      </div>
+    </div>
+    <div *ngIf="!tiempoDescanso">
+      <div *ngIf="!resultados">
+        <div *ngIf="ejercActivo===1">
+          <div *ngIf="rutina" class="row">
+            <!-- BARRA DE PROGRESO INICIO -->
+            <div class="row progress" *ngIf="tTimer>0">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'" aria-valuemin="0"
+                aria-valuemax="20" style="margin:0px auto;">
+              </div>
+            </div>
+            <!-- BARRA DE PROGRESO FIN -->
+            <div class="row">
+              <p class="titulo" style="margin:0px auto">
+                Selecciona si es verdadero o falso:
+              </p>
+            </div>
+            <div class="row mt-4">
+              <h1>{{ vistaOperacion.operacion }} = {{vistaOperacion.resultVista}}</h1>
+            </div>
+            <div class="row">
+              <div class="col" align="right">
+                <button (click)="funcion1(true)" mat-raised-button class="buttonSkepsi textoBoton">
+                  Verdadero
+                </button>
+              </div>
+              <div class="col" align="left">
+              <button (click)="funcion1(false)" mat-raised-button class="buttonSkepsi textoBoton">
+                Falso
+              </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!tiempoDescanso">
+        <div *ngIf="!resultados">
+          <div *ngIf="ejercActivo===2">
+            <div *ngIf="rutina" class="row">
+              <!-- BARRA DE PROGRESO INICIO -->
+              <div class="row progress" *ngIf="tTimer>0">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                  [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'" aria-valuemin="0"
+                  aria-valuemax="20" style="margin:0px auto;">
+                </div>
+              </div>
+              <!-- BARRA DE PROGRESO FIN -->
+              <div class="row">
+                <p class="titulo" style="margin:0px auto">
+                  Deposita las figuras en los espacios correctos:
+                </p>
+              </div>
+              <div cdkDropListGroup class="row">
+                <div class="col">
+                <div class="row "><h2>Figuras geometricas</h2></div>
+                <div class="row example-container2">
+                  <div cdkDropList [cdkDropListData]="vistaFigGeo" class="example-list2"
+                    [cdkDropListSortingDisabled]="true"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of vistaFigGeo" cdkDrag><img
+                        src="..\assets\img\rutinas\LogicoMatematico\figurasGeo\FigurasGeo-{{item.imgFigGeo}}.png" >
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <div class="col">
+                <div class="row example-container">
+                  <img src="..\assets\img\rutinas\LogicoMatematico\espaciosFig\FigurasGeom-{{listEspsFig[0]}}.png" >
+                  <div cdkDropList [cdkDropListData]="listaContenedores[0]" class="example-list"
+                    [cdkDropListSortingDisabled]="true" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of listaContenedores[0]" cdkDrag><img
+                        src="..\assets\img\rutinas\LogicoMatematico\figurasGeo\FigurasGeo-{{item.imgFigGeo}}.png" >
+                    </div>
+                  </div>
+                </div>
+                <div class="row example-container">
+                  <img src="..\assets\img\rutinas\LogicoMatematico\espaciosFig\FigurasGeom-{{listEspsFig[1]}}.png" >
+                  <div cdkDropList [cdkDropListData]="listaContenedores[1]" class="example-list"
+                    [cdkDropListSortingDisabled]="true" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of listaContenedores[1]" cdkDrag><img
+                        src="..\assets\img\rutinas\LogicoMatematico\figurasGeo\FigurasGeo-{{item.imgFigGeo}}.png" >
+                    </div>
+                  </div>
+                </div>
+                <div class="row example-container">
+                  <img src="..\assets\img\rutinas\LogicoMatematico\espaciosFig\FigurasGeom-{{listEspsFig[2]}}.png" >
+                  <div cdkDropList [cdkDropListData]="listaContenedores[2]" class="example-list"
+                    [cdkDropListSortingDisabled]="true" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of listaContenedores[2]" cdkDrag><img
+                        src="..\assets\img\rutinas\LogicoMatematico\figurasGeo\FigurasGeo-{{item.imgFigGeo}}.png" >
+                    </div>
+                  </div>
+                </div>
+                <div class="row example-container">
+                  <img src="..\assets\img\rutinas\LogicoMatematico\espaciosFig\FigurasGeom-{{listEspsFig[3]}}.png" >
+                  <div cdkDropList [cdkDropListData]="listaContenedores[3]" class="example-list"
+                    [cdkDropListSortingDisabled]="true" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of listaContenedores[3]" cdkDrag><img
+                        src="..\assets\img\rutinas\LogicoMatematico\figurasGeo\FigurasGeo-{{item.imgFigGeo}}.png">
+                    </div>
+                  </div>
+                </div>
+                <div class="row example-container">
+                  <img src="..\assets\img\rutinas\LogicoMatematico\espaciosFig\FigurasGeom-{{listEspsFig[4]}}.png">
+                  <div cdkDropList [cdkDropListData]="listaContenedores[4]" class="example-list"
+                    [cdkDropListSortingDisabled]="true" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of listaContenedores[4]" cdkDrag><img
+                        src="..\assets\img\rutinas\LogicoMatematico\figurasGeo\FigurasGeo-{{item.imgFigGeo}}.png" >
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+              <div class="col-2" style="margin:0px auto">
+                <button (click)="funcion2()" mat-raised-button class="buttonSkepsi textoBoton">
+                  Siguiente
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!tiempoDescanso">
+          <div *ngIf="!resultados">
+            <div *ngIf="ejercActivo===3">
+              <div *ngIf="rutina" class="row">
+                <!-- BARRA DE PROGRESO INICIO -->
+              <div class="row progress" *ngIf="tTimer>0">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                  [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'" aria-valuemin="0"
+                  aria-valuemax="20" style="margin:0px auto;">
+                </div>
+              </div>
+              <!-- BARRA DE PROGRESO FIN -->
+                <div class="row">
+                  <p class="titulo" style="margin:0px auto">
+                    Selecciona el simbolo correcto para las Fracciones:
+                  </p>
+                </div>
+                  <div class="row mt-4">
+                  <div class="col-sm">
+                    <img src="..\assets\img\rutinas\LogicoMatematico\figurasFracciones\1012AMACO-{{ duplaFracciones[0].imgFraccion }}.png"/>
+                    <span class="caption">{{duplaFracciones[0].fraccion }}</span>
+                  </div>
+                  <div class="col">
+                  <mat-form-field>
+                    <mat-label>Operador</mat-label>
+                    <mat-select [(ngModel)]="operador">
+                      <mat-option *ngFor="let operador of opcionesOper" [value]="operador">{{ operador.simbolo }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  </div>
+                  <div class="col-sm">
+                    <img src="..\assets\img\rutinas\LogicoMatematico\figurasFracciones\1012AMACO-{{ duplaFracciones[1].imgFraccion }}.png"/>
+                    <span class="caption">{{duplaFracciones[1].fraccion }}</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-2" style="margin:0px auto">
+                    <button (click)="funcion3(operador.oper)" mat-raised-button class="buttonSkepsi textoBoton">
+                      Siguiente
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="ejercActivo===4">
+          <audio id="finRutAudio" #finRutAudio src="..\assets\Audios\InicioFin\SonidoFinRutina.mpeg" autoplay></audio>
+          <div class="row">
+            <p class="titulo" style="margin:0px auto">Resultados Generales:</p>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h3>Ejericicio 1: {{ resultadoEjer[0].aciertos }} aciertos de {{ resultadoEjer[0].intentos }}</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h3> Ejericicio 2: {{ resultadoEjer[1].aciertos }} aciertos de {{ resultadoEjer[1].intentos }}</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <h3> Ejericicio 3: {{ resultadoEjer[2].aciertos }} aciertos de {{ resultadoEjer[2].intentos }}</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2" style="margin: 0px auto;">
+              <button (click)="reloadPage()" mat-raised-button class="buttonSkepsi textoBoton">
+                Continuar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

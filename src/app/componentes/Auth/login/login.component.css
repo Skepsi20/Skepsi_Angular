@@ -1,0 +1,99 @@
+.principal{
+  width: 80%;
+  background-color: white;
+  margin: 0px auto;
+  padding: 10px;
+  min-height: 600px;
+}
+.contenedor{
+  width: 50%;
+  margin: 0px auto;
+  background-color:white;
+  text-align: center;
+}
+
+.contenido mat-form-field {
+  width: 50%;
+  padding: 15px;
+  margin: 0px auto;
+}
+
+.encabezado{
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+.encabezado p{
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.botones a{
+  margin: 10px;
+  margin-bottom: 20px;
+}
+
+.logoSkepsi{
+  width: 60%;
+}
+
+.bienvenido{
+  font-family: 'roboto-boldCondensed', Arial;
+  letter-spacing: .4rem;
+  margin-top: 50px;
+  line-height: 40px;
+}
+#bienvenido{
+  font-size: 30px;
+}
+#nosDa{
+  font-family: 'lato-bold', Arial;
+  font-size: 18px;
+}
+#aunNo{
+  font-family: 'roboto-bold', Arial;
+
+  font-size: 30px;
+}
+#registrateCon{
+  font-family: 'lato-semibold', Arial;
+  font-size: 18px;
+}
+
+.botonLogin{
+  margin-top: 10px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  background-color: #0F2B40;
+  color: white;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid #0F2B40;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.botonLogin:hover{
+  background-color: white;
+  color: #0F2B40;
+  border: 1px solid white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+mat-form-field{
+  width: 50%;
+}
+.mat-form-field .mat-form-field-flex{
+  border-radius: 4px !important;
+}
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: black !important;
+}
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: white !important;
+}
+::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: white !important;
+}

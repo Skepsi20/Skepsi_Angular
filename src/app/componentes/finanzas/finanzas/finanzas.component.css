@@ -1,0 +1,23 @@
+.listo{
+  background-color: limegreen;
+  color: white;
+  padding: 4px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+.pendiente{
+  background-color: yellow;
+  color:black;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.encabezado{
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+.encabezado p{
+  font-size: 25px;
+  margin-bottom: 10px;
+}

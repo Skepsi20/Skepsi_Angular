@@ -1,0 +1,308 @@
+.contenedor{
+  width: 100%;
+  background-image: linear-gradient(rgba(255,255,255,0.8), rgba(255, 255, 255, 0.5)), url('../../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-33.png');
+  background-size: 50%, 50%;
+  background-repeat: repeat;
+}
+.principal{
+  min-height: 900px;
+}
+
+.row{
+  margin-left: 0 rem !important;
+  margin-right: 0 rem !important;
+}
+
+.example-sidenav{
+  width: 18%;
+  overflow: unset;
+}
+.example-container {
+  width: 100%;
+}
+mat-drawer{
+  overflow: unset;
+}
+mat-drawer-container{
+  height: 900px;
+}
+mat-drawer-content {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+
+
+.contenido{
+  background-image: linear-gradient(rgba(255,255,255,0.8), rgba(255, 255, 255, 0.5)), url('../../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-33.png');
+  background-size: 50%, 50%;
+  background-repeat: repeat;
+  min-height: 900px;
+}
+.logotipoSkepsi{
+  width: 80%;
+  margin-bottom: 25%;
+  margin: 0px auto;
+  margin-bottom: 30px;
+}
+.menuDeOpciones{
+  font-family: 'lato-medium', Arial;
+  background-color: #FC495C;
+  min-height: 900px;
+  color: #0B2A4A;
+  width: 100%;
+  margin: 0px auto;
+  text-align: center;
+  font-size: 23px;
+  line-height: 50px;
+}
+.menuDeOpciones p{
+  transition: 0.2s;
+}
+.menuDeOpciones p:hover{
+  margin-left: -5%;
+  width: 100%;
+  cursor: pointer;
+  background-color: white;
+  color: #0B2A4A;
+}
+.seleccionada{
+  margin-left: -5%;
+  width: 100%;
+  background-color: white;
+  color: #0B2A4A;
+}
+
+.logOut{
+  font-family: 'lato-medium', Arial;
+  margin: 0px auto;
+  text-align: center;
+  font-size: 15px;
+  width: 70%;
+  transition: 0.1s;
+  margin-top: 190px;
+}
+#fotografia{
+  padding: 10px;
+  text-align: center;
+}
+#fotografia img{
+  width: 100%;
+  border-radius: 10px;
+}
+#ligaZoom{
+  padding: 10px;
+}
+#irArutina{
+  background-color: orange;
+}
+.buttonCreate{
+  border-radius: 5px;
+  background-color: #0F2B40;
+  color: white;
+  border: 1px solid #0F2B40;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 8px;
+}
+.buttonCreate:hover{
+  background-color: white;
+  color: #0F2B40;
+  border: 1px solid white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+
+/* ENTRENADOR */
+#fotografiaMaestro{
+  padding:30px;
+}
+#fotografiaMaestro img{
+  width: 100%;
+  border-radius: 10px;
+}
+#datosMaestro{
+  font-family: 'lato-bold', sans-serif !important;
+  margin-top: 5%;
+}
+#campo{
+  font-size: 30px;
+  line-height: 30px;
+}
+#contenidoCampo{
+  font-size: 20px;
+  line-height: 38px;
+}
+#descripcionMaestro{
+  padding: 30px;
+  font-size: 20px;
+  line-height: 38px;
+}
+
+
+/* ESTADISTICAS */
+.logotipoPilar img{
+  width: 100%;
+}
+.logotipoPilar p{
+  font-family: 'roboto-boldCondensed', Arial;
+  font-size: 20px;
+  margin-top: 35px;
+  letter-spacing: 8px;
+}
+.logotipoPilar hr{
+  border: 3px solid tomato;
+  border-radius: 10px;
+  width: 50%;
+  opacity: 1;
+}
+.listadoDeRutinasConResulados{
+  width: 85%;
+  margin: 0px auto;
+}
+.descripcionResultados{
+  font-family: 'lato-bold', Arial;
+  margin-top: 20px;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: #F4D24D;
+  color: #0B2A4A;
+  text-align: center;
+}
+.descripcionResultados p:first-child{
+  font-size: 25px;
+}
+.estadisticaArea{
+  font-family: 'roboto-boldCondensed', Arial;
+  margin-top: 20px;
+  text-align: center;
+  background-color: #E3E3E3;
+  border-radius: 20px;
+}
+#lineaVertical{
+  border-right: 2px solid #F4D24D;
+}
+.estadisticaArea:hover{
+  cursor: pointer;
+  background-color: #CFCFD0;
+}
+.buttonRutina{
+  border-radius: 5px;
+  background-color: #0F2B40;
+  color: white;
+  border: 1px solid #0F2B40;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 8px;
+}
+.buttonRutina:hover{
+  background-color: white;
+  color: #0F2B40;
+  border: 1px solid white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.graficasResultados{
+  width: 80%;
+}
+
+
+
+/* CONFIGURACION DE CUENTA */
+.mat-form-field .mat-form-field-flex{
+  border-radius: 4px !important;
+}
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: black !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: white !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: white !important;
+}
+mat-form-field{
+  padding: 20px;
+  width: 50%;
+}
+.previewImage img{
+  width:130px;
+  height:130px;
+  object-fit:cover;
+  float: left;
+  margin: 10px;
+}
+.previewImageSelected img{
+  width:250px;
+  height:250px;
+  margin: 10px;
+}
+#avatars{
+  width:200px;
+  height: 300px;
+  overflow-y: auto;
+}
+.avatars{
+  float: left;
+}
+.avatars > input{
+  display: none;
+}
+
+.avatars > input + img{
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.avatars > input:checked + img{
+  background-color: #0B2A4A;
+  border-radius: 90px;
+  padding: 10px;
+}
+
+.soporteUno:hover{
+  cursor: pointer;
+  background-color: #F4D24D;
+  border-radius: 10px;
+  margin-top: 2%;
+  transition: 0.5s;
+}
+
+.soporteDos:hover{
+  cursor: pointer;
+  background-color: #FC495C;
+  border-radius: 10px;
+  margin-top: 2%;
+  transition: 0.5s;
+}
+
+.soporteTres:hover{
+  cursor: pointer;
+  background-color: #4ACFC6;
+  border-radius: 10px;
+  margin-top: 2%;
+  transition: 0.5s;
+}
+
+.soporte{
+  font-family: 'roboto-boldCondensed', Arial;
+  margin: 0px auto;
+  text-align: center;
+}
+
+.soporte img{
+  width: 70%;
+  height: 70%;
+}
+
+.soporteTitle{
+  font-size: 30px;
+  line-height: 35px;
+}

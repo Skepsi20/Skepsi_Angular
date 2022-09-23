@@ -1,0 +1,179 @@
+.contenedor{
+  width: 100%;
+  background-image: linear-gradient(rgba(255,255,255,0.8), rgba(255, 255, 255, 0.5)), url('../../../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-33.png');
+  background-size: 50%, 50%;
+  background-repeat: repeat;
+}
+.principal{
+  min-height: 800px;
+}
+.example-sidenav{
+  width: 18%;
+  overflow: unset;
+}
+.example-container {
+  width: 100%;
+}
+.contenido{
+  background-image: linear-gradient(rgba(255,255,255,0.8), rgba(255, 255, 255, 0.5)), url('../../../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-33.png');
+  background-size: 50%, 50%;
+  background-repeat: repeat;
+  min-height: 800px;
+}
+#fotografia{
+  text-align: center;
+}
+#fotografia button{
+  margin-top: 5px;
+}
+#fotografia img{
+  width: 100%;
+  border-radius: 10px;
+}
+.logotipoSkepsi{
+  width: 80%;
+  margin-bottom: 25%;
+  margin: 0px auto;
+  margin-bottom: 30px;
+}
+.menuDeOpciones{
+  font-family: 'lato-medium', Arial;
+  background-color: #4ACFC6;
+  min-height: 800px;
+  color: #0B2A4A;
+  width: 100%;
+  margin: 0px auto;
+  text-align: center;
+  font-size: 23px;
+  line-height: 50px;
+}
+.menuDeOpciones p{
+  transition: 0.2s;
+}
+.menuDeOpciones p:hover{
+  margin-left: -5%;
+  width: 100%;
+  cursor: pointer;
+  background-color: white;
+  color: #0B2A4A;
+}
+.seleccionada{
+  margin-left: -5%;
+  width: 100%;
+  background-color: white;
+  color: #0B2A4A;
+}
+
+.logOut{
+  font-family: 'lato-medium', Arial;
+  margin: 0px auto;
+  text-align: center;
+  font-size: 15px;
+  width: 70%;
+  transition: 0.1s;
+  margin-top: 190px;
+}
+.buttonSkepsi{
+  border-radius: 5px;
+  background-color: #0F2B40;
+  color: white;
+  border: 1px solid #0F2B40;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  padding: 8px;
+}
+.buttonSkepsi:hover{
+  background-color: white;
+  color: #0F2B40 !important;
+  border: 1px solid white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+
+/* DASHBOARD */
+.title{
+  margin: 10px;
+  text-align: center;
+}
+.grupos{
+  text-align: center;
+}
+.card{
+  width: 100%;
+}
+.logotipoPilar p{
+  font-family: 'roboto-boldCondensed', Arial;
+  font-size: 20px;
+  margin-top: 35px;
+  letter-spacing: 8px;
+}
+.logotipoPilar hr{
+  border: 3px solid tomato;
+  border-radius: 10px;
+  width: 50%;
+  opacity: 1;
+}
+.cardGrupos{
+  margin: 10px;
+}
+
+
+/* CONFIGURACION DE CUENTA */
+.mat-form-field .mat-form-field-flex{
+  border-radius: 4px !important;
+}
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: black !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: white !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: white !important;
+}
+mat-form-field{
+  padding: 20px;
+  width: 50%;
+}
+.previewImage img{
+  width:130px;
+  height:130px;
+  object-fit:cover;
+  float: left;
+  margin: 10px;
+}
+.previewImageSelected img{
+  width:250px;
+  height:250px;
+  margin: 10px;
+}
+#avatars{
+  width:200px;
+  height: 300px;
+  overflow-y: auto;
+}
+.avatars{
+  float: left;
+}
+.avatars > input{
+  display: none;
+}
+
+.avatars > input + img{
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.avatars > input:checked + img{
+  background-color: #0B2A4A;
+  border-radius: 90px;
+  padding: 10px;
+}
+
+
+

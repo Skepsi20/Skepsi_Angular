@@ -1,0 +1,92 @@
+<div class="AGNRE">
+  <div class="skepsiLogo">
+    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+  </div>
+  <div>
+    <audio id="initEjerAudio" #initEjerAudio src="../../../../../assets/Audios/InicioFin/SonidoInicioEjercicio.mpeg"
+    preload="auto"></audio>
+    <audio id="finEjerAudio" #finEjerAudio src="../../../../../assets/Audios/InicioFin/SonidoFinEjercicio.mpeg"
+      preload="auto"></audio>
+    <audio id="initRutAudio" #iniRutAudio src="../../../../../assets/Audios/InicioFin/SonidoInicioRutina.mpeg" preload="auto"></audio>
+  </div>
+  <div class="general">
+    <!-- INSTRUCCIONES -->
+    <div *ngIf="instrucciones">
+
+      <!-- BARRA DE PROGRESO INICIO -->
+      <div class="row progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeft" [style.width]="(timeLeft*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+        </div>
+      </div>
+      <!-- BARRA DE PROGRESO FIN -->
+      <br>
+      <div class="row">
+        <p class="titulo">A continuación verás una serie de banderas, tienes dos minutos para memorizarlas</p>
+      </div>
+    </div>
+
+    <div *ngIf="!instrucciones && tiempoAprender">
+      <div class="row">
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            [attr.aria-valuenow]="timeLeftTwo" [style.width]="(timeLeftTwo*0.95)+'%'" aria-valuemin="0" aria-valuemax="20"
+            style="margin:0px auto;">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <p class="titulo">Memoriza las banderas</p>
+      </div>
+      <div class="row">
+        <div *ngFor="let bandera of banderasAcotadasRandom" class="col-2">
+          <img src="{{bandera.imagen}}" style="border-radius:10px; width: 100%; height: 70%;">
+          <h1> {{bandera.nombre}} </h1>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!tiempoAprender">
+      <div *ngIf="!resultados">
+        <p class="titulo">Cuál es la bandera real?</p>
+        <div class="row" *ngIf="banderasDOM">
+          <img src="{{banderaVista[0].imagenBN}}" class="banderaBN">
+        </div>
+        <div class="row">
+          <div *ngFor="let item of opcionesDeBanderasRandom" class="col">
+            <img (click)="respuestasBanderasDOM(item)" src="{{item}}" class="banderasOpciones">
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTADOS -->
+      <div *ngIf="resultados">
+        <p class="titulo">Ejercicio terminado!</p>
+        <p class="titulo"> Resultados:</p>
+        <p class="titulo">Tuviste {{calificacionDOM}} aciertos de {{aciertosDOM}}</p>
+        <button (click)="Inicializacion()" class="buttonSkepsi textoBoton" >Continuar</button>
+      </div>
+    </div>
+
+
+
+
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

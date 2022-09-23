@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="encabezado">
+        <p>LISTADO DE PAQUETES</p>
+        <hr>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col paquetes" *ngFor="let item of paquetes; index as i">
+      <div *ngIf="item.discountRate > 0">
+        <div class="titulo descuento">
+          <span class="sale">-{{item.discountRate}}%</span>
+          <p>{{item.name}}</p>
+        </div>
+        <mat-card class="example-card">
+          <mat-card-content>
+            <p>{{item.description}}</p>
+            <h2>Duración: {{item.duration}} meses.</h2>
+            <span style="text-decoration:line-through; color:red; margin-right: 15px;">
+              ${{item.cost}}
+            </span>
+            <span class="precio">
+              ${{-item.cost*(item.discountRate/100)+item.cost}}
+            </span><br>
+            <span *ngIf="role == 'Administrador' || item.registrationCost != 0">
+              Inscripción (Pago único): ${{item.registrationCost}}
+            </span>
+            <h3>Horario del plan de entrenamiento: {{item.schedule}}Hrs.</h3>
+          </mat-card-content>
+          <mat-divider inset></mat-divider>
+          <mat-card-actions  *ngIf="role != 'Usuario'" style="text-align:center;">
+            <label style="margin: 0px auto; width:100%"><input type="checkbox" id="checkme" [(ngModel)]="terminos[i]"  /> <a routerLink="/terminos">Acepto los términos y condiciones</a></label>
+            <button mat-button mat-raised-button class="ml-1" disabled>Suscribirse</button>
+          </mat-card-actions>
+          <mat-card-actions  *ngIf="role == 'Usuario'" style="text-align:center;">
+            <label style="margin: 0px auto; width:100%"><input type="checkbox" id="checkme" [(ngModel)]="terminos[i]"  /> <a routerLink="/terminos">Acepto los términos y condiciones</a></label>
+            <h1 *ngIf="!item.botonesPayPal && terminos[i]">
+              <button mat-button mat-raised-button class="ml-1 buttonCreate" (click)="subscribeIfPaypal(item.id,item.externalPlanId,i)">Suscribirse</button>
+            </h1>
+          </mat-card-actions>
+          <div *ngIf="item.botonesPayPal && terminos[i]">
+            <app-paypal [planId]="item.externalPlanId" [skepsiPlanId]="item.id"></app-paypal>
+          </div>
+        </mat-card>
+      </div>
+      <div *ngIf="!item.discountRate">
+        <div class="titulo">
+          <p>{{item.name}}</p>
+        </div>
+        <mat-card class="example-card">
+          <mat-card-content>
+            <p>{{item.description}}</p>
+            <h2 *ngIf="!item.isTrial">Duración: {{item.duration}} meses.</h2>
+            <span *ngIf="!item.isTrial" class="precio">
+              ${{item.cost}}
+            </span><br>
+            <span *ngIf="role == 'Administrador' || item.registrationCost != 0">
+              Inscripción (Pago único): ${{item.registrationCost}}
+            </span>
+            <h3>Horario del plan de entrenamiento: {{item.schedule}} Hrs.</h3>
+          </mat-card-content>
+          <mat-divider inset></mat-divider>
+          <mat-card-actions  *ngIf="role != 'Usuario'" style="text-align:center;">
+            <label style="margin: 0px auto; width:100%"><input type="checkbox" id="checkme" [(ngModel)]="terminos[i]" /> <a routerLink="/terminos">Acepto los términos y condiciones</a></label>
+            <button mat-button mat-raised-button class="ml-1" disabled>Suscribirse</button>
+          </mat-card-actions>
+          <mat-card-actions  *ngIf="role == 'Usuario'" style="text-align:center;">
+            <label style="margin: 0px auto; width:100%"><input type="checkbox" id="checkme" [(ngModel)]="terminos[i]"  /> <a routerLink="/terminos">Acepto los términos y condiciones</a></label>
+            <h1 *ngIf="!item.botonesPayPal && terminos[i]">
+              <button mat-button mat-raised-button class="ml-1 buttonCreate" (click)="subscribeIfPaypal(item.id,item.externalPlanId,i)">Suscribirse</button>
+            </h1>
+          </mat-card-actions>
+          <div *ngIf="item.botonesPayPal && terminos[i]" style="width: 100%">
+            <app-paypal [planId]="item.externalPlanId" [skepsiPlanId]="item.id"></app-paypal>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

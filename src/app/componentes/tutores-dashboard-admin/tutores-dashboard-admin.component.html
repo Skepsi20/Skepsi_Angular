@@ -1,0 +1,122 @@
+<div class="container">
+  <div class="row" *ngIf="!tutorSelected">
+    <div class="col">
+      <h1>Selecciona un tutor</h1>
+        <div class="card tarjetas" *ngFor="let item of tutores" (click)="selectedTutor(item.id)">
+          <div class="card-header">
+            <h1>{{item.firstName}} {{item.lastName}}</h1>
+          </div>
+          <div class="card-body tutorImage" *ngIf="item.profileImageUrl">
+            <img src="http://skepsi.com.mx/assets/img/avatares/{{item.profileImageUrl}}">
+          </div>
+          <div class="card-body tutorImage" *ngIf="!item.profileImageUrl">
+            <img src="http://skepsi.com.mx/assets/img/avatares/Personajes-03.png">
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="tutorSelected && !groupSelected">
+    <div class="col">
+      <input type="button" class="btn btn-light" value="Regresar" onclick="location.reload()">
+      <div *ngFor="let grupo of grupos">
+        <div class="card tarjetas" (click)="selectedGroup(grupo.id)">
+          <div class="card-header">
+            <h1>{{grupo.code}}</h1>
+          </div>
+          <div class="card-body">
+            <p>Tutor: {{grupo.tutor.firstName}} {{grupo.tutor.lastName}}</p>
+            <p>Zoom Link: {{grupo.meetingUrl}}</p>
+            <p>Zoom Password: {{grupo.meetingPassword}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="tutorSelected && groupSelected">
+    <div class="row">
+      <div class="col">
+        <div class="title">
+          <h1 *ngIf="dashboardDetail" >Grupo: {{dashboardDetail.code}} </h1>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col" *ngIf="dashboardDetail">
+        <div class="botonesParaRutina" *ngIf="dashboardDetail.routine">
+          <button *ngIf="dashboardDetail.session.status === 'Pending'" type="button" class="btn btn-success" (click)="iniciarRutina()">Iniciar rutina</button>
+          <button *ngIf="dashboardDetail.session.status === 'InProgress'" type="button" class="btn btn-danger" (click)="detenerRutina()">Detener Rutina</button>
+          <button *ngIf="dashboardDetail.session.status === 'Finished'" type="button" class="btn btn-warning" (click)="iniciarRutina()">Volver a abrir Rutina</button>
+        </div>
+        <h3>Horario: {{dashboardDetail.plan.schedule}} </h3>
+        <h3 *ngIf="dashboardDetail.routine">Rutina: {{dashboardDetail.routine.name}}</h3>
+        <h3 *ngIf="!dashboardDetail.routine">No hay sesiones programadas para hoy</h3>
+      </div>
+      <div class="col">
+        <mat-form-field appearance="outline" class="mr-2">
+          <mat-label>Liga de zoom</mat-label>
+          <input type="text" matInput [(ngModel)]="zoomData.meetingUrl" value="{{meetingUrl}}" name="link" required>
+          <mat-error>El campo Liga de zoom es requerido</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input type="text" matInput [(ngModel)]="zoomData.meetingPassword" value="{{meetingPassword}}" name="password" required>
+          <mat-error>El campo Contraseña es requerido</mat-error>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button class="btn buttonSkepsi" (click)="addZoom()">Actualizar</button>
+      </div>
+    </div>
+    <div class="row" *ngIf="dashboardDetail">
+      <div class="col-3" *ngFor="let student of dashboardDetail.students">
+        <div class="card cardAlumno">
+          <h1 *ngIf="student.isSuspended" style="color:red; text-align: center; padding: 5px;">SUSPENDIDO</h1>
+          <h3 class="card-header">Nombre: {{student.firstName}} {{student.lastName}}</h3>
+          <div class="card-body" *ngIf="!student.isSuspended">
+            <div *ngIf="student.isOnline">
+              <h2 class="card-title">Estado: Conectado </h2>
+            </div>
+            <div *ngIf="!student.isOnline">
+              <h5 class="card-title">Estado: Desconectado </h5>
+            </div>
+            <p class="card-text">Último resultado: </p>
+            <div *ngIf="student.results && student.results.length > 0">
+              <ul class="ultimoResultado">
+                <li>Calificación: {{student.results[student.results.length-1].grade}}</li>
+                <li>Reactivos: {{student.results[student.results.length-1].resultDetails[student.results[student.results.length-1].resultDetails.length-1].possiblePoints}}</li>
+                <li>Aciertos: {{student.results[student.results.length-1].resultDetails[student.results[student.results.length-1].resultDetails.length-1].points}}</li>
+                <li>Ronda: {{student.results[student.results.length-1].round}}</li>
+                <li>Nivel: {{student.results[student.results.length-1].level}}</li>
+              </ul>
+            </div>
+              <button class="btn btn-danger" (click)="suspender(student.id)" data-toggle="modal" data-target="#exampleModal">
+                Suspender
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Suspender alumno</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="comments">Motivo de la suspensión de cuenta</label><br>
+        <textarea name="comments" [(ngModel)]="comentariosDeSuspension" cols="30" rows="4" required style="width:100%"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" (click)="deleteConfirmation()" data-dismiss="modal">Suspender</button>
+      </div>
+    </div>
+  </div>
+</div>

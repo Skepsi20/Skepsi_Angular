@@ -1,0 +1,437 @@
+<div class="container">
+  <div class="row imagenUno">
+    <div class="col">
+      <h1>PARA PONERNOS UN POCO MÁS EN CONTEXTO</h1>
+      <img src="../../../../assets/img/skepsi/inicio/IMG_0059_1.png" class="imagenInicial">
+    </div>
+  </div>
+  <h1 style="text-align:center">¿PORQUÉ SKEPSI ES LA MEJOR OPCIÓN?</h1>
+  <div class="row tarjetaUno">
+    <div class="col pilares">
+      <div class="img"></div>
+      <div class="overlayTwo sinais">
+        <div class="row">
+          <div class="col" id="textOverlay" align="right">
+            <p>Desarrollas habilidades de pensamiento con nuestros planes cognitivos únicos adaptados a la edad de nuestros usuarios.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col pilares">
+      <div class="img"></div>
+      <div class="overlayTwo glossa">
+        <div class="row">
+          <div class="col" id="textOverlay" align="right">
+            <p>Rompes paradigmas, desarrollas habilidades como la concentración y la creatividad, además de mejorar tu pensamiento crítico</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col pilares">
+      <div class="img"></div>
+      <div class="overlayTwo gnostiki">
+        <div class="row">
+          <div class="col" id="textOverlay" align="right">
+            <p>Promueve la relación contigo mismo y los demás mediante rutinas que promueven el conocimiento de tus emociones y afectos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col juegoUno">
+      <p>¿QUÉ TAN BUENA MEMORIA TIENES? <br> ¿PUEDES RESOLVER ESTE QUIZ?</p>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="juegoUno">
+        <div *ngIf="rutinaBanderas" class="rutinaUno">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeft" [style.width]="(timeLeft*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+          <p *ngIf="timeLeft != 0">{{timeLeft}}</p>
+          </div><br>
+          <button *ngIf="!rutinaUnoIniciada" (click)='startTimer()' class="btn btn-success">Iniciar</button>
+          <div class="rutina">
+            <div *ngIf="!rutinaUnoIniciada">
+              <br>
+              <h1>Instrucciones:</h1>
+              <p>Tienes 10 segundos para memorizar 5 banderas <br> depués deberás indicar si la bandera es nueva <br> o ya fue mostrada.</p>
+            </div>
+            <div *ngIf="rutinaUnoIniciada">
+              <div *ngIf="!banderasMostradas">
+                MEMORIZA LAS BANDERAS
+                <div *ngFor="let bandera of banderasSi">
+                  <img src="{{bandera.imagen}}" class="banderas">
+                </div>
+              </div>
+              <div *ngIf="banderasMostradas">
+                <div class="row">
+                  <div class="col">
+                    Memorizaste esta bandera?
+                  </div><br>
+                </div>
+                <div class="row" align="center">
+                  <div class="col">
+                    <img src="{{banderaVista.imagen}}" class="bandera">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <button class="btn btn-success botonesSiNo" (click)="funcionUno('si')">Si</button>
+                    <button class="btn btn-success botonesSiNo" (click)="funcionUno('no')">No</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!rutinaBanderas && rutinaNombres" class="rutinaUno">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeftTwo" [style.width]="(timeLeftTwo*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+          <p *ngIf="timeLeftTwo != 0">{{timeLeftTwo}}</p>
+          </div>
+          <div class="rutina">
+            <div *ngIf="!rutinaNombresIniciada && rutinaNombres">
+              <br>
+              <h1>Instrucciones:</h1>
+              <p>Memoriza los nombres de los personajes.</p>
+              <div class="d-flex justify-content-center">
+                <div class="imagenesPersonajesPregunta" >
+                  <img src="../../../../assets/img/skepsi/logo/monitos-04.png">
+                  <p>Mau</p>
+                </div>
+                <div class="imagenesPersonajesPregunta">
+                  <img src="../../../../assets/img/skepsi/logo/monitos-05.png">
+                  <p>Alicia</p>
+                </div>
+                <div class="imagenesPersonajesPregunta">
+                  <img src="../../../../assets/img/skepsi/logo/monitos-06.png">
+                  <p>Vico</p>
+                </div>
+                <div class="imagenesPersonajesPregunta">
+                  <img src="../../../../assets/img/skepsi/logo/monitos-07.png">
+                  <p>Alan</p>
+                </div>
+                <div class="imagenesPersonajesPregunta">
+                  <img src="../../../../assets/img/skepsi/logo/monitos-08.png">
+                  <p>Toño</p>
+                </div>
+                <div class="imagenesPersonajesPregunta">
+                  <img src="../../../../assets/img/skepsi/logo/monitos-09.png">
+                  <p>Julia</p>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="rutinaNombresIniciada">
+              <div class="row" align="center">
+                <div class="col nombresDom">
+                  <h1>{{nombreVista}}</h1>
+                  <br>
+                  <div class="d-flex justify-content-center">
+                    <div class="imagenesPersonajesRespuesta">
+                      <img src="../../../../assets/img/skepsi/logo/monitos-06.png" (click)="funcionDos('Vico')">
+                    </div>
+                    <div class="imagenesPersonajesRespuesta">
+                      <img src="../../../../assets/img/skepsi/logo/monitos-05.png" (click)="funcionDos('Alicia')">
+                    </div>
+                    <div class="imagenesPersonajesRespuesta">
+                      <img src="../../../../assets/img/skepsi/logo/monitos-07.png" (click)="funcionDos('Alan')">
+                    </div>
+                    <div class="imagenesPersonajesRespuesta" >
+                      <img src="../../../../assets/img/skepsi/logo/monitos-04.png" (click)="funcionDos('Mau')">
+                    </div>
+                    <div class="imagenesPersonajesRespuesta">
+                      <img src="../../../../assets/img/skepsi/logo/monitos-09.png" (click)="funcionDos('Julia')">
+                    </div>
+                    <div class="imagenesPersonajesRespuesta">
+                      <img src="../../../../assets/img/skepsi/logo/monitos-08.png" (click)="funcionDos('Toño')">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!rutinaBanderas && !rutinaNombres && rutinaCaracteristicas" class="rutinaUno">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeftThree" [style.width]="(timeLeftThree*6.7)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+          <p *ngIf="timeLeftThree != 0">{{timeLeftThree}}</p>
+          </div>
+          <div class="rutina">
+            <div *ngIf="!rutinaCaracteristicasIniciada && rutinaCaracteristicas">
+              <br>
+              <h1>Instrucciones:</h1>
+              <p>Memoriza las <b>características</b> de los personajes.</p>
+              <div class="d-flex justify-content-center">
+                <div class="imagenesPersonajesPregunta" >
+                  <img src="../../../../assets/img/skepsi/logo/monitos-04.png">
+                  <p>Mau</p>
+                </div>
+                <div class="imagenesPersonajesPregunta">
+                  <img src="../../../../assets/img/skepsi/logo/monitos-05.png">
+                  <p>Alicia</p>
+                </div>
+                <div class="imagenesPersonajesPregunta">
+                  <img src="../../../../assets/img/skepsi/logo/monitos-06.png">
+                  <p>Vico</p>
+                </div>
+                <div class="imagenesPersonajesPregunta">
+                  <img src="../../../../assets/img/skepsi/logo/monitos-07.png">
+                  <p>Alan</p>
+                </div>
+                <div class="imagenesPersonajesPregunta">
+                  <img src="../../../../assets/img/skepsi/logo/monitos-08.png">
+                  <p>Toño</p>
+                </div>
+                <div class="imagenesPersonajesPregunta">
+                  <img src="../../../../assets/img/skepsi/logo/monitos-09.png">
+                  <p>Julia</p>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="rutinaCaracteristicasIniciada">
+              <div class="row" align="center">
+                <div class="col caracteristicasDom">
+                  <h1>{{caracteristicaVista}}</h1>
+                  <br>
+                  <div class="d-flex justify-content-center">
+                    <div class="caracteristicasPersonajesRespuesta" (click)="funcionTres('Alan')">
+                      <h1>Alan</h1>
+                    </div>
+                    <div class="caracteristicasPersonajesRespuesta" (click)="funcionTres('Vico')">
+                      <h1>Vico</h1>
+                    </div>
+                    <div class="caracteristicasPersonajesRespuesta" (click)="funcionTres('Julia')">
+                      <h1>Julia</h1>
+                    </div>
+                    <div class="caracteristicasPersonajesRespuesta" (click)="funcionTres('Alicia')">
+                      <h1>Alicia</h1>
+                    </div>
+                    <div class="caracteristicasPersonajesRespuesta" (click)="funcionTres('Toño')">
+                      <h1>Toño</h1>
+                    </div>
+                    <div class="caracteristicasPersonajesRespuesta" (click)="funcionTres('Mau')">
+                      <h1>Mau</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!rutinaBanderas && !rutinaNombres && !rutinaCaracteristicas && rutinaPreguntasUno" class="rutinaUno">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeftFour" [style.width]="(timeLeftFour*5)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+          <p *ngIf="timeLeftFour != 0">{{timeLeftFour}}</p>
+          </div>
+          <div class="rutina">
+            <div *ngIf="!rutinaPreguntasUnoIniciada && rutinaPreguntasUno">
+              <br>
+              <h1>Lee el siguiente texto:</h1>
+              <p style="padding:10px">A los pasajeros del vuelo 302 de avianca con destino a buenos aires y que hacen escala en San
+                Salvador, Bogotá, Lima y Brasilia, se les solicita que se presenten en la sala número 3 B 1,
+                recuerden cuidar sus pertenencias personales y registrar su equipaje de mano.</p>
+            </div>
+            <div *ngIf="rutinaPreguntasUnoIniciada">
+              <div class="row" align="center">
+                <div class="col preguntasUnoDom">
+                  <h1>{{preguntaUnoVista}}</h1>
+                  <br>
+                  <div *ngFor="let pregunta of opcionesDeRespuestaUnoVista">
+                    <div class="d-flex justify-content-center">
+                      <div class="caracteristicasPersonajesRespuesta" (click)="funcionCuatro(pregunta)">
+                        <h1>{{pregunta}}</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!rutinaBanderas && !rutinaNombres && !rutinaCaracteristicas && !rutinaPreguntasUno && rutinaPreguntasDos" class="rutinaUno">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeftFive" [style.width]="(timeLeftFive*2.5)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+          <p *ngIf="timeLeftFive != 0">{{timeLeftFive}}</p>
+          </div>
+          <div class="rutina">
+            <div *ngIf="!rutinaPreguntasDosIniciada && rutinaPreguntasDos">
+              <br>
+              <h1>Lee el siguiente texto</h1>
+              <p class="textoLargo">
+                En una cazuela calentamos el agua para cocer el arroz con una pizca de sal. Cuando comience a hervir echamos el arroz y lo dejamos cocer a fuego medio hasta que esté listo y se haya
+                evaporado toda el agua. Nos quedará un arroz tierno y un poquito pegajoso.
+                Mientras se cuece el arroz calentamos 2 cucharadas de agua en un cazo y le añadimos las hebras de azafrán.
+                Cuando comience a hervir apagamos el fuego y reservamos hasta que se enfríe, en este tiempo el azafrán soltará toda su esencia en el agua.
+                Cuando el agua de azafrán esté fría le añadimos las yemas y removemos hasta integrar. Reservamos.
+                Derretimos la mantequilla en el micro y dejamos enfriar. Rallamos el queso italiano parmesano reservamos.
+                En un cazo pequeño cocemos los guisantes con una pizca de sal y un chorrito de aceite de oliva. Reservamos.
+                En el momento en el que el arroz esté listo le añadimos, en la misma cazuela, la mezcla de las yemas y el azafrán. Removemos hasta que todo el arroz se impregne del líquido.
+                Vertemos la mantequilla derretida y el queso parmesano. Removemos y mezclamos bien todos los ingredientes. Extendemos el arroz en una bandeja amplia y dejamos enfriar completa
+              </p>
+            </div>
+            <div *ngIf="rutinaPreguntasDosIniciada">
+              <div class="row" align="center">
+                <div class="col preguntasUnoDom">
+                  <h1>{{preguntaDosVista}}</h1>
+                  <br>
+                  <div *ngFor="let pregunta of opcionesDeRespuestaDosVista">
+                    <div class="d-flex justify-content-center">
+                      <div class="caracteristicasPersonajesRespuesta" style="margin-bottom:10px" (click)="funcionCinco(pregunta)">
+                        <h1>{{pregunta}}</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="mostrarResultados"class="rutinaUno">
+          <h1>Obtuviste: {{aciertos}} aciertos de 22 preguntas</h1>
+          <h2>Una calificación de: {{promedio | number : '1.2-2'}}</h2>
+          <button class="btn btn-success" onclick="location.reload()">Volver a jugar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="juegoDos">
+        <p><b>¿ESTAS EN LA FILA?</b> <br> ¡MIENTRAS ESPERAS, ENTRETENTE UN RATO!</p>
+        <hr>
+        <div class="rutinaDos juegoPerros">
+
+          <div *ngIf="!rutinaPerrosUno && !mostrarCalificacionesPerros">
+            <br>
+            <button (click)='startJuegoDos()' class="btn btn-success"> Iniciar</button>
+            <h1>Lee las preguntas y coloca a los perros en la posición correcta.</h1>
+          </div>
+
+
+          <div *ngIf="rutinaPerrosUno && !mostrarCalificacionesPerros">
+            <br>
+            <div class="row">
+              <div class="col">
+                <h1 *ngFor="let pregunta of preguntasMostrar">{{pregunta.descripcion}}</h1>
+              </div>
+              <div class="col" align="left">
+                <p  *ngFor="let pista of pistasMostrar"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#F4D34C" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                  </svg>{{pista.pista}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h1>Coloca las imagenes en el orden correcto</h1>
+                <div  class="espacio" align='center'>
+                  <ul class="d-flex justify-content-around">
+                    <li *ngFor="let espacio of espacioMostrar">{{espacio.nombre}}</li>
+                  </ul>
+                </div>
+                <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+                  <div class="example-box perros"  *ngFor="let perro of perrosMostrar" cdkDrag>
+                    <img src="{{perro.imagen}}">
+                    <p>{{perro.nombre}}</p>
+                  </div>
+                </div>
+                <br>
+                <button (click)="revisarPerros()" class="btn btn-success">Listo</button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!rutinaPerrosUno && mostrarCalificacionesPerros" class="rutinaUno">
+            <h1>Obtuviste: {{calificacionPerros}} aciertos de 22 preguntas</h1>
+            <h2>Una calificación de: {{promedioPerros | number : '1.2-2'}}</h2>
+            <button class="btn btn-success" onclick="location.reload()">Volver a jugar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="paquetes">
+    <div class="row">
+      <div class="col">
+        <h1>PERO BASTA DE JUEGOS Y CHARLAS</h1>
+        <h3>MEJOR EJERCITEMONOS JUNTOS</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div id="paquetesTexto">
+          Paquetes
+        </div>
+        <hr>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col filaUno">
+          <div class="contenedorPaquete">
+            <h1>{{paquetes[0].titulo}}</h1>
+            <h3>Duración: {{paquetes[0].duracion}}</h3>
+            <div id="paquetesBotonInscripcion">
+              INSCRIBIRSE
+            </div>
+          </div>
+          <div class="overlay">
+            <div class="text">
+              <p>Plan de entrenamiento de lunes a jueves de 4 a 4:45 de la tarde, incluye entrenamiento de desarrollo cognitivo, lenguaje y comunicación, pensamiento lógico-matemático y emociones y afectos.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col filaUno">
+          <div class="contenedorPaquete">
+            <h1>{{paquetes[1].titulo}}</h1>
+            <h3>Duración: {{paquetes[1].duracion}}</h3>
+            <h3>Descuento: {{paquetes[1].descuento}}</h3>
+            <div id="paquetesBotonInscripcion">
+              INSCRIBIRSE
+            </div>
+          </div>
+          <div class="overlay">
+            <div class="text">
+              <p>Plan de entrenamiento de lunes a jueves de 4 a 4:45 de la tarde, incluye entrenamiento de desarrollo cognitivo, lenguaje y comunicación, pensamiento lógico-matemático y emociones y afectos.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col filaUno">
+          <div class="contenedorPaquete">
+            <h1>{{paquetes[2].titulo}}</h1>
+            <h3>Duración: {{paquetes[2].duracion}}</h3>
+            <h3>Descuento: {{paquetes[1].descuento}}</h3>
+            <div id="paquetesBotonInscripcion">
+              INSCRIBIRSE
+            </div>
+          </div>
+          <div class="overlay">
+            <div class="text">
+              <p>Plan de entrenamiento de lunes a jueves de 4 a 4:45 de la tarde, incluye entrenamiento de desarrollo cognitivo, lenguaje y comunicación, pensamiento lógico-matemático y emociones y afectos.</p>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div id="paquetesTextoDos">
+          PARA MAYOR INFORMACIÓN <svg style="padding-top:5px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

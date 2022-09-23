@@ -1,0 +1,101 @@
+.encabezado{
+  margin-top: 20px;
+  padding-top: 10px;
+}
+.paquetes{
+  margin: 2%;
+  margin-bottom: 15%;
+  min-width: 25%;
+}
+.encabezado p{
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.titulo{
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: #0B2A4A;
+  color: white;
+}
+
+.descuento{
+  background-color: #F5D14C;
+  border: none;
+}
+
+.sale {
+	position: absolute;
+  left: 0px;
+  top: -10px;
+	display: inline-block;
+	background: #0B2A4A;
+	color: white;
+	height: 2.5rem;
+	width: 2.5rem;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 2.5rem;
+	transform: rotate(-20deg);
+	animation: beat 1s ease infinite alternate;
+}
+
+.sale:before,
+.sale:after {
+  content:"";
+  position: absolute;
+  background: inherit;
+  height: inherit;
+  width: inherit;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transform: rotate(30deg);
+}
+
+.sale:after {
+  transform: rotate(60deg);
+}
+
+@keyframes beat {
+	from {	transform: rotate(-20deg) scale(1); }
+	to {	transform: rotate(-20deg) scale(1.1); }
+}
+
+.precio{
+  font-size: 25px;
+}
+
+.buttonCreate{
+  border-radius: 5px;
+  background-color: #0F2B40;
+  color: white;
+  border: 1px solid #0F2B40;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.buttonCreate:hover{
+  background-color: white;
+  color: #0F2B40;
+  border: 1px solid white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.example-card{
+  box-shadow:
+  rgba(234, 71, 88, 0.4) 5px 5px,
+  rgba(234, 71, 88, 0.3) 10px 10px,
+  rgba(234, 71, 88, 0.2) 15px 15px,
+  rgba(234, 71, 88, 0.1) 20px 20px,
+  rgba(234, 71, 88, 0.05) 25px 25px;
+}
+
+mat-card-content{
+  min-height: 280px;
+}
+
+h3{
+  margin-top: 15px;
+}

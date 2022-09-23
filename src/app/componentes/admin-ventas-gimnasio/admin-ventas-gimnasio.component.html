@@ -1,0 +1,125 @@
+<div class="container" style="background-color:white">
+  <div class="row">
+    <div class="col">
+      <form #employeeForm="ngForm" class="formulario">
+        <div class="row">
+          <div class="col">
+            <div class="encabezado">
+              <p>Registro de nuevo tutor</p>
+              <hr>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill" style="margin-bottom: 10px;" >
+              <mat-label>Nombre</mat-label>
+              <input type="text" matInput [(ngModel)]="newProfile.firstName" name="nombre" required>
+              <mat-error>El campo Nombre es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill" style="margin-bottom: 10px;" >
+              <mat-label>Apellido</mat-label>
+              <input type="text" matInput [(ngModel)]="newProfile.lastName" name="apellidoP" required>
+              <mat-error>El campo Apellido requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill" style="margin-bottom: 10px;"  class="example-form-field">
+              <mat-label>Fecha de nacimiento</mat-label>
+              <input matInput  [matDatepicker]="datepicker" [(ngModel)]="newProfile.dateOfBirth" name="fechaNacimiento" required>
+              <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancelar</button>
+                  <button mat-raised-button color="primary" matDatepickerApply>Aceptar</button>
+                </mat-datepicker-actions>
+              </mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Rol</mat-label>
+            <mat-select [(ngModel)]="newProfile.user.roles[0]" name="genero">
+              <mat-option *ngFor="let role of roles" [value]="role" >
+                {{role}}
+              </mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill" style="margin-bottom: 10px;" >
+              <mat-label>Genero</mat-label>
+              <mat-select [(ngModel)]="newProfile.gender" name="genero">
+                <mat-option *ngFor="let gender of generos" [value]="gender">
+                  {{gender}}
+                </mat-option>
+              </mat-select>
+              <mat-error>El campo genero es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="encabezado">
+          <p>Datos de usuario</p>
+          <hr>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill" style="margin-bottom: 10px;" >
+              <mat-label>Email</mat-label>
+              <input type="text" matInput [(ngModel)]="newProfile.user.email" name="email" [formControl]="email" required>
+              <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill" style="margin-bottom: 10px;" >
+              <mat-label>Teléfono</mat-label>
+              <input type="text" matInput [(ngModel)]="newProfile.user.phoneNumber" name="telefono" required>
+              <mat-error>El campo teléfono es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill" style="margin-bottom: 10px;" >
+              <mat-label>Contraseña</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="newProfile.user.password" name="password" minlength='10' required>
+              <mat-error *ngIf="newProfile.user.password">La contraseña debe tener al menos 10 caracteres</mat-error>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill" style="margin-bottom: 10px;" >
+              <mat-label>Confirmación de contraseña</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="passwordConfirm"  name="passwordConfirm" password>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+            <div *ngIf="newProfile.user.password != passwordConfirm" style="margin-top:-30px;">
+              <mat-error>Las contraseñas no coinciden</mat-error>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div *ngIf="errorMessage">
+              <div *ngFor="let error of errorMessage" class="alert alert-danger" role="alert" style="width:50%; margin: 0px auto; margin-bottom: 25px;">
+                {{error}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button mat-raised-button class="buttonCreate" (click)="onAdd()">Registrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

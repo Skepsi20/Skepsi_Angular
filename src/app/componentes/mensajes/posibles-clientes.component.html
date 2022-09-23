@@ -1,0 +1,359 @@
+<div class="container formulario" style="background-color: white">
+  <div class="row">
+    <div class="col">
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Rol</mat-label>
+        <mat-select [(ngModel)]="role" name="genero" (selectionChange)="ngOnInit()">
+          <mat-option *ngFor="let role of roles" [value]="role" >
+            {{role}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <app-spinner></app-spinner>
+
+
+      <div class="row mt-3" *ngIf="role != '' ">
+        <div class="col">
+          <div class="encabezado">
+            <p>Mensajes de {{role}}</p>
+            <hr>
+          </div>
+          <div class="example-container mat-elevation-z8">
+            <div class="example-header">
+              <mat-form-field appearance="standard">
+                <mat-label style="padding:10px">Buscar</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Rutina"#input>
+              </mat-form-field>
+            </div>
+
+            <table *ngIf="role == 'Chatbot' " mat-table [dataSource]="dataSourceCH" matSort style="width:100%">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+              </ng-container>
+              <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+                <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
+              </ng-container>
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef  style="display:none"> Correo </th>
+                <td mat-cell *matCellDef="let row"  style="display:none"> {{row.email}} </td>
+              </ng-container>
+              <ng-container matColumnDef="comments">
+                <th mat-header-cell *matHeaderCellDef> Comentarios </th>
+                <td mat-cell *matCellDef="let row"> {{row.comments}} </td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let row">
+                  <div *ngIf="row.status == 'En proceso'" style="background-color: yellow; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                  <div *ngIf="row.status == 'Pendiente'" style="background-color: green; color:white; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                  <div *ngIf="row.status == 'Resuelto'" style="background-color: black;color:white; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="enProceso">
+                <th mat-header-cell *matHeaderCellDef>Cambiar estado</th>
+                <td mat-cell *matCellDef="let row">
+                  <button *ngIf="row.status == 'Pendiente'" class="btn btn-warning" (click)="updateMessage(row,'EnProceso')"  data-toggle="modal" data-target="#exampleModalModify">En proceso</button>
+                  <button *ngIf="row.status == 'En proceso'" class="btn btn-dark" (click)="updateMessage(row,'Resuelto')"  data-toggle="modal" data-target="#exampleModalModify">Resuelto</button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="eliminar">
+                <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+                <td mat-cell *matCellDef="let row">
+                  <button *ngIf="row.status == 'Resuelto'"  mat-button (click)="deleteMessage(row.id)" data-toggle="modal" data-target="#exampleModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">Escribe algo en la barra de busqueda</td>
+              </tr>
+            </table>
+
+            <table *ngIf="role == 'Contactanos' " mat-table [dataSource]="dataSourceCO" matSort style="width:100%">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+              </ng-container>
+              <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+                <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
+              </ng-container>
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Correo </th>
+                <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+              </ng-container>
+              <ng-container matColumnDef="comments">
+                <th mat-header-cell *matHeaderCellDef> Comentarios </th>
+                <td mat-cell *matCellDef="let row"> {{row.comments}} </td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let row">
+                  <div *ngIf="row.status == 'En proceso'" style="background-color: yellow; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                  <div *ngIf="row.status == 'Pendiente'" style="background-color: green; color:white; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                  <div *ngIf="row.status == 'Resuelto'" style="background-color: black;color:white; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="enProceso">
+                <th mat-header-cell *matHeaderCellDef>Cambiar estado</th>
+                <td mat-cell *matCellDef="let row">
+                  <button *ngIf="row.status == 'Pendiente'" class="btn btn-warning" (click)="updateMessage(row,'EnProceso')"  data-toggle="modal" data-target="#exampleModalModify">En proceso</button>
+                  <button *ngIf="row.status == 'En proceso'" class="btn btn-dark" (click)="updateMessage(row,'Resuelto')"  data-toggle="modal" data-target="#exampleModalModify">Resuelto</button>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="eliminar">
+                <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+                <td mat-cell *matCellDef="let row">
+                  <button *ngIf="row.status == 'Resuelto'" mat-button (click)="deleteMessage(row.id)" data-toggle="modal" data-target="#exampleModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">Escribe algo en la barra de busqueda</td>
+              </tr>
+            </table>
+
+            <table *ngIf="role == 'Entrenador' " mat-table [dataSource]="dataSourceTU" matSort style="width:100%">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+              </ng-container>
+              <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+                <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
+              </ng-container>
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Correo </th>
+                <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+              </ng-container>
+              <ng-container matColumnDef="comments">
+                <th mat-header-cell *matHeaderCellDef> Comentarios </th>
+                <td mat-cell *matCellDef="let row"> {{row.comments}} </td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let row">
+                  <div *ngIf="row.status == 'En proceso'" style="background-color: yellow; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                  <div *ngIf="row.status == 'Pendiente'" style="background-color: green; color:white; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                  <div *ngIf="row.status == 'Resuelto'" style="background-color: black;color:white; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="enProceso">
+                <th mat-header-cell *matHeaderCellDef>Cambiar estado</th>
+                <td mat-cell *matCellDef="let row">
+                  <button *ngIf="row.status == 'Pendiente'" class="btn btn-warning" (click)="updateMessage(row,'EnProceso')"  data-toggle="modal" data-target="#exampleModalModify">En proceso</button>
+                  <button *ngIf="row.status == 'En proceso'" class="btn btn-dark" (click)="updateMessage(row,'Resuelto')"  data-toggle="modal" data-target="#exampleModalModify">Resuelto</button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="eliminar">
+                <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+                <td mat-cell *matCellDef="let row">
+                  <button *ngIf="row.status == 'Resuelto'" mat-button (click)="deleteMessage(row.id)" data-toggle="modal" data-target="#exampleModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">Escribe algo en la barra de busqueda</td>
+              </tr>
+            </table>
+
+            <table *ngIf="role == 'Gimnasio' " mat-table [dataSource]="dataSourceGI" matSort style="width:100%">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+              </ng-container>
+              <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+                <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
+              </ng-container>
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Correo </th>
+                <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+              </ng-container>
+              <ng-container matColumnDef="comments">
+                <th mat-header-cell *matHeaderCellDef> Comentarios </th>
+                <td mat-cell *matCellDef="let row"> {{row.comments}} </td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let row">
+                  <div *ngIf="row.status == 'En proceso'" style="background-color: yellow; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                  <div *ngIf="row.status == 'Pendiente'" style="background-color: green; color:white; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                  <div *ngIf="row.status == 'Resuelto'" style="background-color: black;color:white; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="enProceso">
+                <th mat-header-cell *matHeaderCellDef>Cambiar estado</th>
+                <td mat-cell *matCellDef="let row">
+                  <button *ngIf="row.status == 'Pendiente'" class="btn btn-warning" (click)="updateMessage(row,'EnProceso')"  data-toggle="modal" data-target="#exampleModalModify">En proceso</button>
+                  <button *ngIf="row.status == 'En proceso'" class="btn btn-dark" (click)="updateMessage(row,'Resuelto')"  data-toggle="modal" data-target="#exampleModalModify">Resuelto</button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="eliminar">
+                <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+                <td mat-cell *matCellDef="let row">
+                  <button *ngIf="row.status == 'Resuelto'" mat-button (click)="deleteMessage(row.id)" data-toggle="modal" data-target="#exampleModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">Escribe algo en la barra de busqueda</td>
+              </tr>
+            </table>
+
+            <table *ngIf="role == 'Ventas' " mat-table [dataSource]="dataSourceVE" matSort style="width:100%">
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+              </ng-container>
+              <ng-container matColumnDef="phone">
+                <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+                <td mat-cell *matCellDef="let row"> {{row.phone}} </td>
+              </ng-container>
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Correo </th>
+                <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+              </ng-container>
+              <ng-container matColumnDef="comments">
+                <th mat-header-cell *matHeaderCellDef> Comentarios </th>
+                <td mat-cell *matCellDef="let row"> {{row.comments}} </td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let row">
+                  <div *ngIf="row.status == 'En proceso'" style="background-color: yellow; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                  <div *ngIf="row.status == 'Pendiente'" style="background-color: green; color:white; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                  <div *ngIf="row.status == 'Resuelto'" style="background-color: black;color:white; padding:5px; border-radius:5px; width:90%">
+                    {{row.status}}
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="enProceso">
+                <th mat-header-cell *matHeaderCellDef>Cambiar estado</th>
+                <td mat-cell *matCellDef="let row">
+                  <button *ngIf="row.status == 'Pendiente'" class="btn btn-warning" (click)="updateMessage(row,'EnProceso')"  data-toggle="modal" data-target="#exampleModalModify">En proceso</button>
+                  <button *ngIf="row.status == 'En proceso'" class="btn btn-dark" (click)="updateMessage(row,'Resuelto')"  data-toggle="modal" data-target="#exampleModalModify">Resuelto</button>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="eliminar">
+                <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+                <td mat-cell *matCellDef="let row">
+                  <button *ngIf="row.status == 'Resuelto'" mat-button (click)="deleteMessage(row.id)" data-toggle="modal" data-target="#exampleModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                      <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                  </button>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">Escribe algo en la barra de busqueda</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modify Modal -->
+<div class="modal fade" id="exampleModalModify" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modificar estado del mensaje</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        El mensaje ya está siendo atendido?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn buttonCreate" (click)="updateConfirm()" data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar mensaje</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Seguro que deseas eliminar el mensaje del cliente?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn buttonCreate" (click)="deleteConfirmation()" data-dismiss="modal">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

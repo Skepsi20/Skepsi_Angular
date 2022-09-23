@@ -1,0 +1,24 @@
+.tarjetas{
+  float: left;
+  margin: 10px;
+}
+.tarjetas:hover{
+  cursor: pointer;
+  background-color: #0A2A49;
+  color: white;
+}
+
+.buttonSkepsi{
+  border-radius: 5px;
+  background-color: #0F2B40;
+  color: white;
+  border: 1px solid #0F2B40;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.buttonSkepsi:hover{
+  background-color: white;
+  color: #0F2B40 !important;
+  border: 1px solid white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}

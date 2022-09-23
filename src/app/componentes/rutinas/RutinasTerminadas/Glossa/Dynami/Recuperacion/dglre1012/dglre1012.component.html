@@ -1,0 +1,74 @@
+<div class="DGLRE">
+  <div class="skepsiLogo">
+    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+  </div>
+  <div>
+    <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"preload="auto"></audio>
+    <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"preload="auto"></audio>
+    <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
+  </div>
+  <div class="general">
+    <div *ngIf="instrucciones" class="instructions">
+      <!-- BARRA DE PROGRESO INICIO -->
+      <div class="row progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeft" [style.width]="(timeLeft*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+        </div>
+      </div>
+      <!-- BARRA DE PROGRESO FIN -->
+      <br>
+      <div class="row">
+        <p class="titulo">A continuación escucharás una serie de sonidos que corresponden a un listado de imágenes.</p>
+      </div>
+    </div>
+    <div *ngIf="!instrucciones">
+      <div *ngIf="!resultados">
+        <div *ngIf="tiempoAudiosDOM">
+          <h1>Ahora escucharás sonidos correspondientes a las imagenes, memoriza el orden.</h1>
+          <div>
+            <h1>{{auxDOM}}</h1>
+            <img src="{{audiosDOM[0].imagen}}" style="width:250px">
+          </div>
+        </div>
+        <div *ngIf="tiempoAudiosDOMSinImagen && !dragAndDrop">
+          <h1>Escucha los audios nuevamente pero esta vez sin la imagen, preparate...</h1>
+          <div>
+            <h1>{{auxDOM}}</h1>
+          </div>
+        </div>
+        <div>
+          <div *ngIf="dragAndDrop" style="margin-top: 50px;">
+            <h1>Coloca las imagenes en el orden en el que escuchaste los sonidos</h1>
+
+          <div #dropListContainer class="example-container" cdkDropListGroup>
+            <div
+              *ngFor="let item of arregloDeAudiosRandom; let i = index"
+              cdkDropList
+              [cdkDropListData]="i"
+            >
+              <div
+                cdkDrag
+                [cdkDragData]="i"
+                (cdkDragEntered)="dragEntered($event)"
+                (cdkDragMoved)="dragMoved($event)"
+                (cdkDragDropped)="dragDropped($event)"
+                class="example-box"
+              >
+              <img src="{{arregloDeAudiosRandom[i].imagen}}" style="border-radius:10px; width: 200px; height: 200px">
+              </div>
+            </div>
+          </div>
+          <button (click)="revisar()" mat-raised-button class="ml-1"class="buttonSkepsi textoBoton" >Listo</button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="resultados">
+        <p class="titulo">Ejercicio terminado!</p>
+        <p class="titulo"> Resultados:</p>
+        <p class="titulo">Tuviste {{calificacionVista}} aciertos de {{cantidadAudiosVista}}</p>
+        <button (click)="Inicializacion()" class="buttonSkepsi textoBoton" >Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>

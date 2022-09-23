@@ -1,0 +1,342 @@
+.container{
+  background: url('../../../../assets/img/skepsi/fondos/PAginaSKEPSI-03.jpg');
+  background-size: 100%, auto;
+  background-repeat: no-repeat;
+  margin-bottom: 10%;
+}
+#titulo{
+  margin: 5px;
+  font-size: 38px;
+  margin-top: 30px;
+  width: 100%;
+  line-height: 40px;
+}
+.tituloCol{
+  font-family: 'lato-semibold', Arial;
+  letter-spacing: .4rem;
+  line-height: 30px;
+}
+.line{
+  width: 40%;
+  margin-left: 10px;
+  border-bottom: 4px solid #EECA44;
+}
+#cuadroUno{
+  border: 5px solid #EECA44;
+  width: 100%;
+  height: 480px;
+  margin-bottom: 100px;
+}
+.textoMarco{
+  font-family: 'roboto-boldCondensed', Arial;
+  letter-spacing: .4rem;
+  display:flex;
+  align-items:center;
+  font-size: 45px;
+  line-height: 70px;
+}
+.marco{
+  width: 100%;
+  margin-top: 10px;
+  box-shadow: rgba(0, 0, 0, 1) -15px 15px;
+}
+.textoMarco{
+  background-color: #EECA44;
+}
+.imagenMujer{
+  width: 100%;
+  background-image: url('../../../../assets/img/skepsi/nosotros/mujer.jpg');
+  background-position: right;
+  background-size: cover;
+  height: 100%;
+}
+#frasesUno{
+  text-align: center;
+}
+#frasesUno p{
+  font-family:'lato-bold', Arial;
+
+  font-size: 45px;
+  margin: 40px;
+  line-height: 50px;
+}
+#frasesUnoA p{
+  font-family:'lato-semibold';
+  letter-spacing: .4rem;
+}
+.puntos{
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #EECA44;
+}
+#frasesUno:hover #punto1{
+  transform: translateY(-150px);
+  transition-timing-function: ease-in;
+  transition: linear 1.5s;
+}
+#frasesUno:hover #punto2{
+  transform: translateY(-150px);
+  transition-timing-function: linear;
+  transition: linear 0.5s;
+}
+#frasesUno:hover #punto3{
+  transform: translateY(-150px);
+  transition-timing-function: ease-in-out;
+  transition: linear 2s;
+}
+.pilares{
+  min-width: 200px;
+}
+.pilares img{
+  height: 400px;
+  width: 100%;
+}
+.overlay {
+  font-family: 'roboto-regular', Arial;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  color: white;
+}
+.pilares:hover .overlay {
+  opacity: 1;
+}
+.mati{
+  background-color: #0B2A4A;
+}
+.sinais{
+  background-color: #ea4758;
+}
+.glossa{
+  background-color: #4ACFC6;
+}
+.gnostiki{
+  background-color: #F4D34C;
+}
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: left;
+}
+#iconOverlay img{
+  width: 40%;
+  height: 100%;
+}
+#pilarOverlay{
+  line-height: 1;
+  position: relative;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  white-space: nowrap;
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+  font-size: 25px;
+}
+#textOverlay{
+  margin-top: 20px;
+  padding-right: 30px;
+}
+#razonesParaCreer{
+  font-family: 'roboto-boldCondensed', Arial;
+  letter-spacing: .4rem;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#ultimoTexto p{
+  font-family: 'lato-semibold', Arial;
+  font-size: 20px;
+  line-height: 25px;
+  margin-left: 10%;
+}
+.ultimaImagen{
+  background-image: url('../../../../assets/img/skepsi/nosotros/IMG_0370.jpg');
+  background-position: right;
+  background-size: cover;
+  height: 100%;
+  width: 60%;
+  box-shadow: rgba(0, 0, 0, 1) 15px -15px;
+  margin-bottom: 50px;
+}
+
+.contactanos #para{
+  font-family: 'lato-semibold', Arial;
+  font-size: 35px;
+  padding: 5px;
+  margin-left: 15%;
+}
+.contactanos{
+  font-family: 'lato-semibold', Arial;
+  background-image: url('../../../../assets/img/skepsi/fondos/FondosAzul-02.png');
+  background-position: right;
+  background-size: cover;
+  color: white;
+  text-align: left;
+  margin-top: 50px;
+  padding: 20px;
+}
+#contactanos{
+  font-size: 60px;
+  padding-top: 25px;
+  margin-bottom: 40px;
+}
+form{
+  text-align: center;
+}
+::ng-deep .mat-form-field .mat-form-field-flex{
+  background-color: white;
+  color: black;
+  border-radius: 0px !important;
+}
+mat-form-field{
+  width: 100%;
+}
+input[type=submit]{
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: transparent;
+  border: 3px solid #F5D14C;
+  border-radius: 15px;
+  font-size: 20px;
+  width: 30%;
+}
+
+
+
+
+
+/* RESPONSIVES */
+@media screen and (max-width: 768px) {
+  #cuadroUno{
+    height: 310px;
+    margin-bottom: 30px;
+  }
+  .textoMarco{
+    letter-spacing: .3em;
+    font-size: 35px;
+    line-height: 45px;
+  }
+  .pilares{
+    height: 310px;
+    min-width: 170px;
+  }
+  .pilares #imagenPilar{
+    height: 310px;
+    min-width: 170px;
+  }
+  .overlay{
+    height: 310px;
+    font-size: 12px;
+  }
+  .ultimaImagen{
+    height: 80%;
+    width: 100%;
+  }
+  #ultimoTexto{
+    font-size: 18px;
+    line-height: 20px;
+    margin-left: 8%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #cuadroUno{
+    height: 260px;
+    margin-bottom: 15px;
+    margin-left: 18px;
+  }
+  .textoMarco{
+    letter-spacing: .4em;
+    font-size: 20px;
+    line-height: 30px;
+  }
+  #frasesUno p{
+    font-size: 31px;
+    margin: 30px;
+    line-height: 40px;
+  }
+  .pilares{
+    height: 310px;
+    min-width: 170px;
+    margin-bottom: 15px;
+  }
+  .pilares #imagenPilar{
+    height: 310px;
+    min-width: 170px;
+  }
+  .overlay{
+    height: 310px;
+    font-size: 12px;
+  }
+  #titulo{
+    font-size: 25px;
+    margin-top: 10px;
+    width: 100%;
+    line-height: 35px;
+  }
+  .ultimaImagen{
+    height: 55%;
+    width: 100%;
+  }
+  #ultimoTexto p{
+    font-size: 15px;
+    line-height: 16px;
+    margin-left: 0%;
+  }
+  #contactanos{
+    font-size: 50px;
+  }
+  .contactanos #para{
+    font-size: 25px;
+    padding: 0px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .imagenMujer{
+    display: none;
+  }
+  #cuadroUno{
+    background-color: #F4D34C;
+    width: 90%;
+    margin: 0px auto;
+  }
+  .textoMarco{
+    font-size: 25px;
+  }
+  .ultimaImagen{
+    display: none;
+  }
+  #ultimoTexto{
+    font-size: 25px;
+    line-height: 30px;
+    margin: 0px auto;
+  }
+  #contactanos{
+    font-size: 30px;
+  }
+  .contactanos #para{
+    font-size: 25px;
+    padding: 0px;
+    margin-left: 0%;
+  }
+  input{
+    font-size: 10px;
+  }
+}

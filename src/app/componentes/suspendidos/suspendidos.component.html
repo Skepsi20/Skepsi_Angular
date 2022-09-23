@@ -1,0 +1,144 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="col">
+        <mat-form-field appearance="fill">
+          <mat-label>Estado del alumno</mat-label>
+        <mat-select [(ngModel)]="status" name="genero" (selectionChange)="ngOnInit()">
+          <mat-option *ngFor="let status of statuses" [value]="status" >
+            {{status}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <app-spinner></app-spinner>
+      <div *ngIf="alumnos != '' ">
+        <table class="table" *ngIf="status == 'Suspendido' || status =='Inactivo'">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Institución</th>
+              <th scope="col">Motivo de suspensión</th>
+              <th scope="col">Fecha de registro</th>
+              <th scope="col">Fecha de modificación</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Reactivar cuenta</th>
+              <th scope="col" *ngIf="status == 'Suspendido'">Desactivar cuenta</th>
+            </tr>
+          </thead>
+          <tbody>
+             <tr *ngFor="let alumno of alumnos">
+              <td  scope="row">{{alumno.firstName}} {{alumno.lastName}}</td>
+              <td  scope="row">{{alumno.institution.shortName}}</td>
+              <td  scope="row">{{alumno.suspensionComments}}</td>
+              <td  scope="row">{{alumno.registrationDate  | date:'dd - MMMM - yyyy':'':'es'}}</td>
+              <td  scope="row">{{alumno.statusUpdateDatetime  | date:'dd - MMMM - yyyy':'':'es'}}</td>
+              <td  scope="row">{{status}}</td>
+              <td  scope="row">
+                <button (click)="reactivar(alumno.id)" class="btn btn-success"  data-toggle="modal" data-target="#exampleModalReactivate">
+                  Activar
+                </button>
+              </td>
+              <td scope="row" *ngIf="status == 'Suspendido'">
+                <button (click)="desactivar(alumno.id)" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                  Desactivar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row mt-3" *ngIf="status == 'Activo'">
+          <div class="col" style="background-color:white">
+            <div class="example-container mat-elevation-z8">
+              <div class="example-header">
+                <mat-form-field appearance="standard">
+                  <mat-label style="padding:10px">Buscar</mat-label>
+                  <input matInput (keyup)="applyFilter($event)" placeholder="Rutina"#input>
+                </mat-form-field>
+              </div>
+              <table mat-table [dataSource]="dataSource" matSort style="width:100%">
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                  <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+                </ng-container>
+                <ng-container matColumnDef="institution">
+                  <th mat-header-cell *matHeaderCellDef> Institución </th>
+                  <td mat-cell *matCellDef="let row"> {{row.institution}} </td>
+                </ng-container>
+                <ng-container matColumnDef="grupo">
+                  <th mat-header-cell *matHeaderCellDef> Grupo </th>
+                  <td mat-cell *matCellDef="let row"> {{row.groupName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef> Fecha de registro </th>
+                  <td mat-cell *matCellDef="let row">{{row.date| date:'dd - MMMM - yyyy':'':'es'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="dateModify">
+                  <th mat-header-cell *matHeaderCellDef> Fecha de modificación </th>
+                  <td mat-cell *matCellDef="let row">{{row.dateModify| date:'dd - MMMM - yyyy':'':'es'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef> Status </th>
+                  <td mat-cell *matCellDef="let row">Activo</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4">Escribe algo en la barra de busqueda</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+      </div>
+      <div *ngIf="alumnos == '' && status != ''">
+        <h1>No hay alumnos para mostrar, seleccione otra categoría</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Restaurar Modal -->
+<div class="modal fade" id="exampleModalReactivate" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reactivar cuenta del usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Seguro que deseas reactivar al usuario?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn buttonCreate" (click)="confirmarReactivar()"  data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cancelar Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cancelar cuenta de usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Seguro que deseas cancelar al usuario?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn buttonCreate"  (click)="confirmarDesactivar()"  data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>

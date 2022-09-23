@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div *ngIf="showPlans">
+        <div *ngFor="let plan of planes">
+          <div class="card tarjetas" (click)="selectedPlan(plan.id)">
+            <div class="card-header">
+              <h1>{{plan.name}}</h1>
+            </div>
+            <div class="card-body">
+              <p>{{plan.description}}</p>
+              <p>%{{plan.discountRate}} descuento</p>
+              <p>Duración: {{plan.duration}} meses</p>
+              <p *ngIf="plan.institution">Institución: {{plan.institution}}</p>
+              <p>Horario: {{plan.schedule}}</p>
+              <p>Capacidad: {{plan.capacity}}</p>
+              <p>${{plan.cost}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showGroups">
+        <input type="button" class="btn buttonSkepsi" value="Regresar" onclick="location.reload()">
+        <div *ngFor="let grupo of grupos">
+          <div class="card" style="margin-top:30px; margin-bottom: 10px;">
+            <div class="card-header">
+              <h1>{{grupo.code}}</h1>
+            </div>
+            <div class="card-body">
+              <p>Tutor: {{grupo.tutor.firstName}} {{grupo.tutor.lastName}}</p>
+              <p>Zoom Link: {{grupo.meetingUrl}}</p>
+              <p>Zoom Password: {{grupo.meetingPassword}}</p>
+            </div>
+          </div>
+          <p>
+            <a class="btn buttonSkepsi" data-toggle="collapse" href="#{{grupo.id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+              Alumnos
+            </a>
+          </p>
+          <div class="collapse" id="{{grupo.id}}">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Inscripción</th>
+                  <th scope="col">Cumpleaños</th>
+                  <th scope="col">Resultados</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let alumno of grupo.students; let i = index;">
+                  <th scope="row">{{i}}</th>
+                  <td>{{alumno.firstName}} {{alumno.lastName}}</td>
+                  <td>{{alumno.registrationDate | date:'dd - MMMM - yyyy':'':'es'}}</td>
+                  <td>{{alumno.dateOfBirth | date:'dd - MMMM ':'':'es'}}</td>
+                  <td>
+                    <button (click)="studentResults(alumno.id)" class="btn buttonSkepsi">Detalles</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showResults">
+        <input type="button" class="btn btn-light" value="Regresar" onclick="location.reload()">
+        <div *ngFor="let result of results">
+          <div>
+            <div class="card" style="margin:10px">
+              <div class="card-header">
+                <h1>Rutina: {{result.session.routine.name}}</h1>
+                <hr>
+                <h2>Fecha: {{result.session.date | date:'dd - MMMM - yyyy':'':'es'}}</h2>
+              </div>
+            </div>
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Ronda</th>
+                  <th scope="col">Nivel</th>
+                  <th scope="col">Calificación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let resultado of result.results;">
+                  <th scope="row">{{resultado.round}}</th>
+                  <td>{{resultado.level}}</td>
+                  <td>{{resultado.grade | number : '1.2-2'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

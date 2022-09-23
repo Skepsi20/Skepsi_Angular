@@ -1,0 +1,185 @@
+<div class="container" style="background-color:white">
+  <div class="row">
+    <div class="col">
+      <form #tutorDetailsForm="ngForm" class="formulario">
+        <div class="row">
+          <div class="col">
+            <div class="encabezado">
+              <p>Registro de nuevo tutor</p>
+              <hr>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Nombre</mat-label>
+              <input type="text" matInput [(ngModel)]="tutor.tutor.firstName" name="nombre" required>
+              <mat-error>El campo Nombre es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Apellido</mat-label>
+              <input type="text" matInput [(ngModel)]="tutor.tutor.lastName" name="apellidoP" required>
+              <mat-error>El campo Apellido requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"  class="example-form-field">
+              <mat-label>Fecha de nacimiento</mat-label>
+              <input matInput  [matDatepicker]="datepicker" [(ngModel)]="tutor.tutor.dateOfBirth" name="fechaNacimiento" required>
+              <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancelar</button>
+                  <button mat-raised-button color="primary" matDatepickerApply>Aceptar</button>
+                </mat-datepicker-actions>
+              </mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Genero</mat-label>
+              <mat-select [(ngModel)]="tutor.tutor.gender" name="genero">
+                <mat-option *ngFor="let gender of generos" [value]="gender">
+                  {{gender}}
+                </mat-option>
+              </mat-select>
+              <mat-error>El campo genero es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Institucion</mat-label>
+            <mat-select [(ngModel)]="tutor.tutor.institutionId" name="institution">
+              <mat-option *ngFor="let institution of institutions" [value]="institution.id">
+                {{institution.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error>El campo Institucion es requerido</mat-error>
+          </mat-form-field>
+          <div *ngIf="tutor.tutor.institutionId == 'Otro'">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Institucion</mat-label>
+              <input type="text" matInput [(ngModel)]="tutor.tutor.institutionOther" name="institution">
+            </mat-form-field>
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Ciudad</mat-label>
+              <input type="text" matInput [(ngModel)]="tutor.tutor.address.city" name="ciudad" required>
+              <mat-error>El campo ciudad es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Estado</mat-label>
+              <mat-select [(ngModel)]="tutor.tutor.address.StateProvinceCodeId" name="estado">
+                <mat-option *ngFor="let estado of estados" [value]="estado.id">
+                  {{estado.longDescription}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Código Postal</mat-label>
+              <input type="text" matInput [(ngModel)]="tutor.tutor.address.postalCode" maxlength='5' name="codigoPostal" required>
+              <mat-error>El campo Código Postal es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Direccion (linea 1)</mat-label>
+              <textarea matInput placeholder="Dirección 1" [(ngModel)]="tutor.tutor.address.line1" name="line1" required></textarea>
+              <mat-error>El campo Dirección (linea 1) es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Direccion (linea 2)</mat-label>
+              <textarea matInput placeholder="Dirección 2" [(ngModel)]="tutor.tutor.address.line2" name="line2"></textarea>
+              <mat-error>El campo Dirección (linea 2) es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="encabezado">
+          <p>Datos de usuario</p>
+          <hr>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Descripción del perfil (Currículum)</mat-label>
+              <input type="text" matInput [(ngModel)]="tutor.tutor.profileDescription" name="descriptionTutor" required>
+              <mat-error>El campo descripción requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Email</mat-label>
+              <input type="text" matInput [(ngModel)]="tutor.user.email" name="email" [formControl]="email" required>
+              <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Teléfono</mat-label>
+              <input type="text" matInput [(ngModel)]="tutor.user.phoneNumber" name="telefono" required>
+              <mat-error>El campo teléfono es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Contraseña</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="tutor.user.password" name="password" minlength='10' required>
+              <mat-error *ngIf="tutor.user.password">La contraseña debe tener al menos 10 caracteres</mat-error>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Confirmación de contraseña</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="passwordConfirm"  name="passwordConfirm" password>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+            <div *ngIf="tutor.user.password != passwordConfirm" style="margin-top:-30px;">
+              <mat-error>Las contraseñas no coinciden</mat-error>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div *ngIf="errorMessage">
+              <div *ngFor="let error of errorMessage" class="alert alert-danger" role="alert" style="width:50%; margin: 0px auto; margin-bottom: 25px;">
+                {{error}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button mat-raised-button class="buttonCreate" (click)="onAdd()">Registrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

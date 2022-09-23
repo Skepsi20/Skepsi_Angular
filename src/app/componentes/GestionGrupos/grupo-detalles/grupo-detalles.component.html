@@ -1,0 +1,82 @@
+<div class="container" class="formulario" style="background-color: white">
+  <div class="row">
+    <div class="col" style="margin-bottom: 20px;">
+      <button class="btn buttonSkepsi"  onClick="window.location.reload()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p>Grupo: {{group.code}}</p>
+      <p>Tutor: {{group.tutor.firstName}} </p>
+      <p>Horario: {{group.plan.schedule}}</p>
+    </div>
+    <div class="col">
+      <h2>Cambiar estudiante de grupo</h2>
+        <form #groupsForm="ngForm">
+          <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+            <mat-label>Estudiante</mat-label>
+            <mat-select [(ngModel)]="cambioDeGrupo.student" name="student" required>
+              <mat-option *ngFor="let item of group.students" [value]="item.id">
+                {{item.user.userName}}
+              </mat-option>
+            </mat-select>
+            <mat-error>El campo Student es requerido</mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+            <mat-label>Grupo</mat-label>
+            <mat-select [(ngModel)]="cambioDeGrupo.group" name="group" required>
+              <mat-option *ngFor="let item of gruposShared" [value]="item.id">
+                {{item.code}}
+              </mat-option>
+            </mat-select>
+            <mat-error>El campo Grupo es requerido</mat-error>
+          </mat-form-field>
+          <br>
+          <input type="button" class="btn buttonSkepsi" (click)="cambiarGrupo()" value="Cambiar">
+        </form>
+    </div>
+    <div class="col">
+      <h2>Cambiar tutor</h2>
+      <form #tutorsForm="ngForm">
+        <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+          <mat-label>Tutor</mat-label>
+          <mat-select [(ngModel)]="cambioDeTutor.tutor" name="grupo" required>
+            <mat-option *ngFor="let item of allTutors" [value]="item.id">
+              {{item.firstName}}
+            </mat-option>
+          </mat-select>
+          <mat-error>El campo Tutor es requerido</mat-error>
+        </mat-form-field>
+        <br>
+        <input type="button" class="btn buttonSkepsi" (click)="cambiarTutor()" value="Cambiar">
+      </form>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre alumno</th>
+            <th scope="col">Username alumno</th>
+            <th scope="col">Email alumno</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of group.students; index as i">
+            <td>{{i+1}}</td>
+            <td>{{student.firstName}}</td>
+            <td>{{student.user.userName}}</td>
+            <td>{{student.user.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

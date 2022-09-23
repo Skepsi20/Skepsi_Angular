@@ -1,0 +1,250 @@
+<div class="container" style="background-color: white">
+  <form #paquetesForm="ngForm" class="formulario">
+    <div class="row">
+      <div class="col">
+        <div class="encabezado">
+          <p>Creación de paquetes</p>
+          <section class="example-section">
+            <mat-checkbox
+            class="example-margin"
+            matInput [(ngModel)]="freePlan"
+            [ngModelOptions]="{standalone: true}"
+            value="checked"
+            (change)="paypalOptions()"
+            >Plan de prueba (Gratuito)</mat-checkbox>
+          </section>
+          <hr>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy">
+              <mat-label>Titulo del paquete</mat-label>
+              <input type="text" matInput [(ngModel)]="paqueteController.name" name="nombre"
+              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+              required>
+              <mat-error>El campo Titulo del paquete es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col" style="margin-bottom: 30px;">
+            <mat-form-field appearance="legacy">
+              <mat-label>Descripción del paquete</mat-label>
+              <textarea matInput placeholder="Descripción" [(ngModel)]="paqueteController.description" name="descripcion"
+              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+              required></textarea>
+              <mat-error>El campo Descripción del paquete es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" *ngIf="!freePlan">
+          <div class="col">
+            <mat-form-field appearance="legacy">
+              <mat-label>Precio del paquete $MXN</mat-label>
+              <input type="number" matInput [(ngModel)]="paqueteController.cost" min="0" name="precio"
+              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+              required>
+              <mat-error>El campo Precio del paquete es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col" *ngIf="!freePlan">
+            <mat-form-field appearance="legacy">
+              <mat-label>Precio de inscripción (nuevos) $MXN</mat-label>
+              <input type="number" matInput [(ngModel)]="paqueteController.registrationCost" min="0" name="precioInscripcion"
+              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+              required>
+              <mat-error>El campo Precio de inscripción es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy">
+              <mat-label>Descuento del paquete %</mat-label>
+              <input type="number" matInput [(ngModel)]="paqueteController.discountRate" min="0" name="descuento"
+              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+              required>
+              <mat-error>El campo Descuento del paquete es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy"   >
+              <mat-label>Número de meses</mat-label>
+              <input type="number" matInput [(ngModel)]="paqueteController.duration" min="0" name="periodo"
+              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+              required>
+              <mat-error>El campo Número de meses es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy">
+              <mat-label>Horario del curso (Formato 24 hrs)</mat-label>
+              <input type="time" matInput [(ngModel)]="paqueteController.schedule" name="horario"
+              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+              required>
+              <mat-error>El campo Horario del curso es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <section class="example-section" [formGroup]="dias" style="text-align: left; margin: 0px auto;">
+              <h4>Días de rutina</h4>
+              <mat-checkbox formControlName="OnMonday" style="margin: 5px; border-radius: 5px;">Lunes</mat-checkbox>
+              <mat-checkbox formControlName="OnTuesday" style="margin: 5px; border-radius: 5px;">Martes</mat-checkbox>
+              <mat-checkbox formControlName="OnWednesday" style="margin: 5px; border-radius: 5px;">Miércoles</mat-checkbox>
+              <mat-checkbox formControlName="OnThursday" style="margin: 5px; border-radius: 5px;">Jueves</mat-checkbox>
+              <mat-checkbox formControlName="OnFriday" style="margin: 5px; border-radius: 5px;">Viernes</mat-checkbox>
+              <mat-checkbox formControlName="OnSaturday" style="margin: 5px; border-radius: 5px;">Sábado</mat-checkbox>
+              <mat-checkbox formControlName="OnSunday" style="margin: 5px; border-radius: 5px;">Domingo</mat-checkbox>
+            </section>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy">
+              <mat-label>Plantilla de rutinas</mat-label>
+              <mat-select [(ngModel)]="paqueteController.templateId" name="plantilla"
+              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+              required>
+                <mat-option *ngFor="let template of templates" [value]="template.id">
+                  {{template.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error>La plantilla de rutinas es requerida</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy">
+              <mat-label>Institucion</mat-label>
+              <mat-select [(ngModel)]="paqueteController.institutionId" name="escuela"
+              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;">
+                <mat-option *ngFor="let institution of institutions" [value]="institution.id">
+                  {{institution.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error>El campo Institucion es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col" *ngIf="!freePlan">
+            <mat-form-field appearance="legacy"   >
+              <mat-label>Capacidad del curso</mat-label>
+              <input type="number" matInput [(ngModel)]="paqueteController.capacity" min="0" name="capacidad"
+              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+              required>
+              <mat-error>El campo Capacidad del curso es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col" *ngIf="!freePlan">
+            <mat-form-field appearance="legacy"   >
+              <mat-label>Fecha de expiración del curso</mat-label>
+              <input type="date" matInput [(ngModel)]="paqueteController.expirationDate" name="expiracion"
+              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+              required>
+              <mat-error>El campo Fecha de expiración del curso es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col" *ngIf="!freePlan">
+            <section class="example-section">
+              <mat-checkbox
+              class="example-margin"
+              matInput [(ngModel)]="paypalCheckBox"
+              [ngModelOptions]="{standalone: true}"
+              value="checked"
+              (change)="paypalOptions()"
+              >Crear plan en PayPal</mat-checkbox>
+            </section>
+            <div *ngIf="paypalCheckBox == true ">
+              <div class="row">
+                <mat-form-field appearance="legacy"   >
+                  <mat-label>Productos de PayPal</mat-label>
+                  <mat-select [(ngModel)]="paqueteController.PayPalProductId" name="PayPal"
+                  style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;">
+                    <mat-option *ngFor="let product of payPalProducts" [value]="product.id">
+                      {{product.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button mat-button class="buttonCreate" (click)="visualizacion()" data-toggle="modal" data-target="#example">
+              Vista previa
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+<!-- Update Modal -->
+<div class="modal fade" id="example" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 50rem;">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Vista previa de paquete</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-subtitle">
+        <p style="background-color: red; color: white; padding: 5px;">Atención, después de crear el paquete no será posible editarlo, confirme que los datos sean correctos.</p>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col" style="border-right:1px solid black">
+            <h4><b>Titulo del paquete:</b> {{paqueteController.name}}</h4>
+          </div>
+          <div class="col" style="border-right:1px solid black">
+            <h4><b>Descripción del paquete:</b> {{paqueteController.description}}</h4>
+          </div>
+          <div class="col">
+            <h4 *ngIf="!freePlan"><b>Costo del paquete:</b> ${{paqueteController.cost}}.00 MXN</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col" style="border-right:1px solid black">
+            <h4 *ngIf="!freePlan"><b>Meses de duración:</b> {{paqueteController.duration}}</h4>
+          </div>
+          <div class="col" style="border-right:1px solid black">
+            <h4 *ngIf="!freePlan"><b>Descuento del paquete:</b> {{paqueteController.discountRate}}%</h4>
+          </div>
+          <div class="col">
+            <h4 *ngIf="!freePlan"><b>Capacidad de alumnos:</b> {{paqueteController.capacity}}</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col" style="border-right:1px solid black">
+            <h4><b>Horario del paquete:</b> {{paqueteController.schedule}}</h4>
+          </div>
+          <div class="col" style="border-right:1px solid black">
+            <h4><b>Institución:</b> {{institution}}</h4>
+          </div>
+          <div class="col">
+            <h4><b>Plantilla de rutinas:</b> {{plantilla}}</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h4><b>Días de rutina:</b></h4>
+              <p *ngFor="let dias of diasdeRutina" style="float:left; margin-right:5px; padding-right:5px ;border-right: 1px solid black;">
+                {{dias}}
+              </p>
+          </div>
+        </div>
+        <h4 *ngIf="!freePlan"><b>Expiración del paquete:</b> {{paqueteController.expirationDate}}</h4>
+        <h4 *ngIf="!freePlan"><b>Costo de inscripción:</b> ${{paqueteController.registrationCost}}.00 MXN</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn buttonCreate" (click)="onAdd()" data-dismiss="modal" style="border: 1px solid #673AB7;">Crear paquete</button>
+      </div>
+    </div>
+  </div>
+</div>

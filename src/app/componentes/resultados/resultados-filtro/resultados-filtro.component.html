@@ -1,0 +1,18 @@
+<div class="container">
+  <form #routineForm="ngForm">
+    <div class="form-group">
+      <h1>Buscar resultados por rutina</h1>
+      <select name="routineValue" class="form-control" style="width:50%" [(ngModel)]="routine.id">
+        <option [value]="item.id" *ngFor="let item of routines">{{item.name}}</option>
+      </select>
+    </div>
+    <button *ngIf="routineReady" mat-raised-button color="primary" class="toggleButton" (click)="selectedRoutine()">Limpiar</button>
+    <button *ngIf="!routineReady" mat-raised-button color="primary" class="toggleButton" (click)="selectedRoutine()">Buscar</button>
+  </form><br>
+  <div *ngIf="routineReady" id="resultsComponent">
+    <app-resultados [routineId]="routine.id"></app-resultados>
+  </div>
+</div>
+
+
+

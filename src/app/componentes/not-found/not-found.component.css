@@ -1,0 +1,11 @@
+.notFound{
+  background: url('../../../assets/img/skepsi/inicio/error.png');
+  background-size: 80%, auto;
+  background-repeat: no-repeat;
+  background-position: top center;
+  height: 550px;
+  margin: 0px auto;
+}
+.notFound:hover{
+  cursor: pointer;
+}

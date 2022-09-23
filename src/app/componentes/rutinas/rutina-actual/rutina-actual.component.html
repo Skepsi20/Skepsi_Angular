@@ -1,0 +1,28 @@
+<div *ngIf="zoomLink">
+  <div class="col-2 card" align="center" style="margin-left: 30px; padding:10px;">
+    <div class="cardBody">
+      <div class="row">
+        <div class="col">
+          <a href="{{zoomLink}}" class="btn btn-primary" target="_blank">Zoom</a>
+        </div>
+        <div class="col" style="line-height:30px">
+          <p>Contraseña: {{zoomPassword}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template appDynamicComponent></ng-template>
+<div *ngIf="nextSession" style="margin-top:50px; text-align:center;">
+  <div class="card" style="width:60%; margin: 0px auto;">
+    <div class="card-header">
+      <h1 *ngIf="todaySession.status === 'Finished'">La sesión de hoy terminó.</h1>
+      <h1 *ngIf="todaySession.status != 'Finished'">No tienes sesión agendada para hoy.</h1>
+    </div>
+    <div class="card-body">
+      <h1>Próxima sesión: {{nextSession.date | date:'dd / MMMM / yyyy':'+0200':'es'}}</h1>
+      <h3>Próxima rutina: {{nextSession.routine.name}}</h3>
+      <h3>{{nextSession.plan.schedule}} hrs.</h3>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,153 @@
+<div class="container formulario" style="background-color: white">
+  <div class="row">
+    <div class="col">
+      <div class="encabezado">
+        <p>Creación de rutinas</p>
+        <hr>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <form #routineForm="ngForm">
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="legacy">
+                <mat-label>Nombre</mat-label>
+                <input type="text" matInput [(ngModel)]="routine.name" name="nombre" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" required>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="legacy">
+                <mat-label>Descripción</mat-label>
+                <textarea type="text" matInput placeholder="Descripción" [(ngModel)]="routine.description" name="description" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" required></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="legacy">
+                <mat-label>Planes de entrenamiento</mat-label>
+                <mat-select [(ngModel)]="routine.trainingPlanType" name="plan" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" required>
+                  <mat-option *ngFor="let plan of planesDeEntrenamiento; index as i" [value]="i+1">
+                    {{plan}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="legacy">
+                <mat-label>Pilar</mat-label>
+                <mat-select [(ngModel)]="routine.pillarType" name="pilar" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" required>
+                  <mat-option *ngFor="let pilar of hashira; index as i" [value]="i+1">
+                    {{pilar}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="legacy">
+                <mat-label>Nivel de desarrollo</mat-label>
+                <mat-select [(ngModel)]="routine.cognitiveDevelopmentLevel" name="nivel" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" required>
+                  <mat-option *ngFor="let nivel of nivelesDeDesarrollo; index as i" [value]="i+1">
+                    {{nivel}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="legacy">
+                <mat-label>Edad mínima</mat-label>
+                <input type="number" matInput [(ngModel)]="routine.minAge" name="minAge"  style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" required>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="legacy">
+                <mat-label>Edad máxima</mat-label>
+                <input type="number" matInput [(ngModel)]="routine.maxAge" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" name="maxAge" required>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col" style="float:left;">
+        <button mat-raised-button class="btn buttonCreate" (click)="createRoutine()">Registrar</button>
+      </div>
+    </form>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col">
+      <div class="encabezado">
+        <p>Busqueda de rutinas</p>
+        <hr>
+      </div>
+      <div class="example-container mat-elevation-z8">
+        <div class="example-header">
+          <mat-form-field appearance="standard">
+            <mat-label style="padding:10px">Buscar</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Rutina"#input>
+          </mat-form-field>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="ages">
+            <th mat-header-cell *matHeaderCellDef> Ages </th>
+            <td mat-cell *matCellDef="let row"> {{row.ages}} </td>
+          </ng-container>
+          <ng-container matColumnDef="code">
+            <th mat-header-cell *matHeaderCellDef> Codigo </th>
+            <td mat-cell *matCellDef="let row"> {{row.code}} </td>
+          </ng-container>
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-button (click)="deleteRoutine(row.id)" data-toggle="modal" data-target="#exampleModal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                </svg>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">Escribe algo en la barra de busqueda</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>
+
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar rutina</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Seguro que deseas eliminar la rutina?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn buttonCreate" (click)="deleteConfirmation()" data-dismiss="modal">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

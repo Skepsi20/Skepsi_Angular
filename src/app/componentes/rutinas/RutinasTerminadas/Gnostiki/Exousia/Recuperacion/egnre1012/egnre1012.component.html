@@ -1,0 +1,92 @@
+<div class="DGNRE">
+  <div class="skepsiLogo">
+    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+  </div>
+  <div>
+    <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
+    preload="auto"></audio>
+    <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
+      preload="auto"></audio>
+    <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
+  </div>
+  <div class="general">
+    <!-- INSTRUCCIONES -->
+    <div *ngIf="instrucciones" class="instructions">
+
+      <!-- BARRA DE PROGRESO INICIO -->
+      <div class="row progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeft" [style.width]="(timeLeft*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+        </div>
+      </div>
+      <!-- BARRA DE PROGRESO FIN -->
+
+      <br>
+      <div class="row">
+        <p class="titulo">A continuación verás una serie de banderas, tienes dos minutos para memorizarlas</p>
+      </div>
+    </div>
+
+    <div *ngIf="!instrucciones">
+      <div *ngIf="tiempoAprender">
+        <div class="row">
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+              [attr.aria-valuenow]="timeLeftTwo" [style.width]="(timeLeftTwo*0.83)+'%'" aria-valuemin="0" aria-valuemax="20"
+              style="margin:0px auto;">
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let bandera of banderasAcotadasRandom" class="banderas">
+          <img src="{{bandera.imagen}}" style="border-radius:10px; width: 250px; height: 160px;">
+          <h1> {{bandera.nombre}} </h1>
+        </div>
+      </div>
+      <div *ngIf="!tiempoAprender">
+        <div *ngIf="!resultados">
+          <div *ngIf="banderasDOM" style="width: 50%; margin: 0px auto;">
+            <br>
+            <!-- BARRA DE PROGRESO INICIO -->
+            <div class="row progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                [attr.aria-valuenow]="timeLeftTree" [style.width]="(timeLeftTree*6.6)+'%'" aria-valuemin="0" aria-valuemax="20"
+                style="margin:0px auto;">
+              </div>
+            </div>
+            <!-- BARRA DE PROGRESO FIN -->
+            <br>
+            <img src="{{banderaVista[0].imagen}}" style="border-radius:10px; width: 200px;"><br>
+            <div *ngFor="let item of nombresAcotadosRandom" class="banderas">
+              <button (click)="respuestasNombresDOM(item)" mat-raised-button class="buttonSkepsi" >{{item}}</button>
+            </div>
+          </div>
+          <div *ngIf="!banderasDOM">
+            <!-- BARRA DE PROGRESO INICIO -->
+            <div class="row progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                [attr.aria-valuenow]="timeLeftTree" [style.width]="(timeLeftTree*6.6)+'%'" aria-valuemin="0" aria-valuemax="20"
+                style="margin:0px auto;">
+              </div>
+            </div>
+            <!-- BARRA DE PROGRESO FIN -->
+            <h1>Selecciona la bandera correspondiente: {{banderaVistaDos[0]}}</h1>
+            <br>
+            <div *ngFor="let item of banderasAcotadasRandomDOM" class="banderas">
+              <img (click)="respuestasBanderasDOM(item.nombre)" class="banderaOpcion" src="{{item.imagen}}" style="border-radius:10px; width: 200px; height: 140px;">
+            </div>
+          </div>
+        </div>
+        <div *ngIf="resultados">
+          <p class="titulo">Ejercicio terminado!</p>
+          <p class="titulo"> Resultados:</p>
+          <p class="titulo">Tuviste {{calificacionDOM}} aciertos de {{aciertosDOM}}</p>
+          <button (click)="Inicializacion()" class="buttonSkepsi textoBoton" >Continuar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

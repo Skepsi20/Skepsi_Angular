@@ -1,0 +1,161 @@
+<div class="container formulario" style="background-color: white">
+  <div class="row">
+    <div class="col">
+      <div class="encabezado">
+        <p>Creación de plantillas</p>
+        <hr>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h1>RUTINAS</h1>
+          <div class="row" style="width: 40%;">
+            <mat-form-field appearance="fill">
+              <mat-label>Pilar</mat-label>
+            <mat-select [(ngModel)]="role" name="genero" (selectionChange)="selectedRoutineType()">
+              <mat-option *ngFor="let role of roles" [value]="role" >
+                {{role}}
+              </mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <div *ngFor="let rutinas of arregloRutinas">
+              <div class="d-flex rutinaSelect">
+                <div class="mr-auto p-2">{{rutinas.name}}</div>
+                <div class="p-2 btn btn-success" (click)="rutinasDePlantilla.push(rutinas)">+</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <h1>PLANTILLA</h1>
+          <div class="row">
+            <div *ngFor="let rutinas of rutinasDePlantilla; let i = index">
+              <div class="d-flex rutinaSelect">
+                <div class="mr-auto p-2">{{rutinas.name}}</div>
+                <div class="p-2 btn btn-danger" (click)="rutinasDePlantilla.splice(i, 1)">-</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <form #templateForm="ngForm">
+          <div class="row">
+            <div class="col">
+              <mat-form-field appearance="legacy">
+                <mat-label>Nombre</mat-label>
+                <input type="text" matInput [(ngModel)]="createTemplateDom.name" name="name" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" required>
+                <mat-error>El campo Nombre es requerido</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field appearance="legacy">
+                <mat-label>Descripción</mat-label>
+                <textarea type="text" matInput placeholder="Descripción" [(ngModel)]="createTemplateDom.description" name="description" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" required></textarea>
+                <mat-error>El campo Descripción es requerido</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col" style="margin:0px auto;">
+              <button mat-raised-button class="btn buttonCreate" (click)="createTemplate()">Crear plantilla</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col">
+      <div class="encabezado">
+        <p>Busqueda de rutinas</p>
+        <hr>
+      </div>
+      <div class="example-container mat-elevation-z8">
+        <div class="example-header">
+          <mat-form-field appearance="standard">
+            <mat-label style="padding:10px">Buscar</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Rutina"#input>
+          </mat-form-field>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort style="width:100%">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let row"> {{row.name}}</td>
+          </ng-container>
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+            <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+          </ng-container>
+          <ng-container matColumnDef="editar">
+            <th mat-header-cell *matHeaderCellDef> Detalles </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-button type="button" class="btn buttonCreate" (click)="detallesPlantilla(row.id)" style="margin-right: 10px;">Ver</button>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="eliminar">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-button (click)="deleteTemplate(row.id)" data-toggle="modal" data-target="#exampleModal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                </svg>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">Escribe algo en la barra de busqueda</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+  <div class="row mt-3">
+    <ng-template appDynamicComponent></ng-template>
+  </div>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="detallesModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ng-template appDynamicComponent></ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar plantilla</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Seguro que deseas eliminar la plantilla?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn buttonCreate" (click)="deleteConfirmation()" data-dismiss="modal">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>

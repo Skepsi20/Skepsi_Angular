@@ -1,0 +1,290 @@
+.container{
+  background: url('../../../../assets/img/skepsi/fondos/PAginaSKEPSI-05.jpg');
+  background-size: 100%, auto;
+  background-repeat: no-repeat;
+  margin-bottom: 10%;
+}
+.imagenInicial{
+  width:100%;
+  height:500px;
+  object-fit:cover;
+  object-position:50% 25%;
+}
+.imagenUno{
+  text-align: center;
+}
+.tarjetaUno{
+  width:90%;
+  height:400px;
+  margin: 0px auto;
+  margin-top: 30px;
+  text-align: center;
+  background-color: #0B2A4A;
+  border-radius: 20px;
+}
+.textoUno{
+  padding-top: 25px;
+  color: white;
+  font-size: 35px;
+  line-height: 40px;
+}
+.juegoUno, .juegoDos{
+  margin-top: 45px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 30px;
+}
+hr{
+  width: 80%;
+  margin: 0px auto;
+  border-bottom: 4px solid #EECA44;
+}
+.rutinaUno, .rutinaDos{
+  margin-top: 20px;
+  height: 500px;
+  width: 100%;
+  background-color: white;
+
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.progress-bar-animated{
+  border-radius: 20px;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: white;
+  color: #0A2A49;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 4px;
+}
+.filaUno{
+  max-width: 30%;
+}
+.filaUno:hover .overlay {
+  opacity: 0.9;
+}
+.text{
+  padding-top: 15px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 28px;
+}
+.paquetes{
+  background-image: url('../../../../assets/img/skepsi/fondos/FondosAzul-02.png');
+  background-position: right;
+  background-size: cover;
+  height: 500px;
+  margin-top: 20px;
+  margin-bottom: 90px;
+  color: white;
+  text-align: center;
+}
+#paquetesTexto{
+  border: 2px solid #EECA44;
+  width: 10%;
+  margin: 0px auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+#paquetesTextoDos{
+  border: 2px solid #EECA44;
+  width: 25%;
+  margin: 0px auto;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+#paquetesTextoDos:hover{
+  cursor: pointer;
+  background-color: white;
+  color: rgb(10, 42, 73);
+  transition: background 0.5s ease-in-out;
+}
+.contenedorPaquete{
+  max-width: 260px;
+  float: center;
+  margin-right: 5%;
+  margin-top: 30px;
+  border-bottom: 3px solid #EECA44;
+  border-left: 3px solid #EECA44;
+}
+#paquetesBotonInscripcion{
+  border: 2px solid #EECA44;
+  border-radius: 10px;
+  width: 50%;
+  margin: 0px auto;
+  margin-bottom: 40px;
+}
+
+
+
+.pilares{
+  min-width: 200px;
+}
+.pilares .img{
+  background-image: url('../../../../assets/img/skepsi/fondos/SKEPSI_TEXTURAS-37.jpg');
+  background-position: right;
+  background-size: cover;
+  height: 400px;
+  overflow: hidden;
+}
+.overlayTwo {
+  font-family: 'roboto-regular', Arial;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  color: white;
+  border-radius: 10px;
+}
+.pilares:hover .overlayTwo {
+  opacity: 0.95;
+}
+.sinais{
+  background-color: #EA4758;
+}
+.glossa{
+  background-color: #4ACFC6;
+}
+.gnostiki{
+  background-color: #F4D34C;
+}
+#textOverlay{
+  margin-top: 20px;
+  padding-right: 30px;
+  font-size: 30px;
+  line-height: 35px;
+}
+.rutina p{
+  line-height: 50px;
+}
+.banderas{
+  float: left;
+  margin: 10px;
+  width: 250px;
+  height: 150px;
+}
+.bandera{
+  margin: 10px;
+  width: 250px;
+  height: 150px;
+}
+.botonesSiNo{
+  margin: 10px;
+}
+
+.nombresDom img{
+  cursor: pointer;
+}
+.textoLargo{
+  font-size: 20px;
+  line-height: 30px !important;
+  padding-left: 45px;
+  padding-right: 45px;
+  text-align: justify;
+}
+.imagenesPersonajesPregunta img,
+.imagenesPersonajesRespuesta img
+{
+  height: 200px;
+}
+.imagenesPersonajesRespuesta{
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.caracteristicasPersonajesRespuesta{
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  padding: 25px;
+  margin: 10px;
+}
+.imagenesPersonajesRespuesta:hover,
+.caracteristicasPersonajesRespuesta:hover{
+  background-color: #0d4884;
+  color: white;
+  cursor: pointer;
+}
+
+
+/* SEGUNDA RUTINA */
+.example-list {
+  width: 1000px;
+  max-width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  min-height: 60px;
+  display: flex;
+  flex-direction: row;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0px auto;
+}
+
+.example-box {
+  border-right: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.juegoPerros{
+  font-size: 18px;
+  line-height: 15px;
+}
+.perros img{
+  height: 100px;
+}
+.espacio{
+  display: table;   /* Allow the centering to work */
+	margin: 0 auto;
+  width: 85%;
+}
+ul{
+  min-width: 696px;
+	list-style: none;
+	padding-top: 20px;
+}
+li{
+  display: inline;
+  padding: 20px;
+  box-shadow: rgba(10, 42, 73, 0.3) 0px 0px 0px 3px;
+}

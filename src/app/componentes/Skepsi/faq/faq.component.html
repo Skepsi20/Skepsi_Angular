@@ -1,0 +1,225 @@
+<div class="container">
+  <div class="row mb-2">
+    <div class="col filaUno">
+      <img src="../../../../assets/img/skepsi/inicio/concentrated-young-caucasian-businessmanN.jpg" >
+      <div class="overlay" (click)="mostrarTexto(1)">
+        <div class="text">
+          <p><b>GENERAL</b></p>
+        </div>
+      </div>
+    </div>
+    <div class="col filaUno">
+      <img src="../../../../assets/img/skepsi/inicio/preteen-boy-uses-laptop-to-make-video-call-with-his-teacher.jpg">
+      <div class="overlay" (click)="mostrarTexto(2)">
+        <div class="text">
+          <p><b>ENTRENAMIENTO</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngIf="imagenUnoSeleccionada" [@inOutAnimation] class="col-11 imagenUno">
+      <p><b>¿Qué es Skepsi?</b></p>
+      <p>
+        En Skepsi gimnasio del pensamiento, generamos rutinas y planes de ejercicio mental que enriquecen el entrenamiento cotidiano de las distintas habilidades de pensamiento necesarias para que el individuo promueva la integración del pensamiento complejo en su actuar cotidiano, mediante el ejercicio de distintas rutinas intelectuales que favorezcan el desarrollo de sus habilidades cognitivas
+      </p>
+      <p><b>¿Quién está detrás del proyecto?</b></p>
+      <p>
+        Skepsi gimnasio del pensamiento es resultado del ejercicio académico de un equipo multidisciplinario de expertos en distintas áreas del pensamiento humano, cada rutina tiene un objetivo específico y cada plan de entrenamiento persigue el desarrollo de distintas habilidades del pensamiento que fortalecerán la ejecución de prácticas intelectuales saludables
+      </p>
+      <p><b>¿Por qué un gimnasio de la mente?</b></p>
+      <p>
+        Skepsi gimnasio del pensamiento utiliza el soporte teórico de distintas corrientes de pensamiento que permiten entre otras el desarrollo de habilidades de pensamiento que están pensadas en el beneficio:
+      </p>
+      <ul>
+        <li>De niños acorde con su desarrollo cognitivo</li>
+        <li>De adultos, para mantener buenas prácticas de salud intelectual</li>
+        <li>De adultos mayores para crear nuevos modelos de pensamiento que le impulsen a desarrollar prácticas intelectuales saludables </li>
+      </ul>
+      <p><b>¿Cómo puedo inscribirme en Skepsi?</b></p>
+      <p>Es muy fácil, puedes iniciar llenando el siguiente formulario dando <a  routerLink="/register">click aquí</a> </p>
+      <p><b>¿Qué planes de entrenamiento tiene Skepsi?</b></p>
+      <p>
+        Los planes de entrenamiento incluyen tres objetivos primordiales dentro de las habilidades de pensamiento:
+      </p>
+      <ul>
+        <li>El desarrollo de la fuerza: los principios básicos de los modelos de pensamiento</li>
+        <li>El desarrollo de la resistencia: el mantener el enfoque y la concentración</li>
+        <li>El desarrollo de la potencia: la velocidad en la toma de decisiones y la aceptación de las consecuencias</li>
+      </ul>
+    </div>
+    <div *ngIf="imagenDosSeleccionada" [@inOutAnimation] class="col-11 imagenUno">
+      <p><b>¿Qué desarrollaré?</b></p>
+      <p>Distintos tipos de habilidades cognitivas, clasificadas en cuatro pilares fundamentales:</p>
+      <ul>
+        <li>Desarrollo cognitivo</li>
+        <li>Lenguaje y comunicación</li>
+        <li>Pensamiento lógico-matemático</li>
+        <li>Emociones y afectos</li>
+      </ul>
+      <p><b>¿Es auto aprendizaje o tendré guía?</b></p>
+      <p>Es un gimnasio del pensamiento, por lo tanto, contarás con un instructor certificado quien te guiará a cumplir con un programa que aborda distintas facetas del desarrollo del pensamiento, con distintos niveles y dificultades, todo para que sea retador y motivante</p>
+      <p><b>¿Qué incluye mi entrenamiento?</b></p>
+      <p>Cada semana se tienen cuatro sesiones, cada una abordará un pilar diferente (desarrollo cognitivo, lenguaje y comunicación, pensamiento lógico-matemático y emociones y afectos), con una dificultad específica, todo para que cumpla con un objetivo específico de desarrollo de habilidades intelectuales</p>
+      <p><b>¿Cómo son las sesiones de entrenamiento?</b></p>
+      <p>Mediante el acceso a la plataforma donde vía zoom estarás acompañado de un entrenador quien te guiará en la ejecución de cada rutina</p>
+      <p><b>¿Cuántas sesiones de entrenamiento tengo a la semana?</b></p>
+      <p>Son cuatro sesiones de 45 minutos cada una</p>
+      <p><b>¿Cuánto tiempo dura el programa?</b></p>
+      <p>Es un gimnasio, por lo tanto, tu determinas el tiempo en que quieras ejercitarte, considera que el desarrollo de habilidades requiere práctica.</p>
+      <p><b>¿Qué beneficios tendré si uso Skepsi?</b></p>
+      <p>Mediante el ejercicio continuo de prácticas intelectuales saludables, el individuo podrá entre otras:</p>
+      <ul>
+        <li>Beneficiar su agudeza mental</li>
+        <li>Ejercitar y educar sus modelos de pensamientos-decisiones-emociones</li>
+        <li>Favorecer el pensamiento crítico</li>
+        <li>Permitirá el rompimiento de paradigmas</li>
+        <li>Fomentará el pensamiento lateral</li>
+        <li>Impulsar la creatividad e imaginación</li>
+      </ul>
+    </div>
+    <div *ngIf="imagenTresSeleccionada" [@inOutAnimation] class="col-11 imagenUno">
+      <p><b>¿Cuánto cuesta entrenar en Skepsi?</b></p>
+      <p>En Skepsi podrás encontrar distintos programas de entrenamiento, estos planes están creados con base en tus expectativas y deseos. ¿Quieres evaluar las ventajas que te otorga el entrenamiento de tus habilidades de pensamiento? Probablemente contratar un plan mensual sea una buena decisión. ¿Estás consciente de las ventajas que te ofrece la salud cognitiva? En ese caso podrás encontrar planes de tres o seis meses. </p>
+      <p><b>¿Cómo pago mi entrenamiento?</b></p>
+      <p>Te recomendamos estar atento a las constantes promociones que hay para que entrenes con nosotros, te asombrará el potencial de tu mente que aún te queda por descubrir. ¿Quieres conocer nuestros paquetes? <a  routerLink="/login">click aquí</a> </p>
+      <p><b>¿Hay planes de pago para mi entrenamiento?</b></p>
+      <p>Puedes consultar las distintas opciones de pago mediante tarjeta de crédito a meses sin intereses.</p>
+    </div>
+    <div *ngIf="imagenCuatroSeleccionada" [@inOutAnimation] class="col-11 imagenUno">
+      <p><b>¿Qué necesito para utilizar la plataforma de entrenamiento de Skepsi?</b></p>
+      <p>Para ingresar a la plataforma solo necesitarás una computadora o tablet y conexión a internet, y para los entrenamientos en vivo: audífonos, micrófono y tener instalada la aplicación Zoom en tus dispositivos preferentemente.</p>
+      <p><b>¿Cuáles son los requisitos mínimos tecnológicos para usar Skepsi? </b></p>
+      <p>Una computadora o tablet con Internet. </p>
+      <p>Revisa los siguientes requerimientos mínimos:</p>
+      <ul>
+        <li>Sistema Operativo: Windows 7 u 8, Mac OS X 10.4 o superior, Linux</li>
+        <li>RAM: 4 GB</li>
+        <li>Procesador: 2GHz o superior</li>
+        <li>Resolución del Monitor: 1366 x 768 o superior</li>
+      </ul>
+      <p>Navegadores:</p>
+      <ul>
+        <li>Windows: IE 11+, Edge 12+, Firefox 27+, Chrome 30+</li>
+        <li>Mac: Safari 7+, Firefox 27+, Chrome 30+</li>
+        <li>Linux: Firefox 27+, Chrome 30+</li>
+        <li>Audífonos y micrófono</li>
+        <li>Videoconferencias Zoom instalado. (preferentemente) https://zoom.us/test</li>
+        <li>Lector de PDF, como Adobe Acrobat Reader o Foxit Reader</li>
+        <li>Conexión de alta velocidad a internet</li>
+      </ul>
+      <p>Aplicaciones móviles:</p>
+      <ul>
+        <li>Android 6 o superior</li>
+        <li>iOS 9 o superior</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col filaUno">
+      <img src="../../../../assets/img/skepsi/inicio/hand-with-credit-card-and-laptopp.jpg" >
+      <div class="overlay" (click)="mostrarTexto(3)">
+        <div class="text">
+          <p><b>COSTOS Y PAGOS</b></p>
+        </div>
+      </div>
+    </div>
+    <div class="col filaUno">
+      <img src="../../../../assets/img/skepsi/inicio/young-student-sitting-at-the-table-and-use-the-laptoppp.jpg">
+      <div class="overlay" (click)="mostrarTexto(4)">
+        <div class="text">
+          <p><b>INFRAESTRUCTURA TECNOLÓGICA</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col cuadroVerde">
+      <p><b>EN SKEPSI QUEREMOS QUE DESCUBRAS</b></p>
+      <p><b>TODO LO QUE PUEDES</b></p>
+      <p><b>LOGRAR</b></p>
+      <p><b style="color:white">EJERCITANDO</b><b> TU MENTE</b></p>
+    </div>
+  </div>
+  <div class="row">
+    <button routerLink="/contacto" class="btn btn-warning contacto">
+      CONTÁCTANOS
+    </button>
+  </div>
+  <div class="row">
+    <div class="col muroDeCampeones">
+      <p class="conoceANuestro"><b>CONOCE A NUESTRO EQUIPO</b></p>
+      <hr class="hr">
+      <br>
+      <p class="muroDeLosCamp">MURO DE LOS CAMPEONES</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col campeones">
+      <img src="../../../../assets/img/skepsi/faq/Mtro. Jose Rolando.png">
+      <div class="overlayTwo">
+        <div class="textCampeones">
+          <p>Mtro José Rolando Ochoa:</p>
+          <p>Lenguaje y comunicación</p>
+        </div>
+      </div>
+    </div>
+    <div class="col campeones">
+      <img src="../../../../assets/img/skepsi/faq/Juan Manuel Bañuelos Nuñez.jpg">
+      <div class="overlayTwo">
+        <div class="textCampeones">
+          <p>Mtro Juan Manuel Bañuelos Nuñez:</p>
+          <p>Tecnologías de la información</p>
+        </div>
+      </div>
+    </div>
+    <div class="col campeones">
+      <img src="../../../../assets/img/skepsi/faq/Dra. Marysol Tejeda.jpg">
+      <div class="overlayTwo">
+        <div class="textCampeones">
+          <p>Dra. Marysol Tejeda:</p>
+          <p>Emociones y afectos</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col campeones">
+      <img src="../../../../assets/img/skepsi/faq/Dra. Conchita Mar.png">
+      <div class="overlayTwo">
+        <div class="textCampeones">
+          <p>Dra Conchita Mar Martínez:</p>
+          <p>Desarrollo cognitivo</p>
+        </div>
+      </div>
+    </div>
+    <div class="col campeones">
+      <img src="../../../../assets/img/skepsi/faq/Dra. Anabel.png">
+      <div class="overlayTwo">
+        <div class="textCampeones">
+          <p>Dra Anabel Hernández:</p>
+          <p>Lógico matemático</p>
+        </div>
+      </div>
+    </div>
+    <div class="col campeones">
+      <img src="../../../../assets/img/skepsi/faq/Dr. Jose Martin.JPG">
+      <div class="overlayTwo">
+        <div class="textCampeones">
+          <p>Dr José Martín Ochoa:</p>
+          <p>Pensamiento complejo</p>
+        </div>
+      </div>
+    </div>
+    <div class="col campeones">
+      <img src="../../../../assets/img/skepsi/faq/Dr. Jose Juan.png">
+      <div class="overlayTwo">
+        <div class="textCampeones">
+          <p>Dr José Juan Castro:</p>
+          <p>Lógico matemático</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

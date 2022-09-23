@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--
+<div class="d-flex justify-content-between">
+  <div *ngIf="cookieUser">
+    <p class="name">{{userName}}</p>
+  </div>
+  <div>
+    <div class="buttonsNav">
+      <a *ngIf="role.includes('Administrador') || role.includes('Ventas')" routerLink="/ventas" mat-raised-button class="ml-1">Ventas</a>
+      <a *ngIf="role.includes('Administrador') || role.includes('Usuario') || role.includes('Ventas') || role.includes('Familiar')" routerLink="/paquetes" mat-raised-button class="ml-1">Paquetes</a>
+      <a *ngIf="role.includes('Administrador')" routerLink="/tutores" mat-raised-button class="ml-1">Tutores</a>
+      <a *ngIf="role.includes('Administrador') || role.includes('Ventas')" routerLink="/institucion" mat-raised-button class="ml-1">Instituciones</a>
+      <a *ngIf="role.includes('Administrador') || role.includes('Gimnasio')" routerLink="/planes" mat-raised-button class="ml-1">Planes</a>
+      <a *ngIf="role.includes('Administrador') || role.includes('Gimnasio')" routerLink="/creacion-plantillas" mat-raised-button class="ml-1">Plantillas</a>
+      <a *ngIf="role.includes('Administrador')" routerLink="/gestion-rutinas" mat-raised-button class="ml-1">Rutinas</a>
+      <a *ngIf="role.includes('Administrador')" routerLink="/holidays" mat-raised-button class="ml-1">Días festivos adm</a>
+      <a *ngIf="role.includes('Administrador') || role.includes('Usuario')" outerLink="/rutina" mat-raised-button class="ml-1">Rutina</a>
+      <a *ngIf="role.includes('Administrador') || role.includes('Tutor')" routerLink="/dashboard" mat-raised-button class="ml-1">Dashboard</a>
+      <a *ngIf="role.includes('Usuario')" routerLink="/resultados" mat-raised-button class="ml-1">Resultados</a>
+      <a *ngIf="role.includes('Administrador') || role.includes('Ventas')" routerLink="/interesados" mat-raised-button class="ml-1">Interesados</a>
+      <a *ngIf="role.includes('Administrador')|| role.includes('Gimnasio')" routerLink="/admin-dashboard" mat-raised-button class="ml-1">Admin dashboard</a>
+      <a *ngIf="role.includes('Administrador')" routerLink="/admin-tutor-dashboard" mat-raised-button class="ml-1">Admin tutor dashboard</a>
+      <a *ngIf="role.includes('Administrador')" routerLink="/amaan" mat-raised-button class="ml-1">Amaan</a>
+      <a *ngIf="role.includes('Administrador')" routerLink="/dmaan" mat-raised-button class="ml-1">dmaan</a>
+      <a *ngIf="role.includes('Administrador')" routerLink="/emaan" mat-raised-button class="ml-1">emaan</a>
+      <a *ngIf="role.includes('Administrador')" routerLink="/amaco" mat-raised-button class="ml-1">amaco</a>
+      <a *ngIf="role.includes('Administrador')" routerLink="/dmaco" mat-raised-button class="ml-1">dmaco</a>
+      <a *ngIf="role.includes('Administrador')" routerLink="/emaco" mat-raised-button class="ml-1">emaco</a>
+    </div>
+  </div>
+  <div>
+    <a class="closeNav" *ngIf="cookieUser"><button (click)="logOut()" color="accent" mat-raised-button class="ml-1" >Cerrar sesion</button></a>
+  </div>
+</div>
+  -->
+
+  <div *ngIf="!cookieUser">
+    <div *ngIf="!completeMenu" class="topnav" id="myTopnav">
+      <a routerLink="/inicio" class="active">
+        <img src="../../../../assets/img/skepsi/logo/marcaR.png" class="loginIcon logotipoSm">
+      </a>
+        <a routerLink="/inicio" class="menuSm" (click)="myFunction()">
+          INICIO
+        </a>
+        <a routerLink="/nosotros" class="menuSm" (click)="myFunction()">
+          NOSOTROS
+        </a>
+        <a routerLink="/paquetes-skepsi" class="menuSm" (click)="myFunction()">
+          PAQUETES
+        </a>
+        <a routerLink="/faq" class="menuSm" (click)="myFunction()">
+          FAQ
+        </a>
+        <a routerLink="/blog" class="menuSm" (click)="myFunction()">
+          BLOG
+        </a>
+        <a routerLink="/contacto" class="menuSm" (click)="myFunction()">
+          CONTACTO
+        </a>
+        <a routerLink="/login" class="menuSm" (click)="myFunction()">
+          INICIO DE SESIÓN
+        </a>
+      <a href="javascript:void(0);" style="font-size:25px;" class="icon" (click)="myFunction()">&#9776;</a>
+    </div>
+  </div>
+
+
+  <div *ngIf="!cookieUser">
+    <div *ngIf="completeMenu" class="topnav d-flex" id="myTopnav">
+      <a routerLink="/inicio" class="active">
+          <img src="../../../../assets/img/skepsi/logo/marcaR.png" class="loginIcon logotipo">
+      </a>
+      <div style="width:100%;" class="d-flex justify-content-around">
+        <a routerLink="/inicio" class="align-self-end" style="width:100%">
+          INICIO
+        </a>
+        <a routerLink="/nosotros" class="align-self-end" style="width: 100%;">
+          NOSOTROS
+        </a>
+        <a routerLink="/paquetes-skepsi" class="align-self-end" style="width: 100%;">
+          PAQUETES
+        </a>
+        <a routerLink="/faq" class="align-self-end" style="width: 100%;">
+          FAQ
+        </a>
+        <a routerLink="/blog" class="align-self-end" style="width: 100%;">
+          BLOG
+        </a>
+        <a routerLink="/contacto" class="align-self-end" style="width: 100%;">
+          CONTACTO
+        </a>
+      </div>
+      <a routerLink="/login" class="loginIcon ml-auto p-2  align-self-end" >
+        <img src="../assets/img/skepsi/iconos/acceso.png">
+      </a>
+    </div>
+  </div>
+
+
+
+<router-outlet></router-outlet>
+
+

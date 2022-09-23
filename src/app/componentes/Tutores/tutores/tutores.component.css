@@ -1,0 +1,54 @@
+.encabezado{
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+.encabezado p{
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.formulario{
+  padding: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+mat-form-field{
+  width: 100%;
+  margin: 5px;
+}
+
+.buttonCreate{
+  border-radius: 10px;
+  background-color: #0F2B40;
+  color: white;
+  border: 1px solid #0F2B40;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.buttonCreate:hover{
+  background-color: white;
+  color: #0F2B40;
+  border: 1px solid white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.mat-form-field .mat-form-field-flex{
+  border-radius: 4px !important;
+}
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: black !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: white !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: white !important;
+}

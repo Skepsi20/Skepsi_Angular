@@ -1,0 +1,222 @@
+<div class="contenedor">
+  <div style="margin: 0px; width: 100%">
+    <mat-drawer-container class="example-container" autosize>
+      <mat-drawer #drawer class="example-sidenav" [opened]="true" mode="side">
+        <div class="menuDeOpciones">
+          <div class="row" style="width: 100%;">
+            <div class="col">
+              <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-16.png" class="logotipoSkepsi">
+            </div>
+          </div>
+          <div class="row" style="width: 100%;">
+            <div class="col">
+              <p [class.seleccionada] = "opcionMenu === 'inicio'" (click)="seleccionMenu('inicio')">INICIO</p>
+            </div>
+          </div>
+          <div class="row" style="width: 100%;">
+            <div class="col">
+              <p [class.seleccionada] = "opcionMenu === 'panel'" (click)="seleccionMenu('panel')">PANEL</p>
+            </div>
+          </div>
+          <div class="row" style="width: 100%;">
+          <div class="col">
+            <p [class.seleccionada] = "opcionMenu === 'configuracion'" (click)="seleccionMenu('configuracion')">CUENTA</p>
+          </div>
+          </div>
+          <div class="row " style="width: 100%;">
+            <div class="col">
+              <div class="logOut">
+                <a (click)="logOut()">
+                  <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-13.png">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </mat-drawer>
+      <div class="example-sidenav-content">
+        <button type="button" mat-button (click)="drawer.toggle()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+          Menu
+        </button>
+        <div class="col contenido">
+          <div class="row" *ngIf="opcionMenu == 'inicio'">
+            <div class="col">
+              <div class="row mb-5">
+                <div class="col-2" id="fotografia">
+                  <img src="http://skepsi.com.mx/assets/img/avatares/{{tutor.profileImageUrl}}">
+                  <button class="buttonSkepsi" (click)="mostrarCalendarioToggle()">Calendario</button>
+                </div>
+                <div class="col" id="ligaZoom">
+                  <div class="card" style="width: 70%;">
+                    <div class="card-body">
+                      <h1 class="card-title">{{tutor.name}} {{tutor.lastName}}</h1>
+                      <hr>
+                      <b>Descripción: </b> {{tutor.description}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="mostrarClendario">
+                <div class="col-7" id="calendario">
+                  <full-calendar [options]="calendarOptions"></full-calendar>
+                </div>
+                <div class="col-5" id="infoRutina">
+                  <h1>Información de la sesión:</h1>
+                  <div *ngIf="!rutinaSeleccionada">
+                    <p>Seleccione una sesión del calendario</p>
+                  </div>
+                  <div *ngIf="rutinaSeleccionada && !isHoliday">
+                    <p>Rutina: {{this.rutinaArg}}</p>
+                    <p>Descripción de la rutina: {{this.rutinaDescArg}}</p>
+                    <p *ngIf="estadoDeRutina == 'Pending'">Estado: Pendiente</p>
+                    <p *ngIf="estadoDeRutina == 'Finished'">Estado: Terminada</p>
+                    <p *ngIf="estadoDeRutina == 'InProgress'">Estado: Activa</p>
+                    <p>Paquete: {{this.description}}</p>
+                    <p>Fecha: {{this.fecha| date:'dd / MMMM / yyyy':'+0200':'es'}}</p>
+                    <p>Horario: {{this.horarioArg}}</p>
+                  </div>
+                  <div *ngIf="rutinaSeleccionada && isHoliday">
+                    <p>Motivo: {{this.title}}</p>
+                    <p>Fecha: {{this.fecha| date:'dd / MMMM / yyyy':'+0200':'es'}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'panel' && grupoSeleccionado == false">
+            <div class="grupos">
+              <div class="row logotipoPilar">
+                <div class="col" align="left">
+                  <p>LISTADO DE GRUPOS</p>
+                  <hr>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col cardGrupos" *ngFor="let grupo of grupos">
+                  <div class="card">
+                    <h3 class="card-header">{{grupo.code}}</h3>
+                    <div class="card-body">
+                      <h3 class="card-title">Paquete: {{grupo.plan.name}}</h3>
+                      <p class="card-text">Horario: {{grupo.plan.schedule}}</p>
+                      <p>Dias hábiles: </p>
+                        <div *ngFor="let item of grupo.plan.planDays" style="text-align:left;">
+                          <p class="card-text">- {{item}}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="color:white">
+                      <a class="btn buttonSkepsi" (click)="panelPorGrupo(grupo.id)">Detalles</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'panel' && grupoSeleccionado == true">
+            <div class="row">
+              <div class="col" style="margin: 10px;">
+                <button class="btn btn-success" (click)="volverAGrupos()">Volver</button>
+              </div>
+            </div>
+            <app-dashboard-detail></app-dashboard-detail>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'configuracion'">
+            <div class="col" style="text-align:center"><br>
+              <h1>INFORMACIÓN DEL USUARIO</h1>
+              <div class="row">
+                <div class="col" *ngIf="mostrarAvatar">
+                  <div *ngFor="let avatar of avatares" class="previewImage">
+                    <label class="avatars">
+                      <input type="radio" name="avatar" (change)="guardarAvatar(avatar)">
+                      <img src="http://skepsi.com.mx/assets/img/avatares/{{avatar}}">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="previewImageSelected" *ngIf="tutor.profileImageUrl && !mostrarAvatar">
+                    <img src="http://skepsi.com.mx/assets/img/avatares/{{tutor.profileImageUrl}}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col" *ngIf="!mostrarAvatar">
+                  <button class="btn buttonSkepsi" (click)="mostrarAvatares()">Cambiar</button>
+                </div>
+                <div class="col" *ngIf="mostrarAvatar">
+                  <button class="btn buttonSkepsi" (click)="mostrarAvatarActual()">Confirmar</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <h1>Datos del usuario</h1>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Nombre</mat-label>
+                      <input type="text" matInput [(ngModel)]="tutor.name" maxlength="100" placeholder="nombre">
+                      <mat-error>El nombre es requerido</mat-error>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Apellido</mat-label>
+                      <input type="text" matInput [(ngModel)]="tutor.lastName" maxlength="100" placeholder="apellido">
+                      <mat-error>El apellido es requerido</mat-error>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Descripción</mat-label>
+                        <textarea type="text" matInput placeholder="Descripción" [(ngModel)]="tutor.description" name="description" required></textarea>
+                      <mat-error>El campo Descripción es requerido</mat-error>
+                    </mat-form-field>
+                  </p>
+                  <button class="btn buttonSkepsi" (click)="updateStudentName()">Actualizar</button>
+                </div>
+                <div class="col">
+                  <h1>Actualizar contraseña</h1>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Contraseña actual</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="tutor.currentPassword" minlength='10' name="password">
+                      <mat-error *ngIf="tutor.password">La contraseña debe ser de al menos 10 caracteres y 1 dígito</mat-error>
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Contraseña nueva</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="tutor.password" minlength='10' name="password">
+                      <mat-error *ngIf="tutor.password">La contraseña debe ser de al menos 10 caracteres y 1 dígito</mat-error>
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Confirmación de contraseña nueva</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="tutor.confirmedPassword"  name="passwordConfirm">
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </p>
+                  <div *ngIf="tutor.password != tutor.confirmedPassword" style="margin-top:-30px;">
+                    <mat-error>Las contraseñas no coinciden</mat-error>
+                  </div>
+                  <button class="btn buttonSkepsi" (click)="updateStudentPassword()">Actualizar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-drawer-container>
+  </div>
+</div>

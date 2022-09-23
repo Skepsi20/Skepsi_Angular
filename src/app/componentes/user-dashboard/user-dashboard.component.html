@@ -1,0 +1,388 @@
+<div class="contenedor">
+  <div style="width: 100%">
+    <mat-drawer-container class="example-container" autosize>
+      <mat-drawer #drawer class="example-sidenav" [opened]="true"  mode="side">
+        <div class="menuDeOpciones">
+          <div class="row" style="width: 100%;">
+            <div class="col">
+              <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-16.png" class="logotipoSkepsi">
+            </div>
+          </div>
+          <div class="row" style="width: 100%;">
+            <div class="col">
+              <p [class.seleccionada] = "opcionMenu === 'inicio'" (click)="seleccionMenu('inicio')">INICIO</p>
+            </div>
+          </div>
+          <div class="row" style="width: 100%;" *ngIf="planStatus == 'True'">
+            <div class="col">
+              <p [class.seleccionada] = "opcionMenu === 'entrenador'" (click)="seleccionMenu('entrenador')">ENTRENADOR</p>
+            </div>
+          </div>
+          <div class="row" style="width: 100%;" *ngIf="planStatus == 'True'">
+            <div class="col">
+              <p [class.seleccionada] = "opcionMenu === 'estadistica'" (click)="seleccionMenu('estadistica')">ESTADÍSTICAS</p>
+            </div>
+          </div>
+          <div class="row" style="width: 100%;" *ngIf="planStatus == 'False'">
+            <div class="col">
+              <p [class.seleccionada] = "opcionMenu === 'paquetes'" (click)="seleccionMenu('paquetes')">PAQUETES</p>
+            </div>
+          </div>
+          <div class="row" style="width: 100%;">
+            <div class="col">
+              <p [class.seleccionada] = "opcionMenu === 'soporte'" (click)="seleccionMenu('soporte')">SOPORTE TÉCNICO</p>
+            </div>
+          </div>
+          <div class="row" style="width: 100%;">
+            <div class="col">
+              <p [class.seleccionada] = "opcionMenu === 'configuracion'" (click)="seleccionMenu('configuracion')">CUENTA</p>
+            </div>
+          </div>
+          <div class="row" style="width: 100%;">
+            <div class="col">
+              <div class="logOut">
+                <a (click)="logOut()">
+                  <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-13.png">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </mat-drawer>
+      <div class="example-sidenav-content">
+        <button type="button" mat-button (click)="drawer.toggle()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+          Menu
+        </button>
+        <div class="col contenido">
+          <div class="row" *ngIf="opcionMenu == 'paquetes'">
+            <app-paquetes></app-paquetes>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'inicio'">
+            <div class="col">
+              <div class="row mb-5">
+                <div class="col-2" id="fotografia">
+                  <img src="http://skepsi.com.mx/assets/img/avatares/{{student.profileImageUrl}}">
+                  <button *ngIf="planStatus == 'True'" class="buttonCreate" (click)="mostrarCalendarioToggle()" >Calendario</button>
+                </div>
+                <div class="col" id="ligaZoom">
+                  <div class="card" style="width: 70%;">
+                    <div class="card-body">
+                      <h1 class="card-title">{{student.name}} {{student.lastName}}</h1>
+                      <div class="row">
+                        <div class="col" *ngIf="student.institution">
+                          <b>Institución: </b><p>{{student.institution.shortName}} | {{student.institution.name}}</p>
+                        </div>
+                        <div class="col" *ngIf="currentCourse">
+                          <b>Plan inscrito: </b><p class="card-text">{{currentCourse.name}}</p>
+                          <b>Descripción: </b><p class="card-text">{{currentCourse.description}}</p>
+                        </div>
+                        <div class="col" *ngIf="currentCourse">
+                          <b>Entrenador: </b> <p *ngIf="datosDelTutor">{{datosDelTutor.firstName}} {{datosDelTutor.lastName}}</p>
+                          <b>Horario de clase: </b><p>{{currentCourse.schedule}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <hr>
+                      <div class="row" *ngIf="todaySession">
+                        <div *ngIf="todaySession.status == 'Pending' || todaySession.status == 'InProgress'">
+                          <div class="col">
+                            <h2>Rutina de hoy: {{todaySession.routine.name}}</h2>
+                              <div *ngIf="!mobile">
+                                <a routerLink="/rutina" class="btn btn-success mr-1">Jugar</a>
+                              </div>
+                              <div *ngIf="mobile">
+                                <p>Ingresa desde una PC o Laptop para realizar la rutina</p>
+                              </div>
+                              <a *ngIf="meetingURL" href="{{meetingURL}}" class="btn btn-primary" target="_blank">Zoom</a>
+                              <p *ngIf="meetingPassword">Contraseña de Zoom: {{meetingPassword}} </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="todaySession">
+                        <div *ngIf="todaySession.status == 'Finished'">
+                        <div class="col">
+                          <h1>Próxima sesión: {{nextSession.date | date:'dd / MMMM / yyyy':'+0200':'es'}}</h1>
+                          <h2>Próxima rutina: {{nextSession.routine.name}}</h2>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="mostrarClendario">
+                <div class="col-7" id="calendario">
+                  <full-calendar [options]="calendarOptions"></full-calendar>
+                </div>
+                <div class="col-5" id="infoRutina">
+                  <h1 *ngIf="rutinaSeleccionada && !isHoliday">Información de rutina:</h1>
+                  <h1 *ngIf="rutinaSeleccionada && isHoliday">Día de asueto:</h1>
+                  <div *ngIf="!rutinaSeleccionada">
+                    <p>Seleccione una rutina del calendario</p>
+                  </div>
+                  <div *ngIf="rutinaSeleccionada && !isHoliday">
+                    <p>Rutina: {{this.title}}</p>
+                    <p>Pilar: {{this.pilarRoutine}}</p>
+                    <p>Fecha: {{this.fecha| date:'dd / MMMM / yyyy':'+0200':'es'}}</p>
+                    <p>Descripcion: {{this.description}}</p>
+                  </div>
+                  <div *ngIf="rutinaSeleccionada && isHoliday">
+                    <p>Motivo: {{this.title}}</p>
+                    <p>Fecha: {{this.fecha| date:'dd / MMMM / yyyy':'+0200':'es'}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'entrenador' && datosDelTutor">
+            <div class="row">
+              <div class="col-3" id="fotografiaMaestro" *ngIf="datosDelTutor.profileImageUrl">
+                <img src="http://skepsi.com.mx/assets/img/avatares/{{datosDelTutor.profileImageUrl}}">
+              </div>
+              <div class="card-body tutorImage" *ngIf="!datosDelTutor.profileImageUrl">
+                <img src="http://skepsi.com.mx/assets/img/avatares/Personajes-03.png">
+              </div>
+              <div class="col" id="datosMaestro">
+                <b id="campo">Nombre:</b>
+                <p id="contenidoCampo">{{datosDelTutor.firstName}} {{datosDelTutor.lastName}}</p>
+                <b id="campo">Contacto:</b>
+                <p id="contenidoCampo">{{datosDelTutor.email}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col" id="descripcionMaestro">
+                <b id="campo">Descripción:</b>
+                <p *ngIf="datosDelTutor.profileDescription">{{datosDelTutor.profileDescription}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'estadistica'  && !estadisticaSeleccionada">
+            <div class="col">
+              <div class="row">
+                <div class="col">
+                  <div class="descripcionResultados">
+                    <p>AQUÍ PODRÁS MONITOREAR TU PROGRESO</p>
+                    <p>En esta sección encontrarás un registro de tus actividades ya realizadas así como una gráfica donde se mostrará tu fuerza, resistencia y potencia en cada una de las secciones</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="row">
+                    <div class="col">
+                      <div class="estadisticaArea" (click)="buscarEstadistica('2')">
+                        <div class="row">
+                          <div class="col-6" id="lineaVertical">
+                            <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-14.png">
+                            <p>EMOCIONES Y AFECTO</p>
+                          </div>
+                          <div class="col-6">
+                            <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-17.png">
+                            <p>Ver detalles</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="estadisticaArea" (click)="buscarEstadistica('3')">
+                        <div class="row">
+                          <div class="col-6" id="lineaVertical">
+                            <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-12.png">
+                            <p>LENGUAJE Y COMUNICACIÓN</p>
+                          </div>
+                          <div class="col-6">
+                            <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-17.png">
+                            <p>Ver detalles</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="estadisticaArea" (click)="buscarEstadistica('4')">
+                        <div class="row">
+                          <div class="col-6" id="lineaVertical">
+                            <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-15.png">
+                            <p>PENSAMIENTO LÓGICO MATEMÁTICO</p>
+                          </div>
+                          <div class="col-6">
+                            <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-17.png">
+                            <p>Ver detalles</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="estadisticaArea" (click)="buscarEstadistica('1')">
+                        <div class="row">
+                          <div class="col-6" id="lineaVertical">
+                            <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-130.png">
+                            <p>DESARROLLO COGNITIVO</p>
+                          </div>
+                          <div class="col-6">
+                            <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-17.png">
+                            <p>Ver detalles</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'estadistica' && estadisticaSeleccionada">
+            <div class="row">
+              <div class="col" style="margin: 10px;">
+                <button class="btn buttonCreate" (click)="volverEstadisticas()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="row logotipoPilar">
+              <div class="col-1">
+                <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-130.png">
+              </div>
+              <div class="col" align="left">
+                <p>BITACORA DE ACTIVIDADES</p>
+                <hr>
+              </div>
+            </div>
+            <div class="row listadoDeRutinasConResulados" *ngFor="let rutina of rutinasConResultados">
+              <div class="col">
+                <p class="buttonRutina" (click)="buscarResultadosPorRutina(rutina)">
+                  {{rutina.name}}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+                  </svg>
+                </p>
+                <div *ngIf="resultadosPorRutina" class="graficasResultados">
+                  <app-resultados [routineId]="rutina.id"></app-resultados>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'soporte'">
+            <div class="row soporte">
+              <div class="col soporteUno" (click)="seleccionMenu('introduccion')" style="text-align:center">
+                <img src="../../../assets/img/skepsi/iconos/SKEPSI_ICONO_03.png">
+                <p class="soporteTitle">INTRODUCCIÓN</p>
+                <p>Todo lo que necesitas saber para empezar a utilizar SKEPSI.</p>
+              </div>
+              <div class="col soporteDos" (click)="seleccionMenu('audioVideo')" style="text-align:center">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-10.png">
+                <p class="soporteTitle">AUDIO Y VIDEO</p>
+                <p>Problemas técnicos para conectarte a tu sesión de entrenamiento.</p>
+              </div>
+              <div class="col soporteTres" (click)="seleccionMenu('configuracion')" style="text-align:center">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-11.png">
+                <p class="soporteTitle">ADMINISTRACIÓN DE LA CUENTA</p>
+                <p>Administra tu cuenta.</p>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'introduccion'">
+
+            ESPACIO PARA AUDIO
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'audioVideo'">
+            ESPACIO PARA ZOOM
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'configuracion'">
+            <div class="col" style="text-align:center"><br>
+              <h1>INFORMACIÓN DEL USUARIO</h1>
+              <div class="row">
+                <div class="col" *ngIf="mostrarAvatar">
+                  <div *ngFor="let avatar of avatares" class="previewImage">
+                    <label class="avatars">
+                      <input type="radio" name="avatar" (change)="guardarAvatar(avatar)">
+                      <img src="http://skepsi.com.mx/assets/img/avatares/{{avatar}}">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="previewImageSelected" *ngIf="student.profileImageUrl && !mostrarAvatar">
+                    <img src="http://skepsi.com.mx/assets/img/avatares/{{student.profileImageUrl}}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col" *ngIf="!mostrarAvatar">
+                  <button class="btn buttonRutina" (click)="mostrarAvatares()">Cambiar</button>
+                </div>
+                <div class="col" *ngIf="mostrarAvatar">
+                  <button class="btn buttonRutina" (click)="mostrarAvatarActual()">Confirmar</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <h1>Datos del usuario</h1>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Nombre</mat-label>
+                      <input type="text" matInput [(ngModel)]="student.name" maxlength="100" placeholder="Nombre">
+                      <mat-error>El nombre es requerido</mat-error>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Apellido</mat-label>
+                      <input type="text" matInput [(ngModel)]="student.lastName" maxlength="100" placeholder="Nombre">
+                      <mat-error>El apellido es requerido</mat-error>
+                    </mat-form-field>
+                  </p>
+                  <button class="btn buttonRutina" (click)="updateStudentName()">Actualizar</button>
+                </div>
+                <div class="col">
+                  <h1>Actualizar contraseña</h1>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Contraseña actual</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="student.currentPassword" minlength='10' name="password">
+                      <mat-error *ngIf="student.password">La contraseña debe ser de al menos 10 caracteres y 1 dígito</mat-error>
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Contraseña nueva</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="student.password" minlength='10' name="password">
+                      <mat-error *ngIf="student.password">La contraseña debe ser de al menos 10 caracteres y 1 dígito</mat-error>
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Confirmación de contraseña nueva</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="student.confirmedPassword"  name="passwordConfirm">
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </p>
+                  <div *ngIf="student.password != student.confirmedPassword" style="margin-top:-30px;">
+                    <mat-error>Las contraseñas no coinciden</mat-error>
+                  </div>
+                  <button class="btn buttonRutina" (click)="updateStudentPassword()">Actualizar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-drawer-container>
+  </div>
+</div>

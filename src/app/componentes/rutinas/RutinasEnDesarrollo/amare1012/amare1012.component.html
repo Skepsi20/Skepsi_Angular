@@ -1,0 +1,52 @@
+<div class="principal">
+  <div *ngIf="instrucciones">
+    <h1>AREA PARA INSTRUCCIONES</h1>
+  </div>
+  <div *ngIf="!instrucciones">
+  <div *ngIf="!resultados">
+    <div *ngIf="isDisabled">
+      <div style="margin-top: 50px;">
+        <h1>Memoriza el orden</h1>
+        <img src="{{figuraVista[0].imagen}}" style="border-radius:10px; width: 50%; height: auto;">
+<!--         <h1>{{figuraVista[0].nombre}}</h1>
+-->        <br>
+      </div>
+    </div>
+
+    <div *ngIf="!isDisabled" style="margin-top: 50px;">
+      <h1>Coloca las imagenes en el orden en el que las viste</h1>
+      <div
+        [ngStyle]="{ 'width': temp + '%' }"
+        style="height: 10px; background-color: purple; border-radius: 20px;">
+      </div>
+
+    <div #dropListContainer class="example-container" cdkDropListGroup>
+      <div
+        *ngFor="let item of items; let i = index"
+        cdkDropList
+        [cdkDropListData]="i"
+      >
+        <div
+          cdkDrag
+          [cdkDragData]="i"
+          (cdkDragEntered)="dragEntered($event)"
+          (cdkDragMoved)="dragMoved($event)"
+          (cdkDragDropped)="dragDropped($event)"
+          class="example-box"
+        >
+        <img src="{{items[i].imagen}}" style="border-radius:10px; width: 200px; height: auto">
+        </div>
+<!--         <p>{{items[i].nombre}}</p>
+-->      </div>
+    </div>
+
+    <button (click)="revisar()"  mat-raised-button class="ml-1" color="primary">Listo!</button>
+    </div>
+  </div>
+
+  <div *ngIf="resultados" style="margin-top: 50px;">
+    <h1>Resultados:</h1>
+    <h1>Tuviste {{calificacionVista}} aciertos de {{figurasVista}}</h1>
+  </div>
+</div>
+</div>

@@ -1,0 +1,37 @@
+.principal{
+  width: 80%;
+  margin: 0px auto;
+  padding: 10px;
+}
+.contenedor{
+  width: 80%;
+  margin: 0px auto;
+  background-color:white;
+  text-align: center;
+}
+
+.contenido mat-form-field {
+  width: 100%;
+  padding: 15px;
+  margin: 0px auto;
+}
+
+.encabezado{
+  margin-top: 20px;
+  padding-top: 10px;
+}
+
+.encabezado p{
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.botones a{
+  margin: 10px;
+  margin-bottom: 20px;
+}
+
+table{
+  margin: 0px auto;
+  width: 100%;
+}

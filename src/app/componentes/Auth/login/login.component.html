@@ -1,0 +1,62 @@
+<app-spinner></app-spinner>
+<div class="container">
+  <form #studentDetailsForm="ngForm">
+    <div class="row" align="center">
+      <div class="col" style="background-color:#80C8BC; color: white;">
+        <div class="row">
+          <div class="col bienvenido">
+            <p id="bienvenido">¡BIENVENID@ DE VUELTA!</p>
+            <p id="nosDa">NOS DA GUSTO VERTE</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy">
+              <mat-label>Correo electrónico</mat-label>
+              <input type="email" matInput [(ngModel)]="credential.userName" name="userName" required>
+              <mat-error>El campo email es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy">
+              <mat-label>Contraseña</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="credential.password" name="password" required>
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+              <mat-error *ngIf="credential.password">Contraseña requerida</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <a routerLink="/recuperar">Recuperar contraseña</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button class="botonLogin" (click)="login()">Ingresar</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            <img src="../../../../assets/img/skepsi/logo/marcaR2.png" class="logoSkepsi">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p id="aunNo">¿AÚN NO TIENES CUENTA?</p>
+            <p id="registrateCon">REGISTRATE CON NOSOTROS</p>
+            <button routerLink="/register" class="botonLogin">
+              Registrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

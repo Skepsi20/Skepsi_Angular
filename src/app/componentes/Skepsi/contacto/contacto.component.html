@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="container">
+  <app-spinner></app-spinner>
+  <div class="row">
+    <div class="col">
+
+      <a href="https://www.facebook.com/Skepsigym" class="fa fa-facebook" target="_blank"></a>
+      <a href="https://www.instagram.com/skepsigym/" class="fa fa-instagram" target="_blank"></a>
+
+      <div class="contactanos">
+        <div class="row">
+          <div class="col">
+            <p id="contactanos">CONTÁCTANOS</p>
+            <p id="para">PARA MÁS</p>
+            <p id="para">INFORMACIÓN</p>
+          </div>
+          <div class="col">
+            <form [formGroup]="contactForm" (ngSubmit)="sendData(contactForm)">
+              <p>
+                <mat-form-field appearance="fill">
+                  <mat-label>Nombre</mat-label>
+                  <input type="text" matInput formControlName="nombre" maxlength="100" placeholder="Nombre" required>
+                  <mat-error>El nombre es requerido</mat-error>
+                </mat-form-field>
+              </p>
+              <p>
+              <mat-form-field appearance="fill">
+                <mat-label>Número de teléfono</mat-label>
+                <input type="tel" matInput formControlName="telefono" maxlength="20" placeholder="Número de teléfono" required>
+                <mat-error>El número de teléfono es requerido</mat-error>
+              </mat-form-field>
+              </p>
+              <p>
+                <mat-form-field appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input type="email" matInput formControlName="email" maxlength="60" placeholder="Email" required>
+                  <mat-error>El email es requerido</mat-error>
+                </mat-form-field>
+              </p>
+              <p>
+              <mat-form-field appearance="fill">
+                <mat-label>Comentarios</mat-label>
+                <textarea name="comentarios" matInput formControlName="comentarios" cols="10" rows="5" placeholder="Dinos cuáles son tus dudas y preguntas." required></textarea>
+                <mat-error>Los comentarios son requeridos</mat-error>
+              </mat-form-field>
+              </p>
+              <input type="submit" value="ENVIAR" [disabled]="!contactForm.valid">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+

@@ -1,0 +1,199 @@
+<div class="contenedor">
+  <div style="width: 100%">
+    <mat-drawer-container class="example-container" autosize>
+      <mat-drawer #drawer class="example-sidenav" [opened]="true" mode="side">
+        <div class="menuDeOpciones">
+          <div class="row" style="width: 100%;">
+            <div class="col">
+              <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-16.png" class="logotipoSkepsi">
+            </div>
+          </div>
+          <div class="row">
+            <div class="row" style="width: 100%;">
+              <div class="col">
+                <p [class.seleccionada] = "opcionMenu === 'creacion'" (click)="seleccionMenu('creacion')">CREACION</p>
+              </div>
+            </div>
+            <div class="row" style="width: 100%;">
+              <div class="col">
+                <p [class.seleccionada] = "opcionMenu === 'monitoreo'" (click)="seleccionMenu('monitoreo')">MONITOREO</p>
+              </div>
+            </div>
+            <div class="row" style="width: 100%;">
+              <div class="col">
+                <p [class.seleccionada] = "opcionMenu === 'configuracion'" (click)="seleccionMenu('configuracion')">CUENTA</p>
+              </div>
+            </div>
+          </div>
+          <div class="row " style="width: 100%;">
+            <div class="col">
+              <div class="logOut">
+                <a (click)="logOut()">
+                  <img src="../../../assets/img/skepsi/iconos/SKEPSI-WEB-13.png">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </mat-drawer>
+      <div class="example-sidenav-content">
+        <button type="button" mat-button (click)="drawer.toggle()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+          Menu
+        </button>
+        <div class="col contenido">
+          <div class="row creacion" *ngIf="opcionMenu == 'creacion'">
+            <div class="row" style="margin: 0px auto">
+              <div class="col cuadricula" (click)="seleccionMenu('tutores')">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-02.png" alt="">
+                <p [class.seleccionada] = "opcionMenu === 'tutores'">ENTRENADORES</p>
+              </div>
+              <div class="col cuadricula" (click)="seleccionMenu('instituciones')">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-05.png" alt="">
+                <p [class.seleccionada] = "opcionMenu === 'instituciones'">INSTITUCIONES</p>
+              </div>
+            </div>
+            <div class="row" style="margin: 0px auto">
+              <div class="col cuadricula" (click)="seleccionMenu('plantillas')">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-04.png" alt="">
+                <p [class.seleccionada] = "opcionMenu === 'plantillas'">PLANTILLAS</p>
+              </div>
+              <div class="col cuadricula" (click)="seleccionMenu('asuetos')">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-03.png" alt="">
+                <p [class.seleccionada] = "opcionMenu === 'asuetos'">DÍAS FESTIVOS</p>
+              </div>
+            </div>
+          </div>
+          <div class="row monitoreo" *ngIf="opcionMenu == 'monitoreo'">
+            <div class="row" style="margin: 0px auto">
+              <div class="col cuadricula" (click)="seleccionMenu('paquetes')">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-06.png" alt="">
+                <p [class.seleccionada] = "opcionMenu === 'paquetes'">PAQUETES</p>
+              </div>
+              <div class="col cuadricula" (click)="seleccionMenu('planes')">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-04.png" alt="">
+              <p [class.seleccionada] = "opcionMenu === 'planes'">PLANES</p>
+              </div>
+            </div>
+            <div class="row" style="margin: 0px auto">
+              <div class="col cuadricula" (click)="seleccionMenu('panelGeneral')">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-01.png" alt="">
+                <p [class.seleccionada] = "opcionMenu === 'panelGeneral'">PANEL GENERAL</p>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'configuracion'">
+            <div class="col" style="text-align:center"><br>
+              <h1>INFORMACIÓN DEL USUARIO</h1>
+              <div class="row">
+                <div class="col" *ngIf="mostrarAvatar">
+                  <div *ngFor="let avatar of avatares" class="previewImage">
+                    <label class="avatars">
+                      <input type="radio" name="avatar" (change)="guardarAvatar(avatar)">
+                      <img src="http://skepsi.com.mx/assets/img/avatares/{{avatar}}">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="previewImageSelected" *ngIf="admin.profileImageUrl && !mostrarAvatar">
+                    <img src="http://skepsi.com.mx/assets/img/avatares/{{admin.profileImageUrl}}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col" *ngIf="!mostrarAvatar">
+                  <button class="btn buttonSkepsi" (click)="mostrarAvatares()">Cambiar</button>
+                </div>
+                <div class="col" *ngIf="mostrarAvatar">
+                  <button class="btn buttonSkepsi" (click)="mostrarAvatarActual()">Confirmar</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <h1>Datos del usuario</h1>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Nombre</mat-label>
+                      <input type="text" matInput [(ngModel)]="admin.firstName" maxlength="100" placeholder="Nombre">
+                      <mat-error>El nombre es requerido</mat-error>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Apellido</mat-label>
+                      <input type="text" matInput [(ngModel)]="admin.lastName" maxlength="100" placeholder="Nombre">
+                      <mat-error>El apellido es requerido</mat-error>
+                    </mat-form-field>
+                  </p>
+                  <button class="btn buttonSkepsi" (click)="updateStudentName()">Actualizar</button>
+                </div>
+                <div class="col">
+                  <h1>Actualizar contraseña</h1>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Contraseña actual</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="admin.currentPassword" minlength='10' name="password">
+                      <mat-error *ngIf="admin.password">La contraseña debe ser de al menos 10 caracteres y 1 dígito</mat-error>
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Contraseña nueva</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="admin.password" minlength='10' name="password">
+                      <mat-error *ngIf="admin.password">La contraseña debe ser de al menos 10 caracteres y 1 dígito</mat-error>
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </p>
+                  <p>
+                    <mat-form-field appearance="fill" style="width:100%">
+                      <mat-label>Confirmación de contraseña nueva</mat-label>
+                      <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="admin.confirmedPassword"  name="passwordConfirm">
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  </p>
+                  <div *ngIf="admin.password != admin.confirmedPassword" style="margin-top:-30px;">
+                    <mat-error>Las contraseñas no coinciden</mat-error>
+                  </div>
+                  <button class="btn buttonSkepsi" (click)="updateStudentPassword()">Actualizar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'tutores'">
+            <app-tutores></app-tutores>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'instituciones'">
+            <app-institucion></app-institucion>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'plantillas'">
+            <app-creacion-plantillas></app-creacion-plantillas>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'asuetos'">
+            <app-holidays></app-holidays>
+          </div>
+
+          <div class="row" *ngIf="opcionMenu == 'paquetes'">
+            <app-paquetes></app-paquetes>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'planes'">
+            <app-planes></app-planes>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'panelGeneral'">
+            <app-admin-dashboard></app-admin-dashboard>
+          </div>
+        </div>
+      </div>
+    </mat-drawer-container>
+  </div>
+</div>

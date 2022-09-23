@@ -1,0 +1,18 @@
+<div class="principal">
+  <div class="contenedor">
+    <h1>Plantilla: {{todasPlantillas.name}}</h1>
+    <h2>Descripción: {{todasPlantillas.description}}</h2>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Rutinas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let routine of todasPlantillas.routines">
+          <td  scope="row">{{routine.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

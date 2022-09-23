@@ -1,0 +1,34 @@
+p.firstChild{
+  font-family: 'roboto-regular', Arial;
+  font-size: 50px;
+  text-align: center;
+  line-height: 60px;
+}
+p{
+  font-family: 'roboto-boldCondensed', Arial;
+  font-size: 30px;
+  text-align: center;
+  line-height: 30px;
+}
+.botonLogin{
+  margin-top: 5%;
+  border-radius: 5px;
+  background-color: #0F2B40;
+  color: white;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid #0F2B40;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.botonLogin:hover{
+  background-color: white;
+  color: #0F2B40;
+  border: 1px solid white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+.container{
+  margin-top: 5%;
+  text-align: center;
+}
