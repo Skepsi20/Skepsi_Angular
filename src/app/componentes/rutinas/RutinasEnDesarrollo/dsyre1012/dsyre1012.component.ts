@@ -3,6 +3,7 @@ import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
+// #region Tipos locales
 enum DSYRE1012Step {
   Instructions,
   Introduction,
@@ -16,6 +17,12 @@ enum DSYRE1012Step {
   StudentEmotions
 }
 
+interface IImageEmotion {
+  imageUrl: string;
+  emotions: string[]
+}
+// #endregion Tipos locales
+
 @Component({
   selector: 'app-dsyre1012',
   templateUrl: './dsyre1012.component.html',
@@ -24,73 +31,91 @@ enum DSYRE1012Step {
 
 export class Dsyre1012Component implements OnInit {
 
-  //VARIABLES RESULTADOS INICIO
+  // #region Variables de resultados
   private sessionId: any;
-  private resultsTable: resultsWithDate = {
-    date: '',
-    studentSessionId: '',
-    grade: 0,
-    round: 0,
-    level: 0,
-    resultDetails:[{
-      possiblePoints: 0,
-      points: 0,
-      possiblePointsDescription: '',
-      pointsDescription: ''
-    }]
-  }
+  private resultsTable?: resultsWithDate;
   private round: number = 0;
   private level: number = 0;
   private studentSessionId: string = '';
-  //VARIABLES RESULTADOS FIN
+  // #endregion Variables de resultados
 
+  // #region Variables públicas
   public calificacion : number = 0;
-
   public resultados : boolean = false;
   public rutina : boolean = true;
   public tiempoAprender : boolean = true;
 
+  public timeLeft: number = 10;
+  public timeLeftTwo: number = 120;
+  public interval:any;
+  public intervalTwo:any;
+
+
   public currentStep: DSYRE1012Step = DSYRE1012Step.Instructions;
-
-  readonly emocionesBasicasDefault: string[] = ["Alegría", "Enfado", "Miedo", "Tristeza", "Sorpresa", "Asco", "Confianza", "Interés"];
-  readonly emocionesSecundariasDefault: string[] = ["Vergüenza", "Culpa", "Bochorno", "Satisfacción", "Desprecio", "Entusiasmo", "Complacencia", "Orgullo", "Placer"];
-
-  public emocionesBasicas: string[] = [...this.emocionesBasicasDefault];
-  public emocionesSecundarias: string[] = [...this.emocionesSecundariasDefault];
+  public emocionesBasicas: string[];
+  public emocionesSecundarias: string[];
+  public imageEmotions: IImageEmotion[];
 
   public get DSYRE1012Step(): typeof DSYRE1012Step {
     return DSYRE1012Step;
   }
+  // #endregion Variables públicas
 
-  timeLeft: number = 10;
-  timeLeftTwo: number = 120;
-  interval:any;
-  intervalTwo:any;
+  // #region Variables privadas de solo-lectura
+  private readonly emocionesBasicasDefault: string[] = ["Alegría", "Enfado", "Miedo", "Tristeza", "Sorpresa", "Asco", "Confianza", "Interés"];
+  private readonly emocionesSecundariasDefault: string[] = ["Vergüenza", "Culpa", "Bochorno", "Satisfacción", "Desprecio", "Entusiasmo", "Complacencia", "Orgullo", "Placer"];
+  private readonly imageEmotionsDefault: IImageEmotion[] = [
+    { imageUrl: '../../../../../assets/img/emociones/Alegría1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Alegría2.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Asco1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Bochorno1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Bochorno2.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Complacencia1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Culpa1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Culpa2.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Desprecio1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Enfadado1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Entusiasmo1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Entusiasmo2.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Interés1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Interés2.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Miedo1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Orgullo1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Placer1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Satisfacción1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Sorpresa1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Sorpresa2.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Tristeza1.png', emotions: [] },
+    { imageUrl: '../../../../../assets/img/emociones/Vergüenza1.png', emotions: [] },
+  ];
+  // #endregion Variables privadas de solo-lectura
 
-  emocionesImagen1: string[] = [];
-  emocionesImagen2: string[] = [];
-  emocionesImagen3: string[] = [];
-  emocionesImagen4: string[] = [];
-  emocionesImagen5: string[] = [];
-  emocionesImagen6: string[] = [];
-  emocionesImagen7: string[] = [];
-  emocionesImagen8: string[] = [];
-  emocionesImagen9: string[] = [];
-  emocionesImagen10: string[] = [];
-  emocionesImagen11: string[] = [];
-  emocionesImagen12: string[] = [];
-  emocionesImagen13: string[] = [];
-  emocionesImagen14: string[] = [];
-  emocionesImagen15: string[] = [];
-  emocionesImagen16: string[] = [];
-  emocionesImagen17: string[] = [];
-  emocionesImagen18: string[] = [];
-  emocionesImagen19: string[] = [];
-  emocionesImagen20: string[] = [];
-  emocionesImagen21: string[] = [];
-  emocionesImagen22: string[] = [];
+  constructor(
+    private _resultsService: ResultsService
+  ) {
+    this.imageEmotions = [...this.imageEmotionsDefault];
+    this.emocionesBasicas = [...this.emocionesBasicasDefault];
+    this.emocionesSecundarias = [...this.emocionesSecundariasDefault];
+  }
 
-  drop(event: CdkDragDrop<string[]>) {
+  ngOnInit(): void {
+    this.initializeComponent();
+
+    // TODO: Uncomment to update activity status when finished
+    // setInterval(()=> this.statusUpdate(),30000);
+    // this.getSession();
+  }
+
+  // #region Funciones públicas
+  public goToStepFacesWithEmotions1() {
+    this.currentStep  = DSYRE1012Step.FacesWithEmotions1;
+  }
+
+  public isBasicEmotion(emocion: string): boolean {
+    return this.emocionesBasicasDefault.includes(emocion);
+  }
+
+  public drop(event: CdkDragDrop<string[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -98,162 +123,116 @@ export class Dsyre1012Component implements OnInit {
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex,
+        event.currentIndex
       );
     }
 
     this.emocionesBasicas = [...this.emocionesBasicasDefault];
     this.emocionesSecundarias = [...this.emocionesSecundariasDefault];
   }
+  // #endregion Funciones públicas
 
-  constructor(
-    private _resultsService: ResultsService
-  ) { }
-
-  ngOnInit(): void {
-    this.Inicializacion();
-    // setInterval(()=> this.statusUpdate(),30000);
-    // this.getSession();
+  // #region Funciones privadas
+  private initializeComponent() {
+    this.showInstructions();
+    this.resultados = false;
+    this.tiempoAprender = true;
+    this.timeLeftTwo = 120;
   }
 
-  // statusUpdate(){
-  //   this._resultsService.addStatus()
-  //   .subscribe(
-  //     (success)=>{
-  //       console.log("Actividad actualizada")
-  //     },(error)=>{
-  //       console.log(error);
-  //     }
-  //   )
-  // }
+  private statusUpdate() {
+    this._resultsService.addStatus()
+    .subscribe(
+      () => {/* Actividad actualizada */}
+      ,(error) => {
+        console.log(error);
+      }
+    )
+  }
 
-  instruccionesFunc(){
-    if(this.timeLeft > 0){
+  private showInstructions() {
+    if(this.timeLeft > 0) {
       clearInterval(this.interval);
     }
+
     this.interval = setInterval(() => {
       if(this.timeLeft > 0) {
         this.timeLeft--;
       } else {
-        let alarmInitRutina = <HTMLAudioElement>(
-          document.getElementById('initRutAudio')
-        );
+        let alarmInitRutina = <HTMLAudioElement>(document.getElementById('initRutAudio'));
         alarmInitRutina.play();
         this.currentStep  = DSYRE1012Step.Introduction;
         clearInterval(this.interval);
       }
-    },100)
+    }, 100)
   }
 
-  Inicializacion(){
-    this.instruccionesFunc();
-    this.resultados = false;
-    this.tiempoAprender = true;
-    this.rutina = true;
-    this.timeLeftTwo = 120;
-    // this.aprender();
+  // #region Funciones privadas con interacción con la API
+  private addResult(results: resultsWithDate) {
+    this._resultsService.addResults(results)
+    .subscribe(
+      (successResponse)=>{
+    },
+    (error)=>{
+      console.log("Error al agregar un resultado:\n",error)
+    });
   }
 
-  mostrarCaras() {
-    console.log("Se muestran las caras");
-
-    this.currentStep  = DSYRE1012Step.FacesWithEmotions1;
-  }
-
-  esEmocionBasica(emocion: string): boolean {
-    return this.emocionesBasicasDefault.includes(emocion);
-  }
-
-  // aprender(){
-  //   if(this.timeLeftTwo > 0){
-  //     clearInterval(this.intervalTwo);
-  //   }
-  //   this.intervalTwo = setInterval(() => {
-  //     if(this.timeLeftTwo > 0) {
-  //       this.timeLeftTwo--;
-  //     } else {
-  //       this.tiempoAprender  = false;
-  //       clearInterval(this.intervalTwo);
-  //     }
-  //   },1000)
-  // }
-
-  revisar(){
+  private grade() {
     let alarmInitRutina = <HTMLAudioElement>(
       document.getElementById('finEjerAudio')
     );
     alarmInitRutina.play();
 
-    var porcentaje = 0;
+    this.round++;
+    this.resultsTable = {
+      date: '',
+      studentSessionId: this.studentSessionId,
+      grade: 100,
+      round: this.round,
+      level: this.level + 1,
+      resultDetails:[{
+        possiblePoints: 1,
+        points: 1,
+        possiblePointsDescription: 'Actividad de identificación y análisis de emociones',
+        pointsDescription: 'Actividad de identificación y análisis de emociones'
+      }]
+    }
 
-    //LLENADO DE TABLA RESULTS INICIO
-      this.round++;
-      //StudentSessionId
-      this.resultsTable.studentSessionId = this.studentSessionId;
-
-      //Grade
-      var partialGrade = 100;
-      this.resultsTable.grade = partialGrade;
-
-      //Round
-      this.resultsTable.round = this.round;
-
-      //level
-      this.resultsTable.level = this.level+1;
-
-    //LLENADO DE TABLA RESULTS FIN
-
-    //LLENADO DE TABLA RESULTS DETAILS INICIO
-      //Possible points
-      this.resultsTable.resultDetails[0].possiblePoints = 1;
-
-      //Points
-      this.resultsTable.resultDetails[0].points = 1;
-
-      //Possible points description
-      this.resultsTable.resultDetails[0].possiblePointsDescription = "Actividad de identificación y análisis de emociones";
-
-      //Points description
-      this.resultsTable.resultDetails[0].pointsDescription ="Actividad de identificación y análisis de emociones";
-
-      //Metodo para crear resultado
-      this.addResult(this.resultsTable);
-    //LLENADO DE TABLA RESULTS DETAILS FIN
+    this.addResult(this.resultsTable);
   }
 
+  private getSession() {
+    this._resultsService.getSession()
+    .subscribe(
+      (success)=>{
+        if(success){
+          this.sessionId = success.id;
+          this.getCurrentStudentSession();
+        } else {
+          //TODO: show message not session available
+        }
+      },
+      (error) =>{
+        console.log(error);
+      }
+    );
+  }
 
-  //RESULTADOS INICIO
-  // getSession(){
-  //   this._resultsService.getSession()
-  //   .subscribe(
-  //     (success)=>{
-  //       if(success){
-  //         this.sessionId = success.id;
-  //         this.getStudentSessions();
-  //       }else{
-  //         //TODO: show message not session available
-  //       }
-  //     },
-  //     (error) =>{
-  //       console.log(error);
-  //     }
-  //   );
-  // }
-
-  getStudentSessions(){
+  private getCurrentStudentSession() {
     this._resultsService.getStudentSessions()
     .subscribe(
       (success)=>{
         if(success){
           this.studentSessionId = success.id;
-          this.Inicializacion();
+          this.initializeComponent();
         }
         else{
           this._resultsService.addStudentSessions(this.sessionId)
           .subscribe(
             (success)=>{
               this.studentSessionId = success.id;
-              this.Inicializacion();
+              this.initializeComponent();
             },
             (error) =>{
               console.log(error)
@@ -265,14 +244,6 @@ export class Dsyre1012Component implements OnInit {
       console.log("ERROR",error)
     });
   }
-
-  addResult(results: resultsWithDate){
-    this._resultsService.addResults(results)
-    .subscribe(
-      (successResponse)=>{
-    },
-    (error)=>{
-      console.log("ERROR",error)
-    });
-  }
+  // #endregion Funciones privadas con interacción con la API
+  // #endregion Funciones privadas
 }
