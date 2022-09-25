@@ -158,7 +158,6 @@ export class Dsyre1012Component implements OnInit {
     console.log("Se muestran las caras");
 
     this.currentStep  = DSYRE1012Step.FacesWithEmotions1;
-    this.mostrarCarasDOM = true;
   }
 
   esEmocionBasica(emocion: string): boolean {
