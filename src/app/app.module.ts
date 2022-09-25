@@ -122,6 +122,7 @@ import { SuspendidosComponent } from './componentes/suspendidos/suspendidos.comp
 import { ChatbotTutorComponent } from './componentes/Tutores/chatbot-tutor/chatbot-tutor.component';
 import { FinanzasComponent } from './componentes/finanzas/finanzas/finanzas.component';
 import { Aglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Antochi/Recuperacion/aglre1012/aglre1012.component';
+import { Dsyre1012Component } from './componentes/rutinas/RutinasEnDesarrollo/dsyre1012/dsyre1012.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -193,6 +194,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ChatbotTutorComponent,
     FinanzasComponent,
     Aglre1012Component,
+    Dsyre1012Component,
   ],
   imports: [
     BrowserModule,
