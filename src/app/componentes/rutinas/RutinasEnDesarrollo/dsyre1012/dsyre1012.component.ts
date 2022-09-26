@@ -9,6 +9,7 @@ enum DSYRE1012Step {
   Introduction,
   FacesWithEmotions1,
   FacesWithEmotions2,
+  StoriesInstructions,
   Story1,
   Story2,
   Story3,
@@ -31,6 +32,41 @@ interface IImageEmotion {
 
 export class Dsyre1012Component implements OnInit {
 
+  // #region Variables públicas de solo-lectura
+  public readonly storyMinIndex: number = 0;
+  public readonly storyMaxIndex: number = 8;
+  public readonly imagesDirectory: string = '../../../../../assets/img/emociones';
+  // #endregion públicas privadas de solo-lectura
+
+  // #region Variables privadas de solo-lectura
+  private readonly emocionesBasicasDefault: string[] = ["Alegría", "Enfado", "Miedo", "Tristeza", "Sorpresa", "Asco", "Confianza", "Interés"];
+  private readonly emocionesSecundariasDefault: string[] = ["Vergüenza", "Culpa", "Bochorno", "Satisfacción", "Desprecio", "Entusiasmo", "Complacencia", "Orgullo", "Placer"];
+  private readonly imageEmotionsDefault: string[] = [
+    `${this.imagesDirectory}/Alegría1.png`,
+    `${this.imagesDirectory}/Alegría2.png`,
+    `${this.imagesDirectory}/Asco1.png`,
+    `${this.imagesDirectory}/Bochorno1.png`,
+    `${this.imagesDirectory}/Bochorno2.png`,
+    `${this.imagesDirectory}/Complacencia1.png`,
+    `${this.imagesDirectory}/Culpa1.png`,
+    `${this.imagesDirectory}/Culpa2.png`,
+    `${this.imagesDirectory}/Desprecio1.png`,
+    `${this.imagesDirectory}/Enfadado1.png`,
+    `${this.imagesDirectory}/Entusiasmo1.png`,
+    `${this.imagesDirectory}/Entusiasmo2.png`,
+    `${this.imagesDirectory}/Interés1.png`,
+    `${this.imagesDirectory}/Interés2.png`,
+    `${this.imagesDirectory}/Miedo1.png`,
+    `${this.imagesDirectory}/Orgullo1.png`,
+    `${this.imagesDirectory}/Placer1.png`,
+    `${this.imagesDirectory}/Satisfacción1.png`,
+    `${this.imagesDirectory}/Sorpresa1.png`,
+    `${this.imagesDirectory}/Sorpresa2.png`,
+    `${this.imagesDirectory}/Tristeza1.png`,
+    `${this.imagesDirectory}/Vergüenza1.png`
+  ];
+  // #endregion Variables privadas de solo-lectura
+
   // #region Variables de resultados
   private sessionId: any;
   private resultsTable?: resultsWithDate;
@@ -47,55 +83,103 @@ export class Dsyre1012Component implements OnInit {
 
   public timeLeft: number = 10;
   public timeLeftTwo: number = 120;
-  public interval:any;
-  public intervalTwo:any;
+  public interval: any;
+  public intervalTwo: any;
 
-
-  public currentStep: DSYRE1012Step = DSYRE1012Step.Instructions;
+  public currentStep: DSYRE1012Step;
   public emocionesBasicas: string[];
   public emocionesSecundarias: string[];
   public imageEmotions: IImageEmotion[];
+  public storyIndex: number;
+  public showStoriesEmotions: boolean;
+  public charactersOfCurrentStory: IImageEmotion[];
 
   public get DSYRE1012Step(): typeof DSYRE1012Step {
     return DSYRE1012Step;
   }
   // #endregion Variables públicas
 
-  // #region Variables privadas de solo-lectura
-  private readonly emocionesBasicasDefault: string[] = ["Alegría", "Enfado", "Miedo", "Tristeza", "Sorpresa", "Asco", "Confianza", "Interés"];
-  private readonly emocionesSecundariasDefault: string[] = ["Vergüenza", "Culpa", "Bochorno", "Satisfacción", "Desprecio", "Entusiasmo", "Complacencia", "Orgullo", "Placer"];
-  private readonly imageEmotionsDefault: IImageEmotion[] = [
-    { imageUrl: '../../../../../assets/img/emociones/Alegría1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Alegría2.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Asco1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Bochorno1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Bochorno2.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Complacencia1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Culpa1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Culpa2.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Desprecio1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Enfadado1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Entusiasmo1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Entusiasmo2.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Interés1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Interés2.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Miedo1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Orgullo1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Placer1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Satisfacción1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Sorpresa1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Sorpresa2.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Tristeza1.png', emotions: [] },
-    { imageUrl: '../../../../../assets/img/emociones/Vergüenza1.png', emotions: [] },
+  // #region Variables privadas
+  private charactersByStory: IImageEmotion[][] = [
+    [
+      { imageUrl: `${this.imagesDirectory}/personajes/BufonCampesino0.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/BufonCampesino1.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/BufonCampesino2.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/BufonCampesino3.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/BufonCampesino4.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/BufonCampesino5.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/BufonCampesino6.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/BufonCampesino7.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/BufonCampesino8.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/BufonCampesino9.png`, emotions: [] }
+    ],
+    [
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas0.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas1.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas2.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas3.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas4.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas5.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas6.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas7.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas8.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas9.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas10.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas11.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas12.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/CuervoPlumas13.png`, emotions: [] }
+    ],
+    [
+      { imageUrl: `${this.imagesDirectory}/personajes/LeonRaton0.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LeonRaton1.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LeonRaton2.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LeonRaton3.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LeonRaton4.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LeonRaton5.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LeonRaton6.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LeonRaton7.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LeonRaton8.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LeonRaton9.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LeonRaton10.png`, emotions: [] }
+    ],
+    [
+      { imageUrl: `${this.imagesDirectory}/personajes/LoboCabritos0.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LoboCabritos1.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LoboCabritos2.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LoboCabritos3.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LoboCabritos4.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LoboCabritos5.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/LoboCabritos6.png`, emotions: [] }
+    ],
+    [
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey0.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey1.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey2.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey3.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey4.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey5.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey6.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey7.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey8.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey9.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey10.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey11.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey12.png`, emotions: [] },
+      { imageUrl: `${this.imagesDirectory}/personajes/RanaRey13.png`, emotions: [] }
+    ]
   ];
-  // #endregion Variables privadas de solo-lectura
+  // #endregion Variables privadas
 
   constructor(
     private _resultsService: ResultsService
   ) {
-    this.imageEmotions = [...this.imageEmotionsDefault];
+    this.imageEmotions = this.resetImageEmotions();
     this.emocionesBasicas = [...this.emocionesBasicasDefault];
     this.emocionesSecundarias = [...this.emocionesSecundariasDefault];
+    this.currentStep = DSYRE1012Step.Instructions;
+    this.storyIndex = 0;
+    this.showStoriesEmotions = false;
+    this.charactersOfCurrentStory = [];
   }
 
   ngOnInit(): void {
@@ -107,8 +191,99 @@ export class Dsyre1012Component implements OnInit {
   }
 
   // #region Funciones públicas
-  public goToStepFacesWithEmotions1() {
-    this.currentStep  = DSYRE1012Step.FacesWithEmotions1;
+  public showStoryEmotions(): void {
+    this.showStoriesEmotions = true;
+
+    switch(this.currentStep) {
+      case DSYRE1012Step.Story1:
+        this.charactersOfCurrentStory = this.charactersByStory[0];
+        break;
+      case DSYRE1012Step.Story2:
+        this.charactersOfCurrentStory = this.charactersByStory[1];
+        break;
+      case DSYRE1012Step.Story3:
+        this.charactersOfCurrentStory = this.charactersByStory[2];
+        break;
+      case DSYRE1012Step.Story4:
+        this.charactersOfCurrentStory = this.charactersByStory[3];
+        break;
+      case DSYRE1012Step.Story5:
+        this.charactersOfCurrentStory = this.charactersByStory[4];
+        break;
+    }
+  }
+
+  public nextStep(): void {
+    switch(this.currentStep) {
+      case DSYRE1012Step.Instructions:
+        this.currentStep  = DSYRE1012Step.Introduction;
+        break;
+
+      case DSYRE1012Step.Introduction:
+        this.currentStep  = DSYRE1012Step.FacesWithEmotions1;
+        break;
+
+      case DSYRE1012Step.FacesWithEmotions1:
+        this.currentStep  = DSYRE1012Step.FacesWithEmotions2;
+        this.imageEmotions = this.resetImageEmotions();
+
+        let facesDiv = document.getElementById('caras-div');
+        if (facesDiv) {
+          facesDiv.scrollTop = 0;
+        }
+        break;
+
+      case DSYRE1012Step.FacesWithEmotions2:
+        this.currentStep  = DSYRE1012Step.StoriesInstructions;
+        this.imageEmotions = this.resetImageEmotions();
+        break;
+
+      case DSYRE1012Step.StoriesInstructions:
+        this.currentStep  = DSYRE1012Step.Story1;
+        break;
+
+      case DSYRE1012Step.Story1:
+        this.showStoriesEmotions = false;
+        this.storyIndex = this.storyMinIndex;
+        this.currentStep  = DSYRE1012Step.Story2;
+        break;
+
+      case DSYRE1012Step.Story2:
+        this.showStoriesEmotions = false;
+        this.storyIndex = this.storyMinIndex;
+        this.currentStep  = DSYRE1012Step.Story3;
+        break;
+
+      case DSYRE1012Step.Story3:
+        this.showStoriesEmotions = false;
+        this.storyIndex = this.storyMinIndex;
+        this.currentStep  = DSYRE1012Step.Story4;
+        break;
+
+      case DSYRE1012Step.Story4:
+        this.showStoriesEmotions = false;
+        this.storyIndex = this.storyMinIndex;
+        this.currentStep  = DSYRE1012Step.Story5;
+        break;
+
+      case DSYRE1012Step.Story5:
+        this.showStoriesEmotions = false;
+        this.storyIndex = this.storyMinIndex;
+        this.currentStep  = DSYRE1012Step.StudentEmotions;
+        break;
+    }
+  }
+
+  public previousPicture(): void {
+    this.storyIndex--;
+  }
+
+  public nextPicture(): void {
+    this.storyIndex++;
+
+    if(this.storyIndex == this.storyMaxIndex) {
+
+    }
   }
 
   public isBasicEmotion(emocion: string): boolean {
@@ -125,6 +300,7 @@ export class Dsyre1012Component implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+      this.deleteRepeated();
     }
 
     this.emocionesBasicas = [...this.emocionesBasicasDefault];
@@ -138,6 +314,28 @@ export class Dsyre1012Component implements OnInit {
     this.resultados = false;
     this.tiempoAprender = true;
     this.timeLeftTwo = 120;
+  }
+
+  private deleteRepeated(): void {
+    if (this.currentStep == DSYRE1012Step.FacesWithEmotions1 || this.currentStep == DSYRE1012Step.FacesWithEmotions2) {
+      this.imageEmotions.forEach(imageEmotion => {
+        imageEmotion.emotions = [...new Set(imageEmotion.emotions)];
+      });
+    }
+    else {
+      this.charactersOfCurrentStory.forEach(imageEmotion => {
+        imageEmotion.emotions = [...new Set(imageEmotion.emotions)];
+      });
+    }
+  }
+
+  private resetImageEmotions(): IImageEmotion[] {
+    return this.imageEmotionsDefault.map(imageUrl => {
+      return {
+        imageUrl: imageUrl,
+        emotions: []
+      }
+    });
   }
 
   private statusUpdate() {
@@ -164,7 +362,7 @@ export class Dsyre1012Component implements OnInit {
         this.currentStep  = DSYRE1012Step.Introduction;
         clearInterval(this.interval);
       }
-    }, 100)
+    }, 1000)
   }
 
   // #region Funciones privadas con interacción con la API
