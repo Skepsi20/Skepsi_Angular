@@ -8,11 +8,12 @@ import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { SortableData } from 'ngx-sortablejs';
 
 @Component({
-  selector: 'app-aglre1012',
-  templateUrl: './aglre1012.component.html',
-  styleUrls: ['./aglre1012.component.css']
+  selector: 'app-eglre1012',
+  templateUrl: './eglre1012.component.html',
+  styleUrls: ['./eglre1012.component.css']
 })
-export class Aglre1012Component implements OnInit {
+export class Eglre1012Component implements OnInit {
+
   //VARIABLES RESULTADOS INICIO
     private sessionId: any;
     private resultsTable: resultsWithDate = {
