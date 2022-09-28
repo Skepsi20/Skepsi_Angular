@@ -4,12 +4,15 @@ import { AGNRE1012Component } from '../RutinasTerminadas/Gnostiki/Antochi/Recupe
 import { EGNRE1012Component } from '../RutinasTerminadas/Gnostiki/Exousia/Recuperacion/egnre1012/egnre1012.component';
 import { DynamicComponentDirective } from '../dynamic-component.directive';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
-import { AMARE1012Component } from '../RutinasEnDesarrollo/amare1012/amare1012.component';
-import { Dmaan1012Component } from '../RutinasEnDesarrollo/dmaan1012/dmaan1012.component';
 import { Router } from '@angular/router';
 import { Amaco1012Component } from '../RutinasTerminadas/Mathimatiki/Antochi/Comprension/amaco1012/amaco1012.component';
 import { DGLRE1012Component } from '../RutinasTerminadas/Glossa/Dynami/Recuperacion/dglre1012/dglre1012.component';
+import { Dmaan1012Component } from '../RutinasTerminadas/Mathimatiki/Dynami/Analisis/dmaan1012/dmaan1012.component';
 import { Dsyre1012Component } from '../RutinasTerminadas/Synaisthimata/Dynami/Recuperacion/dsyre1012/dsyre1012.component';
+import { Dmaco1012Component } from '../RutinasTerminadas/Mathimatiki/Dynami/Comprension/dmaco1012/dmaco1012.component';
+import { Emaco1012Component } from '../RutinasTerminadas/Mathimatiki/Exousia/Comprension/emaco1012/emaco1012.component';
+import { Amaan1012Component } from '../RutinasTerminadas/Mathimatiki/Antochi/Analisis/amaan1012/amaan1012.component';
+import { Emaan1012Component } from '../RutinasTerminadas/Mathimatiki/Exousia/Analisis/emaan1012/emaan1012.component';
 
 @Component({
   selector: 'app-rutina-actual',
@@ -87,7 +90,11 @@ export class RutinaActualComponent implements OnInit {
 
       /* DANIEL */
       case '1012AMACO': { componenteACrear = Amaco1012Component } break;
+      case '1012DMACO': { componenteACrear = Dmaco1012Component } break;
+      case '1012EMACO': { componenteACrear = Emaco1012Component } break;
+      case '1012AMAAN': { componenteACrear = Amaan1012Component } break;
       case '1012DMAAN': { componenteACrear = Dmaan1012Component } break;
+      case '1012EMAAN': { componenteACrear = Emaan1012Component } break;
 
       /* OMAR */
       case '1012DSYRE': { componenteACrear = Dsyre1012Component } break;

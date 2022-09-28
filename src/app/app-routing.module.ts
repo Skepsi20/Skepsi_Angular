@@ -31,9 +31,6 @@ import { RolesGuard } from './componentes/Auth/login/roles.guard';
 import { PosiblesClientesComponent } from './componentes/mensajes/posibles-clientes.component';
 import { AdminDashboardComponent } from './componentes/admin-dashboard/admin-dashboard.component';
 import { TutoresDashboardAdminComponent } from './componentes/tutores-dashboard-admin/tutores-dashboard-admin.component';
-import { Amaan1012Component } from './componentes/rutinas/RutinasEnDesarrollo/amaan1012/amaan1012.component';
-import { Dmaan1012Component } from './componentes/rutinas/RutinasEnDesarrollo/dmaan1012/dmaan1012.component';
-import { Emaan1012Component } from './componentes/rutinas/RutinasEnDesarrollo/emaan1012/emaan1012.component';
 import { Emaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Exousia/Comprension/emaco1012/emaco1012.component';
 import { Dmaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Dynami/Comprension/dmaco1012/dmaco1012.component';
 import { ConfirmationComponent } from './componentes/Auth/confirmation/confirmation.component';
@@ -106,17 +103,10 @@ const routes: Routes = [
 
   {path:'test', component: Eglre1012Component},
   {path:'test-omar', component: Dsyre1012Component},
+  {path:'test-daniel', component: Emaco1012Component},
 
   //https://www.skepsi.com.mx/#/confirm-email?email=rixflos77@gmail.com&token=CfDJ8H7g1sKTX9xBlBUi+eUBYoN3X3Ff3NBDHOpzFSfD1/b61DMU+uZrWa57L2v5w6zKgOoATD4/ckqcTxsXBHjN8XQZ5WYdjXozhEbhU4N2yB2xBLm0KOxZeYgfjLf6sT+TGuuySBMBe3yinIt+k8z0OMz8v7X1qBfux5Fji1Lmt2eVH81niLwtxhv0INBWXGVGNKdnluLmilKBngyaoN8sT+4n8SDWY3fRkuuuQIs7swPzTHLgKJiAz9E/9glDVIESRQ==
 
-
-  /* Rutinas DANIEL */
-  {path:'amaan', component: Amaan1012Component, canActivate:[RolesGuard], data:{expectedRole: ['Administrador']}},
-  {path:'dmaan', component: Dmaan1012Component, canActivate:[RolesGuard], data:{expectedRole: ['Administrador']}},
-  {path:'emaan', component: Emaan1012Component, canActivate:[RolesGuard], data:{expectedRole: ['Administrador']}},
-  {path:'amaco', component: Emaco1012Component, canActivate:[RolesGuard], data:{expectedRole: ['Administrador']}},
-  {path:'dmaco', component: Dmaco1012Component, canActivate:[RolesGuard], data:{expectedRole: ['Administrador']}},
-  {path:'emaco', component: Emaco1012Component, canActivate:[RolesGuard], data:{expectedRole: ['Administrador']}},
 
 
   /*LANDING PAGE ROUTES*/

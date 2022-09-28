@@ -109,7 +109,7 @@ export class Emaco1012Component implements OnInit {
       this.tiempoSegundosGeneral + this.tiempoSegundosInstrucciones;
     this.initContEjerc();
     //this.Inicializacion();
-    let _conteoTiempo = timer(0, 1000).subscribe((_x) => {
+    let _conteoTiempo = timer(0, 1000).subscribe((_x:any) => {
       this.sonarAlarmas();
       this.tTimer--;
       this.tTimerGeneral--;
