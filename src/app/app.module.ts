@@ -51,7 +51,6 @@ import { MatTableModule } from '@angular/material/table';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { TutoresComponent } from './componentes/Tutores/tutores/tutores.component';
 import { DGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Dynami/Recuperacion/dgnre1012/dgnre1012.component';
-import { AMARE1012Component } from './componentes/rutinas/RutinasEnDesarrollo/amare1012/amare1012.component';
 import { AGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Antochi/Recuperacion/agnre1012/agnre1012.component';
 import { EGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Exousia/Recuperacion/egnre1012/egnre1012.component';
 import { DGLRE1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Dynami/Recuperacion/dglre1012/dglre1012.component';
@@ -91,9 +90,6 @@ import { NotFoundComponent } from './componentes/not-found/not-found.component';
 import { PosiblesClientesComponent } from './componentes/mensajes/posibles-clientes.component';
 import { AdminDashboardComponent } from './componentes/admin-dashboard/admin-dashboard.component';
 import { TutoresDashboardAdminComponent } from './componentes/tutores-dashboard-admin/tutores-dashboard-admin.component';
-import { Amaan1012Component } from './componentes/rutinas/RutinasEnDesarrollo/amaan1012/amaan1012.component';
-import { Dmaan1012Component } from './componentes/rutinas/RutinasEnDesarrollo/dmaan1012/dmaan1012.component';
-import { Emaan1012Component } from './componentes/rutinas/RutinasEnDesarrollo/emaan1012/emaan1012.component';
 import { Amaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Antochi/Comprension/amaco1012/amaco1012.component';
 import { Dmaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Dynami/Comprension/dmaco1012/dmaco1012.component';
 import { Emaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Exousia/Comprension/emaco1012/emaco1012.component';
@@ -124,6 +120,9 @@ import { Aglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glos
 import { Dsyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Dynami/Recuperacion/dsyre1012/dsyre1012.component';
 import { Eglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Exousia/Recuperacion/eglre1012/eglre1012.component';
 import { SortablejsModule } from 'ngx-sortablejs';
+import { Amaan1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Antochi/Analisis/amaan1012/amaan1012.component';
+import { Dmaan1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Dynami/Analisis/dmaan1012/dmaan1012.component';
+import { Emaan1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Exousia/Analisis/emaan1012/emaan1012.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -134,7 +133,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   declarations: [
     AppComponent,
     TutoresComponent,
-    AMARE1012Component,
     AGNRE1012Component,
     EGNRE1012Component,
     DGLRE1012Component,

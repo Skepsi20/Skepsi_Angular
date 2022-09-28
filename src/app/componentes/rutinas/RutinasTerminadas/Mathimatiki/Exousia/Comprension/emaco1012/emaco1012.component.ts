@@ -68,7 +68,7 @@ export class Emaco1012Component implements OnInit {
 
   public tiempoSegundosCrono = 25;
   public segundosDescanso = 5;
-  public tiempoSegundosGeneral = 12;
+  public tiempoSegundosGeneral = 120;
   public tiempoSegundosInstrucciones = 2;
 
   public tTimerGeneral = 0;
@@ -83,7 +83,7 @@ export class Emaco1012Component implements OnInit {
   public resultadoEjer: Array<any> = [];
 
 
-  public ejercActivo = 3;
+  public ejercActivo = 1;
 
   public vistaAngulosFig: Array<any> = [];
   public listaContenedores: Array<any> = [];

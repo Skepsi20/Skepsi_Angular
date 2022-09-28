@@ -64,9 +64,9 @@ export class Amaan1012Component implements OnInit {
   public elemVacioOper: any;
   public inicioCrono: Date = new Date();
 
-  public tiempoSegundosCrono = 45;
+  public tiempoSegundosCrono = 35;
   public segundosDescanso = 5;
-  public tiempoSegundosGeneral = 65;
+  public tiempoSegundosGeneral = 160;
 
   public tiempoSegundosInstrucciones = 2;
 

@@ -88,7 +88,7 @@ export class Dmaan1012Component implements OnInit {
   public banderaEjer3: boolean = false;
   public bandEjer4: boolean = false;
 
-  public ejercActivo = 3;
+  public ejercActivo = 1;
 
   public listaCaras: any;
   public contenedorCaras: Array<any> = [];
