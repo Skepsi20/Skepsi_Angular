@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TutoresComponent } from './componentes/Tutores/tutores/tutores.component';
-import { AGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Antochi/Recuperacion/agnre1012/agnre1012.component';
-import { DGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Dynami/Recuperacion/dgnre1012/dgnre1012.component';
-import { EGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Exousia/Recuperacion/egnre1012/egnre1012.component';
-import { AMARE1012Component } from './componentes/rutinas/RutinasEnDesarrollo/amare1012/amare1012.component';
-import { DGLRE1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Dynami/Recuperacion/dglre1012/dglre1012.component';
 import { LoginComponent } from './componentes/Auth/login/login.component';
 import { RegisterComponent } from './componentes/Auth/register/register.component';
 import { UserGuardGuard } from './componentes/Auth/login/user-guard.guard';
@@ -62,17 +57,10 @@ import { Amaco1012Component } from './componentes/rutinas/RutinasTerminadas/Math
 import { FinanzasComponent } from './componentes/finanzas/finanzas/finanzas.component';
 import { Aglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Antochi/Recuperacion/aglre1012/aglre1012.component';
 import { Eglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Exousia/Recuperacion/eglre1012/eglre1012.component';
+import { Dsyre1012Component } from './componentes/rutinas/RutinasEnDesarrollo/dsyre1012/dsyre1012.component';
 
 const routes: Routes = [
   {path:'', component: InicioComponent},
-  /*
-  {path:'dgnre', component: DGNRE1012Component},
-  {path:'agnre', component: AGNRE1012Component},
-  {path:'egnre', component: EGNRE1012Component},
-  {path:'dglre', component: DGLRE1012Component},
-  {path:'amare', component: AMARE1012Component},
-  {path:'amare', component: AMARE1012Component, canActivate: [UserGuardGuard]},
-  */
   {path:'inicio', component: InicioComponent},
   {path:'login', component: LoginComponent},
   {path:'register', component: RegisterComponent},
@@ -117,6 +105,7 @@ const routes: Routes = [
 
 
   {path:'test', component: Eglre1012Component},
+  {path:'test-omar', component: Dsyre1012Component},
 
   //https://www.skepsi.com.mx/#/confirm-email?email=rixflos77@gmail.com&token=CfDJ8H7g1sKTX9xBlBUi+eUBYoN3X3Ff3NBDHOpzFSfD1/b61DMU+uZrWa57L2v5w6zKgOoATD4/ckqcTxsXBHjN8XQZ5WYdjXozhEbhU4N2yB2xBLm0KOxZeYgfjLf6sT+TGuuySBMBe3yinIt+k8z0OMz8v7X1qBfux5Fji1Lmt2eVH81niLwtxhv0INBWXGVGNKdnluLmilKBngyaoN8sT+4n8SDWY3fRkuuuQIs7swPzTHLgKJiAz9E/9glDVIESRQ==
 
