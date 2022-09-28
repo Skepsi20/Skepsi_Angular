@@ -39,8 +39,17 @@
           </div>
           <div>
             <div *ngIf="dragAndDrop" style="margin-top: 50px;">
+              <!-- BARRA DE PROGRESO INICIO -->
+              <div class="row progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                  [attr.aria-valuenow]="timeLeftTwo" [style.width]="(timeLeftTwo*5)+'%'" aria-valuemin="0" aria-valuemax="20"
+                  style="margin:0px auto;">
+                </div>
+              </div>
+              <!-- BARRA DE PROGRESO FIN -->
+
               <h1>Coloca únicamente las imagenes que se te mostraron <b> en el orden </b> en el que las memorizaste con su sonido</h1>
-  
+
               <h1>Sonidos</h1>
               <div class="grid">
                 <div class="col respuestas" 
@@ -60,7 +69,7 @@
                       [sortablejs]="respuestasDragAndDrop" 
                       [sortablejsOptions]="options">
                         <div *ngFor="let item of respuestasDragAndDrop"
-                            class="grid-square item">
+                            class="grid-square item" (change)="checkDragAndDrop()">
                             <img src="{{item.imagen}}" alt="">
                         </div>
                   </div>

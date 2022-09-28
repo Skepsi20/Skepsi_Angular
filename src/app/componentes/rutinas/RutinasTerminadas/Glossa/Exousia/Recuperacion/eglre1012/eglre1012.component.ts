@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ElementRef, ViewChild } from '@angular/core';
 import { dglre } from 'src/app/Models/rutinas/LenguajeComunicacion/dglre.model';
 import { DGLRE1012Service } from 'src/app/services/rutinas/LenguajeComunicacion/dglre1012.service';
-import {CdkDragDrop, CdkDragEnter, CdkDragMove, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { SortableData } from 'ngx-sortablejs';
@@ -74,8 +73,10 @@ export class Eglre1012Component implements OnInit {
 
 
     //Temporizador
-    timeLeft: number = 10;
+    timeLeft: number = 1;
+    timeLeftTwo: number = 20;
     interval:any;
+    intervalTwo:any;
 
   //Variables de rutina fin
 
@@ -131,6 +132,20 @@ export class Eglre1012Component implements OnInit {
       }
     },1000)
   }
+
+  temporizadorSonidos(){
+    if(this.timeLeftTwo > 0){
+      clearInterval(this.intervalTwo);
+    }
+    this.intervalTwo = setInterval(() => {
+      if(this.timeLeftTwo > 0) {
+        this.timeLeftTwo--;
+      } else {
+        this.revisar();
+        clearInterval(this.intervalTwo);
+      }
+    },1000)
+  } 
 
   Inicializacion(){
     //Limpiar variables
@@ -234,11 +249,17 @@ export class Eglre1012Component implements OnInit {
         this.tiempoAudiosDOM = false;
         this.tiempoAudiosDOMSinImagen = true;
         this.dragAndDrop = true;
+        this.temporizadorSonidos()
       }
     },8000);
   }
+ 
+  checkDragAndDrop(){
+    console.log("LLEGO")
+  }
 
   revisar(){
+    console.log("RESPUESTAS DEL DRAG AND DROP",this.respuestasDragAndDrop)
     var porcentaje = 0;
     for (let index = 0; index < this.cantidadAudios[this.level]; index++) {
       if(this.respuestasDragAndDrop[index].nombre == this.arregloDeAudios[index].nombre){
