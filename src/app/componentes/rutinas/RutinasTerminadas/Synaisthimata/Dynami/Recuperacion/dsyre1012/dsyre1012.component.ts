@@ -35,7 +35,7 @@ export class Dsyre1012Component implements OnInit {
   // #region Variables públicas de solo-lectura
   public readonly storyMinIndex: number = 0;
   public readonly storyMaxIndex: number = 8;
-  public readonly imagesDirectory: string = '../../../../../assets/img/emociones';
+  public readonly imagesDirectory: string = '../assets/img/emociones';
   // #endregion públicas privadas de solo-lectura
 
   // #region Variables privadas de solo-lectura

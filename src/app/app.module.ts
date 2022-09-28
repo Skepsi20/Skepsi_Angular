@@ -121,7 +121,7 @@ import { SuspendidosComponent } from './componentes/suspendidos/suspendidos.comp
 import { ChatbotTutorComponent } from './componentes/Tutores/chatbot-tutor/chatbot-tutor.component';
 import { FinanzasComponent } from './componentes/finanzas/finanzas/finanzas.component';
 import { Aglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Antochi/Recuperacion/aglre1012/aglre1012.component';
-import { Dsyre1012Component } from './componentes/rutinas/RutinasEnDesarrollo/dsyre1012/dsyre1012.component';
+import { Dsyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Dynami/Recuperacion/dsyre1012/dsyre1012.component';
 import { Eglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Exousia/Recuperacion/eglre1012/eglre1012.component';
 import { SortablejsModule } from 'ngx-sortablejs';
 

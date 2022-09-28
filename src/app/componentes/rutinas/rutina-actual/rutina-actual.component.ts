@@ -9,7 +9,7 @@ import { Dmaan1012Component } from '../RutinasEnDesarrollo/dmaan1012/dmaan1012.c
 import { Router } from '@angular/router';
 import { Amaco1012Component } from '../RutinasTerminadas/Mathimatiki/Antochi/Comprension/amaco1012/amaco1012.component';
 import { DGLRE1012Component } from '../RutinasTerminadas/Glossa/Dynami/Recuperacion/dglre1012/dglre1012.component';
-import { Dsyre1012Component } from '../RutinasEnDesarrollo/dsyre1012/dsyre1012.component';
+import { Dsyre1012Component } from '../RutinasTerminadas/Synaisthimata/Dynami/Recuperacion/dsyre1012/dsyre1012.component';
 
 @Component({
   selector: 'app-rutina-actual',
