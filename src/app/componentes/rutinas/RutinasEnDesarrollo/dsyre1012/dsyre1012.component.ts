@@ -184,10 +184,8 @@ export class Dsyre1012Component implements OnInit {
 
   ngOnInit(): void {
     this.initializeComponent();
-
-    // TODO: Uncomment to update activity status when finished
-    // setInterval(()=> this.statusUpdate(),30000);
-    // this.getSession();
+    setInterval(()=> this.statusUpdate(), 30000);
+    this.getSession();
   }
 
   // #region Funciones públicas
@@ -270,6 +268,7 @@ export class Dsyre1012Component implements OnInit {
         this.showStoriesEmotions = false;
         this.storyIndex = this.storyMinIndex;
         this.currentStep  = DSYRE1012Step.StudentEmotions;
+        this.sendResult();
         break;
     }
   }
@@ -376,12 +375,7 @@ export class Dsyre1012Component implements OnInit {
     });
   }
 
-  private grade() {
-    let alarmInitRutina = <HTMLAudioElement>(
-      document.getElementById('finEjerAudio')
-    );
-    alarmInitRutina.play();
-
+  private sendResult() {
     this.round++;
     this.resultsTable = {
       date: '',
