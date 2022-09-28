@@ -1,21 +1,24 @@
 /* CLASES PREDETERMINADAS INICIO */
-.AMACO{
+.EMAAN {
   width: 100%;
   height: 100%;
-  background-image: url('../../../../../.././../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-36.png');
+  background-image: url('../../../../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-36.png');
   background-repeat: repeat;
   padding-bottom: 50px;
 }
-.skepsiLogo{
+
+.skepsiLogo {
   width: 100%;
-  background-color:#0B2A4A;
+  background-color: #0B2A4A;
   padding: 5px;
 }
-.skepsiLogo img{
+
+.skepsiLogo img {
   width: 100px;
   height: auto;
 }
-.general{
+
+.general {
   width: 85%;
   height: 85%;
   text-align: center;
@@ -25,16 +28,20 @@
   border-radius: 10px;
   padding: 15px;
   background-color: white;
-  background-image:  linear-gradient(rgba(255,255,255,0.8), rgba(255, 255, 255, 0.5)), url('../../../../../../../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-33.png');
+  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5)), url('../../../../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-33.png');
   overflow: scroll;
 }
-.progress{
+
+.progress {
   height: 20px;
+  margin-bottom: 25px;
 }
-.progress-bar-animated{
+
+.progress-bar-animated {
   border-radius: 5px;
 }
-.buttonSkepsi{
+
+.buttonSkepsi {
   border-radius: 5px;
   background-color: #0F2B40;
   color: white;
@@ -42,30 +49,59 @@
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   padding: 8px;
 }
-.buttonSkepsi:hover{
+
+.buttonSkepsi:hover {
   background-color: white;
   color: #0F2B40 !important;
   border: 1px solid white;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 }
-.titulo{
-  font-size: 40px;
-  line-height: 50px;
-}
-/* CLASES PREDETERMINADAS FIN */
 
+.titulo {
+  font-size: 50px;
+  line-height: 60px;
+}
+
+.instructions {
+
+}
+
+.texto-oper{
+  font-size: 40px;
+}
+
+.textoBoton {
+  font-size: 30px;
+  padding: 15px;
+}
+
+/* CLASES PREDETERMINADAS FIN */
+.principal{
+  width: 80%;
+  text-align: center;
+  margin: 0px auto;
+}
+
+.banderas{
+  float: left;
+  margin: 15px;
+}
 
 .example-container {
-  margin: 0 10px 10px 0;
-  display: inline-flex;
-  max-width: 150px;
+  width: 200px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: bottom;
 }
 
 .example-container2 {
-  margin: 0 10px 10px 0;
+  width: 1000px;
+  max-width: 100%;
+  margin: 0 55px 55px 0;
   display: inline-flex;
-  max-width: 150px;
+  vertical-align: top;
 }
 
 .example-list {
@@ -78,11 +114,12 @@
 }
 .example-list2 {
   border: solid 1px #ccc;
+  min-height: 50px;
   background: white;
   border-radius: 4px;
   overflow: auto;
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .example-box {
@@ -131,10 +168,26 @@ div.fracciones{
   width: 120px;
 }
 img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100px;
+  height: 100px;
   background-color: transparent;
 }
 .caption {
   display: block;
+}
+
+mat-slider {
+  width: 300px;
+}
+
+.texto_rojo{
+  color: red;
+
+}
+
+.texto_verde{
+  color:green;
+}
+.texto_azul{
+  color:cornflowerblue;
 }

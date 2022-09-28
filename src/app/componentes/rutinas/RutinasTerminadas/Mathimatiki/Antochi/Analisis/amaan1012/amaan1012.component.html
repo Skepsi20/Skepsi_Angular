@@ -1,0 +1,296 @@
+<div class="AMAAN">
+  <div class="skepsiLogo">
+    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+  </div>
+<div *ngIf="timerActivo">
+  <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
+    preload="auto"></audio>
+  <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
+    preload="auto"></audio>
+  <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
+  <h1>{{tTimer}}</h1>
+</div>
+<div class="general">
+  <div *ngIf="instrucciones" class="instructions">
+
+    <!-- BARRA DE PROGRESO INICIO -->
+    <div class="row progress">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+        [attr.aria-valuenow]="tTimerInstrucciones" [style.width]="(tTimerInstrucciones/tiempoSegundosInstrucciones)*100+'%'" aria-valuemin="0" aria-valuemax="20"
+        style="margin:0px auto;">
+      </div>
+    </div>
+    <!-- BARRA DE PROGRESO FIN -->
+
+    <br>
+    <div class="row">
+      <p class="titulo">A continuación verás una serie de ejercicios. Tienes 1 minuto por ejercicio para responder todos los que puedas</p>
+    </div>
+  </div>
+  <div *ngIf="!instrucciones">
+    <div *ngIf="tiempoDescanso" class="row">
+      <!-- BARRA DE PROGRESO Descanso -->
+      <div class="row progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="tTimerDescanso" [style.width]="(tTimerDescanso/segundosDescanso)*100+'%'"
+          aria-valuemin="0" aria-valuemax="20" style="margin:0px auto;">
+        </div>
+      </div>
+      <!-- BARRA DE PROGRESO FIN -->
+      <p class="titulo" style="margin:0px auto">Resultados:</p>
+      <div class="row">
+        <p class="titulo">
+          Tuviste {{ calificacionVista }} aciertos de {{ contadorEjer }}
+        </p>
+      </div>
+      <div class="row" *ngIf="tTimerDescanso<11">
+        <p class="titulo">Preparate para la siguiente actividad</p>
+      </div>
+    </div>
+  <div *ngIf="!tiempoDescanso">
+    <div *ngIf="!resultados">
+      <div *ngIf="ejercActivo===1">
+        <div *ngIf="rutina" class="row">
+          <!-- BARRA DE PROGRESO INICIO -->
+          <div class="row progress" *ngIf="tTimer>0">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+              [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'" aria-valuemin="0"
+              aria-valuemax="20" style="margin:0px auto;">
+            </div>
+          </div>
+          <div class="row">
+            <p class="titulo" style="margin:0px auto">
+              Separa las figuras en los conjuntos correctos:
+            </p>
+          </div>
+            <div cdkDropListGroup class="row">
+              <div class="row">
+                <div class="row example-container2">
+                  <div class="row">
+                  <h2>Figuras</h2>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                  <div cdkDropList [cdkDropListData]="vistaObjMix" class="example-list2" [cdkDropListSortingDisabled]="true"
+                    cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of vistaObjMix" cdkDrag><img
+                        src="{{item.imgUbicacion}}">
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+              <div class="col example-container">
+                <h2>Espacio </h2>
+                <div cdkDropList [cdkDropListData]="listaContenedores[0]" class="example-list" [cdkDropListSortingDisabled]="true"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="example-box" *ngFor="let item of listaContenedores[0]" cdkDrag><img
+                      src="{{item.imgUbicacion}}" ></div>
+                </div>
+              </div>
+              <div class="col example-container">
+                <h2>Espacio </h2>
+
+                <div cdkDropList [cdkDropListData]="listaContenedores[1]" class="example-list" [cdkDropListSortingDisabled]="true"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="example-box" *ngFor="let item of listaContenedores[1]" cdkDrag><img
+                      src="{{item.imgUbicacion}}"></div>
+                </div>
+              </div>
+              <div class="col example-container">
+                <h2>Espacio </h2>
+                <div cdkDropList [cdkDropListData]="listaContenedores[2]" class="example-list" [cdkDropListSortingDisabled]="true"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="example-box" *ngFor="let item of listaContenedores[2]" cdkDrag><img
+                      src="{{item.imgUbicacion}}" ></div>
+                </div>
+              </div>
+              <div class="col example-container">
+                <h2>Espacio </h2>
+                <div cdkDropList [cdkDropListData]="listaContenedores[3]" class="example-list" [cdkDropListSortingDisabled]="true"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="example-box" *ngFor="let item of listaContenedores[3]" cdkDrag><img
+                      src="{{item.imgUbicacion}}" ></div>
+                </div>
+              </div>
+              <div class="col example-container">
+                <h2>Espacio </h2>
+                <div cdkDropList [cdkDropListData]="listaContenedores[4]" class="example-list" [cdkDropListSortingDisabled]="true"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="example-box" *ngFor="let item of listaContenedores[4]" cdkDrag><img
+                      src="{{item.imgUbicacion}}" ></div>
+                </div>
+              </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-2" style="margin:0px auto">
+            <button (click)="funcion1()" mat-raised-button class="col-2" style="margin:0px auto">
+              Siguiente
+            </button>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!tiempoDescanso">
+      <div *ngIf="!resultados">
+        <div *ngIf="ejercActivo===2">
+          <div *ngIf="rutina" class="row">
+            <!-- BARRA DE PROGRESO INICIO -->
+            <div class="row progress" *ngIf="tTimer>0">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'" aria-valuemin="0"
+                aria-valuemax="20" style="margin:0px auto;">
+              </div>
+            </div>
+            <!-- BARRA DE PROGRESO FIN -->
+            <div class="row">
+              <p class="titulo" style="margin:0px auto">
+                Relaciona los conceptos, formulas e imagenes que corresponden:
+              </p>
+            </div>
+            <div cdkDropListGroup class="row">
+              <div>
+                <div class="col example-container2">
+                  <h2>Objetos</h2>
+                </div>
+                <div class="row">
+                  <div cdkDropList [cdkDropListData]="vistaFormulas" class=" col example-list2" [cdkDropListSortingDisabled]="true"
+                    cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let item of vistaFormulas" cdkDrag><img
+                        src="..\assets\img\rutinas\LogicoMatematico\formulasAreas\{{item}}.png" height="100%" width="1000%">
+                    </div>
+                  </div>
+                </div>
+                </div>
+
+              <div class="row">
+              <div class="col example-container">
+                <h2>Imagen </h2>
+                <div cdkDropList [cdkDropListData]="listaContenedores[0]" class="example-list" [cdkDropListSortingDisabled]="true"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="example-box" *ngFor="let item of listaContenedores[0]" cdkDrag><img
+                      src="..\assets\img\rutinas\LogicoMatematico\formulasAreas\{{item}}.png" height="100%" width="100%"></div>
+                </div>
+              </div>
+              <div class="col example-container">
+                <h2>Formula </h2>
+
+                <div cdkDropList [cdkDropListData]="listaContenedores[1]" class="example-list" [cdkDropListSortingDisabled]="true"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="example-box" *ngFor="let item of listaContenedores[1]" cdkDrag><img
+                      src="..\assets\img\rutinas\LogicoMatematico\formulasAreas\{{item}}.png" height="100%" width="100%"></div>
+                </div>
+              </div>
+              <div class="col example-container">
+                <h2>Concepto </h2>
+                <div cdkDropList [cdkDropListData]="listaContenedores[2]" class="example-list" [cdkDropListSortingDisabled]="true"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="example-box" *ngFor="let item of listaContenedores[2]" cdkDrag><img
+                      src="..\assets\img\rutinas\LogicoMatematico\formulasAreas\{{item}}.png" height="100%" width="100%"></div>
+                </div>
+              </div>
+              </div>
+            </div>
+
+            <div class="row">
+            <button (click)="funcion2()" mat-raised-button class="col-2" style="margin:0px auto">
+              Siguiente
+            </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!tiempoDescanso">
+        <div *ngIf="!resultados">
+          <div *ngIf="ejercActivo===3">
+            <div *ngIf="rutina" class="row">
+              <!-- BARRA DE PROGRESO INICIO -->
+              <div class="row progress" *ngIf="tTimer>0">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                  [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'" aria-valuemin="0"
+                  aria-valuemax="20" style="margin:0px auto;">
+                </div>
+              </div>
+              <!-- BARRA DE PROGRESO FIN -->
+              <div class="row">
+                <p class="titulo" style="margin:0px auto">
+                  Selecciona el concepto que no corresponde:
+                </p>
+              </div>
+              <div class="row">
+                <div class="col">
+              <button    mat-raised-button
+              (click)="funcion3(0)"
+              class="ml-1"
+              color="secondary">
+              <img src="..\assets\img\rutinas\LogicoMatematico\operacionesFormulas\{{vistaSetOperaciones[0]}}.png" alt="" class="imgButton">
+              </button>
+                </div>
+                <div class="col">
+               <button    mat-raised-button
+               (click)="funcion3(1)"
+               class="ml-1"
+               color="secondary">
+               <img src="..\assets\img\rutinas\LogicoMatematico\operacionesFormulas\{{vistaSetOperaciones[1]}}.png" alt="" class="imgButton">
+               </button>
+                </div>
+                <div class="col">
+               <button    mat-raised-button
+               (click)="funcion3(2)"
+               class="ml-1"
+               color="secondary">
+               <img src="..\assets\img\rutinas\LogicoMatematico\operacionesFormulas\{{vistaSetOperaciones[2]}}.png" alt="" class="imgButton">
+               </button>
+                </div>
+                <div class="col">
+               <button    mat-raised-button
+               (click)="funcion3(3)"
+               class="ml-1"
+               color="secondary">
+               <img src="..\assets\img\rutinas\LogicoMatematico\operacionesFormulas\{{vistaSetOperaciones[3]}}.png" alt="" class="imgButton">
+               </button>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="ejercActivo===4">
+        <audio id="finRutAudio" #finRutAudio src="..\assets\Audios\InicioFin\SonidoFinRutina.mpeg" autoplay></audio>
+        <div class="row">
+          <p class="titulo" style="margin:0px auto">Resultados Generales:</p>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3>Ejericicio 1: {{ resultadoEjer[0].aciertos }} aciertos de {{ resultadoEjer[0].intentos }}</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3> Ejericicio 2: {{ resultadoEjer[1].aciertos }} aciertos de {{ resultadoEjer[1].intentos }}</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3> Ejericicio 3: {{ resultadoEjer[2].aciertos }} aciertos de {{ resultadoEjer[2].intentos }}</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2" style="margin: 0px auto;">
+            <button (click)="reloadPage()" mat-raised-button class="buttonSkepsi textoBoton">
+              Continuar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

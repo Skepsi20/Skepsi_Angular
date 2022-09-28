@@ -1,8 +1,8 @@
 /* CLASES PREDETERMINADAS INICIO */
-.AMACO{
+.DMAAN{
   width: 100%;
   height: 100%;
-  background-image: url('../../../../../.././../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-36.png');
+  background-image: url('../../../../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-36.png');
   background-repeat: repeat;
   padding-bottom: 50px;
 }
@@ -25,7 +25,7 @@
   border-radius: 10px;
   padding: 15px;
   background-color: white;
-  background-image:  linear-gradient(rgba(255,255,255,0.8), rgba(255, 255, 255, 0.5)), url('../../../../../../../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-33.png');
+  background-image:  linear-gradient(rgba(255,255,255,0.8), rgba(255, 255, 255, 0.5)), url('../../../../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-33.png');
   overflow: scroll;
 }
 .progress{
@@ -55,17 +55,35 @@
 }
 /* CLASES PREDETERMINADAS FIN */
 
+.texto-oper{
+  font-size: 35px;
+}
+
+.principal{
+  width: 80%;
+  text-align: center;
+  margin: 0px auto;
+}
+
+.banderas{
+  float: left;
+  margin: 15px;
+}
 
 .example-container {
-  margin: 0 10px 10px 0;
-  display: inline-flex;
-  max-width: 150px;
+  width: 200px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: bottom;
 }
 
 .example-container2 {
-  margin: 0 10px 10px 0;
+  width: 1000px;
+  max-width: 100%;
+  margin: 0 55px 55px 0;
   display: inline-flex;
-  max-width: 150px;
+  vertical-align: top;
 }
 
 .example-list {
@@ -78,11 +96,12 @@
 }
 .example-list2 {
   border: solid 1px #ccc;
+  min-height: 50px;
   background: white;
   border-radius: 4px;
   overflow: auto;
   display: inline-flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .example-box {
@@ -131,10 +150,26 @@ div.fracciones{
   width: 120px;
 }
 img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 100px;
+  height: 100px;
   background-color: transparent;
 }
 .caption {
   display: block;
+}
+
+mat-slider {
+  width: 300px;
+}
+
+.texto_rojo{
+  color: red;
+
+}
+
+.texto_verde{
+  color:green;
+}
+.texto_azul{
+  color:cornflowerblue;
 }

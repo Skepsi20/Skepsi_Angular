@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -6,19 +6,20 @@ import {
 } from '@angular/cdk/drag-drop';
 import { FormControl } from '@angular/forms';
 import { timer } from 'rxjs';
-import { EMACO } from 'src/app/Models/rutinas/LogicoMatematico/Comprension/emaco.model';
-import { Emaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/emaco1012.service';
-import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
+import { AMAAN } from 'src/app/Models/rutinas/LogicoMatematico/Analisis/amaan.model';
+import { Amaan1012Service } from 'src/app/services/rutinas/LogicoMatematico/amaan1012.service';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
+import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 
 @Component({
-  selector: 'emaco1012',
-  templateUrl: './emaco1012.component.html',
-  styleUrls: ['./emaco1012.component.css'],
-  providers: [Emaco1012Service],
+  selector: 'amaan1012',
+  templateUrl: './amaan1012.component.html',
+  styleUrls: ['./amaan1012.component.css'],
+  providers: [Amaan1012Service],
 })
-export class Emaco1012Component implements OnInit {
-  public nombreRutina = '1012EMACO';
+export class Amaan1012Component implements OnInit {
+
+  public nombreRutina = '1012AMAAN';
   public intentosTotales = 0;
   public aciertosTotales = 0;
 
@@ -44,10 +45,6 @@ export class Emaco1012Component implements OnInit {
   private studentSessionId: string = '';
   //VARIABLES RESULTADOS FIN
 
-  public operacionesController: any;
-  public operacionesRandom: any;
-  public resultOperacion= new FormControl(0);
-
   public contadorEjer: number = 0;
   public resultados: boolean = false;
   public rutina: boolean = true;
@@ -63,12 +60,14 @@ export class Emaco1012Component implements OnInit {
   ];
   public operador: any = { oper: 'operador', simbolo: '' };
 
-  public vistaOperacion = new EMACO('','','','');
+  public vistaOperacion = new AMAAN('', '', '', []);
+  public elemVacioOper: any;
   public inicioCrono: Date = new Date();
 
-  public tiempoSegundosCrono = 25;
+  public tiempoSegundosCrono = 45;
   public segundosDescanso = 5;
-  public tiempoSegundosGeneral = 12;
+  public tiempoSegundosGeneral = 65;
+
   public tiempoSegundosInstrucciones = 2;
 
   public tTimerGeneral = 0;
@@ -77,26 +76,56 @@ export class Emaco1012Component implements OnInit {
   public tTimerInstrucciones = 0;
 
   public timerActivo: boolean = true;
-
   public instrucciones: boolean = true;
 
   public resultadoEjer: Array<any> = [];
 
+  public ejercActivo = 1;
 
-  public ejercActivo = 3;
 
-  public vistaAngulosFig: Array<any> = [];
+
+  //Ejercicio1
+  public vistaObjMix: Array<any> = [];
   public listaContenedores: Array<any> = [];
-  public listFigIrregController: any;
-  public listFigIrregRand: any;
-  public listEspsFig: Array<any> = [];
+  public objetosController: any;
+  public objetosRandom: any;
+  public resultOperacion = new FormControl(0);
+
+
+  //Ejercicio2
+
+  public listaCaras: any;
+  public contenedorCaras: Array<any> = [];
+  public listFigGeomController: any;
+  public listFigGeomRand: any;
+  public vistaCaras: Array<any> = [];
   public vistaEspacios: Array<any> = [];
+  public vistaFigGeom: any;
+
+  public listaFigFormulasController:any;
+  public listaFigFormulasRand:any;
+  public vistaFormulas:Array<any>=[];
+  public listaFormulasCorrectas: Array<any>=[];
+
+
 
   //Ejercicio3
   public fraccionesRand: Array<any> = [];
   public duplaCarasDado: Array<number> = [];
+  public combinacionColores: any = { R: '', G: '', B: '' };
+  public sliderGValue: number = 0;
+  public fractionG: string = '';
+  public sliderBValue: number = 0;
+  public fractionB: string = '';
+  public sliderRValue: number = 0;
+  public fractionR: string = '';
+  public setOperacionesRnd:Array<AMAAN>=[];
+  public vistaSetOperaciones: Array<any> =[];
+  public elementoIncorrecto:any;
+  public numFigSelect:any;
 
-  constructor(private _emacoService: Emaco1012Service,
+
+  constructor(private _AMAANService: Amaan1012Service,
     private _resultsService: ResultsService) {}
 
   ngOnInit(): void {
@@ -107,8 +136,9 @@ export class Emaco1012Component implements OnInit {
     this.tTimerInstrucciones = this.tiempoSegundosInstrucciones;
     this.tTimerGeneral =
       this.tiempoSegundosGeneral + this.tiempoSegundosInstrucciones;
+
     this.initContEjerc();
-    //this.Inicializacion();
+    this.Inicializacion();
     let _conteoTiempo = timer(0, 1000).subscribe((_x) => {
       this.sonarAlarmas();
       this.tTimer--;
@@ -122,14 +152,14 @@ export class Emaco1012Component implements OnInit {
         this.timerActivo = false;
         switch (this.ejercActivo) {
           case 1:
-            this.funcion1('');
+            this.funcion1();
             break;
           case 2:
             this.funcion2();
             break;
 
           case 3:
-            this.funcion3(this.operador.oper);
+            this.funcion3(0);
             break;
 
           default:
@@ -242,36 +272,70 @@ export class Emaco1012Component implements OnInit {
         event.currentIndex
       );
     } else {
-      if (event.container.data.length == 0) {
-        transferArrayItem(
-          event.previousContainer.data,
-          event.container.data,
-          event.previousIndex,
-          event.currentIndex
-        );
-      }
-      else{
-        transferArrayItem(
-          event.container.data,
-          event.previousContainer.data,
-          0,
-          event.currentIndex
-        );
-
-        transferArrayItem(
-          event.previousContainer.data,
-          event.container.data,
-          event.previousIndex+1,
-          0
-        );
-      }
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     }
+  }
+  getFraction(value: number, sliderColor: string) {
+    let fraction = this.formatFraction(value);
+    switch (sliderColor) {
+      case 'R':
+        this.fractionR = fraction;
 
-    /*
-    for (let  i=0 ; i<2 ; i++){
-      event.container.data.splice( 1 ,1)
+        break;
+      case 'G':
+        this.fractionG = fraction;
+        break;
+      case 'B':
+        this.fractionB = fraction;
+        break;
+      default:
+        break;
     }
-   */
+    //if (fraction == 'NaN/Infinity') fraction = '';
+    return fraction;
+  }
+
+  formatFraction(value: number) {
+    switch (value) {
+      case 0.33:
+        return '1/3';
+      case 0.66:
+        return '2/3';
+      case 0.17:
+        return '1/6';
+      case 0.001:
+        return '0';
+      case 1:
+        return '1';
+      case 0:
+        return '';
+      default:
+        break;
+    }
+    var gcd = function (a: any, b: any): any {
+      if (!b) return a;
+      a = parseInt(a);
+      b = parseInt(b);
+      return gcd(b, a % b);
+    };
+
+    var fraction = value;
+    var len = fraction.toString().length;
+
+    var denominator = Math.pow(10, len - 2);
+    var numerator = fraction * denominator;
+
+    var divisor = gcd(numerator, denominator).toString();
+    //var Fraction = require('fractional').Fraction
+
+    numerator /= divisor;
+    denominator /= divisor;
+    return numerator.toFixed() + '/' + denominator.toFixed();
   }
 
   initContEjerc() {
@@ -290,65 +354,167 @@ export class Emaco1012Component implements OnInit {
     if (!this.instrucciones) {
     if (this.ejercActivo > 0 && this.ejercActivo < 4) this.resetTimerEjer();
     if (this.ejercActivo == 1) {
-      this.operacionesController = this._emacoService.getOperaciones();
-      this.operacionesRandom = this.operacionesController.sort(
+      this.objetosController = this._AMAANService.getObjetos();
+      this.objetosRandom = this.objetosController.sort(
         () => Math.random() - 0.5
       );
       this.inicioCrono = new Date();
       console.log(this.inicioCrono);
       this.mostrarEjer1();
     } else if (this.ejercActivo == 2) {
-      this.listFigIrregController = JSON.parse(        JSON.stringify(this._emacoService.getFigIrregulares())      );
-      this.listFigIrregRand = this.listFigIrregController.sort(
+      this.listaFigFormulasController = JSON.parse(
+        JSON.stringify(this._AMAANService.getFigurasFormulas())
+      );
+      this.listaFigFormulasRand = this.listaFigFormulasController.sort(
         () => Math.random() - 0.5
       );
       this.inicioCrono = new Date();
       console.log(this.inicioCrono);
       this.mostrarEjer2();
     } else if (this.ejercActivo == 3) {
-      //this.fraccionesRand = this._emacoService.getFracciones();
-      this.fraccionesRand.sort(() => Math.random() - 0.5);
+      this.setOperacionesRnd = JSON.parse(
+        JSON.stringify(this._AMAANService.getSetOperacionesFig())
+      );
+      this.setOperacionesRnd.sort(() => Math.random() - 0.5);
       this.inicioCrono = new Date();
       console.log(this.inicioCrono);
       this.mostrarEjer3();
     }
   }
-}
-
-  crearVistaOperaciones() {
-    var posiblesValores = [];
-    this.operacionesRandom = this.operacionesController.sort(
-      () => Math.random() - 0.5
-    );
-    this.vistaOperacion = this.operacionesRandom[0];
   }
 
-  initListasFigGeo() {
-    this.listFigIrregRand = this.listFigIrregController.sort(
-      () => Math.random() - 0.5
-    );
+  initVistaObjetosContenedores() {
+    this.vistaObjMix = this.objetosRandom
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 10);
     for (let i = 0; i < 5; i++) {
       this.listaContenedores[i] = [];
     }
   }
 
+  initListasFigGeo() {
+    this.listFigGeomRand = this.listFigGeomController.sort(
+      () => Math.random() - 0.5
+    );
+    this.contenedorCaras = [];
+  }
+
   crearListasFigIrreg() {
-    this.listEspsFig = [];
-    this.vistaAngulosFig = this.listFigIrregRand.slice(0, 5);
-    console.log('VFG', this.vistaAngulosFig);
-    this.vistaAngulosFig.forEach((element) => {
-      this.listEspsFig.push(element.numAngulos);
+    this.vistaCaras = [];
+    this.vistaFigGeom = this.listFigGeomRand.pop();
+    this.listaCaras = this.vistaFigGeom.setDeCaras;
+    console.log('LC', this.listaCaras);
+    this.listaCaras.forEach((element: any) => {
+      this.vistaCaras.push(element);
     });
-    this.listEspsFig.sort(() => Math.random() - 0.45);
+
+    for (let index = 0; index < 6; index++) {
+      if (this.vistaCaras[index] == undefined) {
+        let aux = '00';
+        do {
+          aux = Math.floor(1 + Math.random() * 19)
+            .toString()
+            .padStart(2, '00');
+        } while (this.vistaCaras.find((element) => element == aux) >= 0);
+        this.vistaCaras[index] = aux;
+      }
+    }
+    this.vistaCaras.sort(() => Math.random() - 0.45);
+    console.log('VC', this.vistaCaras);
+  }
+
+
+  crearVistasFormulas(){
+    this.vistaFormulas=[];
+    for (let i = 0; i < 5; i++) {
+      this.listaContenedores[i] = [];
+    }
+    let figFormulasPreVista: Array<AMAAN> = this.listaFigFormulasRand
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
+    let vistaFormulasPre : Array<any>=[];
+    figFormulasPreVista.forEach(element => {
+      vistaFormulasPre.push(element.nombreFigura+'Img');
+      if(Math.random()>=0.55){
+        vistaFormulasPre.push(element.nombreFigura+'Area');
+      }
+      else{
+        vistaFormulasPre.push(element.nombreFigura+'Per');
+      }
+
+      vistaFormulasPre.push(element.nombreFigura);
+
+    });
+
+    this.listaFormulasCorrectas=vistaFormulasPre.slice(0,3);
+    this.vistaFormulas=this.vistaFormulas.concat(this.listaFormulasCorrectas, vistaFormulasPre.slice(4,9).sort(()=> Math.random() -0.45).slice(0,3));
+    this.vistaFormulas.sort(()=>Math.random()-0.45);
+    console.log("Correctas", this.listaFormulasCorrectas);
+
+
+
   }
 
   crearDuplasDados() {
-    let carasDado = [1,2,3,4,5,6];
-    this.duplaCarasDado=[];
+    let carasDado = [1, 2, 3, 4, 5, 6];
+    this.duplaCarasDado = [];
     carasDado.sort(() => Math.random() - 0.45);
     this.duplaCarasDado.push(carasDado[0]);
     carasDado.sort(() => Math.random() - 0.45);
     this.duplaCarasDado.push(carasDado[1]);
+  }
+
+  crearRandomFraction() {
+    var a = 0;
+    var b = 0;
+    do {
+      a = Math.floor(Math.random() * 6);
+      b = Math.floor(Math.random() * 6);
+    } while (b <= a || a <= 0 || b <= 0);
+    //console.log('Test',a+'/'+b);
+    //console.log('evaluate', eval(a+'/'+b) );
+
+    return a + '/' + b;
+  }
+
+  crearCombinacionColores() {
+    this.combinacionColores = {
+      R: this.crearRandomFraction(),
+      G: this.crearRandomFraction(),
+      B: this.crearRandomFraction(),
+    };
+
+    console.log('Combinacion', this.combinacionColores);
+    //console.log('R', eval(this.combinacionColores.R));
+  }
+
+  crearSetFormulas(){
+    this.vistaSetOperaciones=[];
+    var figSelect=this.setOperacionesRnd.pop();
+    console.log('figSelect', figSelect);
+
+    this.numFigSelect=<string>figSelect?.setOperaciones[0]
+    this.elementoIncorrecto=<string>figSelect?.setOperaciones[1]
+
+    console.log('numfigSelect', this.numFigSelect);
+    console.log('errorSelect', this.elementoIncorrecto);
+
+    for (let index = 0; index < 4; index++) {
+      this.vistaSetOperaciones.push(this.numFigSelect+'-'+index);
+
+    }
+    this.vistaSetOperaciones.sort(() => Math.random() - 0.45);
+
+
+
+
+
+
+    console.log('SetOperaciones',this.vistaSetOperaciones);
+
+
+
+
   }
 
   descanso() {
@@ -400,8 +566,7 @@ export class Emaco1012Component implements OnInit {
       (new Date().getTime() - this.inicioCrono.getTime()) / 1000
     );
     if (this.timerActivo) {
-      this.resultOperacion.setValue('');
-      this.crearVistaOperaciones();
+      this.initVistaObjetosContenedores();
     } else {
       this.revisar();
       this.calificacion = 0;
@@ -411,12 +576,12 @@ export class Emaco1012Component implements OnInit {
   }
 
   mostrarEjer2() {
-    this.initListasFigGeo();
+    //this.initListasFigGeo();
     let RestaTiempo = Math.floor(
       (new Date().getTime() - this.inicioCrono.getTime()) / 1000
     );
     if (this.timerActivo) {
-      this.crearListasFigIrreg();
+      this.crearVistasFormulas();
     } else {
       this.revisar();
       this.calificacion = 0;
@@ -426,15 +591,11 @@ export class Emaco1012Component implements OnInit {
   }
 
   mostrarEjer3() {
-    //Compara tiempo con respecto a contador
-    this.operador = {oper: '', simbolo: ''}
-
     let RestaTiempo = Math.floor(
       (new Date().getTime() - this.inicioCrono.getTime()) / 1000
     );
     if (this.timerActivo) {
-      this.crearDuplasDados();
-      console.log('VistaFracciones', this.duplaCarasDado);
+      this.crearSetFormulas();
     } else {
       this.revisar();
       this.calificacion = 0;
@@ -443,66 +604,65 @@ export class Emaco1012Component implements OnInit {
     }
   }
 
-  funcion1(valor: any) {
-    console.log("vista", this.vistaOperacion.resultado);
-    console.log("entrada", this.resultOperacion.value);
-    if (this.vistaOperacion.resultado == this.resultOperacion.value.toString()){
+  funcion1() {
+    var listaFigurasResult: Array<any> = [];
+    for (let contenedor of this.listaContenedores) {
+      let categoria = '';
+      let banderaConjuntoCorrecto = true;
+      contenedor.forEach((element: any) => {
+        if (categoria == '') categoria = element.conjuntoImg;
+        else if (categoria != element.conjuntoImg) {
+          console.log('Conjunto incorrecto');
 
-
-      this.calificacion++;
+          banderaConjuntoCorrecto = false;
+        }
+      });
+      if (banderaConjuntoCorrecto && categoria!='') {
+        this.calificacion++;
+      }
     }
-    console.log("Result:",this.resultOperacion.value);
 
+    console.log('Contendores:', this.listaContenedores);
 
-    this.contadorEjer++;
+    this.contadorEjer += 5;
     this.mostrarEjer1();
     console.log('Calificacion Acumulada -> ' + this.calificacion);
   }
 
   funcion2() {
-    var listaFigurasResult: Array<any> = [];
-    console.log('Contendores:', this.listaContenedores[1]);
+    console.log("Seleccion", this.listaContenedores[0][0]+' '+this.listaContenedores[1][0]+' '+this.listaContenedores[2][0]);
+    let seleccionCorrecta=true;
+    if (this.listaContenedores[0][0]==this.listaFormulasCorrectas[0]){
+      this.calificacion++;
 
-    for (let index = 0; index < this.listaContenedores.length; index++) {
-      this.listaContenedores[index].forEach((element: any) => {
-        if (element.numAngulos == this.listEspsFig[index].toString())
-          this.calificacion++;
-      });
+    }
+    if(this.listaContenedores[1][0]==this.listaFormulasCorrectas[1]){
+      this.calificacion++;
+    }
+    if(this.listaContenedores[2][0]==this.listaFormulasCorrectas[2]){
+      this.calificacion++;
     }
 
 
 
-    this.contadorEjer += 5;
+    this.contadorEjer += 3;
+    console.log('contadorEjer', this.contadorEjer);
+
     this.mostrarEjer2();
     console.log('Calificacion Acumulada -> ' + this.calificacion);
   }
 
-  funcion3(operador: any) {
+  funcion3(selection: any) {
 
-    var fraccionIzq = this.duplaCarasDado[0];
-    var fraccionDer = this.duplaCarasDado[1];
+    console.log(this.vistaSetOperaciones[selection]);
+    console.log((this.numFigSelect+'-'+this.elementoIncorrecto));
+    if(this.vistaSetOperaciones[selection]==(this.numFigSelect+'-'+this.elementoIncorrecto)) this.calificacion++;
 
-    switch (operador) {
-      case 'mayorq':
-        if (fraccionIzq > fraccionDer) this.calificacion++;
-        break;
-      case 'menorq':
-        if (fraccionIzq < fraccionDer) this.calificacion++;
-        break;
-      case 'igual':
-        if (fraccionIzq == fraccionDer) this.calificacion++;
-        break;
+    this.contadorEjer += 1;
 
-      default:
-        break;
-    }
-
-    console.log('Value Left', (this.duplaCarasDado[0]));
-    console.log('Value Right', (this.duplaCarasDado[1]));
-    console.log('calif', this.calificacion);
-
-
-    this.contadorEjer++;
+    console.log(
+      'Aciertos' + this.calificacion + ' : Intentos ' + this.contadorEjer
+    );
 
     this.mostrarEjer3();
   }
@@ -548,11 +708,11 @@ export class Emaco1012Component implements OnInit {
     //Metodo para crear resultado
     this.addResult(this.resultsTable);
     //LLENADO DE TABLA RESULTS DETAILS FIN
-
     this.descanso();
   }
 
   reloadPage() {
-    window.location.reload();
+    //window.location.reload();
   }
 }
+
