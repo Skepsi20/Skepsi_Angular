@@ -7,6 +7,8 @@ import {
 import { timer } from 'rxjs';
 import { AMACO } from 'src/app/Models/rutinas/LogicoMatematico/Comprension/amaco.model';
 import { Amaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/amaco1012.service';
+import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
+import { ResultsService } from 'src/app/services/Resultados/results.service';
 
 @Component({
   selector: 'amaco1012',
@@ -15,10 +17,31 @@ import { Amaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/amac
   providers: [Amaco1012Service],
 })
 export class Amaco1012Component implements OnInit {
-
   public nombreRutina = '1012AMACO';
   public intentosTotales = 0;
   public aciertosTotales = 0;
+
+  //VARIABLES RESULTADOS INICIO
+  private sessionId: any;
+  private resultsTable: resultsWithDate = {
+    date: '',
+    studentSessionId: '',
+    grade: 0,
+    round: 0,
+    level: 0,
+    resultDetails: [
+      {
+        possiblePoints: 0,
+        points: 0,
+        possiblePointsDescription: '',
+        pointsDescription: '',
+      },
+    ],
+  };
+  private round: number = 0;
+  private level: number = 0;
+  private studentSessionId: string = '';
+  //VARIABLES RESULTADOS FIN
 
   public operacionesController: any;
   public operacionesRandom: any;
@@ -41,15 +64,19 @@ export class Amaco1012Component implements OnInit {
   public vistaOperacion = new AMACO('', '', '', '', '', '', '');
   public inicioCrono: Date = new Date();
 
-  public tiempoSegundosCrono = 25;
+  public tiempoSegundosCrono = 11;
   //25
   public segundosDescanso = 15;
   //15
-  public tiempoSegundosGeneral = 150;
+  public tiempoSegundosGeneral = 65;
   //150
+
+  public tiempoSegundosInstrucciones = 8;
+
   public tTimerGeneral = 0;
   public tTimer = 0;
   public tTimerDescanso = 0;
+  public tTimerInstrucciones = 0;
   public timerActivo: boolean = true;
 
   public resultadoEjer: Array<any> = [];
@@ -58,8 +85,9 @@ export class Amaco1012Component implements OnInit {
   public banderaEjer2: boolean = false;
   public banderaEjer3: boolean = false;
   public bandEjer4: boolean = false;
+  public instrucciones: boolean = true;
 
-  public ejercActivo = 3;
+  public ejercActivo = 1;
 
   public vistaFigGeo: Array<any> = [];
   public listaContenedores: Array<any> = [];
@@ -72,16 +100,31 @@ export class Amaco1012Component implements OnInit {
   public fraccionesRand: Array<any> = [];
   public duplaFracciones: Array<AMACO> = [];
 
-  constructor(private _amacoService: Amaco1012Service) {}
+  constructor(
+    private _amacoService: Amaco1012Service,
+    private _resultsService: ResultsService
+  ) {}
 
   ngOnInit(): void {
-    this.tTimerGeneral = this.tiempoSegundosGeneral;
+    //Instrucciones API
+    setInterval(() => this.statusUpdate(), 30000);
+    this.getSession();
+
+    this.tTimerInstrucciones = this.tiempoSegundosInstrucciones;
+    this.tTimerGeneral =
+      this.tiempoSegundosGeneral + this.tiempoSegundosInstrucciones;
+
     this.initContEjerc();
     this.Inicializacion();
     let _conteoTiempo = timer(0, 1000).subscribe((_x) => {
       this.sonarAlarmas();
       this.tTimer--;
       this.tTimerGeneral--;
+      this.tTimerInstrucciones--;
+      if (this.tTimerInstrucciones == 0) {
+        this.instrucciones = false;
+        this.Inicializacion();
+      }
       if (this.tTimer == 0) {
         this.timerActivo = false;
         switch (this.ejercActivo) {
@@ -101,7 +144,83 @@ export class Amaco1012Component implements OnInit {
         }
       } else if (this.tTimer > 0) this.timerActivo = true;
       if (this.tTimerDescanso > 0) this.tTimerDescanso--;
+
+      console.log('T-Rutina', this.tTimer);
+      console.log('T-General', this.tTimerGeneral);
+      console.log('T-Instrucciones', this.tTimerInstrucciones);
     });
+  }
+
+  //StatusUpdate API
+  statusUpdate() {
+    this._resultsService.addStatus().subscribe(
+      (success) => {
+        console.log('Actividad actualizada');
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  //RESULTADOS INICIO
+  getSession() {
+    this._resultsService.getSession().subscribe(
+      (success) => {
+        if (success) {
+          this.sessionId = success.id;
+          this.getStudentSessions();
+        } else {
+          //TODO: show message not session available
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  //Datos Estudiante API
+  getStudentSessions() {
+    this._resultsService.getStudentSessions().subscribe(
+      (success) => {
+        if (success) {
+          this.studentSessionId = success.id;
+          if (success.results[success.results.length - 1]) {
+            this.level = success.results[success.results.length - 1].level - 1;
+            this.aciertosTotales = this.level;
+            this.round = success.results[success.results.length - 1].round;
+          } else {
+            this.level = 0;
+            this.round = 0;
+          }
+          this.Inicializacion();
+        } else {
+          this._resultsService.addStudentSessions(this.sessionId).subscribe(
+            (success) => {
+              this.studentSessionId = success.id;
+              this.Inicializacion();
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+        }
+      },
+      (error) => {
+        console.log('ERROR', error);
+      }
+    );
+  }
+
+  //Reportar Resultados API
+  addResult(results: resultsWithDate) {
+    this._resultsService.addResults(results).subscribe(
+      (successResponse) => {},
+      (error) => {
+        console.log('ERROR', error);
+      }
+    );
   }
 
   sonarAlarmas() {
@@ -141,8 +260,7 @@ export class Amaco1012Component implements OnInit {
           event.previousIndex,
           event.currentIndex
         );
-      }
-      else{
+      } else {
         transferArrayItem(
           event.container.data,
           event.previousContainer.data,
@@ -153,7 +271,7 @@ export class Amaco1012Component implements OnInit {
         transferArrayItem(
           event.previousContainer.data,
           event.container.data,
-          event.previousIndex+1,
+          event.previousIndex + 1,
           0
         );
       }
@@ -179,31 +297,34 @@ export class Amaco1012Component implements OnInit {
     this.resultados = false;
     this.tiempoDescanso = false;
     this.contadorEjer = 0;
-    if (this.ejercActivo > 0 && this.ejercActivo < 4) this.resetTimerEjer();
-    if (this.ejercActivo == 1) {
-      this.operacionesController = this._amacoService.getOperaciones();
-      this.operacionesRandom = this.operacionesController.sort(
-        () => Math.random() - 0.5
-      );
-      this.inicioCrono = new Date();
-      console.log(this.inicioCrono);
-      this.mostrarEjer1();
-    } else if (this.ejercActivo == 2) {
-      this.listFigGeoController = JSON.parse(
-        JSON.stringify(this._amacoService.getFigGeo())
-      );
-      this.listFigGeoRand = this.listFigGeoController.sort(
-        () => Math.random() - 0.5
-      );
-      this.inicioCrono = new Date();
-      console.log(this.inicioCrono);
-      this.mostrarEjer2();
-    } else if (this.ejercActivo == 3) {
-      this.fraccionesRand = this._amacoService.getFracciones();
-      this.fraccionesRand.sort(() => Math.random() - 0.5);
-      this.inicioCrono = new Date();
-      console.log(this.inicioCrono);
-      this.mostrarEjer3();
+
+    if (!this.instrucciones) {
+      if (this.ejercActivo > 0 && this.ejercActivo < 4) this.resetTimerEjer();
+      if (this.ejercActivo == 1) {
+        this.operacionesController = this._amacoService.getOperaciones();
+        this.operacionesRandom = this.operacionesController.sort(
+          () => Math.random() - 0.5
+        );
+        this.inicioCrono = new Date();
+        console.log(this.inicioCrono);
+        this.mostrarEjer1();
+      } else if (this.ejercActivo == 2) {
+        this.listFigGeoController = JSON.parse(
+          JSON.stringify(this._amacoService.getFigGeo())
+        );
+        this.listFigGeoRand = this.listFigGeoController.sort(
+          () => Math.random() - 0.5
+        );
+        this.inicioCrono = new Date();
+        console.log(this.inicioCrono);
+        this.mostrarEjer2();
+      } else if (this.ejercActivo == 3) {
+        this.fraccionesRand = this._amacoService.getFracciones();
+        this.fraccionesRand.sort(() => Math.random() - 0.5);
+        this.inicioCrono = new Date();
+        console.log(this.inicioCrono);
+        this.mostrarEjer3();
+      }
     }
   }
 
@@ -256,7 +377,7 @@ export class Amaco1012Component implements OnInit {
     this.tiempoDescanso = true;
 
     if (this.tTimerGeneral > 0) {
-      var _tiempo = setTimeout(() => {
+      let _tiempo = setTimeout(() => {
         if (this.ejercActivo > 0) this.ejercActivo++;
         if (this.ejercActivo == 4) this.ejercActivo = 1;
         this.tiempoDescanso = false;
@@ -282,7 +403,7 @@ export class Amaco1012Component implements OnInit {
   }
 
   esperar() {
-    var _tiempo = setTimeout(() => {
+    let _tiempo = setTimeout(() => {
       this.tiempoDescanso = false;
       this.Inicializacion();
     }, this.segundosDescanso * 1000);
@@ -404,6 +525,44 @@ export class Amaco1012Component implements OnInit {
     this.resultadoEjer[this.ejercActivo - 1].intentos += this.contadorEjer;
     this.calificacionVista = this.calificacion;
     console.log('RESULTADO: ' + this.calificacion + ' de ' + this.contadorEjer);
+
+    //LLENADO DE TABLA RESULTS INICIO
+    this.round++;
+    console.log('STUDENT SESSION ID', this.studentSessionId);
+    //StudentSessionId
+    this.resultsTable.studentSessionId = this.studentSessionId;
+
+    //Grade
+    let partialGrade = (this.calificacion / this.contadorEjer) * 100;
+    this.resultsTable.grade = partialGrade;
+
+    //Round
+    this.resultsTable.round = this.round;
+
+    //level
+    this.resultsTable.level = this.level + 1;
+
+    //LLENADO DE TABLA RESULTS FIN
+
+    //LLENADO DE TABLA RESULTS DETAILS INICIO
+    //Possible points
+    this.resultsTable.resultDetails[0].possiblePoints = this.contadorEjer;
+
+    //Points
+    this.resultsTable.resultDetails[0].points = this.calificacion;
+
+    //Possible points description
+    this.resultsTable.resultDetails[0].possiblePointsDescription =
+      'Cantidad de ejecicios resueltos';
+
+    //Points description
+    this.resultsTable.resultDetails[0].pointsDescription =
+      'Cantidad de aciertos';
+
+    //Metodo para crear resultado
+    this.addResult(this.resultsTable);
+    //LLENADO DE TABLA RESULTS DETAILS FIN
+
     this.descanso();
   }
 

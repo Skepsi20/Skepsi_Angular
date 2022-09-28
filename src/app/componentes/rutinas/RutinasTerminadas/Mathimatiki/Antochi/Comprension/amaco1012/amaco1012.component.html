@@ -11,6 +11,23 @@
       preload="auto"></audio>
   </div>
   <div class="general">
+    <div *ngIf="instrucciones" class="instructions">
+
+      <!-- BARRA DE PROGRESO INICIO -->
+      <div class="row progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="tTimerInstrucciones" [style.width]="(tTimerInstrucciones/tiempoSegundosInstrucciones)*100+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+        </div>
+      </div>
+      <!-- BARRA DE PROGRESO FIN -->
+
+      <br>
+      <div class="row">
+        <p class="titulo">A continuación verás una serie de ejercicios. Tienes 1 minuto por ejercicio para responder todos los que puedas</p>
+      </div>
+    </div>
+    <div *ngIf="!instrucciones">
     <div *ngIf="tiempoDescanso" class="row">
       <!-- BARRA DE PROGRESO Descanso -->
       <div class="row progress">
@@ -229,6 +246,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </div>

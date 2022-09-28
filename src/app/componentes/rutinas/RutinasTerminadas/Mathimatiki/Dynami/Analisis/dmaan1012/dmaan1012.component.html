@@ -1,0 +1,290 @@
+<div class="DMAAN">
+  <div class="skepsiLogo">
+    <img src="../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+  </div>
+  <div *ngIf="timerActivo">
+    <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
+      preload="auto"></audio>
+    <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
+      preload="auto"></audio>
+    <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg"
+      preload="auto"></audio>
+    <h1>{{tTimer}}</h1>
+  </div>
+  <div class="general">
+    <div *ngIf="instrucciones" class="instructions">
+
+      <!-- BARRA DE PROGRESO INICIO -->
+      <div class="row progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="tTimerInstrucciones"
+          [style.width]="(tTimerInstrucciones/tiempoSegundosInstrucciones)*100+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+        </div>
+      </div>
+      <!-- BARRA DE PROGRESO FIN -->
+
+      <br>
+      <div class="row">
+        <p class="titulo">A continuación verás una serie de ejercicios. Tienes 1 minuto por ejercicio para responder
+          todos los que puedas</p>
+      </div>
+    </div>
+    <div *ngIf="!instrucciones">
+      <div *ngIf="tiempoDescanso">
+        <!-- BARRA DE PROGRESO Descanso -->
+        <div class="row progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            [attr.aria-valuenow]="tTimerDescanso" [style.width]="(tTimerDescanso/segundosDescanso)*100+'%'"
+            aria-valuemin="0" aria-valuemax="20" style="margin:0px auto;">
+          </div>
+        </div>
+        <!-- BARRA DE PROGRESO FIN -->
+        <p class="titulo" style="margin:0px auto">Resultados:</p>
+        <div class="row">
+          <p class="titulo">
+            Tuviste {{ calificacionVista }} aciertos de {{ contadorEjer }}
+          </p>
+        </div>
+        <div class="row" *ngIf="tTimerDescanso<11">
+          <p class="titulo">Preparate para la siguiente actividad</p>
+        </div>
+      </div>
+      <div *ngIf="!tiempoDescanso">
+        <div *ngIf="!resultados">
+          <div *ngIf="ejercActivo===1">
+            <div *ngIf="rutina" class="row">
+              <!-- BARRA DE PROGRESO INICIO -->
+              <div class="row progress" *ngIf="tTimer>0">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                  [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'" aria-valuemin="0"
+                  aria-valuemax="20" style="margin:0px auto;">
+                </div>
+              </div>
+              <!-- BARRA DE PROGRESO FIN -->
+              <div class="row">
+                <p class="titulo" style="margin:0px auto">
+                  Ingresa el elemento faltante en la operacion
+                </p>
+              </div>
+              <div class="row">
+                <div class="col">
+
+                  {{vistaOperacion.operacion[0]}} {{vistaOperacion.operacion[1]}} {{vistaOperacion.operacion[2]}} =
+                  {{vistaOperacion.operacion[3]}}
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <form class="example-form">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                      <mat-label>Numero u operador</mat-label>
+                      <input type="text" matInput [formControl]="resultOperacion" (change)="funcion1()">
+                      <mat-hint></mat-hint>
+                    </mat-form-field>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!tiempoDescanso">
+          <div *ngIf="!resultados">
+            <div *ngIf="ejercActivo===2">
+              <div *ngIf="rutina" class="row">
+                <!-- BARRA DE PROGRESO INICIO -->
+                <div class="row progress" *ngIf="tTimer>0">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                    [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'" aria-valuemin="0"
+                    aria-valuemax="20" style="margin:0px auto;">
+                  </div>
+                </div>
+                <!-- BARRA DE PROGRESO FIN -->
+                <div class="row">
+                  <p class="titulo" style="margin:0px auto">
+                    Arma las figura geometrica con las caras:
+                  </p>
+                </div>
+                <div class="row" style="margin:0px auto"><img
+                    src="..\assets\img\rutinas\LogicoMatematico\figurasGeo\FigurasGeo-{{vistaFigGeom.imgFigGeo}}.png"
+                    alt=""></div>
+                <div cdkDropListGroup class="row">
+                  <div>
+                    <div class="row example-container2">
+                      <h2>Figuras Diponibles: </h2>
+                    </div>
+                    <div class="row">
+                      <div cdkDropList [cdkDropListData]="vistaCaras" class="example-list2"
+                        [cdkDropListSortingDisabled]="true" cdkDropListOrientation="horizontal"
+                        (cdkDropListDropped)="drop($event)">
+                        <div class="example-box" *ngFor="let item of vistaCaras" cdkDrag><img
+                            src="..\assets\img\rutinas\LogicoMatematico\espaciosFig\FigurasGeom-{{item}}.png"
+                            height="100%" width="1000%">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row example-container" style="margin:0px auto">
+                    <div class="row">
+                      <h2>Caras</h2>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div cdkDropList [cdkDropListData]="contenedorCaras" class="example-list"
+                          [cdkDropListSortingDisabled]="true" (cdkDropListDropped)="drop($event)">
+                          <div class="example-box" *ngFor="let item of contenedorCaras" cdkDrag><img
+                              src="..\assets\img\rutinas\LogicoMatematico\espaciosFig\FigurasGeom-{{item}}.png"
+                              height="100%" width="100%"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <button (click)="funcion2()" mat-raised-button class="buttonSkepsi textoBoton">
+                      Siguiente
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="!tiempoDescanso">
+            <div *ngIf="!resultados">
+              <div *ngIf="ejercActivo===3">
+                <div *ngIf="rutina" class="row">
+                  <!-- BARRA DE PROGRESO INICIO -->
+                  <div class="row progress" *ngIf="tTimer>0">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                      [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'"
+                      aria-valuemin="0" aria-valuemax="20" style="margin:0px auto;">
+                    </div>
+                  </div>
+                  <!-- BARRA DE PROGRESO FIN -->
+                  <div class="row">
+                    <p class="titulo" style="margin:0px auto">
+                      Arma la siguiente combinacion de colores
+                    </p>
+                  </div>
+                  <div class="row">
+                    <div class="row">
+                      <h2 class="texto_rojo">Rojo: {{combinacionColores.R}}</h2>
+                    </div>
+                    <div class="row">
+                      <h2 class="texto_verde">Verde: {{combinacionColores.G}}</h2>
+                    </div>
+                    <div class="row">
+                      <h2 class="texto_azul">Azul: {{combinacionColores.B}}</h2>
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <h1>Selecciona el simbolo correcto:</h1>
+                  </div>
+                  <div class="row">
+                    <div class="row" style="margin:0px auto">
+                      <div class="row">
+                      <div class="col" align="right">
+                      <mat-slider thumbLabel [displayWith]="formatFraction" tickInterval="0.01" step="0.01" min="0.001"
+                        max="1" aria-label="units" [(ngModel)]="sliderRValue"></mat-slider>
+                      </div>
+                      <div class="col" align="left">
+                        <circle-progress ng [percent]="sliderRValue*100" [radius]="85" [outerStrokeWidth]="16"
+                    [innerStrokeWidth]="8" [outerStrokeColor]="'#ff0000'" [innerStrokeColor]="'#800000'"
+                    [animation]="true" [backgroundColor]="'#b44b4b'" [animationDuration]="300" [renderOnClick]="true"
+                    [showUnits]="false" [showSubtitle]="false" [title]="fractionR" [showTitle]="true"></circle-progress>
+                      </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                      <h3>Rojo: {{getFraction(sliderRValue, 'R')}}</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" style="margin:0px auto">
+                      <div class="row">
+                        <div class="col" align="right">
+                      <mat-slider thumbLabel [displayWith]="formatFraction" tickInterval="0.01" step="0.01" min="0.001"
+                        max="1" aria-label="units" [(ngModel)]="sliderGValue"></mat-slider>
+                        </div>
+                        <div class="col" align="left">
+                        <circle-progress ng [percent]="sliderGValue*100" [radius]="85" [outerStrokeWidth]="16"
+                    [innerStrokeWidth]="8" [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#9dd147'"
+                    [animation]="true" [backgroundColor]="'#C7E596'" [animationDuration]="300" [renderOnClick]="true"
+                    [showUnits]="false" [showSubtitle]="false" [title]="fractionG" [showTitle]="true"></circle-progress>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                      <h3>Verde: {{getFraction(sliderGValue, 'G')}}</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" style="margin:0px auto">
+                      <div class="row">
+                        <div class="col" align="right">
+                      <mat-slider thumbLabel [displayWith]="formatFraction" tickInterval="0.01" step="0.01" min="0.001"
+                        max="1" aria-label="units" [(ngModel)]="sliderBValue"></mat-slider>
+                        </div>
+                        <div class="col" align="left">
+                        <circle-progress ng [percent]="sliderBValue*100" [radius]="85" [outerStrokeWidth]="16"
+                    [innerStrokeWidth]="8" [outerStrokeColor]="'#0000ff'" [innerStrokeColor]="'#1732e8'"
+                    [animation]="true" [backgroundColor]="'#0080ff'" [animationDuration]="300" [renderOnClick]="true"
+                    [showUnits]="false" [showSubtitle]="false" [title]="fractionB" [showTitle]="true"></circle-progress>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                      <h3>Azul: {{getFraction(sliderBValue, 'B')}}</h3>
+                  </div>
+                </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-2" style="margin:0px auto">
+                        <button mat-raised-button (click)="funcion3()" class="buttonSkepsi textoBoton">Siguiente
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="ejercActivo===4">
+            <audio id="finRutAudio" #finRutAudio src="..\assets\Audios\InicioFin\SonidoFinRutina.mpeg" autoplay></audio>
+            <div class="row">
+              <p class="titulo" style="margin:0px auto">Resultados Generales:</p>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h3>Ejericicio 1: {{ resultadoEjer[0].aciertos }} aciertos de {{ resultadoEjer[0].intentos }}</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h3> Ejericicio 2: {{ resultadoEjer[1].aciertos }} aciertos de {{ resultadoEjer[1].intentos }}</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h3> Ejericicio 3: {{ resultadoEjer[2].aciertos }} aciertos de {{ resultadoEjer[2].intentos }}</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-2" style="margin: 0px auto;">
+                <button (click)="reloadPage()" mat-raised-button class="buttonSkepsi textoBoton">
+                  Continuar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
