@@ -74,7 +74,6 @@ import { DetallesPlantillaComponent } from './componentes/Plantillas/detalles-pl
 import { HolidaysComponent } from './componentes/Plantillas/holidays/holidays.component';
 import { ResultadosComponent } from './componentes/resultados/resultados.component';
 import { SpinnerComponent } from './componentes/spinner/spinner.component';
-import { SpinnerInterceptor } from './services/spinner/spinner.interceptor';
 import { ResultadosFiltroComponent } from './componentes/resultados/resultados-filtro/resultados-filtro.component';
 import { DashboardComponent } from './componentes/dashboard/dashboard/dashboard.component';
 import { DashboardDetailComponent } from './componentes/dashboard/dashboard-detail/dashboard-detail.component';
@@ -123,6 +122,8 @@ import { ChatbotTutorComponent } from './componentes/Tutores/chatbot-tutor/chatb
 import { FinanzasComponent } from './componentes/finanzas/finanzas/finanzas.component';
 import { Aglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Antochi/Recuperacion/aglre1012/aglre1012.component';
 import { Dsyre1012Component } from './componentes/rutinas/RutinasEnDesarrollo/dsyre1012/dsyre1012.component';
+import { Eglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Exousia/Recuperacion/eglre1012/eglre1012.component';
+import { SortablejsModule } from 'ngx-sortablejs';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -195,6 +196,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FinanzasComponent,
     Aglre1012Component,
     Dsyre1012Component,
+    Eglre1012Component
   ],
   imports: [
     BrowserModule,
@@ -242,7 +244,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ReactiveFormsModule,
     NgxPayPalModule,
     FullCalendarModule,
-
+    SortablejsModule.forRoot({ animation: 150 })
   ]
   ,
   schemas: [
