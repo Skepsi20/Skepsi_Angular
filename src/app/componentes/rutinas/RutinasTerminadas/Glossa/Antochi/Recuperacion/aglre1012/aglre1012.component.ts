@@ -301,7 +301,7 @@ export class Aglre1012Component implements OnInit {
 
 
   //RESULTADOS INICIO
-  /*
+  
   getSession(){
     this._resultsService.getSession()
     .subscribe(
@@ -363,5 +363,5 @@ export class Aglre1012Component implements OnInit {
       console.log("ERROR",error)
     });
   }
-  */
+  
 }

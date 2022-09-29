@@ -60,7 +60,7 @@ private type = 0;
 public instrucciones : boolean = true;
 
 timeLeft: number = 10;
-timeLeftTwo: number = 120;
+timeLeftTwo: number = 60;
 interval:any;
 intervalTwo:any;
 
@@ -104,7 +104,7 @@ intervalTwo:any;
     this.opcionesDeBanderas = [];
     this.opcionesDeBanderasRandom = [];
     this.respuestaNombres = [];
-    this.timeLeftTwo = 120;
+    this.timeLeftTwo = 60;
     this.banderasController = this._agnreService.getBanderas();
     this.banderasControllerRandom = this.banderasController.sort( () => Math.random() - 0.2);
     this.CreacionArreglos(this.cantidadBanderas[this.level], this.banderasControllerRandom);
@@ -153,6 +153,10 @@ intervalTwo:any;
       if(this.timeLeftTwo > 0) {
         this.timeLeftTwo--;
       } else {
+          let alarmInitRutina = <HTMLAudioElement>(
+            document.getElementById('initEjerAudio')
+          );
+          alarmInitRutina.play();
         this.tiempoAprender  = false;
         clearInterval(this.intervalTwo);
       }
@@ -179,13 +183,6 @@ intervalTwo:any;
   }
 
   respuestasBanderasDOM(bandera : any){
-    if(!this.respuestasBanderas.length){
-      let alarmInitRutina = <HTMLAudioElement>(
-        document.getElementById('finEjerAudio')
-      );
-      alarmInitRutina.play();
-    }
-
       this.respuestasBanderas.push(bandera);
       console.log(this.respuestasBanderas);
       this.posicionDeBandera++;
@@ -195,7 +192,11 @@ intervalTwo:any;
       this.mostrarBN(this.posicionDeBandera);
   }
 
-  revisar(){
+  revisar(){    
+    let alarmInitRutina = <HTMLAudioElement>(
+      document.getElementById('finEjerAudio')
+    );
+    alarmInitRutina.play();
     var porcentaje = 0;
     for(let index = 0; index < this.cantidadBanderas[this.level]; index++){
       if(this.respuestasBanderas[index] == this.banderasAcotadasRandom[index].imagen){
@@ -250,11 +251,6 @@ intervalTwo:any;
       this.resultados = true;
     }
     this.calificacion = 0;
-
-    let alarmInitRutina = <HTMLAudioElement>(
-      document.getElementById('finEjerAudio')
-    );
-    alarmInitRutina.play();
   }
    //RESULTADOS INICIO
   getSession(){

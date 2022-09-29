@@ -55,6 +55,7 @@ import { FinanzasComponent } from './componentes/finanzas/finanzas/finanzas.comp
 import { Aglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Antochi/Recuperacion/aglre1012/aglre1012.component';
 import { Eglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Exousia/Recuperacion/eglre1012/eglre1012.component';
 import { Dsyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Dynami/Recuperacion/dsyre1012/dsyre1012.component';
+import { DGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Dynami/Recuperacion/dgnre1012/dgnre1012.component';
 
 const routes: Routes = [
   {path:'', component: InicioComponent},
@@ -101,7 +102,7 @@ const routes: Routes = [
   {path:'privacidad', component: PrivacidadComponent},
 
 
-  {path:'test', component: Eglre1012Component},
+  {path:'test', component: DGNRE1012Component},
   {path:'test-omar', component: Dsyre1012Component},
   {path:'test-daniel', component: Emaco1012Component},
 

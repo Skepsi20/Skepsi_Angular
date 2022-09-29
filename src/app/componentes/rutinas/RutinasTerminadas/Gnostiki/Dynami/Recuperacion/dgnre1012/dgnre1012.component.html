@@ -32,7 +32,7 @@
     <div class="row">
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-          [attr.aria-valuenow]="timeLeftTwo" [style.width]="(timeLeftTwo*0.83)+'%'" aria-valuemin="0" aria-valuemax="20"
+          [attr.aria-valuenow]="timeLeftTwo" [style.width]="(timeLeftTwo*1.6)+'%'" aria-valuemin="0" aria-valuemax="20"
           style="margin:0px auto;">
         </div>
       </div>
@@ -72,27 +72,6 @@
     <p class="titulo">Tuviste {{calificacionVista}} aciertos de {{banderasVista}}</p>
     <button (click)="Inicializacion()" class="buttonSkepsi textoBoton" >Continuar</button>
   </div>
-
-
-<!--
-    <div *ngIf="!tiempoAprender">
-      <div *ngIf="!resultados">
-        <div *ngIf="rutina" style="width: 50%; margin: 0px auto;">
-          <h1>Recuerdas la bandera?</h1>
-          <h1> {{banderaVista[0].nombre}} </h1>
-          <img src="{{banderaVista[0].imagen}}" style="border-radius:10px;">
-            <br>
-          <button (click)="funcionUno('si')" mat-raised-button class="ml-1" color="primary" style="margin-right: 10px;">Si la conozco</button>
-          <button (click)="funcionUno('no')" mat-raised-button class="ml-1" color="primary">No la conozco</button>
-        </div>
-      </div>
-      <div *ngIf="resultados" style="margin-top: 50px;">
-        <h1>Resultados:</h1>
-        <h1>Tuviste {{calificacionVista}} aciertos de {{banderasVista}}</h1>
-        <button (click)="Inicializacion()" mat-raised-button class="ml-1" color="primary">Continuar</button>
-      </div>
-    </div>
- -->
 
 </div>
 </div>

@@ -155,6 +155,7 @@ export class Eglre1012Component implements OnInit {
     this.arregloDeAudios = [];
     this.audiosDOM = [];
     this.audiosControllerRandom = [];
+    this.respuestasDragAndDrop = [];
 
     //Instrucciones
     this.instruccionesFunc();
@@ -262,8 +263,10 @@ export class Eglre1012Component implements OnInit {
     console.log("RESPUESTAS DEL DRAG AND DROP",this.respuestasDragAndDrop)
     var porcentaje = 0;
     for (let index = 0; index < this.cantidadAudios[this.level]; index++) {
-      if(this.respuestasDragAndDrop[index].nombre == this.arregloDeAudios[index].nombre){
-        this.calificacion++;
+      if(this.respuestasDragAndDrop[index]){
+        if(this.respuestasDragAndDrop[index].nombre == this.arregloDeAudios[index].nombre){
+          this.calificacion++;
+        }
       }
     }
     this.cantidadAudiosVista = this.cantidadAudios[this.level];
@@ -323,7 +326,7 @@ export class Eglre1012Component implements OnInit {
 
 
   //RESULTADOS INICIO
-  /*
+  
   getSession(){
     this._resultsService.getSession()
     .subscribe(
@@ -385,5 +388,5 @@ export class Eglre1012Component implements OnInit {
       console.log("ERROR",error)
     });
   }
-  */
+
 }

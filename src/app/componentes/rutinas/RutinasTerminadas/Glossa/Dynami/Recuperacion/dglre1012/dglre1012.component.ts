@@ -338,7 +338,7 @@ export class DGLRE1012Component implements OnInit {
 
 
   //RESULTADOS INICIO
-  /*
+  
   getSession(){
     this._resultsService.getSession()
     .subscribe(
@@ -400,5 +400,5 @@ export class DGLRE1012Component implements OnInit {
       console.log("ERROR",error)
     });
   }
-  */
+  
 }

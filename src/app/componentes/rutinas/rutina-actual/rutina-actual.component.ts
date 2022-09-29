@@ -13,6 +13,8 @@ import { Dmaco1012Component } from '../RutinasTerminadas/Mathimatiki/Dynami/Comp
 import { Emaco1012Component } from '../RutinasTerminadas/Mathimatiki/Exousia/Comprension/emaco1012/emaco1012.component';
 import { Amaan1012Component } from '../RutinasTerminadas/Mathimatiki/Antochi/Analisis/amaan1012/amaan1012.component';
 import { Emaan1012Component } from '../RutinasTerminadas/Mathimatiki/Exousia/Analisis/emaan1012/emaan1012.component';
+import { Aglre1012Component } from '../RutinasTerminadas/Glossa/Antochi/Recuperacion/aglre1012/aglre1012.component';
+import { Eglre1012Component } from '../RutinasTerminadas/Glossa/Exousia/Recuperacion/eglre1012/eglre1012.component';
 
 @Component({
   selector: 'app-rutina-actual',
@@ -86,12 +88,17 @@ export class RutinaActualComponent implements OnInit {
       case '1012DGNRE': { componenteACrear = DGNRE1012Component } break;
       case '1012AGNRE': { componenteACrear = AGNRE1012Component } break;
       case '1012EGNRE': { componenteACrear = EGNRE1012Component } break;
+
       case '1012DGLRE': { componenteACrear = DGLRE1012Component } break;
+      case '1012AGLRE': { componenteACrear = Aglre1012Component } break;
+      case '1012EGLRE': { componenteACrear = Eglre1012Component } break;
+
 
       /* DANIEL */
       case '1012AMACO': { componenteACrear = Amaco1012Component } break;
       case '1012DMACO': { componenteACrear = Dmaco1012Component } break;
       case '1012EMACO': { componenteACrear = Emaco1012Component } break;
+      
       case '1012AMAAN': { componenteACrear = Amaan1012Component } break;
       case '1012DMAAN': { componenteACrear = Dmaan1012Component } break;
       case '1012EMAAN': { componenteACrear = Emaan1012Component } break;

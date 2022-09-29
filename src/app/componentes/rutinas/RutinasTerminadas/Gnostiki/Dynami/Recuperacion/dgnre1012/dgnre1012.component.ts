@@ -58,7 +58,7 @@ export class DGNRE1012Component implements OnInit {
   public reactivos = [6,7,8,9,10,11,12,13];
 
   timeLeft: number = 10;
-  timeLeftTwo: number = 120;
+  timeLeftTwo: number = 60;
   interval:any;
   intervalTwo:any;
 
@@ -114,7 +114,7 @@ export class DGNRE1012Component implements OnInit {
     this.items = [];
     this.respuestas = [];
     this.banderasParaAprender = [];
-    this.timeLeftTwo = 120;
+    this.timeLeftTwo = 60;
     this.banderaRandom = this.banderasController.sort( () => Math.random() - 0.5);
     this.CreacionArreglos(this.cantidadBanderas[this.level], this.banderaRandom);
     this.aprender();
@@ -148,12 +148,17 @@ export class DGNRE1012Component implements OnInit {
         this.timeLeftTwo--;
       } else {
         this.tiempoAprender  = false;
+          let alarmInitRutina = <HTMLAudioElement>(
+            document.getElementById('initEjerAudio')
+          );
+          alarmInitRutina.play();
         clearInterval(this.intervalTwo);
       }
     },1000)
   }
 
   mostrar(valor : number){
+    
     if(valor < this.cantidadBanderas[this.level]){
       this.banderaVista[0] = this.items[valor];
     }else if(valor == this.cantidadBanderas[this.level]){
@@ -164,13 +169,6 @@ export class DGNRE1012Component implements OnInit {
   }
 
   funcionUno(valor : any){
-    if(!this.respuestas.length){
-      let alarmInitRutina = <HTMLAudioElement>(
-        document.getElementById('finEjerAudio')
-      );
-      alarmInitRutina.play();
-    }
-
     this.aux++;
     if(valor == 'si'){
       this.respuestas.push('si');
