@@ -73,8 +73,8 @@ export class Eglre1012Component implements OnInit {
 
 
     //Temporizador
-    timeLeft: number = 1;
-    timeLeftTwo: number = 20;
+    timeLeft: number = 10;
+    timeLeftTwo: number = 35;
     interval:any;
     intervalTwo:any;
 
@@ -96,9 +96,8 @@ export class Eglre1012Component implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.Inicializacion()
-    //setInterval(()=> this.statusUpdate(),30000);
-    //this.getSession();
+    setInterval(()=> this.statusUpdate(),30000);
+    this.getSession();
   }
 
   statusUpdate(){
@@ -150,6 +149,7 @@ export class Eglre1012Component implements OnInit {
   Inicializacion(){
     //Limpiar variables
     this.resultados = false;
+    this.timeLeftTwo = 20;
     this.audiosController = [];
     this.tiempoAudiosDOMSinImagen = false;
     this.arregloDeAudios = [];
@@ -221,6 +221,7 @@ export class Eglre1012Component implements OnInit {
         }else if(aux >= this.cantidadAudios[this.level]){
           audio.pause();
           clearInterval(tiempo);
+          this.auxDOM = "";
           this.tiempoAudiosDOM = false;
           this.tiempoAudiosDOMSinImagen = true;
           this.audiosParaDOMSinImagen();
@@ -247,6 +248,7 @@ export class Eglre1012Component implements OnInit {
       }else if(aux >= this.cantidadAudios[this.level]){
         audio.pause();
         clearInterval(tiempo);
+        this.auxDOM = "";
         this.tiempoAudiosDOM = false;
         this.tiempoAudiosDOMSinImagen = true;
         this.dragAndDrop = true;
@@ -278,7 +280,7 @@ export class Eglre1012Component implements OnInit {
       this.resultsTable.studentSessionId = this.studentSessionId;
 
       //Grade
-      var partialGrade = ((this.calificacion/this.cantidadAudios[this.level])*100)/2;
+      var partialGrade = ((this.calificacion/this.cantidadAudios[this.level])*100);
       this.resultsTable.grade = partialGrade;
 
       //Round
@@ -291,7 +293,7 @@ export class Eglre1012Component implements OnInit {
 
       //LLENADO DE TABLA RESULTS DETAILS INICIO
       //Possible points
-      this.resultsTable.resultDetails[0].possiblePoints = this.cantidadAudios[this.level]*2;
+      this.resultsTable.resultDetails[0].possiblePoints = this.cantidadAudios[this.level];
 
       //Points
       this.resultsTable.resultDetails[0].points = this.calificacion;
@@ -303,7 +305,7 @@ export class Eglre1012Component implements OnInit {
       this.resultsTable.resultDetails[0].pointsDescription ="Cantidad de sonidos memorizadas";
 
       //Metodo para crear resultado
-      //this.addResult(this.resultsTable);
+      this.addResult(this.resultsTable);
       //LLENADO DE TABLA RESULTS DETAILS FIN
 
     porcentaje = this.cantidadAudios[this.level] * .6;

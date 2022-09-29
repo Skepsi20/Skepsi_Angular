@@ -86,9 +86,8 @@ export class DGLRE1012Component implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.Inicializacion()
-    //setInterval(()=> this.statusUpdate(),30000);
-    //this.getSession();
+    setInterval(()=> this.statusUpdate(),30000);
+    this.getSession();
   }
 
   statusUpdate(){
@@ -193,6 +192,7 @@ export class DGLRE1012Component implements OnInit {
           clearInterval(tiempo);
           this.tiempoAudiosDOM = false;
           this.tiempoAudiosDOMSinImagen = true;
+          this.auxDOM = "";
           this.audiosParaDOMSinImagen();
         }
       },8000);
@@ -220,6 +220,7 @@ export class DGLRE1012Component implements OnInit {
         this.tiempoAudiosDOM = false;
         this.tiempoAudiosDOMSinImagen = true;
         this.dragAndDrop = true;
+        this.auxDOM = "";
       }
     },8000);
   }
@@ -240,7 +241,8 @@ export class DGLRE1012Component implements OnInit {
       this.resultsTable.studentSessionId = this.studentSessionId;
 
       //Grade
-      var partialGrade = ((this.calificacion/this.cantidadAudios[this.level])*100)/2;
+      var partialGrade = ((this.calificacion/this.cantidadAudios[this.level])*100);
+
       this.resultsTable.grade = partialGrade;
 
       //Round
@@ -253,7 +255,7 @@ export class DGLRE1012Component implements OnInit {
 
       //LLENADO DE TABLA RESULTS DETAILS INICIO
       //Possible points
-      this.resultsTable.resultDetails[0].possiblePoints = this.cantidadAudios[this.level]*2;
+      this.resultsTable.resultDetails[0].possiblePoints = this.cantidadAudios[this.level];
 
       //Points
       this.resultsTable.resultDetails[0].points = this.calificacion;
@@ -265,7 +267,7 @@ export class DGLRE1012Component implements OnInit {
       this.resultsTable.resultDetails[0].pointsDescription ="Cantidad de sonidos memorizadas";
 
       //Metodo para crear resultado
-      //this.addResult(this.resultsTable);
+      this.addResult(this.resultsTable);
       //LLENADO DE TABLA RESULTS DETAILS FIN
 
     porcentaje = this.cantidadAudios[this.level] * .6;
@@ -394,7 +396,7 @@ export class DGLRE1012Component implements OnInit {
     this._resultsService.addResults(results)
     .subscribe(
       (successResponse)=>{
-
+        console.log("subida correcta")
     },
     (error)=>{
       console.log("ERROR",error)
