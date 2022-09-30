@@ -58,6 +58,7 @@ import { FinanzasComponent } from './componentes/finanzas/finanzas/finanzas.comp
 import { Aglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Antochi/Recuperacion/aglre1012/aglre1012.component';
 import { Eglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Exousia/Recuperacion/eglre1012/eglre1012.component';
 import { Dsyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Dynami/Recuperacion/dsyre1012/dsyre1012.component';
+import { Asyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Antochi/Recuperacion/asyre1012/asyre1012.component';
 
 const routes: Routes = [
   {path:'', component: InicioComponent},
@@ -105,7 +106,7 @@ const routes: Routes = [
 
 
   {path:'test', component: Eglre1012Component},
-  {path:'test-omar', component: Dsyre1012Component},
+  {path:'test-omar', component: Asyre1012Component},
 
   //https://www.skepsi.com.mx/#/confirm-email?email=rixflos77@gmail.com&token=CfDJ8H7g1sKTX9xBlBUi+eUBYoN3X3Ff3NBDHOpzFSfD1/b61DMU+uZrWa57L2v5w6zKgOoATD4/ckqcTxsXBHjN8XQZ5WYdjXozhEbhU4N2yB2xBLm0KOxZeYgfjLf6sT+TGuuySBMBe3yinIt+k8z0OMz8v7X1qBfux5Fji1Lmt2eVH81niLwtxhv0INBWXGVGNKdnluLmilKBngyaoN8sT+4n8SDWY3fRkuuuQIs7swPzTHLgKJiAz9E/9glDVIESRQ==
 

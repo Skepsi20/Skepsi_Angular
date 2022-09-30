@@ -1,0 +1,80 @@
+<div class="ASYRE">
+  <div class="skepsiLogo">
+    <img src="../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+  </div>
+  <div>
+    <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
+    preload="auto"></audio>
+    <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
+      preload="auto"></audio>
+    <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
+  </div>
+  <div class="general">
+    <!-- Paso 1: Instrucciones -->
+    <div *ngIf="currentStep == ASYRE1012Step.Instructions">
+      <div class="row progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeft" [style.width]="(timeLeft*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <p class="titulo">Verás dos tablas con emociones primarias y secundarias, no es necesario que las memorices, sólo leelas y analízalas</p>
+      </div>
+    </div>
+
+    <!-- Paso 2: Introducción -->
+    <div *ngIf="currentStep == ASYRE1012Step.Introduction">
+      <div class="row" align="left">
+        <div class="col">
+          <h1>Esta tabla representa las emociones básicas. Todos nacemos con ellas. Léela y pregunta al entrenador si tienes dudas acerca de lo que significan.</h1>
+          <ul>
+            <li *ngFor="let emocion of emocionesBasicas" style="font-size:20px"><p>{{emocion}}</p></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h1>Estas son las emociones secundarias. Desde que nacemos las desarrollamos. Revísalas y pregunta al entrenador si tienes dudas acerca de lo que significan.</h1>
+          <ul>
+            <li *ngFor="let emocion of emocionesSecundarias" style="font-size:20px"><p>{{emocion}}</p></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div style="display: flex; justify-content: center; margin-top: 30px;">
+          <button style="width: 50%; max-width: 200px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="currentStep == ASYRE1012Step.FacesEmotions" class="row full-parent-height">
+      <div class="row full-parent-height">
+        <h3><b>En las imágenes se muestran las emociones básicas y secundarias</b></h3>
+        <div class="col col-2" style="text-align: center; line-height: 8px; max-height: 90%; height: 90%;">
+          <div class="full-parent-height" style="display: flex; flex-direction: column; justify-content:space-around;">
+            <div class="row thin-border" style="margin-bottom:1px">
+              <h4 style="font-weight:bold">Emociones básicas</h4>
+              <p *ngFor="let emocion of emocionesBasicas">{{emocion}}</p>
+            </div>
+            <div class="row thin-border" style="margin-top:1px">
+              <h4 style="font-weight:bold">Emociones secundarias</h4>
+              <p *ngFor="let emocion of emocionesSecundarias">{{emocion}}</p>
+            </div>
+            <div class="row">
+              <div style="display: flex; justify-content: center; margin-top: 30px;">
+                <button style="width: 50%; max-width: 200px; min-width: 100px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col images-container" style="max-height: 90%; height: 90%;">
+          <div *ngFor="let imageEmotion of imageEmotions;let i = index" class="image-container">
+            <img width="200" height="200" src="{{imageEmotion.imageUrl}}">
+            <div class="image-text-top-left"><p><b>{{i + 1}}</b></p></div>
+            <p class="image-description"><b>{{imageEmotionDescriptions[i]}}</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
