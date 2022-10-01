@@ -279,10 +279,6 @@ export class Dsyre1012Component implements OnInit {
 
   public nextPicture(): void {
     this.storyIndex++;
-
-    if(this.storyIndex == this.storyMaxIndex) {
-
-    }
   }
 
   public isBasicEmotion(emocion: string): boolean {

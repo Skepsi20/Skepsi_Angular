@@ -123,6 +123,7 @@ import { SortablejsModule } from 'ngx-sortablejs';
 import { Amaan1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Antochi/Analisis/amaan1012/amaan1012.component';
 import { Dmaan1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Dynami/Analisis/dmaan1012/dmaan1012.component';
 import { Emaan1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Exousia/Analisis/emaan1012/emaan1012.component';
+import { Asyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Antochi/Recuperacion/asyre1012/asyre1012.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -194,7 +195,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FinanzasComponent,
     Aglre1012Component,
     Dsyre1012Component,
-    Eglre1012Component
+    Eglre1012Component,
+    Asyre1012Component
   ],
   imports: [
     BrowserModule,

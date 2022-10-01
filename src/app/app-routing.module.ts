@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { TutoresComponent } from './componentes/Tutores/tutores/tutores.component';
 import { LoginComponent } from './componentes/Auth/login/login.component';
 import { RegisterComponent } from './componentes/Auth/register/register.component';
-import { UserGuardGuard } from './componentes/Auth/login/user-guard.guard';
 import { VentasComponent } from './componentes/Planes/ventas/ventas.component';
 import { PaquetesComponent } from './componentes/Planes/paquetes/paquetes.component';
 import { InstitucionComponent } from './componentes/Instituciones/institucion/institucion.component';
@@ -43,19 +42,14 @@ import { PanelVentasComponent } from './componentes/panel-ventas/panel-ventas.co
 import { PanelGimnasioComponent } from './componentes/panel-gimnasio/panel-gimnasio.component';
 import { ForgotPasswordComponent } from './componentes/Auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './componentes/Auth/reset-password/reset-password.component';
-import { SpinnerComponent } from './componentes/spinner/spinner.component';
 import { TerminosComponent } from './componentes/Skepsi/terminos/terminos.component';
-import { AppComponent } from './app.component';
 import { TutoresAdminComponent } from './componentes/Tutores/tutores-admin/tutores-admin.component';
 import { AdminVentasGimnasioComponent } from './componentes/admin-ventas-gimnasio/admin-ventas-gimnasio.component';
 import { PrivacidadComponent } from './componentes/Skepsi/privacidad/privacidad.component';
 import { SuspendidosComponent } from './componentes/suspendidos/suspendidos.component';
-import { Amaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Antochi/Comprension/amaco1012/amaco1012.component';
 import { FinanzasComponent } from './componentes/finanzas/finanzas/finanzas.component';
-import { Aglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Antochi/Recuperacion/aglre1012/aglre1012.component';
-import { Eglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Exousia/Recuperacion/eglre1012/eglre1012.component';
-import { Dsyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Dynami/Recuperacion/dsyre1012/dsyre1012.component';
 import { DGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Dynami/Recuperacion/dgnre1012/dgnre1012.component';
+import { Asyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Antochi/Recuperacion/asyre1012/asyre1012.component';
 
 const routes: Routes = [
   {path:'', component: InicioComponent},
@@ -103,7 +97,7 @@ const routes: Routes = [
 
 
   {path:'test', component: DGNRE1012Component},
-  {path:'test-omar', component: Dsyre1012Component},
+  {path:'test-omar', component: Asyre1012Component},
   {path:'test-daniel', component: Emaco1012Component},
 
   //https://www.skepsi.com.mx/#/confirm-email?email=rixflos77@gmail.com&token=CfDJ8H7g1sKTX9xBlBUi+eUBYoN3X3Ff3NBDHOpzFSfD1/b61DMU+uZrWa57L2v5w6zKgOoATD4/ckqcTxsXBHjN8XQZ5WYdjXozhEbhU4N2yB2xBLm0KOxZeYgfjLf6sT+TGuuySBMBe3yinIt+k8z0OMz8v7X1qBfux5Fji1Lmt2eVH81niLwtxhv0INBWXGVGNKdnluLmilKBngyaoN8sT+4n8SDWY3fRkuuuQIs7swPzTHLgKJiAz9E/9glDVIESRQ==

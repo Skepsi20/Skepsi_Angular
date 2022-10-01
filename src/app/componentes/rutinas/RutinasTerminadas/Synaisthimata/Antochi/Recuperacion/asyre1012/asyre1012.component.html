@@ -1,0 +1,195 @@
+<div class="ASYRE">
+  <div class="skepsiLogo">
+    <img src="../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+  </div>
+  <div>
+    <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
+    preload="auto"></audio>
+    <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
+      preload="auto"></audio>
+    <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
+  </div>
+  <div class="general">
+    <!-- Paso 1: Instrucciones -->
+    <div *ngIf="currentStep == ASYRE1012Step.Instructions">
+      <div class="row progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeft" [style.width]="(timeLeft*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <p class="titulo">Verás dos tablas con emociones primarias y secundarias, no es necesario que las memorices, sólo leelas y analízalas</p>
+      </div>
+    </div>
+
+    <!-- Paso 2: Introducción -->
+    <div *ngIf="currentStep == ASYRE1012Step.Introduction">
+      <div class="row" align="left">
+        <div class="col">
+          <h1>Esta tabla representa las emociones básicas. Todos nacemos con ellas. Léela y pregunta al entrenador si tienes dudas acerca de lo que significan.</h1>
+          <ul>
+            <li *ngFor="let emocion of emocionesBasicas" style="font-size:20px"><p>{{emocion}}</p></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h1>Estas son las emociones secundarias. Desde que nacemos las desarrollamos. Revísalas y pregunta al entrenador si tienes dudas acerca de lo que significan.</h1>
+          <ul>
+            <li *ngFor="let emocion of emocionesSecundarias" style="font-size:20px"><p>{{emocion}}</p></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div style="display: flex; justify-content: center; margin-top: 30px;">
+          <button style="width: 50%; max-width: 200px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 3: Caras con emociones -->
+    <div *ngIf="currentStep == ASYRE1012Step.FacesEmotions" class="row full-parent-height">
+      <div class="row full-parent-height">
+        <h2><b>En las imágenes se muestran las emociones básicas y secundarias</b></h2>
+        <div class="col col-2" style="text-align: center; line-height: 8px; max-height: 90%; height: 90%;">
+          <div class="full-parent-height" style="display: flex; flex-direction: column; justify-content:space-around;">
+            <div class="row thin-border" style="margin-bottom:1px">
+              <h4 style="font-weight:bold">Emociones básicas</h4>
+              <p *ngFor="let emocion of emocionesBasicas">{{emocion}}</p>
+            </div>
+            <div class="row thin-border" style="margin-top:1px">
+              <h4 style="font-weight:bold">Emociones secundarias</h4>
+              <p *ngFor="let emocion of emocionesSecundarias">{{emocion}}</p>
+            </div>
+            <div class="row">
+              <div style="display: flex; justify-content: center; margin-top: 30px;">
+                <button style="width: 50%; max-width: 200px; min-width: 100px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col images-container" style="max-height: 90%; height: 90%;">
+          <div *ngFor="let imageEmotion of imageEmotions;let i = index" class="image-container">
+            <img width="200" height="200" src="{{imageEmotion.imageUrl}}">
+            <div class="image-text-top-left"><p><b>{{i + 1}}</b></p></div>
+            <p class="image-description"><b>{{imageEmotionDescriptions[i]}}</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pasos 4 y 5: Escenarios y actuación -->
+    <div *ngIf="currentStep == ASYRE1012Step.ScenariosActing || currentStep == ASYRE1012Step.ScenariosActingExagerated" class="row full-parent-height">
+      <div class="row full-parent-height">
+        <h2 *ngIf="currentStep == ASYRE1012Step.ScenariosActing"><b>A continuación verás un escenario. Debes actuar la emoción que corresponde:</b></h2>
+        <h2 *ngIf="currentStep == ASYRE1012Step.ScenariosActingExagerated"><b>Ahora debes exagerar la emoción. Trata de actuarla exageradamente:</b></h2>
+        <div class="col col-2" style="text-align: center; line-height: 8px; max-height: 90%; height: 90%;">
+          <div class="full-parent-height" style="display: flex; flex-direction: column; justify-content:space-around;">
+            <div class="row thin-border" style="margin-bottom:1px">
+              <h4 style="font-weight:bold">Emociones básicas</h4>
+              <p *ngFor="let emocion of emocionesBasicas">{{emocion}}</p>
+            </div>
+            <div class="row thin-border" style="margin-top:1px">
+              <h4 style="font-weight:bold">Emociones secundarias</h4>
+              <p *ngFor="let emocion of emocionesSecundarias">{{emocion}}</p>
+            </div>
+            <div class="row">
+              <div style="display: flex; justify-content: center; margin-top: 30px;">
+                <button style="width: 50%; max-width: 200px; min-width: 100px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col" style="max-height: 90%; height: 90%;">
+          <div class="row full-parent-height" style="display:flex; justify-content: center;">
+            <img style="max-height: 100%; height: 100%; width: auto;" src="../assets/img/emociones/escenarios/Escenario{{scenarioIndex}}.jpg">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 6:  -->
+    <div *ngIf="currentStep == ASYRE1012Step.ScenariosDragAndDrop || currentStep == ASYRE1012Step.ScenariosDragAndDropOrdered
+    || currentStep == ASYRE1012Step.ScenariosDragAndDropContained || currentStep == ASYRE1012Step.ScenariosDragAndDropContainedOrdered" class="row full-parent-height">
+      <div class="row full-parent-height">
+        <div class="row" style="max-height: 15%; height: 15%;">
+          <h2 *ngIf="currentStep == ASYRE1012Step.ScenariosDragAndDrop"><b>¿Cómo te sentiste? Identifica todas las emociones que experimentaste:</b></h2>
+          <h2 *ngIf="currentStep == ASYRE1012Step.ScenariosDragAndDropOrdered"><b>Ahora trata de ponerlas en orden. ¿Cuáles de tus emociones fueron más fuertes y cuáles más débiles?</b></h2>
+          <h2 *ngIf="currentStep == ASYRE1012Step.ScenariosDragAndDropContained"><b>Ahora imagina el mismo escenario. ¿Cómo puedes contener la emoción? Trata de actuarla y después identifica las emociones que te acompañan.</b></h2>
+          <h2 *ngIf="currentStep == ASYRE1012Step.ScenariosDragAndDropContainedOrdered"><b>Ahora trata de ponerlas en orden. ¿Cuáles de tus emociones fueron más fuertes y cuáles más débiles?</b></h2>
+        </div>
+        <div class="row" style="max-height: 70%; height: 70%; overflow-y: auto">
+          <div class="row full-parent-height" style="display:flex; justify-content: center;">
+            <div class="col-lg-4 col-md-5" style="display:flex; justify-content:center; align-items:center;">
+              <div cdkDropListGroup>
+                <div class="example-container">
+                  <h2>Emociones básicas</h2>
+                  <div
+                    cdkDropList
+                    [cdkDropListData]="emocionesBasicas"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let emotion of emocionesBasicas" cdkDrag>{{emotion}}</div>
+                  </div>
+                </div>
+
+                <div class="example-container">
+                  <h2>Emociones que sentí</h2>
+                  <div
+                    cdkDropList
+                    [cdkDropListData]="emocionesBasicasSeleccionadas"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let emotion of emocionesBasicasSeleccionadas" cdkDrag>{{emotion}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-5" style="display:flex; justify-content:center; align-items:center;">
+              <div cdkDropListGroup>
+                <div class="example-container">
+                  <h2>Emociones secundarias</h2>
+                  <div
+                    cdkDropList
+                    [cdkDropListData]="emocionesSecundarias"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let emotion of emocionesSecundarias" cdkDrag>{{emotion}}</div>
+                  </div>
+                </div>
+
+                <div class="example-container">
+                  <h2>Emociones que sentí</h2>
+                  <div
+                    cdkDropList
+                    [cdkDropListData]="emocionesSecundariasSeleccionadas"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box" *ngFor="let emotion of emocionesSecundariasSeleccionadas" cdkDrag>{{emotion}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-2" style="display:flex; justify-content:center; align-items:center;">
+              <img style="width: 90%; height: auto;" src="../assets/img/emociones/escenarios/Escenario{{scenarioIndex}}.jpg">
+            </div>
+          </div>
+        </div>
+        <div class="row" style="max-height:15%; height: 15%;">
+          <div style="display: flex; justify-content: center; margin-top: 30px;">
+            <button style="width: 50%; max-width: 200px; min-width: 100px;  height:40px" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 7: Reflexión -->
+    <div *ngIf="currentStep == ASYRE1012Step.Introspective" class="row full-parent-height">
+      <div class="row" class="row full-parent-height" style="display: flex; justify-content:center; align-items:center; align-content: center;">
+        <h1><b>Reflexiona:</b> Para controlar las emociones debes identiifcarlas y ordenarlas.</h1>
+        <button *ngIf="scenarioIndex < scenarioMaxIndex" style="width: 50%; max-width: 200px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
+        <h2 *ngIf="scenarioIndex == scenarioMaxIndex">¡Felicidades! Has llegado al final de la rutina.</h2>
+      </div>
+    </div>
+  </div>
+</div>
