@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { Amaco1012Component } from '../RutinasTerminadas/Mathimatiki/Antochi/Comprension/amaco1012/amaco1012.component';
 import { DGLRE1012Component } from '../RutinasTerminadas/Glossa/Dynami/Recuperacion/dglre1012/dglre1012.component';
 import { Dsyre1012Component } from '../RutinasTerminadas/Synaisthimata/Dynami/Recuperacion/dsyre1012/dsyre1012.component';
+import { Asyre1012Component } from '../RutinasTerminadas/Synaisthimata/Antochi/Recuperacion/asyre1012/asyre1012.component';
 
 @Component({
   selector: 'app-rutina-actual',
@@ -91,6 +92,7 @@ export class RutinaActualComponent implements OnInit {
 
       /* OMAR */
       case '1012DSYRE': { componenteACrear = Dsyre1012Component } break;
+      case '1012ASYRE': { componenteACrear = Asyre1012Component } break;
     }
     this.crearRutina(componenteACrear);
   }

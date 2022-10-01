@@ -8,6 +8,13 @@ enum ASYRE1012Step {
   Instructions,
   Introduction,
   FacesEmotions,
+  ScenariosActing,
+  ScenariosActingExagerated,
+  ScenariosDragAndDrop,
+  ScenariosDragAndDropOrdered,
+  ScenariosDragAndDropContained,
+  ScenariosDragAndDropContainedOrdered,
+  Introspective,
 }
 
 interface IImageEmotion {
@@ -24,8 +31,8 @@ interface IImageEmotion {
 export class Asyre1012Component implements OnInit {
 
   // #region Variables públicas de solo-lectura
-  public readonly storyMinIndex: number = 0;
-  public readonly storyMaxIndex: number = 8;
+  public readonly scenarioMinIndex: number = 0;
+  public readonly scenarioMaxIndex: number = 5;
   public readonly imagesDirectory: string = '../assets/img/emociones';
   // #endregion públicas privadas de solo-lectura
 
@@ -80,9 +87,12 @@ export class Asyre1012Component implements OnInit {
   public currentStep: ASYRE1012Step;
   public emocionesBasicas: string[];
   public emocionesSecundarias: string[];
+  public emocionesBasicasSeleccionadas: string[];
+  public emocionesSecundariasSeleccionadas: string[];
   public imageEmotions: IImageEmotion[];
   public showStoriesEmotions: boolean;
   public charactersOfCurrentStory: IImageEmotion[];
+  public scenarioIndex: number;
   public imageEmotionDescriptions: string[] = [
     'Alegría',
     'Alegría',
@@ -122,17 +132,19 @@ export class Asyre1012Component implements OnInit {
     this.imageEmotions = this.resetImageEmotions();
     this.emocionesBasicas = [...this.emocionesBasicasDefault];
     this.emocionesSecundarias = [...this.emocionesSecundariasDefault];
+    this.emocionesBasicasSeleccionadas = [];
+    this.emocionesSecundariasSeleccionadas = [];
     this.currentStep = ASYRE1012Step.Instructions;
     this.showStoriesEmotions = false;
     this.charactersOfCurrentStory = [];
+    this.scenarioIndex = 0;
   }
 
   ngOnInit(): void {
     this.initializeComponent();
 
-    // TODO: Descomentar cuando esté en uso
-    // setInterval(()=> this.statusUpdate(), 30000);
-    // this.getSession();
+    setInterval(()=> this.statusUpdate(), 30000);
+    this.getSession();
   }
 
   // #region Funciones públicas
@@ -145,11 +157,66 @@ export class Asyre1012Component implements OnInit {
       case ASYRE1012Step.Introduction:
         this.currentStep  = ASYRE1012Step.FacesEmotions;
         break;
+
+      case ASYRE1012Step.FacesEmotions:
+        this.currentStep  = ASYRE1012Step.ScenariosActing;
+        break;
+
+      case ASYRE1012Step.ScenariosActing:
+        this.currentStep  = ASYRE1012Step.ScenariosActingExagerated;
+        break;
+
+      case ASYRE1012Step.ScenariosActingExagerated:
+        this.currentStep  = ASYRE1012Step.ScenariosDragAndDrop;
+        break;
+
+      case ASYRE1012Step.ScenariosDragAndDrop:
+        this.currentStep  = ASYRE1012Step.ScenariosDragAndDropOrdered;
+        break;
+
+      case ASYRE1012Step.ScenariosDragAndDropOrdered:
+        this.currentStep  = ASYRE1012Step.ScenariosDragAndDropContained;
+        this.resetDragAndDrops();
+        break;
+
+      case ASYRE1012Step.ScenariosDragAndDropContained:
+        this.currentStep  = ASYRE1012Step.ScenariosDragAndDropContainedOrdered;
+        break;
+
+      case ASYRE1012Step.ScenariosDragAndDropContainedOrdered:
+        this.currentStep  = ASYRE1012Step.Introspective;
+        this.resetDragAndDrops();
+        if (this.scenarioIndex == this.scenarioMaxIndex) {
+          this.sendResult();
+        }
+        break;
+
+      case ASYRE1012Step.Introspective:
+        if (this.scenarioIndex < this.scenarioMaxIndex) {
+          this.currentStep  = ASYRE1012Step.ScenariosActing;
+          this.scenarioIndex++;
+        }
+        break;
     }
+  }
+
+  public previousScenario(): void {
+    this.scenarioIndex--;
+  }
+
+  public nextScenario(): void {
+    this.scenarioIndex++;
   }
 
   public isBasicEmotion(emocion: string): boolean {
     return this.emocionesBasicasDefault.includes(emocion);
+  }
+
+  public resetDragAndDrops(): void {
+    this.emocionesBasicas = [...this.emocionesBasicasDefault]
+        this.emocionesBasicasSeleccionadas = []
+        this.emocionesSecundarias = [...this.emocionesSecundariasDefault]
+        this.emocionesSecundariasSeleccionadas = []
   }
 
   public drop(event: CdkDragDrop<string[]>): void {
@@ -163,9 +230,6 @@ export class Asyre1012Component implements OnInit {
         event.currentIndex
       );
     }
-
-    this.emocionesBasicas = [...this.emocionesBasicasDefault];
-    this.emocionesSecundarias = [...this.emocionesSecundariasDefault];
   }
   // #endregion Funciones públicas
 
@@ -215,8 +279,7 @@ export class Asyre1012Component implements OnInit {
         this.currentStep  = ASYRE1012Step.Introduction;
         clearInterval(this.interval);
       }
-    }, 100)
-    // TODO: Regresar a 1000
+    }, 1000)
   }
 
   // #region Funciones privadas con interacción con la API
@@ -241,8 +304,8 @@ export class Asyre1012Component implements OnInit {
       resultDetails:[{
         possiblePoints: 1,
         points: 1,
-        possiblePointsDescription: 'Actividad de identificación y análisis de emociones',
-        pointsDescription: 'Actividad de identificación y análisis de emociones'
+        possiblePointsDescription: 'Actividad de análisis y experimentación de emociones',
+        pointsDescription: 'Actividad de análisis y experimentación de emociones'
       }]
     }
 
