@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ElementRef, ViewChild } from '@angular/core';
 import { dglre } from 'src/app/Models/rutinas/LenguajeComunicacion/dglre.model';
 import { DGLRE1012Service } from 'src/app/services/rutinas/LenguajeComunicacion/dglre1012.service';
-import {CdkDragDrop, CdkDragEnter, CdkDragMove, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { SortableData } from 'ngx-sortablejs';

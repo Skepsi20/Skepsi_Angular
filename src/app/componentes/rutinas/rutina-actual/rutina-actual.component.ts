@@ -16,6 +16,7 @@ import { Emaan1012Component } from '../RutinasTerminadas/Mathimatiki/Exousia/Ana
 import { Aglre1012Component } from '../RutinasTerminadas/Glossa/Antochi/Recuperacion/aglre1012/aglre1012.component';
 import { Eglre1012Component } from '../RutinasTerminadas/Glossa/Exousia/Recuperacion/eglre1012/eglre1012.component';
 import { Asyre1012Component } from '../RutinasTerminadas/Synaisthimata/Antochi/Recuperacion/asyre1012/asyre1012.component';
+import { AMARE1012Component } from '../RutinasTerminadas/Mathimatiki/Antochi/Recuperacion/amare1012/amare1012.component';
 
 @Component({
   selector: 'app-rutina-actual',
@@ -93,6 +94,9 @@ export class RutinaActualComponent implements OnInit {
       case '1012DGLRE': { componenteACrear = DGLRE1012Component } break;
       case '1012AGLRE': { componenteACrear = Aglre1012Component } break;
       case '1012EGLRE': { componenteACrear = Eglre1012Component } break;
+
+      case '1012AMARE': { componenteACrear = AMARE1012Component } break;
+
 
 
       /* DANIEL */
