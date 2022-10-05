@@ -124,6 +124,7 @@ import { Amaan1012Component } from './componentes/rutinas/RutinasTerminadas/Math
 import { Dmaan1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Dynami/Analisis/dmaan1012/dmaan1012.component';
 import { Emaan1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Exousia/Analisis/emaan1012/emaan1012.component';
 import { Asyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Antochi/Recuperacion/asyre1012/asyre1012.component';
+import { Esyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Exousia/Recuperacion/esyre1012/esyre1012.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -196,7 +197,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     Aglre1012Component,
     Dsyre1012Component,
     Eglre1012Component,
-    Asyre1012Component
+    Asyre1012Component,
+    Esyre1012Component
   ],
   imports: [
     BrowserModule,

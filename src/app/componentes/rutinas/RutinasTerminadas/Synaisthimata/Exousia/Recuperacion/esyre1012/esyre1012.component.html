@@ -1,0 +1,242 @@
+<div class="ESYRE">
+  <div class="skepsiLogo">
+    <img src="../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+  </div>
+  <div>
+    <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
+    preload="auto"></audio>
+    <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
+      preload="auto"></audio>
+    <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
+  </div>
+  <div class="general">
+    <!-- Paso 1: Instrucciones -->
+    <div *ngIf="currentStep == ESYRE1012Step.Instructions">
+      <div class="row progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeft" [style.width]="(timeLeft*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <p class="titulo">Verás dos tablas con emociones primarias y secundarias, no es necesario que las memorices, sólo leelas y analízalas</p>
+      </div>
+    </div>
+
+    <!-- Paso 2: Introducción -->
+    <div *ngIf="currentStep == ESYRE1012Step.Introduction">
+      <div class="row" align="left">
+        <div class="col">
+          <h1>Esta tabla representa las emociones básicas. Todos nacemos con ellas. Léela y pregunta al entrenador si tienes dudas acerca de lo que significan.</h1>
+          <ul>
+            <li *ngFor="let emocion of emocionesBasicas" style="font-size:20px"><p>{{emocion}}</p></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h1>Estas son las emociones secundarias. Desde que nacemos las desarrollamos. Revísalas y pregunta al entrenador si tienes dudas acerca de lo que significan.</h1>
+          <ul>
+            <li *ngFor="let emocion of emocionesSecundarias" style="font-size:20px"><p>{{emocion}}</p></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div style="display: flex; justify-content: center; margin-top: 30px;">
+          <button style="width: 50%; max-width: 200px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="currentStep == ESYRE1012Step.FirstTable">
+      <div>
+        <div class="row">
+          <div>
+            <h2>Lugares</h2>
+            <div
+              cdkDropList
+              #placesDropList="cdkDropList"
+              [cdkDropListConnectedTo]="[sixYearPlaceDropList, sevenYearPlaceDropList, eightYearPlaceDropList, nineYearPlaceDropList]"
+              cdkDropListOrientation="horizontal"
+              [cdkDropListData]="places"
+              class="example-list-horizontal"
+              (cdkDropListDropped)="drop($event)">
+              <div class="example-box-horizontal center-content" *ngFor="let place of places" cdkDrag>
+                <img width="80" height="80" [src]="'../assets/img/emociones/lugares/' + place + '.png'" alt="place"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <div class="example-container">
+              <h2>Emociones básicas</h2>
+              <div
+                cdkDropList
+                #basicEmotions="cdkDropList"
+                [cdkDropListConnectedTo]="[secondaryEmotions,sixYearEmotionsDropList, sevenYearEmotionsDropList, eightYearEmotionsDropList, nineYearEmotionsDropList]"
+                [cdkDropListData]="emocionesBasicas"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="example-box center-content" *ngFor="let emotion of emocionesBasicas" cdkDrag>{{emotion}}</div>
+              </div>
+            </div>
+
+            <div class="example-container">
+              <h2>Emociones secundarias</h2>
+              <div
+                cdkDropList
+                #secondaryEmotions="cdkDropList"
+                [cdkDropListConnectedTo]="[basicEmotions,sixYearEmotionsDropList]"
+                [cdkDropListData]="emocionesSecundarias"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="example-box center-content" *ngFor="let emotion of emocionesSecundarias" cdkDrag>{{emotion}}</div>
+              </div>
+            </div>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 10%">Edad</th>
+                <th scope="col" style="width: 25%">¿En qué lugar lo recuerdas?</th>
+                <th scope="col" style="width: 25%">¿Qué emoción recuerdas?</th>
+                <th scope="col" style="width: 40%">Explica cómo te sentiste</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">6</th>
+                <td>
+                  <div class="example-container">
+                    <div
+                      cdkDropList
+                      #sixYearPlaceDropList="cdkDropList"
+                      [cdkDropListConnectedTo]="[placesDropList]"
+                      [cdkDropListData]="sixYearPlace"
+                      class="example-list"
+                      (cdkDropListDropped)="dropSixYearPlace($event)">
+                      <div class="example-box center-content" *ngFor="let place of sixYearPlace" cdkDrag>
+                        <img width="80" height="80" [src]="'../assets/img/emociones/lugares/' + place + '.png'" alt="place"/>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div
+                    cdkDropList
+                    #sixYearEmotionsDropList="cdkDropList"
+                    [cdkDropListConnectedTo]="[basicEmotions,secondaryEmotions]"
+                    [cdkDropListData]="sixYearEmotions"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box center-content" *ngFor="let emotion of sixYearEmotions" cdkDrag>{{emotion}}</div>
+                  </div>
+                </td>
+                <td>
+                  <textarea rows="4" style="width: 90%"></textarea>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">7</th>
+                <td>
+                  <div class="example-container">
+                    <div
+                      cdkDropList
+                      #sevenYearPlaceDropList="cdkDropList"
+                      [cdkDropListConnectedTo]="[placesDropList]"
+                      [cdkDropListData]="sevenYearPlace"
+                      class="example-list"
+                      (cdkDropListDropped)="dropSevenYearPlace($event)">
+                      <div class="example-box center-content" *ngFor="let place of sevenYearPlace" cdkDrag>
+                        <img width="80" height="80" [src]="'../assets/img/emociones/lugares/' + place + '.png'" alt="place"/>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div
+                    cdkDropList
+                    #sevenYearEmotionsDropList="cdkDropList"
+                    [cdkDropListConnectedTo]="[basicEmotions,secondaryEmotions]"
+                    [cdkDropListData]="sevenYearEmotions"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box center-content" *ngFor="let emotion of sevenYearEmotions" cdkDrag>{{emotion}}</div>
+                  </div>
+                </td>
+                <td>
+                  <textarea rows="4" style="width: 90%"></textarea>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">8</th>
+                <td>
+                  <div class="example-container">
+                    <div
+                      cdkDropList
+                      #eightYearPlaceDropList="cdkDropList"
+                      [cdkDropListConnectedTo]="[placesDropList]"
+                      [cdkDropListData]="eightYearPlace"
+                      class="example-list"
+                      (cdkDropListDropped)="dropEightYearPlace($event)">
+                      <div class="example-box center-content" *ngFor="let place of eightYearPlace" cdkDrag>
+                        <img width="80" height="80" [src]="'../assets/img/emociones/lugares/' + place + '.png'" alt="place"/>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div
+                    cdkDropList
+                    #eightYearEmotionsDropList="cdkDropList"
+                    [cdkDropListConnectedTo]="[basicEmotions,secondaryEmotions]"
+                    [cdkDropListData]="eightYearEmotions"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box center-content" *ngFor="let emotion of eightYearEmotions" cdkDrag>{{emotion}}</div>
+                  </div>
+                </td>
+                <td>
+                  <textarea rows="4" style="width: 90%"></textarea>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">9</th>
+                <td>
+                  <div class="example-container">
+                    <div
+                      cdkDropList
+                      #nineYearPlaceDropList="cdkDropList"
+                      [cdkDropListConnectedTo]="[placesDropList]"
+                      [cdkDropListData]="nineYearPlace"
+                      class="example-list"
+                      (cdkDropListDropped)="dropNineYearPlace($event)">
+                      <div class="example-box center-content" *ngFor="let place of nineYearPlace" cdkDrag>
+                        <img width="80" height="80" [src]="'../assets/img/emociones/lugares/' + place + '.png'" alt="place"/>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div
+                    cdkDropList
+                    #nineYearEmotionsDropList="cdkDropList"
+                    [cdkDropListConnectedTo]="[basicEmotions,secondaryEmotions]"
+                    [cdkDropListData]="nineYearEmotions"
+                    class="example-list"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box center-content" *ngFor="let emotion of nineYearEmotions" cdkDrag>{{emotion}}</div>
+                  </div>
+                </td>
+                <td>
+                  <textarea rows="4" style="width: 90%"></textarea>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
