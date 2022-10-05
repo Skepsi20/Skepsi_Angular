@@ -33,22 +33,6 @@ export class PaquetesSkepsiComponent implements OnInit {
   public pistasMostrar:any;
   public preguntasMostrar:any;
 
-  public paquetes = [{
-    titulo:'Estimulante-mente',
-    duracion:'1 mes',
-    descuento:''
-  },
-  {
-    titulo:'Activa-mente',
-    duracion:'3 meses',
-    descuento:'5% de descuento'
-  },
-  {
-    titulo:'Potencial-mente',
-    duracion:'6 meses',
-    descuento:'10% de descuento'
-  }
-  ]
   public preguntasNombres = ['¿Quién se llama Alan?','¿Quién se llama Vico?','¿Quién se llama Mau?'];
   public preguntasCaracteristicas = ['¿Quién lleva puesta una gorra?','¿Quién usa zapatos rojos?','¿Quién utiliza una laptop?'];
   public preguntasUno = ['¿A qué compañía aérea corresponde?','¿Dónde se van a realizar escalas?','¿Cuál es la sala en la que deben presentarse?'];

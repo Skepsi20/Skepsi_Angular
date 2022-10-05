@@ -50,10 +50,6 @@ import { MatTableModule } from '@angular/material/table';
 
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { TutoresComponent } from './componentes/Tutores/tutores/tutores.component';
-import { DGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Dynami/Recuperacion/dgnre1012/dgnre1012.component';
-import { AGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Antochi/Recuperacion/agnre1012/agnre1012.component';
-import { EGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Exousia/Recuperacion/egnre1012/egnre1012.component';
-import { DGLRE1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Dynami/Recuperacion/dglre1012/dglre1012.component';
 import { LoginComponent } from './componentes/Auth/login/login.component';
 import { RegisterComponent } from './componentes/Auth/register/register.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
@@ -90,9 +86,6 @@ import { NotFoundComponent } from './componentes/not-found/not-found.component';
 import { PosiblesClientesComponent } from './componentes/mensajes/posibles-clientes.component';
 import { AdminDashboardComponent } from './componentes/admin-dashboard/admin-dashboard.component';
 import { TutoresDashboardAdminComponent } from './componentes/tutores-dashboard-admin/tutores-dashboard-admin.component';
-import { Amaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Antochi/Comprension/amaco1012/amaco1012.component';
-import { Dmaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Dynami/Comprension/dmaco1012/dmaco1012.component';
-import { Emaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Exousia/Comprension/emaco1012/emaco1012.component';
 import { ConfirmationComponent } from './componentes/Auth/confirmation/confirmation.component';
 import { UserDashboardComponent } from './componentes/user-dashboard/user-dashboard.component';
 
@@ -116,15 +109,40 @@ import { PrivacidadComponent } from './componentes/Skepsi/privacidad/privacidad.
 import { SuspendidosComponent } from './componentes/suspendidos/suspendidos.component';
 import { ChatbotTutorComponent } from './componentes/Tutores/chatbot-tutor/chatbot-tutor.component';
 import { FinanzasComponent } from './componentes/finanzas/finanzas/finanzas.component';
-import { Aglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Antochi/Recuperacion/aglre1012/aglre1012.component';
-import { Dsyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Dynami/Recuperacion/dsyre1012/dsyre1012.component';
-import { Eglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Exousia/Recuperacion/eglre1012/eglre1012.component';
 import { SortablejsModule } from 'ngx-sortablejs';
+
+//Rutinas
+//AMAAN-DMAAN-EMAAN
 import { Amaan1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Antochi/Analisis/amaan1012/amaan1012.component';
 import { Dmaan1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Dynami/Analisis/dmaan1012/dmaan1012.component';
 import { Emaan1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Exousia/Analisis/emaan1012/emaan1012.component';
+//AMACO-DMACO-EMAC0
+import { Amaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Antochi/Comprension/amaco1012/amaco1012.component';
+import { Dmaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Dynami/Comprension/dmaco1012/dmaco1012.component';
+import { Emaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Exousia/Comprension/emaco1012/emaco1012.component';
+//AGNRE-DGNRE-EGNRE
+import { AGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Antochi/Recuperacion/agnre1012/agnre1012.component';
+import { DGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Dynami/Recuperacion/dgnre1012/dgnre1012.component';
+import { EGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Exousia/Recuperacion/egnre1012/egnre1012.component';
+//AGLRE-DGLRE-EGLRE
+import { Aglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Antochi/Recuperacion/aglre1012/aglre1012.component';
+import { DGLRE1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Dynami/Recuperacion/dglre1012/dglre1012.component';
+import { Eglre1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Exousia/Recuperacion/eglre1012/eglre1012.component';
+//ASYRE-DSYRE-ESYRE
 import { Asyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Antochi/Recuperacion/asyre1012/asyre1012.component';
+import { Dsyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Dynami/Recuperacion/dsyre1012/dsyre1012.component';
+import { AMARE1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Antochi/Recuperacion/amare1012/amare1012.component';
+import { DGLCO1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Dynami/Comprension/dglco1012/dglco1012.component';
 import { Esyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Exousia/Recuperacion/esyre1012/esyre1012.component';
+
+//AMARE-DMARE-EMARE
+
+
+
+
+
+
+
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -198,6 +216,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     Dsyre1012Component,
     Eglre1012Component,
     Asyre1012Component,
+    AMARE1012Component,
+    DGLCO1012Component,
     Esyre1012Component
   ],
   imports: [

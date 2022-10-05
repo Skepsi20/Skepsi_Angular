@@ -69,3 +69,23 @@ input[type=submit]{
   background: #f40083;
   color: white;
 }
+
+
+/* RESPONSIVES */
+
+@media screen and (max-width: 480px) {
+  .fa{
+    width: 22%;
+  }
+  #contactanos{
+    font-size: 40px;
+  }
+  .contactanos #para{
+    font-size: 18px;
+    padding: 0px;
+    margin-left: 0px;
+  }
+  input[type=submit]{
+    font-size: 15px;
+  }
+}

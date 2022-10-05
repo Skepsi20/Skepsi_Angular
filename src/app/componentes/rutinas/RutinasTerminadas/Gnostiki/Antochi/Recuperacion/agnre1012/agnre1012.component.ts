@@ -289,7 +289,6 @@ intervalTwo:any;
           this._resultsService.addStudentSessions(this.sessionId)
           .subscribe(
             (success)=>{
-              console.log("AQUI ESTA LA PINCHE SESION", success.id)
               this.studentSessionId = success.id;
               this.Inicializacion();
             },

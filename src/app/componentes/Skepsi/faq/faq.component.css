@@ -67,6 +67,11 @@
 .campeones:hover .overlayTwo {
   opacity: 0.8;
 }
+.campeones{
+  min-width: 350px;
+  max-width: 400px;
+  margin: 10px;
+}
 .campeones img{
   background-position: right;
   background-size: cover;
@@ -103,4 +108,40 @@
 }
 .muroDeLosCamp{
   font-size: 25px;
+}
+
+/* RESPONSIVES */
+
+@media screen and (max-width: 480px) {
+  .text{
+    line-height: 20px;
+    font-size: 15px;
+    padding-top: 60px;
+  }
+  .filaUno img{
+    height:150px;
+  }
+  .cuadroVerde{
+    font-size: 15px;
+    line-height: 10px;
+  }
+  .conoceANuestro{
+    font-size: 20px;
+  }
+  .hr{
+    width: 75%;
+  }
+  .muroDeCampeones{
+    line-height: 10px;
+  }
+  .muroDeLosCamp{
+    font-size: 15px;
+  }
+  .campeones img{
+    height: auto;
+    width: 60%;
+  }
+  .campeones{
+    text-align: center;
+  }
 }

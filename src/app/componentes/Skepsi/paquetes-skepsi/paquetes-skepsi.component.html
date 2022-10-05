@@ -378,58 +378,56 @@
       </div>
     </div>
     <div class="row d-flex justify-content-center">
-        <div class="col filaUno">
-          <div class="contenedorPaquete">
-            <h1>{{paquetes[0].titulo}}</h1>
-            <h3>Duración: {{paquetes[0].duracion}}</h3>
-            <div id="paquetesBotonInscripcion">
+
+      <div class="row">
+        <div class="col contenedorPaquete">
+          <div class="paquetePromo">
+            <h1>Inicial-mente</h1>
+            <h3>Duración: 1 mes</h3>
+            <h2>Promoción de tiempo limitado</h2>
+            <p>Plan de entrenamiento de lunes a jueves de 4:00pm a 4:45pm</p>
+            <p>Incluye entrenamiento en desarrollo cognitivo, lenguaje y comunicación, emociones y afectos y pensamiento lógico matemático</p>
+            <button id="paquetesBotonInscripcion" routerLink="/register" class="botonInteresados">
               INSCRIBIRSE
-            </div>
-          </div>
-          <div class="overlay">
-            <div class="text">
-              <p>Plan de entrenamiento de lunes a jueves de 4 a 4:45 de la tarde, incluye entrenamiento de desarrollo cognitivo, lenguaje y comunicación, pensamiento lógico-matemático y emociones y afectos.</p>
-            </div>
+            </button>
           </div>
         </div>
-        <div class="col filaUno">
-          <div class="contenedorPaquete">
-            <h1>{{paquetes[1].titulo}}</h1>
-            <h3>Duración: {{paquetes[1].duracion}}</h3>
-            <h3>Descuento: {{paquetes[1].descuento}}</h3>
-            <div id="paquetesBotonInscripcion">
-              INSCRIBIRSE
-            </div>
-          </div>
-          <div class="overlay">
-            <div class="text">
-              <p>Plan de entrenamiento de lunes a jueves de 4 a 4:45 de la tarde, incluye entrenamiento de desarrollo cognitivo, lenguaje y comunicación, pensamiento lógico-matemático y emociones y afectos.</p>
-            </div>
+        <div class="col contenedorPaquete">
+          <div class="paquetePromo">
+            <h1>Activa-mente</h1>
+            <h3>Duración: 3 meses</h3>
+            <h2>Promoción de tiempo limitado</h2>
+            <p>Plan de entrenamiento de lunes a jueves de 4:00pm a 4:45pm</p>
+            <p>Incluye entrenamiento en desarrollo cognitivo, lenguaje y comunicación, emociones y afectos y pensamiento lógico matemático</p>
+              <button id="paquetesBotonInscripcion" routerLink="/register" class="botonInteresados">
+                INSCRIBIRSE
+              </button>
           </div>
         </div>
-        <div class="col filaUno">
-          <div class="contenedorPaquete">
-            <h1>{{paquetes[2].titulo}}</h1>
-            <h3>Duración: {{paquetes[2].duracion}}</h3>
-            <h3>Descuento: {{paquetes[1].descuento}}</h3>
-            <div id="paquetesBotonInscripcion">
+        <div class="col contenedorPaquete">
+          <div class="paquetePromo">
+            <h1>Potencial-mente</h1>
+            <h3>Duración: 6 meses</h3>
+            <h2>Promoción de tiempo limitado</h2>
+            <p>Plan de entrenamiento de lunes a jueves de 4:00pm a 4:45pm</p>
+            <p>Incluye entrenamiento en desarrollo cognitivo, lenguaje y comunicación, emociones y afectos y pensamiento lógico matemático</p>
+            <button id="paquetesBotonInscripcion" routerLink="/register"class="botonInteresados">
               INSCRIBIRSE
-            </div>
-          </div>
-          <div class="overlay">
-            <div class="text">
-              <p>Plan de entrenamiento de lunes a jueves de 4 a 4:45 de la tarde, incluye entrenamiento de desarrollo cognitivo, lenguaje y comunicación, pensamiento lógico-matemático y emociones y afectos.</p>
-            </div>
+            </button>
           </div>
         </div>
+      </div>
+      <div class="row mt-4">
+      <h1>Iniciamos el 15 de noviembre de 2022</h1>
+      </div> 
     </div>
     <div class="row">
       <div class="col">
-        <div id="paquetesTextoDos">
-          PARA MAYOR INFORMACIÓN <svg style="padding-top:5px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+        <button id="paquetesTextoDos" routerLink="/contacto" class="botonInteresados">
+          PARA MAYOR INFORMACIÓN <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
           </svg>
-        </div>
+        </button>
       </div>
     </div>
   </div>
