@@ -300,11 +300,15 @@ input[type=submit]{
     margin-left: 0%;
   }
   #contactanos{
-    font-size: 50px;
+    font-size: 40px;
   }
   .contactanos #para{
-    font-size: 25px;
+    font-size: 18px;
     padding: 0px;
+    margin-left: 0px;
+  }
+  input[type=submit]{
+    font-size: 15px;
   }
 }
 

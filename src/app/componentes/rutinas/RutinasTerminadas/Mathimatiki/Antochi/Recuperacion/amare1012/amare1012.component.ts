@@ -13,26 +13,25 @@ import { SortableData } from 'ngx-sortablejs';
   styleUrls: ['./amare1012.component.css']
 })
 export class AMARE1012Component implements OnInit {
-
-//VARIABLES RESULTADOS INICIO
-private sessionId: any;
-private resultsTable: resultsWithDate = {
-  date: '',
-  studentSessionId: '',
-  grade: 0,
-  round: 0,
-  level: 0,
-  resultDetails:[{
-    possiblePoints: 0,
-    points: 0,
-    possiblePointsDescription: '',
-    pointsDescription: ''
-  }]
-}
-private round: number = 0;
-private level: number = 0;
-private studentSessionId: string = '';
-//VARIABLES RESULTADOS FIN
+  //VARIABLES RESULTADOS INICIO
+  private sessionId: any;
+  private resultsTable: resultsWithDate = {
+    date: '',
+    studentSessionId: '',
+    grade: 0,
+    round: 0,
+    level: 0,
+    resultDetails:[{
+      possiblePoints: 0,
+      points: 0,
+      possiblePointsDescription: '',
+      pointsDescription: ''
+    }]
+  }
+  private round: number = 0;
+  private level: number = 0;
+  private studentSessionId: string = '';
+  //VARIABLES RESULTADOS FIN
 
 /* VARIABLES DE RUTINA INICIO */
   public cantidadFiguras = [7,8,9,10,11,12,13,14,15,16,17,18,19,20];
@@ -60,7 +59,7 @@ private studentSessionId: string = '';
  };
 
   calificacionDOM: number = 0;
-   cantidadFigurasDOM: any;
+  cantidadFigurasDOM: any;
   calificacion: number = 0;
   timeLeft: number = 10;
   timeLeftTwo: number = 60; 

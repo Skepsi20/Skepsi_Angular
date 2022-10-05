@@ -1,0 +1,110 @@
+<div class="AMARE">
+    <div class="skepsiLogo">
+      <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+    </div>
+    <div>
+      <audio id="initEjerAudio" #initEjerAudio src="../../../../../assets/Audios/InicioFin/SonidoInicioEjercicio.mpeg"
+      preload="auto"></audio>
+      <audio id="finEjerAudio" #finEjerAudio src="../../../../../assets/Audios/InicioFin/SonidoFinEjercicio.mpeg"
+        preload="auto"></audio>
+      <audio id="initRutAudio" #iniRutAudio src="../../../../../assets/Audios/InicioFin/SonidoInicioRutina.mpeg" preload="auto"></audio>
+    </div>
+    <div class="general">
+      <!-- INSTRUCCIONES -->
+      <div *ngIf="instruccionesDOM"> 
+        <!-- BARRA DE PROGRESO INICIO -->
+        <div class="row progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            [attr.aria-valuenow]="timeLeft" [style.width]="(timeLeft*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+            style="margin:0px auto;">
+          </div>
+        </div>
+        <!-- BARRA DE PROGRESO FIN -->
+        <br>
+        <div class="row">
+          <p class="titulo">A continuación verás una serie de sílabas, mientras las ves repítelas en voz alta y trata de memorizarlas</p>
+        </div>
+      </div>
+      <div *ngIf="!instruccionesDOM">
+        <div *ngIf="!resultadosDOM">
+          <div *ngIf="mostrarSilabasDOM">
+            <div *ngIf="silabaLista">
+                <h1>Sílabas</h1>
+                <p class="silaba">{{silabaDOM[0]}}</p>
+            </div>
+          </div>
+          <div>
+            <div *ngIf="actividadDOM" style="margin-top: 50px;">
+              <h1>Cuántas palabras puedes formar con las sílabas? (Escribe con minúsculas y acentos si los tiene)</h1>
+              <div class="silabas" *ngFor="let silaba of silabasRandom">
+                <p class="silaba">{{silaba}}</p>
+              </div>
+              <div class="row justify-content-center mt-4">
+                <div class="col-4">
+                  <input type="text" placeholder="Palabra" [(ngModel)]="palabraUsuario" style="margin:10px;">
+                  <button (click)="agregarPalabra()" mat-raised-button class="ml-1 mt-1"class="buttonSkepsi textoBoton" >Agregar</button>
+                </div>
+                <div class="col-4"
+                  style="text-align: left; 
+                  background-color: white;
+                  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; 
+                  border-radius: 5px;">
+                  <p>Respuestas</p>
+                  <ul style="list-style: none; " >
+                      <li *ngFor="let respuesta of respuestasUsuario">{{respuesta}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="row mt-5">
+                <div class="col">
+                    <button (click)="revisar()" mat-raised-button class="ml-1"class="buttonSkepsi textoBoton" >Terminar</button>          
+                </div>
+              </div>  
+            </div>
+          </div>
+        </div>
+        <div *ngIf="resultadosDOM">
+          <div class="row">
+            <div class="row progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                [attr.aria-valuenow]="timeLeftThree" [style.width]="(timeLeftThree*1.6667)+'%'" aria-valuemin="0" aria-valuemax="20"
+                style="margin:0px auto;">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <p class="titulo">Ejercicio terminado!</p>
+            <p class="titulo"> Resultados:</p>
+            <p class="titulo">Obtuviste {{calificacionDOM}} palabras de un total de  {{cantidadFigurasDOM}}</p>
+          </div>
+          <div class="row">
+            <div class="col" style="background-color: white;">
+                <h1>Tus respuestas</h1>
+                <ul style="list-style: none;">
+                    <li *ngFor="let respuesta of respuestasUsuario">{{respuesta}}</li>
+                </ul>
+            </div>
+            <div class="col" style="background-color: white;">
+                <h1>Respuestas</h1>
+                <ul style="list-style: none;">
+                    <li *ngFor="let respuesta of respuestasRandom">{{respuesta}}</li>
+                </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

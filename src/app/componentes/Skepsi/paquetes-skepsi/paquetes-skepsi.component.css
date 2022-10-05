@@ -20,7 +20,7 @@
   margin-top: 30px;
   text-align: center;
   background-color: #0B2A4A;
-  border-radius: 20px;
+  border-radius: 5px;
 }
 .textoUno{
   padding-top: 25px;
@@ -82,11 +82,12 @@ hr{
   background-image: url('../../../../assets/img/skepsi/fondos/FondosAzul-02.png');
   background-position: right;
   background-size: cover;
-  height: 500px;
+  height: auto;
   margin-top: 20px;
   margin-bottom: 90px;
   color: white;
   text-align: center;
+  padding: 15px;
 }
 #paquetesTexto{
   border: 2px solid #EECA44;
@@ -134,8 +135,9 @@ hr{
   background-image: url('../../../../assets/img/skepsi/fondos/SKEPSI_TEXTURAS-37.jpg');
   background-position: right;
   background-size: cover;
-  height: 400px;
+  height: 330px;
   overflow: hidden;
+  margin-top: 35px;
 }
 .overlayTwo {
   font-family: 'roboto-regular', Arial;
@@ -149,7 +151,6 @@ hr{
   opacity: 0;
   transition: .5s ease;
   color: white;
-  border-radius: 10px;
 }
 .pilares:hover .overlayTwo {
   opacity: 0.95;
@@ -166,7 +167,7 @@ hr{
 #textOverlay{
   margin-top: 20px;
   padding-right: 30px;
-  font-size: 30px;
+  font-size: 25px;
   line-height: 35px;
 }
 .rutina p{
@@ -287,4 +288,14 @@ li{
   display: inline;
   padding: 20px;
   box-shadow: rgba(10, 42, 73, 0.3) 0px 0px 0px 3px;
+}
+
+.botonInteresados{
+  background-color: transparent;
+  color: white;
+}
+
+.botonInteresados:hover{
+  background-color: white;
+  color: #0A2A49;
 }
