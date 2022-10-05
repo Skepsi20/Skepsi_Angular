@@ -100,8 +100,6 @@ export class RutinaActualComponent implements OnInit {
       case '1012AMARE': { componenteACrear = AMARE1012Component } break;
       case '1012DGLCO': { componenteACrear = DGLCO1012Component } break;
 
-
-
       /* DANIEL */
       case '1012AMACO': { componenteACrear = Amaco1012Component } break;
       case '1012DMACO': { componenteACrear = Dmaco1012Component } break;

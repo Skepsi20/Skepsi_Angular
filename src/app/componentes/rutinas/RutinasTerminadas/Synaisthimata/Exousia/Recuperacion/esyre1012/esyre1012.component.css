@@ -66,7 +66,15 @@
 }
 
 .example-container {
-  width: 150px;
+  width: 200px;
+  max-width: 100%;
+  margin: 0 25px 25px 0;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.example-container2 {
+  width: 100px;
   max-width: 100%;
   margin: 0 25px 25px 0;
   display: inline-block;
