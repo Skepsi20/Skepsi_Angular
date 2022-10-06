@@ -7,7 +7,9 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 enum ESYRE1012Step {
   Instructions,
   Introduction,
-  FirstTable,
+  YearsBeforeTable,
+  RecentTable,
+  ComparisonTable
 }
 // #endregion Tipos locales
 
@@ -49,8 +51,6 @@ export class Esyre1012Component implements OnInit {
   public currentStep: ESYRE1012Step;
   public emocionesBasicas: string[];
   public emocionesSecundarias: string[];
-  public emocionesBasicasSeleccionadas: string[];
-  public emocionesSecundariasSeleccionadas: string[];
   public places: string[];
   public sixYearPlace: string[];
   public sixYearEmotions: string[];
@@ -60,6 +60,7 @@ export class Esyre1012Component implements OnInit {
   public eightYearEmotions: string[];
   public nineYearPlace: string[];
   public nineYearEmotions: string[];
+  public selectedEmotion: string[];
 
   public get ESYRE1012Step(): typeof ESYRE1012Step {
     return ESYRE1012Step;
@@ -83,17 +84,15 @@ export class Esyre1012Component implements OnInit {
     this.eightYearEmotions = [];
     this.nineYearPlace = [];
     this.nineYearEmotions = [];
-    this.emocionesBasicasSeleccionadas = [];
-    this.emocionesSecundariasSeleccionadas = [];
+    this.selectedEmotion = [];
     this.currentStep = ESYRE1012Step.Instructions;
   }
 
   ngOnInit(): void {
     this.initializeComponent();
 
-    // TODO: Descomentar este código
-    // setInterval(()=> this.statusUpdate(), 30000);
-    // this.getSession();
+    setInterval(()=> this.statusUpdate(), 30000);
+    this.getSession();
   }
 
   // #region Funciones públicas
@@ -104,7 +103,24 @@ export class Esyre1012Component implements OnInit {
         break;
 
       case ESYRE1012Step.Introduction:
-        this.currentStep  = ESYRE1012Step.FirstTable;
+        this.currentStep  = ESYRE1012Step.YearsBeforeTable;
+        break;
+
+      case ESYRE1012Step.YearsBeforeTable:
+        this.currentStep  = ESYRE1012Step.RecentTable;
+        this.resetDragAndDrops();
+        break;
+
+      case ESYRE1012Step.RecentTable:
+        this.sendResult();
+        this.currentStep  = ESYRE1012Step.ComparisonTable;
+        this.resetDragAndDrops();
+        break;
+
+      case ESYRE1012Step.ComparisonTable:
+        this.resetDragAndDrops();
+        var textareas: NodeListOf<HTMLTextAreaElement> = document.querySelectorAll('textarea');
+        textareas.forEach(textarea => textarea.value = '')
         break;
     }
   }
@@ -115,9 +131,16 @@ export class Esyre1012Component implements OnInit {
 
   public resetDragAndDrops(): void {
     this.emocionesBasicas = [...this.emocionesBasicasDefault]
-    this.emocionesBasicasSeleccionadas = []
     this.emocionesSecundarias = [...this.emocionesSecundariasDefault]
-    this.emocionesSecundariasSeleccionadas = []
+    this.sixYearPlace = [];
+    this.sixYearEmotions = [];
+    this.sevenYearPlace = [];
+    this.sevenYearEmotions = [];
+    this.eightYearPlace = [];
+    this.eightYearEmotions = [];
+    this.nineYearPlace = [];
+    this.nineYearEmotions = [];
+    this.selectedEmotion = [];
   }
 
   public drop(event: CdkDragDrop<string[]>): void {
@@ -134,6 +157,7 @@ export class Esyre1012Component implements OnInit {
     this.places = [...this.placesDefault];
     this.emocionesBasicas = [...this.emocionesBasicasDefault];
     this.emocionesSecundarias = [...this.emocionesSecundariasDefault];
+    this.deleteRepeated();
   }
 
   public dropSixYearPlace(event: CdkDragDrop<string[]>): void {
@@ -150,6 +174,20 @@ export class Esyre1012Component implements OnInit {
 
   public dropNineYearPlace(event: CdkDragDrop<string[]>): void {
     this.nineYearPlace = this.dropSingle(event);
+  }
+
+  public dropSingleEmotion(event: CdkDragDrop<string[]>): void {
+    event.currentIndex = 0;
+    event.container.data = [];
+
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+
+    this.selectedEmotion = event.container.data;
   }
   // #endregion Funciones públicas
 
@@ -185,6 +223,13 @@ export class Esyre1012Component implements OnInit {
         clearInterval(this.interval);
       }
     }, 100)
+  }
+
+  private deleteRepeated(): void {
+    this.sixYearEmotions = [...new Set(this.sixYearEmotions)];
+    this.sevenYearEmotions = [...new Set(this.sevenYearEmotions)];
+    this.eightYearEmotions = [...new Set(this.eightYearEmotions)];
+    this.nineYearEmotions = [...new Set(this.nineYearEmotions)];
   }
 
   private dropSingle(event: CdkDragDrop<string[]>): string[] {
