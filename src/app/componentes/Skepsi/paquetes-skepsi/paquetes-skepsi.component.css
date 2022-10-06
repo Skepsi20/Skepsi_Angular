@@ -176,8 +176,8 @@ hr{
 .banderas{
   float: left;
   margin: 10px;
-  width: 250px;
-  height: 150px;
+  width: 150px;
+  height: auto;
 }
 .bandera{
   margin: 10px;

@@ -84,6 +84,7 @@ export class AMARE1012Component implements OnInit {
     this.mostrarFigurasDOM = false;
     this.resultadosDOM = false;
     this.dragAndDrop = false;
+    this.figuraDOM[0] = [];
     this.figurasController = this._amareService.getFiguras();
     this.figurasControllerRandom = this.arregloRandom(this.figurasController.length, this.figurasControllerRandom, this.figurasController);
     this.creacionArreglos()
