@@ -120,7 +120,11 @@ export class Esyre1012Component implements OnInit {
       case ESYRE1012Step.ComparisonTable:
         this.resetDragAndDrops();
         var textareas: NodeListOf<HTMLTextAreaElement> = document.querySelectorAll('textarea');
-        textareas.forEach(textarea => textarea.value = '')
+        textareas.forEach(textarea => {
+          textarea.value = '';
+          textarea.style.height = ''
+          textarea.style.height = textarea.scrollHeight + 5 +'px'
+        })
         break;
     }
   }
