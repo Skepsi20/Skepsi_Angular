@@ -226,7 +226,7 @@ export class Esyre1012Component implements OnInit {
         this.currentStep  = ESYRE1012Step.Introduction;
         clearInterval(this.interval);
       }
-    }, 100)
+    }, 1000)
   }
 
   private deleteRepeated(): void {
