@@ -18,6 +18,7 @@ import { Eglre1012Component } from '../RutinasTerminadas/Glossa/Exousia/Recupera
 import { Asyre1012Component } from '../RutinasTerminadas/Synaisthimata/Antochi/Recuperacion/asyre1012/asyre1012.component';
 import { AMARE1012Component } from '../RutinasTerminadas/Mathimatiki/Antochi/Recuperacion/amare1012/amare1012.component';
 import { DGLCO1012Component } from '../RutinasTerminadas/Glossa/Dynami/Comprension/dglco1012/dglco1012.component';
+import { Esyre1012Component } from '../RutinasTerminadas/Synaisthimata/Exousia/Recuperacion/esyre1012/esyre1012.component';
 
 @Component({
   selector: 'app-rutina-actual',
@@ -99,8 +100,6 @@ export class RutinaActualComponent implements OnInit {
       case '1012AMARE': { componenteACrear = AMARE1012Component } break;
       case '1012DGLCO': { componenteACrear = DGLCO1012Component } break;
 
-
-
       /* DANIEL */
       case '1012AMACO': { componenteACrear = Amaco1012Component } break;
       case '1012DMACO': { componenteACrear = Dmaco1012Component } break;
@@ -113,6 +112,7 @@ export class RutinaActualComponent implements OnInit {
       /* OMAR */
       case '1012DSYRE': { componenteACrear = Dsyre1012Component } break;
       case '1012ASYRE': { componenteACrear = Asyre1012Component } break;
+      case '1012ESYRE': { componenteACrear = Esyre1012Component } break;
     }
     this.crearRutina(componenteACrear);
   }
