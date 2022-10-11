@@ -9,7 +9,7 @@ export class DGNRE1012Service {
 
   constructor(){
       this.banderas = [
-        new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/afganistan.jpg','Alemania',''),
+        new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/afganistan.jpg','Afganistán',''),
         new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/aland.jpg','Åland',''),
         new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/albania.jpg','Albania',''),
         new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/alemania.jpg','Alemania',''),
@@ -48,7 +48,7 @@ export class DGNRE1012Service {
         new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/china.jpg','China',''),
         new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/chipre.jpg','Chipre',''),
         new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/colombia.jpg','Colombia',''),
-        new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/camoras.jpg','Comoras',''),
+        new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/comoras.jpg','Comoras',''),
         new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/coreaDelNorte.jpg','Corea del Norte',''),
         new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/coreaDelSur.jpg','Corea del Sur',''),
         new dgnre ('../assets/img/rutinas/desarrolloCognitivo/banderas/costaDeMarfil.jpg','Costa de Marfil',''),

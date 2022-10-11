@@ -19,6 +19,7 @@ import { Asyre1012Component } from '../RutinasTerminadas/Synaisthimata/Antochi/R
 import { AMARE1012Component } from '../RutinasTerminadas/Mathimatiki/Antochi/Recuperacion/amare1012/amare1012.component';
 import { DGLCO1012Component } from '../RutinasTerminadas/Glossa/Dynami/Comprension/dglco1012/dglco1012.component';
 import { Esyre1012Component } from '../RutinasTerminadas/Synaisthimata/Exousia/Recuperacion/esyre1012/esyre1012.component';
+import { EGLCO1012Component } from '../RutinasTerminadas/Glossa/Exousia/Comprension/eglco1012/eglco1012.component';
 
 @Component({
   selector: 'app-rutina-actual',
@@ -89,6 +90,8 @@ export class RutinaActualComponent implements OnInit {
     let componenteACrear:any;
     switch(rutinaDeHoy) {
       /* RIX */
+      case '1012AMARE': { componenteACrear = AMARE1012Component } break;
+
       case '1012DGNRE': { componenteACrear = DGNRE1012Component } break;
       case '1012AGNRE': { componenteACrear = AGNRE1012Component } break;
       case '1012EGNRE': { componenteACrear = EGNRE1012Component } break;
@@ -96,9 +99,10 @@ export class RutinaActualComponent implements OnInit {
       case '1012DGLRE': { componenteACrear = DGLRE1012Component } break;
       case '1012AGLRE': { componenteACrear = Aglre1012Component } break;
       case '1012EGLRE': { componenteACrear = Eglre1012Component } break;
-
-      case '1012AMARE': { componenteACrear = AMARE1012Component } break;
+      
       case '1012DGLCO': { componenteACrear = DGLCO1012Component } break;
+      case '1012EGLCO': { componenteACrear = EGLCO1012Component } break;
+
 
       /* DANIEL */
       case '1012AMACO': { componenteACrear = Amaco1012Component } break;

@@ -32,7 +32,7 @@
     <div class="row">
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-          [attr.aria-valuenow]="timeLeftTwo" [style.width]="(timeLeftTwo*1.6)+'%'" aria-valuemin="0" aria-valuemax="20"
+          [attr.aria-valuenow]="timeLeftTwo" [style.width]="(timeLeftTwo*1.5)+'%'" aria-valuemin="0" aria-valuemax="20"
           style="margin:0px auto;">
         </div>
       </div>
@@ -52,11 +52,11 @@
     <div class="row">
       <p class="titulo">Memorizaste la bandera?</p>
     </div>
-    <div class="row bandera">
+    <div class="row bandera" *ngIf="banderaVista[0]">
       <img src="{{banderaVista[0].imagen}}">
       <h1> {{banderaVista[0].nombre}} </h1>
     </div>
-    <div class="row mt-2">
+    <div class="row mt-2" *ngIf="banderaVista[0]">
       <div class="col" align="right">
         <button (click)="funcionUno('si')" class="buttonSkepsi textoBoton">Si la memoricé</button>
       </div>
