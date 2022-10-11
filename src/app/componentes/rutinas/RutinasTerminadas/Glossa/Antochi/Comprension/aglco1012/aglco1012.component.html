@@ -1,0 +1,130 @@
+<div class="AGLCO">
+    <div class="skepsiLogo">
+      <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+    </div>
+    <div>
+      <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"preload="auto"></audio>
+      <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"preload="auto"></audio>
+      <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
+    </div>
+    <div class="general">
+      <div *ngIf="instruccionesDOM" class="instructions">
+        <!-- BARRA DE PROGRESO INICIO -->
+        <div class="row progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            [attr.aria-valuenow]="timeLeft" [style.width]="(timeLeft*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+            style="margin:0px auto;">
+          </div>
+        </div>
+        <!-- BARRA DE PROGRESO FIN -->
+        <br>
+        <div class="row">
+          <p class="titulo">A continuación escucharás una frase, trata de recordar todos los fonemas que puedas para después crear palabras y frases con esos fonemas. </p>
+        </div>
+      </div>
+      <div *ngIf="!instruccionesDOM">
+        <div *ngIf="!resultadosDOM">
+
+            <div *ngIf="fraseAudioDOM">
+                <h1>Escucha la frase y trata de memorizar todos los fonemas que puedas</h1>
+            </div>
+
+            <div *ngIf="fonemasDOM">
+                <h1>Escribe todos los fonemas que recuerdes de la frase</h1>
+                <div class="row justify-content-center mt-4">
+                    <div class="col-4">
+                      <input type="text" placeholder="fonema" [(ngModel)]="fonema" style="margin:10px;" maxlength="1">
+                      <button (click)="agregar(1)" mat-raised-button class="ml-1 mt-1"class="buttonSkepsi textoBoton" >Agregar</button>
+                    </div>
+                    <div class="col-4"
+                      style="text-align: left; 
+                      background-color: white;
+                      box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; 
+                      border-radius: 5px;">
+                      <p>Respuestas</p>
+                      <ul style="list-style: none; " >
+                          <li *ngFor="let respuesta of fonemas">{{respuesta}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="row mt-5">
+                    <div class="col">
+                        <button (click)="fonemasDOM = false; palabrasDOM = true" mat-raised-button class="ml-1"class="buttonSkepsi textoBoton" >Continuar</button>          
+                    </div>
+                  </div>  
+            </div>
+
+            <div *ngIf="palabrasDOM">   
+                <h1>Escribe todas las palabras que se te ocurran con los fonemas que agregaste</h1>
+                <div class="row">
+                    <div *ngFor="let respuesta of fonemas" class="fonema">{{respuesta}}</div>
+                </div>
+                <div class="row justify-content-center mt-4">
+                    <div class="col-4">
+                      <input type="text" placeholder="Palabra" [(ngModel)]="palabra" style="margin:10px;">
+                      <button (click)="agregar(2)" mat-raised-button class="ml-1 mt-1"class="buttonSkepsi textoBoton" >Agregar</button>
+                    </div>
+                    <div class="col-4"
+                      style="text-align: left; 
+                      background-color: white;
+                      box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; 
+                      border-radius: 5px;">
+                      <p>Respuestas</p>
+                      <ul style="list-style: none; " >
+                          <li *ngFor="let respuesta of palabras">{{respuesta}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="row mt-5">
+                    <div class="col">
+                        <button (click)="frasesDOM = true; palabrasDOM = false" mat-raised-button class="ml-1"class="buttonSkepsi textoBoton" >Continuar</button>          
+                    </div>
+                </div>  
+            </div>
+            <div *ngIf="frasesDOM">
+                <h1>Escribe frases que incluyan únicamente las palabras que creaste</h1>
+                <div class="row">
+                    <div *ngFor="let respuesta of palabras" class="fonema">{{respuesta}}</div>
+                </div>
+                <div class="row justify-content-center mt-4">
+                    <div class="col-5">
+                        <textarea placeholder="Frase" [(ngModel)]="frase" style="margin:10px;" cols="30" rows="5"></textarea><br>
+                      <button (click)="agregar(3)" mat-raised-button class="ml-1 mt-1"class="buttonSkepsi textoBoton" >Agregar</button>
+                    </div>
+                    <div class="col-4"
+                      style="text-align: left; 
+                      background-color: white;
+                      box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; 
+                      border-radius: 5px;">
+                      <p>Respuestas</p>
+                      <ul style="list-style: none; " >
+                          <li *ngFor="let respuesta of frases">{{respuesta}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="row mt-5">
+                    <div class="col">
+                        <button (click)="revisar()" mat-raised-button class="ml-1"class="buttonSkepsi textoBoton" >Terminar</button>          
+                    </div>
+                </div>  
+            </div>
+            
+
+        </div>
+        <div *ngIf="resultadosDOM">
+          <div class="row">
+            <div class="row progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                [attr.aria-valuenow]="timeDescanso" [style.width]="(timeDescanso*1.6667)+'%'" aria-valuemin="0" aria-valuemax="20"
+                style="margin:0px auto;">
+              </div>
+            </div>
+          </div>
+          <p class="titulo">Ejercicio terminado!</p>
+          <p class="titulo"> Resultados:</p>
+          <p class="titulo">Creaste <b>{{frasesR}} frases</b> con <b>{{palabrasR}} palabras</b> partir de los <b>{{fonemasR}} fonemas</b> que memorizaste</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
