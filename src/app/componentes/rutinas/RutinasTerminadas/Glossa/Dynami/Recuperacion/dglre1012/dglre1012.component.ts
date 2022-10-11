@@ -60,7 +60,7 @@ export class DGLRE1012Component implements OnInit {
     public tiempoAudiosDOM: boolean = true;
     public tiempoAudiosDOMSinImagen: boolean = false;
     public reproducirAudios = false;
-
+    public readyToAnswers = false;
 
     //Temporizador
     timeLeft: number = 10;
@@ -130,7 +130,8 @@ export class DGLRE1012Component implements OnInit {
     this.arregloDeAudios = [];
     this.audiosDOM = [];
     this.audiosControllerRandom = [];
-
+    this.respuestas = [];
+    this.arregloDeAudiosRandom = [];
     //Instrucciones
     this.instruccionesFunc();
 
@@ -231,7 +232,8 @@ export class DGLRE1012Component implements OnInit {
       if(this.respuestas[index] == this.arregloDeAudios[index].nombre){
         this.calificacion++;
       }
-    }
+    }   
+  
     this.cantidadAudiosVista = this.cantidadAudios[this.level];
     this.calificacionVista = this.calificacion;
 
@@ -298,18 +300,26 @@ export class DGLRE1012Component implements OnInit {
     const phContainer = dropList.element.nativeElement;
     const phElement = phContainer.querySelector('.cdk-drag-placeholder');
 
+   
+
     if (phElement) {
       phContainer.removeChild(phElement);
       phContainer.parentElement?.insertBefore(phElement, phContainer);
 
       moveItemInArray(this.arregloDeAudiosRandom, dragIndex, dropIndex);
     }
+    
+    if((this.arregloDeAudiosRandom.length && this.arregloDeAudios.length && this.respuestas.length) == this.cantidadAudios[this.level]){
+      this.readyToAnswers = true;
+    }else{
+      this.readyToAnswers = false;
+    }
+
 
     //Asignacion de orden de respuestas a arreglo de respuestas
     for (let index = 0; index < this.cantidadAudios[this.level]; index++) {
       this.respuestas[index] = this.arregloDeAudiosRandom[index].nombre;
     }
-    console.log(this.respuestas);
   }
 
   dragMoved(event: CdkDragMove<number>) {

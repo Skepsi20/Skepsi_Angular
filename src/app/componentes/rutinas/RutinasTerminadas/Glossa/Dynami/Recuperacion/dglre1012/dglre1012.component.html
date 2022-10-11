@@ -59,7 +59,7 @@
               </div>
             </div>
           </div>
-          <button (click)="revisar()" mat-raised-button class="ml-1"class="buttonSkepsi textoBoton" >Listo</button>
+          <button *ngIf="readyToAnswers" (click)="revisar()" mat-raised-button class="ml-1"class="buttonSkepsi textoBoton" >Listo</button>
           </div>
         </div>
       </div>

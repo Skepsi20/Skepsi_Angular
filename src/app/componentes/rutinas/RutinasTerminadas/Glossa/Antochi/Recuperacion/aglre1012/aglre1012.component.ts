@@ -137,7 +137,9 @@ export class Aglre1012Component implements OnInit {
     this.arregloDeAudios = [];
     this.audiosDOM = [];
     this.audiosControllerRandom = [];
-
+    this.respuestas = [];
+    this.arregloDeAudiosRandom = [];
+    this.respuestasDragAndDrop = [];
     //Instrucciones
     this.instruccionesFunc();
 
