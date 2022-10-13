@@ -74,7 +74,7 @@ export class Eglre1012Component implements OnInit {
 
     //Temporizador
     timeLeft: number = 10;
-    timeLeftTwo: number = 35;
+    timeLeftTwo: number = 60;
     interval:any;
     intervalTwo:any;
 
@@ -149,7 +149,7 @@ export class Eglre1012Component implements OnInit {
   Inicializacion(){
     //Limpiar variables
     this.resultados = false;
-    this.timeLeftTwo = 20;
+    this.timeLeftTwo = 60;
     this.audiosController = [];
     this.tiempoAudiosDOMSinImagen = false;
     this.arregloDeAudios = [];
@@ -258,7 +258,6 @@ export class Eglre1012Component implements OnInit {
   }
  
   checkDragAndDrop(){
-    console.log("LLEGO")
   }
 
   revisar(){
@@ -392,3 +391,4 @@ export class Eglre1012Component implements OnInit {
   }
 
 }
+
