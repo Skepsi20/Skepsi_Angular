@@ -138,6 +138,7 @@ import { EGLCO1012Component } from './componentes/rutinas/RutinasTerminadas/Glos
 import { AGLCO1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Antochi/Comprension/aglco1012/aglco1012.component';
 import { AGNCO1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Antochi/Comprension/agnco1012/agnco1012.component';
 import { DMARE1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Dynami/Recuperacion/dmare1012/dmare1012.component';
+import { EMARE1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Exousia/Recuperacion/emare1012/emare1012.component';
 
 //AMARE-DMARE-EMARE
 
@@ -226,7 +227,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     EGLCO1012Component,
     AGLCO1012Component,
     AGNCO1012Component,
-    DMARE1012Component
+    DMARE1012Component,
+    EMARE1012Component
   ],
   imports: [
     BrowserModule,

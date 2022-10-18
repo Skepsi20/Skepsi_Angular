@@ -4,22 +4,20 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { FormControl } from '@angular/forms';
 import { timer } from 'rxjs';
-import { EMACO } from 'src/app/Models/rutinas/LogicoMatematico/Comprension/emaco.model';
+import { AMACO } from 'src/app/Models/rutinas/LogicoMatematico/Comprension/amaco.model';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
-import { Emaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/emaco1012.service';
-import { dmare } from 'src/app/Models/rutinas/LogicoMatematico/Recuperacion/dmare.model';
+import { Amaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/amaco1012.service';
 
 @Component({
-  selector: 'dmare1012',
-  templateUrl: './dmare1012.component.html',
-  styleUrls: ['./dmare1012.component.css'],
-  providers: [Emaco1012Service],
+  selector: 'emare1012',
+  templateUrl: './emare1012.component.html',
+  styleUrls: ['./emare1012.component.css'],
+  providers: [Amaco1012Service],
 })
-export class DMARE1012Component implements OnInit {
-  public nombreRutina = '1012DMARE';
+export class EMARE1012Component implements OnInit {
+  public nombreRutina = '1012EMARE';
   public intentosTotales = 0;
   public aciertosTotales = 0;
 
@@ -47,7 +45,6 @@ export class DMARE1012Component implements OnInit {
 
   public operacionesController: any;
   public operacionesRandom: any;
-  public resultOperacion = new FormControl(0);
 
   public contadorEjer: number = 0;
   public resultados: boolean = false;
@@ -64,47 +61,48 @@ export class DMARE1012Component implements OnInit {
   ];
   public operador: any = { oper: 'operador', simbolo: '' };
 
-  public vistaOperacion = new EMACO('', '', '', '');
+  public vistaOperacion = new AMACO('', '', '', '', '', '', '');
   public inicioCrono: Date = new Date();
 
-  public tiempoSegundosCrono = 35;
-  public segundosDescanso = 10;
-  public tiempoSegundosGeneral = 120;
-  public tiempoSegundosInstrucciones = 10;
+  public tiempoSegundosCrono = 120;
+  //25
+  public segundosDescanso = 5;
+  //15
+  public tiempoSegundosGeneral = 350;
+  //150
+
+  public tiempoSegundosInstrucciones = 2;
 
   public tTimerGeneral = 0;
   public tTimer = 0;
   public tTimerDescanso = 0;
   public tTimerInstrucciones = 0;
-
   public timerActivo: boolean = true;
-
-  public instrucciones: boolean = true;
 
   public resultadoEjer: Array<any> = [];
 
+  public banderaEjer1: boolean = true;
+  public banderaEjer2: boolean = false;
+  public banderaEjer3: boolean = false;
+  public bandEjer4: boolean = false;
+  public instrucciones: boolean = true;
+
   public ejercActivo = 1;
 
-  public vistaAngulosFig: Array<any> = [];
+  public vistaFigGeo: Array<any> = [];
   public listaContenedores: Array<any> = [];
-  public listFigIrregController: any;
-  public listFigIrregRand: any;
+  public listFigGeoController: any;
+  public listFigGeoRand: any;
   public listEspsFig: Array<any> = [];
   public vistaEspacios: Array<any> = [];
+  public numEspaciosFig=6;
 
+  //Ejercicio3
   public fraccionesRand: Array<any> = [];
-  public duplaCarasDado: Array<number> = [];
-
-  public numeroTiradas = 6;
-
-  public tabTiradas: dmare[] = [];
-  public arrTiradas: Array<any> = [];
-  public arrUsuario: Array<any> = [];
-  public arrResults: Array<any> = [];
-  public tiradasRestantes = 0;
+  public duplaFracciones: Array<AMACO> = [];
 
   constructor(
-    private _emacoService: Emaco1012Service,
+    private _amacoService: Amaco1012Service,
     private _resultsService: ResultsService
   ) {}
 
@@ -116,9 +114,10 @@ export class DMARE1012Component implements OnInit {
     this.tTimerInstrucciones = this.tiempoSegundosInstrucciones;
     this.tTimerGeneral =
       this.tiempoSegundosGeneral + this.tiempoSegundosInstrucciones;
+
     this.initContEjerc();
-    //this.Inicializacion();
-    let _conteoTiempo = timer(0, 1000).subscribe((_x: any) => {
+    this.Inicializacion();
+    let _conteoTiempo = timer(0, 1000).subscribe((_x) => {
       this.sonarAlarmas();
       this.tTimer--;
       this.tTimerGeneral--;
@@ -131,13 +130,14 @@ export class DMARE1012Component implements OnInit {
         this.timerActivo = false;
         switch (this.ejercActivo) {
           case 1:
+            this.funcion1();
             break;
           case 2:
-            //this.funcion2();
+            this.funcion2();
             break;
 
           case 3:
-            //this.funcion3(this.operador.oper);
+            this.funcion3(this.operador.oper);
             break;
 
           default:
@@ -145,6 +145,12 @@ export class DMARE1012Component implements OnInit {
         }
       } else if (this.tTimer > 0) this.timerActivo = true;
       if (this.tTimerDescanso > 0) this.tTimerDescanso--;
+      /*
+      console.log('T-Rutina', this.tTimer);
+      console.log('T-General', this.tTimerGeneral);
+      console.log('T-Instrucciones', this.tTimerInstrucciones);
+      */
+
     });
   }
 
@@ -242,6 +248,45 @@ export class DMARE1012Component implements OnInit {
     }
   }
 
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      if (event.container.data.length == 0) {
+        transferArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex
+        );
+      } else {
+        transferArrayItem(
+          event.container.data,
+          event.previousContainer.data,
+          0,
+          event.currentIndex
+        );
+
+        transferArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex + 1,
+          0
+        );
+      }
+    }
+
+    /*
+    for (let  i=0 ; i<2 ; i++){
+      event.container.data.splice( 1 ,1)
+    }
+   */
+  }
+
   initContEjerc() {
     for (let index = 0; index < 3; index++) {
       this.resultadoEjer[index] = {
@@ -255,53 +300,92 @@ export class DMARE1012Component implements OnInit {
     this.resultados = false;
     this.tiempoDescanso = false;
     this.contadorEjer = 0;
+
     if (!this.instrucciones) {
       if (this.ejercActivo > 0 && this.ejercActivo < 4) this.resetTimerEjer();
       if (this.ejercActivo == 1) {
+        this.listFigGeoController = JSON.parse(
+          JSON.stringify(this._amacoService.getFigGeo())
+        );
+        this.listFigGeoRand = this.listFigGeoController.sort(
+          () => Math.random() - 0.5
+        );
         this.inicioCrono = new Date();
         console.log(this.inicioCrono);
         this.mostrarEjer1();
       } else if (this.ejercActivo == 2) {
         this.inicioCrono = new Date();
         console.log(this.inicioCrono);
-        this.tiradasRestantes = this.numeroTiradas;
         this.mostrarEjer2();
       } else if (this.ejercActivo == 3) {
+        this.fraccionesRand = this._amacoService.getFracciones();
+        this.fraccionesRand.sort(() => Math.random() - 0.5);
         this.inicioCrono = new Date();
         console.log(this.inicioCrono);
-        this.crearTablaTiradas();
         this.mostrarEjer3();
       }
     }
   }
 
-  crearTablaTiradas() {
-    this.tabTiradas =[];
-    for (let index = 0; index < this.numeroTiradas; index++) {
-      this.tabTiradas.push(
-        new dmare(
-          this.arrTiradas[index],
-          { oper: 'operador', simbolo: '' },
-          this.arrUsuario[index],
-          this.arrResults[index]
-        )
-      );
+  crearVistaOperaciones() {
+    var posiblesValores = [];
+    this.operacionesRandom = this.operacionesController.sort(
+      () => Math.random() - 0.5
+    );
+    this.vistaOperacion = this.operacionesRandom[0];
+
+    posiblesValores[0] = (
+      parseInt(this.vistaOperacion.resultado) + Math.floor(Math.random() * 3)
+    ).toString();
+    posiblesValores[1] = this.vistaOperacion.resultado;
+    posiblesValores[2] = Math.abs(
+      parseInt(this.vistaOperacion.resultado) - Math.floor(Math.random() * 3)
+    ).toString();
+    this.vistaOperacion.resultVista =
+      posiblesValores[Math.floor(Math.random() * 3)];
+  }
+
+  initListasFigGeo() {
+    this.listFigGeoRand = this.listFigGeoController.sort(
+      () => Math.random() - 0.5
+    );
+    for (let i = 0; i < 5; i++) {
+      this.listaContenedores[i] = [];
     }
   }
 
-  crearDuplasDados() {
-    let carasDado = [1, 2, 3, 4, 5, 6];
-    this.duplaCarasDado = [];
-    carasDado.sort(() => Math.random() - 0.45);
-    this.duplaCarasDado.push(carasDado[0]);
-    carasDado.sort(() => Math.random() - 0.45);
-    this.duplaCarasDado.push(carasDado[1]);
+  crearListasFigGeo() {
+    this.listEspsFig = [];
+    this.vistaFigGeo = this.listFigGeoRand.slice(0, this.numEspaciosFig);
+    console.log('VFG', this.vistaFigGeo);
+    this.vistaFigGeo.forEach((element) => {
+      this.listEspsFig.push(element.espacioCorr);
+    });
+    this.listFigGeoRand.sort(() => Math.random() - 0.45);
+
   }
 
-  evaluateOper(tirada: dmare) {
-    console.log('Tirada', tirada);
-    if (tirada.tiradaCorrecta == tirada.operTirada.oper) tirada.result = true;
-    else tirada.result = false;
+  figSelection(i:any){
+    if(!this.listFigGeoRand[i].toggle)this.listFigGeoRand[i].toggle=true;
+    else{if(this.listFigGeoRand[i].toggle)this.listFigGeoRand[i].toggle=false;}
+    console.log('EspaciosFaltantes', this.listEspsFig)
+    //console.log('FGRand', this.listFigGeoRand);
+
+    this.listFigGeoRand.forEach((figura: {
+      espacioCorr: any; toggle: any; "": (value: any, index: number, obj: any[]) => unknown;
+}) => {
+      if (figura.toggle){
+        this.listEspsFig = this.listEspsFig.filter(e => e !== figura.espacioCorr)
+      }
+    });
+
+    console.log('EspaciosFaltantes', this.listEspsFig)
+
+  }
+
+  crearDuplasFracciones() {
+    this.fraccionesRand.sort(() => Math.random() - 0.45);
+    this.duplaFracciones = this.fraccionesRand.slice(0, 2);
   }
 
   descanso() {
@@ -313,10 +397,7 @@ export class DMARE1012Component implements OnInit {
     if (this.tTimerGeneral > 0) {
       let _tiempo = setTimeout(() => {
         if (this.ejercActivo > 0) this.ejercActivo++;
-        if (this.ejercActivo == 4) {
-          this.ejercActivo = 2;
-          this.numeroTiradas += 3;
-        }
+        if (this.ejercActivo == 3) {this.ejercActivo = 1; this.numEspaciosFig+=3;}
         this.tiempoDescanso = false;
         this.Inicializacion();
       }, this.segundosDescanso * 1000);
@@ -340,7 +421,7 @@ export class DMARE1012Component implements OnInit {
   }
 
   esperar() {
-    var _tiempo = setTimeout(() => {
+    let _tiempo = setTimeout(() => {
       this.tiempoDescanso = false;
       this.Inicializacion();
     }, this.segundosDescanso * 1000);
@@ -351,15 +432,14 @@ export class DMARE1012Component implements OnInit {
     this.tTimer = this.tiempoSegundosCrono + 1;
   }
 
-  mostrarEjer1() {
-    this.operador = { oper: '', simbolo: '' };
 
+  mostrarEjer1() {
+    this.initListasFigGeo();
     let RestaTiempo = Math.floor(
       (new Date().getTime() - this.inicioCrono.getTime()) / 1000
     );
     if (this.timerActivo) {
-      this.crearDuplasDados();
-      console.log('VistaFracciones', this.duplaCarasDado);
+      this.crearListasFigGeo();
     } else {
       this.revisar();
       this.calificacion = 0;
@@ -369,16 +449,11 @@ export class DMARE1012Component implements OnInit {
   }
 
   mostrarEjer2() {
-    this.operador = { oper: '', simbolo: '' };
+    console.log('EspaciosFaltantes', this.listEspsFig)
 
-    let RestaTiempo = Math.floor(
-      (new Date().getTime() - this.inicioCrono.getTime()) / 1000
-    );
-    if (this.tiradasRestantes > 0) {
-      this.crearDuplasDados();
-      console.log('VistaFracciones', this.duplaCarasDado);
+    if (this.timerActivo) {
+      //this.crearListasFigGeo();
     } else {
-      console.log('ArrTiradas', this.arrTiradas);
       this.revisar();
       this.calificacion = 0;
       this.resultados = true;
@@ -387,14 +462,13 @@ export class DMARE1012Component implements OnInit {
   }
 
   mostrarEjer3() {
-    this.operador = { oper: '', simbolo: '' };
-
+    //Compara tiempo con respecto a contador
     let RestaTiempo = Math.floor(
       (new Date().getTime() - this.inicioCrono.getTime()) / 1000
     );
     if (this.timerActivo) {
-      this.crearDuplasDados();
-      console.log('VistaFracciones', this.duplaCarasDado);
+      this.crearDuplasFracciones();
+      console.log('VistaFracciones', this.duplaFracciones);
     } else {
       this.revisar();
       this.calificacion = 0;
@@ -403,9 +477,31 @@ export class DMARE1012Component implements OnInit {
     }
   }
 
-  funcion1(operador: any) {
-    var fraccionIzq = this.duplaCarasDado[0];
-    var fraccionDer = this.duplaCarasDado[1];
+  funcion1() {
+    //this.tTimer=1;
+    this.revisar();
+      this.calificacion = 0;
+      this.resultados = true;
+      this.rutina = true;
+
+  }
+
+  funcion2() {
+
+
+    this.contadorEjer += this.numEspaciosFig;
+    this.calificacion+= this.numEspaciosFig-this.listEspsFig.length;
+
+    console.log('Calificacion Acumulada -> ' + this.calificacion);
+    this.revisar();
+    this.calificacion = 0;
+    this.resultados = true;
+    this.rutina = true;
+  }
+
+  funcion3(operador: any) {
+    var fraccionIzq = eval(this.duplaFracciones[0].fraccion);
+    var fraccionDer = eval(this.duplaFracciones[1].fraccion);
 
     switch (operador) {
       case 'mayorq':
@@ -422,64 +518,12 @@ export class DMARE1012Component implements OnInit {
         break;
     }
 
-    console.log('Value Left', this.duplaCarasDado[0]);
-    console.log('Value Right', this.duplaCarasDado[1]);
-    console.log('calif', this.calificacion);
+    console.log('Value Left', eval(this.duplaFracciones[0].fraccion));
+    console.log('Value Right', eval(this.duplaFracciones[1].fraccion));
 
     this.contadorEjer++;
-    this.timerActivo = false;
 
-    this.mostrarEjer1();
-  }
-
-  funcion2(operador: any) {
-    var fraccionIzq = this.duplaCarasDado[0];
-    var fraccionDer = this.duplaCarasDado[1];
-    let tiradaCorrecta = false;
-
-    switch (operador) {
-      case 'mayorq':
-        if (fraccionIzq > fraccionDer) tiradaCorrecta = true;
-        break;
-      case 'menorq':
-        if (fraccionIzq < fraccionDer) tiradaCorrecta = true;
-        break;
-      case 'igual':
-        if (fraccionIzq == fraccionDer) tiradaCorrecta = true;
-        break;
-
-      default:
-        break;
-    }
-
-    console.log('Value Left', this.duplaCarasDado[0]);
-    console.log('Value Right', this.duplaCarasDado[1]);
-    console.log('calif', this.calificacion);
-    console.log('TiradasRest', this.tiradasRestantes);
-
-    if (tiradaCorrecta) {
-      this.calificacion++;
-      this.contadorEjer++;
-
-      this.arrTiradas[this.numeroTiradas - this.tiradasRestantes] = operador;
-      this.tiradasRestantes--;
-      this.mostrarEjer2();
-    } else {
-      this.operador = { oper: '', simbolo: '' };
-    }
-  }
-
-  funcion3() {
-    this.tabTiradas.forEach((tirada) => {
-      if (tirada.result) this.calificacion++;
-      this.contadorEjer++;
-    });
-
-    this.revisar();
-    this.calificacion = 0;
-    this.resultados = true;
-    this.rutina = true;
-
+    this.mostrarEjer3();
   }
 
   revisar() {
@@ -487,6 +531,7 @@ export class DMARE1012Component implements OnInit {
     this.resultadoEjer[this.ejercActivo - 1].intentos += this.contadorEjer;
     this.calificacionVista = this.calificacion;
     console.log('RESULTADO: ' + this.calificacion + ' de ' + this.contadorEjer);
+
     //LLENADO DE TABLA RESULTS INICIO
     this.round++;
     console.log('STUDENT SESSION ID', this.studentSessionId);

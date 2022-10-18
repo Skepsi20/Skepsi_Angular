@@ -51,6 +51,8 @@ import { FinanzasComponent } from './componentes/finanzas/finanzas/finanzas.comp
 import { DGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Dynami/Recuperacion/dgnre1012/dgnre1012.component';
 import { Esyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Exousia/Recuperacion/esyre1012/esyre1012.component';
 import { DMARE1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Dynami/Recuperacion/dmare1012/dmare1012.component';
+import { Amaco1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Antochi/Comprension/amaco1012/amaco1012.component';
+import { EMARE1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Exousia/Recuperacion/emare1012/emare1012.component';
 
 const routes: Routes = [
   {path:'', component: InicioComponent},
