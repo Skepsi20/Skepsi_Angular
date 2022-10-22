@@ -283,6 +283,10 @@ export class Dsyco1012Component implements OnInit {
       || this.basicEmotionCheckboxes.some(bec => bec.checked)
       || this.secondaryEmotionCheckboxes.some(sec => sec.checked)
   }
+
+  public allEmotionsHaveAffections(): boolean {
+    return this.imageEmotionAffections.every(iea => iea.affections && iea.affections.length > 0)
+  }
   // #endregion Funciones públicas
 
   // #region Funciones privadas
