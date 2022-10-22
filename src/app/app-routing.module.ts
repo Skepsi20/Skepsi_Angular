@@ -49,7 +49,10 @@ import { PrivacidadComponent } from './componentes/Skepsi/privacidad/privacidad.
 import { SuspendidosComponent } from './componentes/suspendidos/suspendidos.component';
 import { FinanzasComponent } from './componentes/finanzas/finanzas/finanzas.component';
 import { DGNRE1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Dynami/Recuperacion/dgnre1012/dgnre1012.component';
+import { Dsyco1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Dynami/Comprension/dsyco1012/dsyco1012.component';
 import { Esyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Exousia/Recuperacion/esyre1012/esyre1012.component';
+import { Asyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Antochi/Recuperacion/asyre1012/asyre1012.component';
+import { Dsyre1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Dynami/Recuperacion/dsyre1012/dsyre1012.component';
 
 const routes: Routes = [
   {path:'', component: InicioComponent},
@@ -97,11 +100,13 @@ const routes: Routes = [
 
 
   {path:'test', component: DGNRE1012Component},
-  {path:'test-omar', component: Esyre1012Component},
+  {path:'test-omar', component: Dsyco1012Component},
+  {path:'test-omar-esyre', component: Esyre1012Component},
+  {path:'test-omar-asyre', component: Asyre1012Component},
+  {path:'test-omar-dsyre', component: Dsyre1012Component},
   {path:'test-daniel', component: Emaco1012Component},
 
   //https://www.skepsi.com.mx/#/confirm-email?email=rixflos77@gmail.com&token=CfDJ8H7g1sKTX9xBlBUi+eUBYoN3X3Ff3NBDHOpzFSfD1/b61DMU+uZrWa57L2v5w6zKgOoATD4/ckqcTxsXBHjN8XQZ5WYdjXozhEbhU4N2yB2xBLm0KOxZeYgfjLf6sT+TGuuySBMBe3yinIt+k8z0OMz8v7X1qBfux5Fji1Lmt2eVH81niLwtxhv0INBWXGVGNKdnluLmilKBngyaoN8sT+4n8SDWY3fRkuuuQIs7swPzTHLgKJiAz9E/9glDVIESRQ==
-
 
 
   /*LANDING PAGE ROUTES*/
