@@ -29,53 +29,182 @@
       </div>
   
       <div *ngIf="!instruccionesDOM">
-
-
-
-
-
-
-        
-
-        <div *ngIf="instruccionesAves">
-            <!-- BARRA DE PROGRESO INICIO -->
-            <div class="row progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                [attr.aria-valuenow]="timeInstructions" [style.width]="(timeInstructions*10)+'%'" aria-valuemin="0" aria-valuemax="20"
-                style="margin:0px auto;">
-                </div>
-            </div>
-            <!-- BARRA DE PROGRESO FIN -->
-            <br>
-            <div class="row">
-              <p class="titulo">{{avesInstruccion}}</p>
-            </div>
-        </div>
         <div *ngIf="explicacionAves">
-
+          <div *ngIf="picosAvesDOM">
+            <h1 class="titleBorder">A continuación verás un conjunto de picos de aves y su descripción de uso</h1>
+            <div class="row">
+              <div *ngFor="let pico of picos" class="picos">
+                <img src="{{pico.imagen}}">
+                <p style="width: 80%; margin: 0px auto;">{{pico.respuesta}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <button (click)="picosAvesDOM = false; ojosAvesDOM = true;" class="buttonSkepsi textoBoton" style="width:auto; margin:0px auto;">Siguiente</button>
+            </div>
+          </div>
+          <div *ngIf="ojosAvesDOM">
+            <h1 class="titleBorder">A continuación verás un conjunto de ojos de aves y su descripción de uso</h1>
+            <div class="row">
+              <div *ngFor="let ojo of ojos" class="ojos">
+                <div class="col">
+                  <img src="{{ojo.imagen}}">
+                  <p style="width: 80%; margin: 0px auto;">{{ojo.respuesta}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col" align="right">
+                <button (click)="picosAvesDOM = true; ojosAvesDOM = false;" class="buttonSkepsi textoBoton" style="width:auto;">Anterior</button>
+              </div>
+              <div class="col" align="left">
+                <button (click)="ojosAvesDOM = false; patasAvesDOM = true;" class="buttonSkepsi textoBoton" style="width:auto;">Siguiente</button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="patasAvesDOM">
+            <h1 class="titleBorder">A continuación verás un conjunto de patas de aves y su descripción de uso</h1>
+            <div class="row">
+              <div *ngFor="let pata of patas" class="patas">
+                <img src="{{pata.imagen}}">
+                <p style="width: 80%; margin: 0px auto;">{{pata.respuesta}}</p>
+              </div>   
+            </div>         
+            <div class="row">
+              <div class="col" align="right">
+                <button (click)="ojosAvesDOM = true; patasAvesDOM = false;" class="buttonSkepsi textoBoton" style="width:auto;">Anterior</button>
+              </div>
+              <div class="col" align="left">
+                <button (click)="avesRutina()" class="buttonSkepsi textoBoton" style="width:auto;">Continuar</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div *ngIf="ejercicioAves">
-
-        </div>
-        
-        
-        <div *ngIf="instruccionesMamiferos">
-            <!-- BARRA DE PROGRESO INICIO -->
-            <div class="row progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                [attr.aria-valuenow]="timeInstructions" [style.width]="(timeInstructions*10)+'%'" aria-valuemin="0" aria-valuemax="20"
-                style="margin:0px auto;">
+          <!-- BARRA DE PROGRESO INICIO -->
+          <div class="row progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+              [attr.aria-valuenow]="timeMostrar" [style.width]="(timeMostrar*3.33)+'%'" aria-valuemin="0" aria-valuemax="20"
+              style="margin:0px auto;">
+            </div>
+          </div><br>
+          <!-- BARRA DE PROGRESO FIN -->
+          <h1 class="titleBorder">De acuerdo al ave mostrada, selecciona que clase de pico, ojos y patas tiene, recuerda seleccionar solamente <b>una respuesta</b> por área</h1>
+          <div class="row">
+            <div class="col">
+              <img src="{{elementoVista.imagen}}" width="100%">
+            </div>
+            <div class="col">
+              <p class="titleDragAndDrop">Picos</p>
+              <div class="grid titleBorder">
+                <div class="col respuestas" 
+                    [sortablejs]="picos" 
+                    [sortablejsOptions]="options">
+                      <div *ngFor="let item of picos" 
+                          class="grid-square item">
+                        <p class="opcionDrag">{{item.respuesta}}</p>
+                      </div>
+                  </div>
+              </div>
+              <p class="titleDragAndDrop">Patas</p>
+              <div class="grid titleBorder">
+                <div class="col respuestas" 
+                    [sortablejs]="patas" 
+                    [sortablejsOptions]="options">
+                      <div *ngFor="let item of patas" 
+                          class="grid-square item">
+                        <p class="opcionDrag">{{item.respuesta}}</p>
+                        </div>
+                  </div>
+              </div>
+              <p class="titleDragAndDrop">Ojos</p>
+              <div class="grid titleBorder">
+                <div class="col respuestas" 
+                    [sortablejs]="ojos" 
+                    [sortablejsOptions]="options">
+                      <div *ngFor="let item of ojos" 
+                          class="grid-square item">
+                        <p class="opcionDrag">{{item.respuesta}}</p>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col">
+              <p class="titleDragAndDrop">Respuestas</p>              
+              <div class="grid" >
+                <div class="col titleBorder respuestas" style="min-height: 200px;"
+                    [sortablejs]="respuestasAves" 
+                    [sortablejsOptions]="options">
+                    <div *ngFor="let item of respuestasAves" 
+                        class="grid-square item">
+                        <p class="opcionDrag">{{item.respuesta}}</p>
+                    </div>
                 </div>
+              </div>               
             </div>
-            <!-- BARRA DE PROGRESO FIN -->
-            <br>
-            <div class="row">
-            <p class="titulo">{{mamiferosInstruccion}}</p>
-            </div>
+          </div>
         </div>
-        <div *ngIf="explicacionMamiferos">
 
+        <div *ngIf="explicacionMamiferos">
+          
+
+
+
+        <div *ngIf="explicacionMamiferos">
+          <div *ngIf="picosMamiferosDOM && !ojosMamiferosDOM && !patasMamiferosDOM">
+            <h1 class="titleBorder">A continuación verás un conjunto de hocicos de mamiferos y su descripción de uso</h1>
+            <div class="row">
+              <div *ngFor="let pico of mandibulas" class="picos">
+                <img src="{{pico.imagen}}">
+                <p style="width: 80%; margin: 0px auto;">{{pico.respuesta}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <button (click)="picosMamiferosDOM = false; ojosMamiferosDOM = true;" class="buttonSkepsi textoBoton" style="width:auto; margin:0px auto;">Siguiente</button>
+            </div>
+          </div>
+          <div *ngIf="ojosMamiferosDOM">
+            <h1 class="titleBorder">A continuación verás un conjunto de ojos de mamíferos y su descripción de uso</h1>
+            <div class="row">
+              <div *ngFor="let ojo of vision" class="picos">
+                <div class="col">
+                  <img src="{{ojo.imagen}}">
+                  <p style="width: 80%; margin: 0px auto;">{{ojo.respuesta}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col" align="right">
+                <button (click)="picosMamiferosDOM = true; ojosMamiferosDOM = false;" class="buttonSkepsi textoBoton" style="width:auto;">Anterior</button>
+              </div>
+              <div class="col" align="left">
+                <button (click)="ojosMamiferosDOM = false; patasMamiferosDOM = true;" class="buttonSkepsi textoBoton" style="width:auto;">Siguiente</button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="patasMamiferosDOM">
+            <h1 class="titleBorder">A continuación verás un conjunto de patas de mamíferos y su descripción de uso</h1>
+            <div class="row">
+              <div *ngFor="let pata of patasMam" class="patas">
+                <img src="{{pata.imagen}}">
+                <p style="width: 80%; margin: 0px auto;">{{pata.respuesta}}</p>
+              </div>   
+            </div>         
+            <div class="row">
+              <div class="col" align="right">
+                <button (click)="ojosMamiferosDOM = true; patasMamiferosDOM = false;" class="buttonSkepsi textoBoton" style="width:auto;">Anterior</button>
+              </div>
+              <div class="col" align="left">
+                <button (click)="mamiferosRutina()" class="buttonSkepsi textoBoton" style="width:auto;">Continuar</button>
+              </div>
+            </div>
+          </div>
         </div>
+
+
+
+
+
+
         <div *ngIf="ejercicioMamiferos">
 
         </div>

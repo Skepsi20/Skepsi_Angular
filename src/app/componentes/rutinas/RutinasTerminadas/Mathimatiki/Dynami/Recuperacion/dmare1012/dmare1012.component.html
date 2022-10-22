@@ -1,0 +1,193 @@
+<div class="DMARE">
+  <div class="skepsiLogo">
+    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+  </div>
+<div *ngIf="timerActivo">
+  <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
+    preload="auto"></audio>
+  <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
+    preload="auto"></audio>
+  <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
+  <h1>{{tTimer}}</h1>
+</div>
+<div class="general">
+  <div *ngIf="instrucciones" class="instructions">
+
+    <!-- BARRA DE PROGRESO INICIO -->
+    <div class="row progress">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+        [attr.aria-valuenow]="tTimerInstrucciones" [style.width]="(tTimerInstrucciones/tiempoSegundosInstrucciones)*100+'%'" aria-valuemin="0" aria-valuemax="20"
+        style="margin:0px auto;">
+      </div>
+    </div>
+    <!-- BARRA DE PROGRESO FIN -->
+
+    <br>
+    <div class="row">
+      <p class="titulo">A continuación verás una tirada de dados</p>
+    </div>
+  </div>
+  <div *ngIf="!instrucciones">
+    <div *ngIf="tiempoDescanso" class="row">
+            <!-- BARRA DE PROGRESO Descanso -->
+            <div class="row progress">
+              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                [attr.aria-valuenow]="tTimerDescanso" [style.width]="(tTimerDescanso/segundosDescanso)*100+'%'"
+                aria-valuemin="0" aria-valuemax="20" style="margin:0px auto;">
+              </div>
+            </div>
+            <!-- BARRA DE PROGRESO FIN -->
+            <p class="titulo" style="margin:0px auto">Resultados:</p>
+            <div class="row">
+              <p class="titulo">
+                Tuviste {{ calificacionVista }} aciertos de {{ contadorEjer }}
+              </p>
+            </div>
+            <div class="row" *ngIf="tTimerDescanso<11">
+              <p class="titulo">Preparate para la siguiente actividad</p>
+            </div>
+  </div>
+  <div *ngIf="!tiempoDescanso">
+    <div *ngIf="!resultados">
+      <div *ngIf="ejercActivo===1">
+        <div *ngIf="rutina" class="row">
+          <div class="row">
+            <p class="titulo" style="margin:0px auto">
+              Selecciona el simbolo correcto para los dados:
+            </p>
+          </div>
+          <div class="row">
+            <div class="col">
+              <img src="..\assets\img\rutinas\LogicoMatematico\Dado(caras)\dado-0{{ duplaCarasDado[0] }}.png"
+                 />
+            </div>
+            <div class="col my-auto">
+            <mat-form-field>
+              <mat-label>Operador</mat-label>
+              <mat-select [(ngModel)]="operador" (selectionChange)="funcion1(operador.oper)" placeholder="">
+                <mat-option *ngFor="let operador of opcionesOper" [value]="operador">{{ operador.simbolo }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            </div>
+            <div class="col">
+              <img src="..\assets\img\rutinas\LogicoMatematico\Dado(caras)\dado-0{{ duplaCarasDado[1] }}.png"
+                 />
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div *ngIf="!tiempoDescanso">
+      <div *ngIf="!resultados">
+        <div *ngIf="ejercActivo===2">
+          <div *ngIf="rutina" class="row">
+            <div class="row">
+              <p class="titulo" style="margin:0px auto">
+                Selecciona el simbolo correcto para los dados:
+              </p>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img src="..\assets\img\rutinas\LogicoMatematico\Dado(caras)\dado-0{{ duplaCarasDado[0] }}.png"
+                   />
+              </div>
+              <div class="col my-auto">
+              <mat-form-field>
+                <mat-label>Operador</mat-label>
+                <mat-select [(ngModel)]="operador" (selectionChange)="funcion2(operador.oper)" placeholder="">
+                  <mat-option *ngFor="let operador of opcionesOper" [value]="operador">{{ operador.simbolo }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              </div>
+              <div class="col">
+                <img src="..\assets\img\rutinas\LogicoMatematico\Dado(caras)\dado-0{{ duplaCarasDado[1] }}.png"
+                   />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!tiempoDescanso">
+        <div *ngIf="!resultados">
+          <div *ngIf="ejercActivo===3">
+            <div *ngIf="rutina" class="row">
+              <div class="row">
+                <p class="titulo" style="margin:0px auto">
+                  Recuerda el resultado y el orden de cada tirada, márcalo en la siguiente tabla
+                </p>
+              </div>
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th scope="col">Numero</th>
+                  <!--<th scope="col">Tirada Correcta</th>-->
+                  <th scope="col">Operador</th>
+                  <th scope="col">Resultado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let tirada of tabTiradas; index as i">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <!--
+                  <td>
+                    {{tirada.tiradaCorrecta}}
+                  </td>
+                  -->
+                  <td><mat-form-field>
+                    <mat-label>Tirada {{i+1}}</mat-label>
+                    <mat-select [(ngModel)]="tirada.operTirada" (selectionChange)="evaluateOper(tirada)"placeholder="">
+                      <mat-option *ngFor="let operador of opcionesOper" [value]="operador">{{ operador.simbolo }}</mat-option>
+                    </mat-select>
+                  </mat-form-field></td>
+                  <td><div *ngIf="tirada.result" class="textCorrect">Correcto!</div>
+                    <div *ngIf="tirada.result===false" class="textIncorrect">Incorrecto</div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="row">
+                <div class="col-2" style="margin: 0px auto;">
+                  <button (click)="funcion3()" mat-raised-button class="buttonSkepsi textoBoton">
+                    Continuar
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="ejercActivo===4">
+        <audio id="finRutAudio" #finRutAudio src="..\assets\Audios\InicioFin\SonidoFinRutina.mpeg" autoplay></audio>
+        <div class="row">
+          <p class="titulo" style="margin:0px auto">Resultados Generales:</p>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3>Ejericicio 1: {{ resultadoEjer[0].aciertos }} aciertos de {{ resultadoEjer[0].intentos }}</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3> Ejericicio 2: {{ resultadoEjer[1].aciertos }} aciertos de {{ resultadoEjer[1].intentos }}</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3> Ejericicio 3: {{ resultadoEjer[2].aciertos }} aciertos de {{ resultadoEjer[2].intentos }}</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2" style="margin: 0px auto;">
+            <button (click)="reloadPage()" mat-raised-button class="buttonSkepsi textoBoton">
+              Continuar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+</div>

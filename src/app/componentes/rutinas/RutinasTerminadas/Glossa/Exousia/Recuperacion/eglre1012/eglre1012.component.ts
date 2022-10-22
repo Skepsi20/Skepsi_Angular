@@ -61,15 +61,15 @@ export class Eglre1012Component implements OnInit {
     respuestasDragAndDrop: Array<any> = [];
     
     options: SortableData = {
-          swapThreshold: 0.1,
-          invertSwap: true,
-          animation: 300,
-          ghostClass: 'ghost',
-          direction: 'horizontal',
-          group: {
-            name: 'shared',
-          }
-       };
+      swapThreshold: 0.1,
+      invertSwap: true,
+      animation: 300,
+      ghostClass: 'ghost',
+      direction: 'horizontal',
+      group: {
+        name: 'shared',
+      }
+    };
 
 
     //Temporizador

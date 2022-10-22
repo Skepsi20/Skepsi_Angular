@@ -23,7 +23,7 @@ export class AMARE1012Service {
         new amare ('../assets/img/rutinas/LogicoMatematico/espaciosFig/FigurasGeom-11.png','Rombo','false',true),
         new amare ('../assets/img/rutinas/LogicoMatematico/espaciosFig/FigurasGeom-12.png','Estrella cuatro puntas','false',true),
         new amare ('../assets/img/rutinas/LogicoMatematico/espaciosFig/FigurasGeom-13.png','Trapecio','false',true),
-        new amare ('../assets/img/rutinas/LogicoMatematico/espaciosFig/FigurasGeom-14.png','Rombo dos','false',true),
+        new amare ('../assets/img/rutinas/LogicoMatematico/espaciosFig/FigurasGeom-14.png','Romboide','false',true),
         new amare ('../assets/img/rutinas/LogicoMatematico/espaciosFig/FigurasGeom-15.png','Estrella cinco puntas','false',true),
         new amare ('../assets/img/rutinas/LogicoMatematico/espaciosFig/FigurasGeom-16.png','Óvalo','false',true),
         new amare ('../assets/img/rutinas/LogicoMatematico/espaciosFig/FigurasGeom-17.png','Rectángulo','false',true),
