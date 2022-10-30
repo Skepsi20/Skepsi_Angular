@@ -17,17 +17,13 @@ interface IImageEmotionAffection {
   emotion: string;
 }
 
-interface ICaseEmotionsAffection {
-  text: string;
+interface IAudioEmotionsAffection {
+  audioUrl: string;
   basicEmotions: string[];
   secondaryEmotions: string[];
   affections: string[];
 }
 
-interface IEmotionAffectionCheckbox {
-  name: string;
-  checked: boolean;
-}
 // #endregion Tipos locales
 
 @Component({
@@ -41,6 +37,7 @@ export class Asyco1012Component implements OnInit {
   public readonly scenarioMinIndex: number = 0;
   public readonly scenarioMaxIndex: number = 14;
   public readonly imagesDirectory: string = '../assets/img/emociones';
+  public readonly audiosDirectory: string = '../assets/Audios/asyco1012';
   // #endregion públicas privadas de solo-lectura
 
   // #region Variables privadas de solo-lectura
@@ -48,21 +45,22 @@ export class Asyco1012Component implements OnInit {
   private readonly emocionesSecundariasDefault: string[] = ["Vergüenza", "Culpa", "Bochorno", "Satisfacción", "Desprecio", "Entusiasmo", "Complacencia", "Orgullo", "Placer"];
   private readonly afeccionesDefault1: string[] = ['Generosidad', 'Agradecimiento', 'Bondad', 'Amabilidad', 'Integridad', 'Honestidad', 'Templanza', 'Serenidad'];
   private readonly afeccionesDefault2: string[] = ['Compasión', 'Aceptación', 'Benevolencia', 'Empatía', 'Armonía', 'Humildad', 'Autonomía'];
-  private readonly casesDefault: string[] = [
-    'Alberto no tiene templanza. Cada vez que la maestra lo corrige durante la clase, él se enoja mucho.',
-    'Un niño de mi salón copió en el examen. Este niño no es honesto.',
-    'Mi prima no le agradeció a sus papás por su regalo de cumpleaños.',
-    'No tengo serenidad, me siento intranquilo y agitado, que hasta mi cara se pone roja como un tomate.',
-    'Tengo un amigo muy inteligente pero él no se pone en mi lugar cuando le explico que me da un miedo terrible los insectos. Le falta empatía.',
-    'Tengo un primo que es muy irresponsable, nunca recoge sus cosas, ni tan siquiera su plato de comida, ni sus juguetes.',
-    'Hugo es un niño al que le falta compasión porque siempre que ve a un perrito en la calle lo patea.',
-    'A un señor se le cayó su cartera, pero él no se dio cuenta. Otra persona que vio lo que había pasado tomó la cartera, pero no se la devolvió al señor.',
-    'Una vecina no le devolvió a mi hermanita un libro que le prestó. Le falta integridad a esa persona.',
-    'Un señor llegó tarde a una reunión y no fue honesto, dio muchas excusas y no admitió que había salido tarde y sabía que iba a llegar después de la hora indicada.',
-    'Conozco a un niño que dice mentiras, no es sincero.',
-    'Le preguntamos a una compañera si quería ir al museo por la tarde pero ella no contestó, dejó que otra compañera respondiera por ella. No tiene autonomía.',
-    'Burlarse de otra persona por ser discapacitado.',
-    'Colarse en una fila del banco, tienda, etc.'
+  private readonly audiosDefault: string[] = [
+    'BachTocataFuga.mp3',
+    'BizetOperaCarmen.mp3',
+    'ChopinNocturno.mp3',
+    'KhachaturianSabreDance.mp3',
+    'KorsakovMoscardon.mp3',
+    'MozartFlautaMagica.mp3',
+    'MozartSereneta13.mp3',
+    'MozartSonata11.mp3',
+    'RavelBolero.mp3',
+    'RossiniObertura.mp3',
+    'StraussSaratustra.mp3',
+    'TchaikovskyCascanueces.mp3',
+    'TheodorakisGriego.mp3',
+    'VivaldiPrimaveraAllegro.mp3',
+    'WagnerCabalgata.mp3'
   ];
 
   // TODO: Agregar "Confianza" cuando tenga la imagen
@@ -109,12 +107,11 @@ export class Asyco1012Component implements OnInit {
   public currentStep: ASYCO1012Step;
   public emocionesBasicas: string[];
   public emocionesSecundarias: string[];
-  public emocionesBasicasSeleccionadas: string[];
-  public emocionesSecundariasSeleccionadas: string[];
+  public emocionesAfeccionesSeleccionadas: string[];
   public afecciones1: string[];
   public afecciones2: string[];
   public scenarioIndex: number;
-  public cases: ICaseEmotionsAffection[];
+  public audios: IAudioEmotionsAffection[];
 
   public afeccionesAlegria: string[];
   public afeccionesEnfado: string[];
@@ -134,11 +131,6 @@ export class Asyco1012Component implements OnInit {
   public afeccionesOrgullo: string[];
   public afeccionesPlacer: string[];
 
-  public basicEmotionCheckboxes: IEmotionAffectionCheckbox[];
-  public secondaryEmotionCheckboxes: IEmotionAffectionCheckbox[];
-  public affectionCheckboxes1: IEmotionAffectionCheckbox[];
-  public affectionCheckboxes2: IEmotionAffectionCheckbox[];
-
   public get ASYCO1012Step(): typeof ASYCO1012Step {
     return ASYCO1012Step;
   }
@@ -153,17 +145,12 @@ export class Asyco1012Component implements OnInit {
     this.imageEmotionAffections = this.resetImageEmotionAffections();
     this.emocionesBasicas = [...this.emocionesBasicasDefault];
     this.emocionesSecundarias = [...this.emocionesSecundariasDefault];
-    this.emocionesBasicasSeleccionadas = [];
-    this.emocionesSecundariasSeleccionadas = [];
+    this.emocionesAfeccionesSeleccionadas = [];
     this.currentStep = ASYCO1012Step.Instructions;
     this.scenarioIndex = 0;
     this.afecciones1 = [...this.afeccionesDefault1];
     this.afecciones2 = [...this.afeccionesDefault2];
-    this.cases = this.setCaseEmotionAffections();
-    this.basicEmotionCheckboxes = this.resetBasicEmotionCheckboxes();
-    this.secondaryEmotionCheckboxes = this.resetSecondaryEmotionCheckboxes();
-    this.affectionCheckboxes1 = this.resetAffectionCheckboxes1();
-    this.affectionCheckboxes2 = this.resetAffectionCheckboxes2();
+    this.audios = this.setAudioEmotionAffections();
 
     this.afeccionesAlegria = [];
     this.afeccionesEnfado = [];
@@ -200,6 +187,15 @@ export class Asyco1012Component implements OnInit {
 
       case ASYCO1012Step.Introduction:
         this.currentStep  = ASYCO1012Step.AudiosAndEmotions;
+
+        const audioElement = new Audio('../assets/Audios/asyco1012/BachTocataFuga.mp3');
+        audioElement.volume = 0.5;
+        audioElement.duration;
+        audioElement.currentTime;
+
+        setInterval(() => console.log('CurrentTime', audioElement.currentTime), 1000);
+        setInterval(() => console.log('Duration', audioElement.duration), 1000);
+        audioElement.play();
         break;
 
       case ASYCO1012Step.AudiosAndEmotions:
@@ -208,11 +204,8 @@ export class Asyco1012Component implements OnInit {
         }
 
         if (this.scenarioIndex < this.scenarioMaxIndex) {
-          this.basicEmotionCheckboxes = this.resetBasicEmotionCheckboxes();
-          this.secondaryEmotionCheckboxes = this.resetSecondaryEmotionCheckboxes();
-          this.affectionCheckboxes1 = this.resetAffectionCheckboxes1();
-          this.affectionCheckboxes2 = this.resetAffectionCheckboxes2();
           this.scenarioIndex++;
+          this.resetDragAndDrops();
         }
         else {
           this.currentStep  = ASYCO1012Step.End;
@@ -231,9 +224,10 @@ export class Asyco1012Component implements OnInit {
 
   public resetDragAndDrops(): void {
     this.emocionesBasicas = [...this.emocionesBasicasDefault]
-        this.emocionesBasicasSeleccionadas = []
-        this.emocionesSecundarias = [...this.emocionesSecundariasDefault]
-        this.emocionesSecundariasSeleccionadas = []
+    this.emocionesSecundarias = [...this.emocionesSecundariasDefault]
+    this.afecciones1 = [...this.afeccionesDefault1];
+    this.afecciones2 = [...this.afeccionesDefault2];
+    this.emocionesAfeccionesSeleccionadas = []
   }
 
   public drop(event: CdkDragDrop<string[]>): void {
@@ -247,43 +241,6 @@ export class Asyco1012Component implements OnInit {
         event.currentIndex
       );
     }
-
-    this.afecciones1 = [...this.afeccionesDefault1];
-    this.afecciones2 = [...this.afeccionesDefault2];
-  }
-
-  public dropSingle(event: CdkDragDrop<string[]>, emotion: string): string[] {
-    event.currentIndex = 0;
-    event.container.data = [];
-
-    transferArrayItem(
-      event.previousContainer.data,
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex
-    );
-
-    this.afecciones1 = [...this.afeccionesDefault1];
-    this.afecciones2 = [...this.afeccionesDefault2];
-
-    let imageEmotionAffection: IImageEmotionAffection | undefined
-      = this.imageEmotionAffections.find(iea => iea.emotion === emotion);
-
-    if (imageEmotionAffection) {
-      imageEmotionAffection.affections = event.container.data;
-    }
-    return event.container.data;
-  }
-
-  public anyEmotionAffectionSelected(): boolean {
-    return this.affectionCheckboxes1.some(ac1 => ac1.checked)
-      || this.affectionCheckboxes2.some(ac2 => ac2.checked)
-      || this.basicEmotionCheckboxes.some(bec => bec.checked)
-      || this.secondaryEmotionCheckboxes.some(sec => sec.checked)
-  }
-
-  public allEmotionsHaveAffections(): boolean {
-    return this.imageEmotionAffections.every(iea => iea.affections && iea.affections.length > 0)
   }
   // #endregion Funciones públicas
 
@@ -315,51 +272,15 @@ export class Asyco1012Component implements OnInit {
     });
   }
 
-  private setCaseEmotionAffections(): ICaseEmotionsAffection[] {
-    return this.casesDefault.map(caseDescription => {
+  private setAudioEmotionAffections(): IAudioEmotionsAffection[] {
+    return this.audiosDefault.map(audioName => {
       return {
         affections: [],
         basicEmotions: [],
         secondaryEmotions: [],
-        text: caseDescription
+        audioUrl: `${this.audiosDirectory}/${audioName}`
       }
     })
-  }
-
-  private resetBasicEmotionCheckboxes(): IEmotionAffectionCheckbox[] {
-    return this.emocionesBasicasDefault.map(emotion => {
-      return {
-        checked: false,
-        name: emotion
-      }
-    })
-  }
-
-  private resetSecondaryEmotionCheckboxes(): IEmotionAffectionCheckbox[] {
-    return this.emocionesSecundariasDefault.map(emotion => {
-      return {
-        checked: false,
-        name: emotion
-      }
-    })
-  }
-
-  private resetAffectionCheckboxes1(): IEmotionAffectionCheckbox[] {
-    return this.afeccionesDefault1.map(affection => {
-      return {
-        checked: false,
-        name: affection
-      }
-    });
-  }
-
-  private resetAffectionCheckboxes2(): IEmotionAffectionCheckbox[] {
-    return this.afeccionesDefault2.map(affection => {
-      return {
-        checked: false,
-        name: affection
-      }
-    });
   }
 
   private showInstructions() {
@@ -371,8 +292,9 @@ export class Asyco1012Component implements OnInit {
       if(this.timeLeft > 0) {
         this.timeLeft--;
       } else {
-        let alarmInitRutina = <HTMLAudioElement>(document.getElementById('initRutAudio'));
-        alarmInitRutina.play();
+        // TODO: Check if uncomment
+        // let alarmInitRutina = <HTMLAudioElement>(document.getElementById('initRutAudio'));
+        // alarmInitRutina.play();
         this.currentStep  = ASYCO1012Step.Introduction;
         clearInterval(this.interval);
       }
@@ -391,6 +313,7 @@ export class Asyco1012Component implements OnInit {
   }
 
   private sendResult() {
+    // TODO: Revisar detalles al enviar el resultado. (Possible points y points)
     this.round;
     this.resultsTable = {
       date: '',
@@ -401,14 +324,14 @@ export class Asyco1012Component implements OnInit {
       resultDetails:[{
         possiblePoints: 1,
         points: 1,
-        possiblePointsDescription: 'Cantidad de relaciones causa-efecto mostradas por el sujeto',
-        pointsDescription: 'Cantidad de relaciones causa-efecto mostradas por el sujeto'
+        possiblePointsDescription: 'Tipos de afectos relacionados con la musica que escuchó',
+        pointsDescription: 'Tipos de afectos relacionados con la musica que escuchó'
       },
       {
         possiblePoints: 1,
         points: 1,
-        possiblePointsDescription: 'Cantidad de soluciones emocionales propuestas por caso',
-        pointsDescription: 'Cantidad de soluciones emocionales propuestas por caso'
+        possiblePointsDescription: 'Determinación de emociones que fundamentaron los afectos de la música que escuchó',
+        pointsDescription: 'Determinación de emociones que fundamentaron los afectos de la música que escuchó'
       }]
     }
 
