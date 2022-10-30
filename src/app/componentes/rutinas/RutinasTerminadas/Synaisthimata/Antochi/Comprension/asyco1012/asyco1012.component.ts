@@ -9,6 +9,7 @@ enum ASYCO1012Step {
   Instructions,
   Introduction,
   AudiosAndEmotions,
+  OneMinuteBreak,
   End
 }
 
@@ -133,6 +134,7 @@ export class Asyco1012Component implements OnInit {
   public afeccionesPlacer: string[];
   public volume: number;
   public currentVolumeImage: string;
+  public hasHeardMusic: boolean;
 
   public get ASYCO1012Step(): typeof ASYCO1012Step {
     return ASYCO1012Step;
@@ -158,6 +160,7 @@ export class Asyco1012Component implements OnInit {
     this.currentVolumeImage = 'VolumeMedium';
     this.currentAudio = new Audio();
     this.currentAudioTime = 0;
+    this.hasHeardMusic = true; // TODO: Reset to false
 
     this.afeccionesAlegria = [];
     this.afeccionesEnfado = [];
@@ -187,32 +190,52 @@ export class Asyco1012Component implements OnInit {
 
   // #region Funciones públicas
   public nextStep(): void {
+    let contentContainerDiv = document.getElementById('content-container')
+
     switch(this.currentStep) {
       case ASYCO1012Step.Instructions:
         this.currentStep  = ASYCO1012Step.Introduction;
         break;
 
       case ASYCO1012Step.Introduction:
+        if (contentContainerDiv) {
+          contentContainerDiv.scrollTop = 0;
+        }
+
         this.currentStep  = ASYCO1012Step.AudiosAndEmotions;
 
         this.currentAudio = new Audio(this.audios[this.audioIndex].audioUrl)
         this.currentAudio.volume = this.volume;
-        setInterval(() => this.currentAudioTime = this.currentAudio.currentTime, 100);
+        setInterval(() => this.checkAudioTime(), 100);
         break;
 
       case ASYCO1012Step.AudiosAndEmotions:
+        if (contentContainerDiv) {
+          contentContainerDiv.scrollTop = 0;
+        }
+
         if(this.audioIndex == 3) {
           this.sendResult();
         }
 
         if (this.audioIndex < this.audioMaxIndex) {
           this.audioIndex++;
-          this.resetDragAndDrops();
+          this.currentAudio.pause();
+          this.currentAudio = new Audio(this.audios[this.audioIndex].audioUrl)
+          this.currentAudio.volume = this.volume;
+          this.resetAudioActivityState();
         }
         else {
           this.currentStep  = ASYCO1012Step.End;
         }
         break;
+    }
+  }
+
+  public checkAudioTime(): void {
+    this.currentAudioTime = this.currentAudio.currentTime;
+    if (this.currentAudio.duration - this.currentAudio.currentTime < 3) {
+      this.hasHeardMusic = true;
     }
   }
 
@@ -237,12 +260,13 @@ export class Asyco1012Component implements OnInit {
     this.currentAudio.currentTime = 0;
   }
 
-  public resetDragAndDrops(): void {
+  public resetAudioActivityState(): void {
     this.emocionesBasicas = [...this.emocionesBasicasDefault]
     this.emocionesSecundarias = [...this.emocionesSecundariasDefault]
     this.afecciones1 = [...this.afeccionesDefault1];
     this.afecciones2 = [...this.afeccionesDefault2];
     this.emocionesAfeccionesSeleccionadas = []
+    this.hasHeardMusic = false;
   }
 
   public drop(event: CdkDragDrop<string[]>): void {
@@ -279,16 +303,20 @@ export class Asyco1012Component implements OnInit {
     }
   }
 
-  public isBasicEmotion(emocion: string): boolean {
-    return this.emocionesBasicasDefault.includes(emocion);
+  public isBasicEmotion(item: string): boolean {
+    return this.emocionesBasicasDefault.includes(item);
   }
 
-  public isSecondaryEmotion(emocion: string): boolean {
-    return this.emocionesSecundariasDefault.includes(emocion);
+  public isSecondaryEmotion(item: string): boolean {
+    return this.emocionesSecundariasDefault.includes(item);
   }
 
-  public isAffection(emocion: string): boolean {
-    return this.afeccionesDefault1.includes(emocion) || this.afeccionesDefault2.includes(emocion);
+  public isAffection(item: string): boolean {
+    return this.afeccionesDefault1.includes(item) || this.afeccionesDefault2.includes(item);
+  }
+
+  public hasSelectedItems(): boolean {
+    return this.audios[this.audioIndex].selections.length > 1;
   }
   // #endregion Funciones públicas
 
