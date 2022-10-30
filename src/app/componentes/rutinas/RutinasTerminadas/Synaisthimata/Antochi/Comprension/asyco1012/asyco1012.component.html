@@ -68,10 +68,53 @@
     <!-- Paso 3: Audios, emociones y afecciones -->
     <div *ngIf="currentStep == ASYCO1012Step.AudiosAndEmotions" class="full-parent-height">
       <div style="height: 100px;">
-        <h1>Las emociones se pueden activar mediante los estímulos que nos rodean, por ejemplo la música. A continuación escucharás dos minutos de música clásica, puedes mostrarnos qué emoción te causa?? ¿cómo te hace sentir? También nos puedes decir que sentimiento te despierta?</h1>
+        <h1>
+          Las emociones se pueden activar mediante los estímulos que nos rodean, por ejemplo la música.
+          A continuación escucharás dos minutos de música clásica. ¿Puedes mostrarnos qué emoción te causa, cómo te hace sentir y que sentimiento te despierta?
+        </h1>
       </div>
       <div cdkDropListGroup style="height: calc(100% - 100px);">
         <div class="row full-parent-height">
+          <div class="row">
+            <div style="display:inline; width:50px; padding: 0">
+              <img width=30 height=30 src="../assets/img/skepsi/iconos/{{currentVolumeImage}}.png">
+              <mat-slider
+                vertical
+                style="height:200px; max-height:100%;"
+                [max]=1
+                [min]=0
+                [step]=0.01
+                [(ngModel)]="volume"
+                (input)="onChangeVolume($event)"
+              ></mat-slider>
+            </div>
+            <div style="display:inline; width: calc(100% - 100px); margin-top:15px">
+              <div class="row">
+                <p>Da clic en el botón de reproducción cuando estés listo. Puedes pausar y reiniciar la canción si lo necesitas.</p>
+                <div>
+                  <button (click)="togglePlayPause()" class="invisible-button">
+                    <img width=30 height=30 src="../assets/img/skepsi/iconos/{{currentAudio.paused ? 'Play' : 'Pause'}}.png">
+                  </button>
+                  <mat-slider
+                    disabled
+                    style="width: 80%"
+                    [max]="currentAudio.duration"
+                    [min]=0
+                    [step]=1
+                    [(ngModel)]="currentAudioTime"
+                  ></mat-slider>
+                  <button (click)="restartAudio()" class="invisible-button">
+                    <img width=25 height=25 src="../assets/img/skepsi/iconos/Restart.png">
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                Aquí va el resto del contenido
+              </div>
+            </div>
+            <div style="display:inline; width:50px; padding: 0">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -79,7 +122,7 @@
     <!-- Paso 4: Final -->
     <div *ngIf="currentStep == ASYCO1012Step.End" class="row full-parent-height">
       <div class="row" class="row full-parent-height" style="display: flex; justify-content:center; align-items:center; align-content: center;">
-        <h1 style="font-weight: bold;" *ngIf="scenarioIndex == scenarioMaxIndex">¡Felicidades! Has llegado al final de la rutina.</h1>
+        <h1 style="font-weight: bold;" *ngIf="audioIndex == audioMaxIndex">¡Felicidades! Has llegado al final de la rutina.</h1>
       </div>
     </div>
   </div>

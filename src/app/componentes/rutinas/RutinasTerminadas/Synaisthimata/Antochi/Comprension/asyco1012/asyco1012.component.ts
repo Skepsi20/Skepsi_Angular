@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { MatSliderChange } from '@angular/material/slider';
 
 // #region Tipos locales
 enum ASYCO1012Step {
@@ -34,8 +35,8 @@ interface IAudioEmotionsAffection {
 export class Asyco1012Component implements OnInit {
 
   // #region Variables públicas de solo-lectura
-  public readonly scenarioMinIndex: number = 0;
-  public readonly scenarioMaxIndex: number = 14;
+  public readonly audioMinIndex: number = 0;
+  public readonly audioMaxIndex: number = 14;
   public readonly imagesDirectory: string = '../assets/img/emociones';
   public readonly audiosDirectory: string = '../assets/Audios/asyco1012';
   // #endregion públicas privadas de solo-lectura
@@ -110,8 +111,10 @@ export class Asyco1012Component implements OnInit {
   public emocionesAfeccionesSeleccionadas: string[];
   public afecciones1: string[];
   public afecciones2: string[];
-  public scenarioIndex: number;
+  public audioIndex: number;
   public audios: IAudioEmotionsAffection[];
+  public currentAudio: HTMLAudioElement;
+  public currentAudioTime: number;
 
   public afeccionesAlegria: string[];
   public afeccionesEnfado: string[];
@@ -130,6 +133,8 @@ export class Asyco1012Component implements OnInit {
   public afeccionesComplacencia: string[];
   public afeccionesOrgullo: string[];
   public afeccionesPlacer: string[];
+  public volume: number;
+  public currentVolumeImage: string;
 
   public get ASYCO1012Step(): typeof ASYCO1012Step {
     return ASYCO1012Step;
@@ -147,10 +152,14 @@ export class Asyco1012Component implements OnInit {
     this.emocionesSecundarias = [...this.emocionesSecundariasDefault];
     this.emocionesAfeccionesSeleccionadas = [];
     this.currentStep = ASYCO1012Step.Instructions;
-    this.scenarioIndex = 0;
+    this.audioIndex = 0;
     this.afecciones1 = [...this.afeccionesDefault1];
     this.afecciones2 = [...this.afeccionesDefault2];
     this.audios = this.setAudioEmotionAffections();
+    this.volume = 0.6;
+    this.currentVolumeImage = 'VolumeMedium';
+    this.currentAudio = new Audio();
+    this.currentAudioTime = 0;
 
     this.afeccionesAlegria = [];
     this.afeccionesEnfado = [];
@@ -188,23 +197,18 @@ export class Asyco1012Component implements OnInit {
       case ASYCO1012Step.Introduction:
         this.currentStep  = ASYCO1012Step.AudiosAndEmotions;
 
-        const audioElement = new Audio('../assets/Audios/asyco1012/BachTocataFuga.mp3');
-        audioElement.volume = 0.5;
-        audioElement.duration;
-        audioElement.currentTime;
-
-        setInterval(() => console.log('CurrentTime', audioElement.currentTime), 1000);
-        setInterval(() => console.log('Duration', audioElement.duration), 1000);
-        audioElement.play();
+        this.currentAudio = new Audio(this.audios[this.audioIndex].audioUrl)
+        this.currentAudio.volume = this.volume;
+        setInterval(() => this.currentAudioTime = this.currentAudio.currentTime, 100);
         break;
 
       case ASYCO1012Step.AudiosAndEmotions:
-        if(this.scenarioIndex == 3) {
+        if(this.audioIndex == 3) {
           this.sendResult();
         }
 
-        if (this.scenarioIndex < this.scenarioMaxIndex) {
-          this.scenarioIndex++;
+        if (this.audioIndex < this.audioMaxIndex) {
+          this.audioIndex++;
           this.resetDragAndDrops();
         }
         else {
@@ -215,11 +219,24 @@ export class Asyco1012Component implements OnInit {
   }
 
   public previousScenario(): void {
-    this.scenarioIndex--;
+    this.audioIndex--;
   }
 
   public nextScenario(): void {
-    this.scenarioIndex++;
+    this.audioIndex++;
+  }
+
+  public togglePlayPause(): void {
+    if (this.currentAudio.paused) {
+      this.currentAudio.play();
+    }
+    else {
+      this.currentAudio.pause();
+    }
+  }
+
+  public restartAudio(): void {
+    this.currentAudio.currentTime = 0;
   }
 
   public resetDragAndDrops(): void {
@@ -240,6 +257,27 @@ export class Asyco1012Component implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+    }
+  }
+
+  public onChangeVolume(event: MatSliderChange) {
+    if (event.value) {
+      if (this.currentAudio) {
+        this.currentAudio.volume = event.value;
+      }
+
+      if (event.value == 0.01) {
+        this.currentVolumeImage = 'VolumeMute';
+      }
+      else if (event.value > 0.01 && event.value <= 0.4) {
+        this.currentVolumeImage = 'VolumeLow';
+      }
+      else if (event.value > 0.5 && event.value <= 0.9) {
+        this.currentVolumeImage = 'VolumeMedium';
+      }
+      else if (event.value > 0.9) {
+        this.currentVolumeImage = 'VolumeHigh'
+      }
     }
   }
   // #endregion Funciones públicas
