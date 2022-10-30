@@ -20,9 +20,7 @@ interface IImageEmotionAffection {
 
 interface IAudioEmotionsAffection {
   audioUrl: string;
-  basicEmotions: string[];
-  secondaryEmotions: string[];
-  affections: string[];
+  selections: string[];
 }
 
 // #endregion Tipos locales
@@ -280,6 +278,18 @@ export class Asyco1012Component implements OnInit {
       }
     }
   }
+
+  public isBasicEmotion(emocion: string): boolean {
+    return this.emocionesBasicasDefault.includes(emocion);
+  }
+
+  public isSecondaryEmotion(emocion: string): boolean {
+    return this.emocionesSecundariasDefault.includes(emocion);
+  }
+
+  public isAffection(emocion: string): boolean {
+    return this.afeccionesDefault1.includes(emocion) || this.afeccionesDefault2.includes(emocion);
+  }
   // #endregion Funciones públicas
 
   // #region Funciones privadas
@@ -313,9 +323,7 @@ export class Asyco1012Component implements OnInit {
   private setAudioEmotionAffections(): IAudioEmotionsAffection[] {
     return this.audiosDefault.map(audioName => {
       return {
-        affections: [],
-        basicEmotions: [],
-        secondaryEmotions: [],
+        selections: [],
         audioUrl: `${this.audiosDirectory}/${audioName}`
       }
     })

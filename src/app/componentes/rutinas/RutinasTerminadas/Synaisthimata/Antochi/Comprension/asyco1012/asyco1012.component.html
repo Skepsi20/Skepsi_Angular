@@ -73,7 +73,7 @@
           A continuación escucharás dos minutos de música clásica. ¿Puedes mostrarnos qué emoción te causa, cómo te hace sentir y que sentimiento te despierta?
         </h1>
       </div>
-      <div cdkDropListGroup style="height: calc(100% - 100px);">
+      <div style="height: calc(100% - 100px);">
         <div class="row full-parent-height">
           <div class="row">
             <div style="display:inline; width:50px; padding: 0">
@@ -95,21 +95,100 @@
                   <button (click)="togglePlayPause()" class="invisible-button">
                     <img width=30 height=30 src="../assets/img/skepsi/iconos/{{currentAudio.paused ? 'Play' : 'Pause'}}.png">
                   </button>
-                  <mat-slider
-                    disabled
-                    style="width: 80%"
-                    [max]="currentAudio.duration"
-                    [min]=0
-                    [step]=1
-                    [(ngModel)]="currentAudioTime"
-                  ></mat-slider>
+                  <mat-slider disabled style="width: 80%" [max]="currentAudio.duration" [min]=0 [step]=1 [(ngModel)]="currentAudioTime"></mat-slider>
                   <button (click)="restartAudio()" class="invisible-button">
                     <img width=25 height=25 src="../assets/img/skepsi/iconos/Restart.png">
                   </button>
                 </div>
               </div>
               <div class="row">
-                Aquí va el resto del contenido
+                <div class="col-2">
+                  <h3>Emociones básicas</h3>
+                  <div class="example-container">
+                    <div
+                      cdkDropList
+                      #basicEmotionsDropList="cdkDropList"
+                      [cdkDropListConnectedTo]="[selectedDropList]"
+                      [cdkDropListData]="emocionesBasicas"
+                      class="example-list"
+                      (cdkDropListDropped)="drop($event)">
+                      <div *ngFor="let item of emocionesBasicas">
+                        <div style="background-color:rgb(218, 247, 138)" class="example-box basicEmotion" *ngIf="isBasicEmotion(item)" cdkDrag>{{item}}</div>
+                        <div style="background-color:rgb(138, 247, 143)" class="example-box secondaryEmotion" *ngIf="isSecondaryEmotion(item)" cdkDrag>{{item}}</div>
+                        <div style="background-color:rgb(138, 231, 247)" class="example-box secondaryEmotion" *ngIf="isAffection(item)" cdkDrag>{{item}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <h3>Emociones secundarias</h3>
+                  <div class="example-container">
+                    <div
+                      cdkDropList
+                      #secondaryEmotionsDropList="cdkDropList"
+                      [cdkDropListConnectedTo]="[selectedDropList]"
+                      [cdkDropListData]="emocionesSecundarias"
+                      class="example-list"
+                      (cdkDropListDropped)="drop($event)">
+                      <div *ngFor="let item of emocionesSecundarias">
+                        <div style="background-color:rgb(218, 247, 138)" class="example-box basicEmotion" *ngIf="isBasicEmotion(item)" cdkDrag>{{item}}</div>
+                        <div style="background-color:rgb(138, 247, 143)" class="example-box secondaryEmotion" *ngIf="isSecondaryEmotion(item)" cdkDrag>{{item}}</div>
+                        <div style="background-color:rgb(138, 231, 247)" class="example-box secondaryEmotion" *ngIf="isAffection(item)" cdkDrag>{{item}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <h3>Afecciones individuales</h3>
+                  <div class="example-container">
+                    <div
+                      cdkDropList
+                      #affections1EmotionsDropList="cdkDropList"
+                      [cdkDropListConnectedTo]="[affections2EmotionsDropList, selectedDropList]"
+                      [cdkDropListData]="afecciones1"
+                      class="example-list"
+                      (cdkDropListDropped)="drop($event)">
+                      <div *ngFor="let item of afecciones1">
+                        <div style="background-color:rgb(218, 247, 138)" class="example-box basicEmotion" *ngIf="isBasicEmotion(item)" cdkDrag>{{item}}</div>
+                        <div style="background-color:rgb(138, 247, 143)" class="example-box secondaryEmotion" *ngIf="isSecondaryEmotion(item)" cdkDrag>{{item}}</div>
+                        <div style="background-color:rgb(138, 231, 247)" class="example-box secondaryEmotion" *ngIf="isAffection(item)" cdkDrag>{{item}}</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="example-container">
+                    <div
+                      cdkDropList
+                      #affections2EmotionsDropList="cdkDropList"
+                      [cdkDropListConnectedTo]="[affections1EmotionsDropList, selectedDropList]"
+                      [cdkDropListData]="afecciones2"
+                      class="example-list"
+                      (cdkDropListDropped)="drop($event)">
+                      <div *ngFor="let item of afecciones2">
+                        <div style="background-color:rgb(218, 247, 138)" class="example-box basicEmotion" *ngIf="isBasicEmotion(item)" cdkDrag>{{item}}</div>
+                        <div style="background-color:rgb(138, 247, 143)" class="example-box secondaryEmotion" *ngIf="isSecondaryEmotion(item)" cdkDrag>{{item}}</div>
+                        <div style="background-color:rgb(138, 231, 247)" class="example-box secondaryEmotion" *ngIf="isAffection(item)" cdkDrag>{{item}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <h3 style="font-weight:bold;">Arrastra las emociones y afectos que sentiste a esta columna</h3>
+                  <div class="example-container">
+                    <div
+                      cdkDropList
+                      #selectedDropList="cdkDropList"
+                      [cdkDropListConnectedTo]="[basicEmotionsDropList, secondaryEmotionsDropList, affections1EmotionsDropList, affections2EmotionsDropList]"
+                      [cdkDropListData]="audios[audioIndex].selections"
+                      class="example-list"
+                      (cdkDropListDropped)="drop($event)">
+                      <div *ngFor="let item of audios[audioIndex].selections">
+                        <div style="background-color:rgb(218, 247, 138)" class="example-box basicEmotion" *ngIf="isBasicEmotion(item)" cdkDrag>{{item}}</div>
+                        <div style="background-color:rgb(138, 247, 143)" class="example-box secondaryEmotion" *ngIf="isSecondaryEmotion(item)" cdkDrag>{{item}}</div>
+                        <div style="background-color:rgb(138, 231, 247)" class="example-box secondaryEmotion" *ngIf="isAffection(item)" cdkDrag>{{item}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div style="display:inline; width:50px; padding: 0">
