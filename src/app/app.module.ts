@@ -140,15 +140,7 @@ import { AGNCO1012Component } from './componentes/rutinas/RutinasTerminadas/Gnos
 import { Dsyco1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Dynami/Comprension/dsyco1012/dsyco1012.component';
 import { DMARE1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Dynami/Recuperacion/dmare1012/dmare1012.component';
 import { EMARE1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Exousia/Recuperacion/emare1012/emare1012.component';
-
-//AMARE-DMARE-EMARE
-
-
-
-
-
-
-
+import { Asyco1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Antochi/Comprension/asyco1012/asyco1012.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -230,7 +222,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AGNCO1012Component,
     Dsyco1012Component,
     DMARE1012Component,
-    EMARE1012Component
+    EMARE1012Component,
+    Asyco1012Component
   ],
   imports: [
     BrowserModule,

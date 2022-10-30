@@ -23,6 +23,7 @@ import { EGLCO1012Component } from '../RutinasTerminadas/Glossa/Exousia/Comprens
 import { AGLCO1012Component } from '../RutinasTerminadas/Glossa/Antochi/Comprension/aglco1012/aglco1012.component';
 import { AGNCO1012Component } from '../RutinasTerminadas/Gnostiki/Antochi/Comprension/agnco1012/agnco1012.component';
 import { Dsyco1012Component } from '../RutinasTerminadas/Synaisthimata/Dynami/Comprension/dsyco1012/dsyco1012.component';
+import { Asyco1012Component } from '../RutinasTerminadas/Synaisthimata/Antochi/Comprension/asyco1012/asyco1012.component';
 
 @Component({
   selector: 'app-rutina-actual',
@@ -124,6 +125,7 @@ export class RutinaActualComponent implements OnInit {
       case '1012ASYRE': { componenteACrear = Asyre1012Component } break;
       case '1012ESYRE': { componenteACrear = Esyre1012Component } break;
       case '1012DSYCO': { componenteACrear = Dsyco1012Component } break;
+      case '1012ASYCO': { componenteACrear = Asyco1012Component } break;
     }
     this.crearRutina(componenteACrear);
   }
