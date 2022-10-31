@@ -66,7 +66,7 @@ export interface results{
 }
 
 export interface resultsWithDate{
-  date:string,
+  date: string,
   studentSessionId: string,
   grade: number,
   round: number,

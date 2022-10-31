@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
-import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
+import { results } from 'src/app/Models/Resultados/sessionsResults';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { MatSliderChange } from '@angular/material/slider';
 
@@ -59,7 +59,7 @@ export class Asyco1012Component implements OnInit {
 
   // #region Variables de resultados
   private sessionId: any;
-  private resultsTable?: resultsWithDate;
+  private resultsTable?: results;
   private round: number = 1;
   private level: number = 1;
   private studentSessionId: string = '';
@@ -108,7 +108,7 @@ export class Asyco1012Component implements OnInit {
     this.currentVolumeImage = 'VolumeMedium';
     this.currentAudio = new Audio();
     this.currentAudioTime = 0;
-    this.hasHeardMusic = true; // TODO: Reset to false
+    this.hasHeardMusic = false;
   }
 
   ngOnInit(): void {
@@ -202,7 +202,7 @@ export class Asyco1012Component implements OnInit {
     this.afecciones1 = [...this.afeccionesDefault1];
     this.afecciones2 = [...this.afeccionesDefault2];
     this.emocionesAfeccionesSeleccionadas = []
-    this.hasHeardMusic = true; // TODO: Reset to false
+    this.hasHeardMusic = false;
   }
 
   public drop(event: CdkDragDrop<string[]>): void {
@@ -297,7 +297,7 @@ export class Asyco1012Component implements OnInit {
         this.currentStep  = ASYCO1012Step.Introduction;
         clearInterval(this.interval);
       }
-    }, 100) // TODO: Set back to 1000
+    }, 1000)
   }
 
   private startOneMinuteBreak(): void {
@@ -316,11 +316,11 @@ export class Asyco1012Component implements OnInit {
         this.currentStep  = ASYCO1012Step.AudiosAndEmotions;
         clearInterval(this.interval);
       }
-    }, 10); // TODO: Regresar a 100
+    }, 100);
   }
 
   // #region Funciones privadas con interacción con la API
-  private addResult(results: resultsWithDate) {
+  private addResult(results: results) {
     this._resultsService.addResults(results)
     .subscribe(
       (successResponse)=>{
@@ -331,8 +331,9 @@ export class Asyco1012Component implements OnInit {
   }
 
   private sendResult() {
-    // TODO: Revisar detalles al enviar el resultado. (Possible points y points)
-    this.round;
+    let emotionsSelected: string[] = this.audios[this.audioIndex].selections.filter(s => this.isBasicEmotion(s) || this.isSecondaryEmotion(s));
+    let afectionsSelected: string[] = this.audios[this.audioIndex].selections.filter(s => this.isAffection(s));
+
     this.resultsTable = {
       date: '',
       studentSessionId: this.studentSessionId,
@@ -340,14 +341,14 @@ export class Asyco1012Component implements OnInit {
       round: this.round,
       level: this.level,
       resultDetails:[{
-        possiblePoints: 1,
-        points: 1,
+        possiblePoints: afectionsSelected.length,
+        points: afectionsSelected.length,
         possiblePointsDescription: 'Tipos de afectos relacionados con la musica que escuchó',
         pointsDescription: 'Tipos de afectos relacionados con la musica que escuchó'
       },
       {
-        possiblePoints: 1,
-        points: 1,
+        possiblePoints: emotionsSelected.length,
+        points: emotionsSelected.length,
         possiblePointsDescription: 'Determinación de emociones que fundamentaron los afectos de la música que escuchó',
         pointsDescription: 'Determinación de emociones que fundamentaron los afectos de la música que escuchó'
       }]
@@ -364,7 +365,6 @@ export class Asyco1012Component implements OnInit {
           this.sessionId = success.id;
           this.getCurrentStudentSession();
         } else {
-          //TODO: show message not session available
         }
       },
       (error) =>{
@@ -377,8 +377,13 @@ export class Asyco1012Component implements OnInit {
     this._resultsService.getStudentSessions()
     .subscribe(
       (success)=>{
-        if(success){
+        if (success) {
           this.studentSessionId = success.id;
+          if (success.results[success.results.length-1]) {
+            this.level = success.results[success.results.length-1].level + 1;
+            this.round = success.results[success.results.length-1].round + 1;
+            this.audioIndex = this.round - 1;
+          }
           this.initializeComponent();
         }
         else{
