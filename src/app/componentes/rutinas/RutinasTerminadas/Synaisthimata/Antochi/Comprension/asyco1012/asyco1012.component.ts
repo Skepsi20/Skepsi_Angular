@@ -13,12 +13,6 @@ enum ASYCO1012Step {
   End
 }
 
-interface IImageEmotionAffection {
-  imageUrl: string;
-  affections: string[];
-  emotion: string;
-}
-
 interface IAudioEmotionsAffection {
   audioUrl: string;
   selections: string[];
@@ -36,7 +30,6 @@ export class Asyco1012Component implements OnInit {
   // #region Variables públicas de solo-lectura
   public readonly audioMinIndex: number = 0;
   public readonly audioMaxIndex: number = 14;
-  public readonly imagesDirectory: string = '../assets/img/emociones';
   public readonly audiosDirectory: string = '../assets/Audios/asyco1012';
   // #endregion públicas privadas de solo-lectura
 
@@ -62,26 +55,6 @@ export class Asyco1012Component implements OnInit {
     'VivaldiPrimaveraAllegro.mp3',
     'WagnerCabalgata.mp3'
   ];
-
-  // TODO: Agregar "Confianza" cuando tenga la imagen
-  private readonly emotions: string[] = [
-    'alegria',
-    'asco',
-    'bochorno',
-    'complacencia',
-    'culpa',
-    'desprecio',
-    'enfado',
-    'entusiasmo',
-    'interes',
-    'miedo',
-    'orgullo',
-    `placer`,
-    'satisfaccion',
-    'sorpresa',
-    'tristeza',
-    'verguenza',
-  ];
   // #endregion Variables privadas de solo-lectura
 
   // #region Variables de resultados
@@ -99,11 +72,8 @@ export class Asyco1012Component implements OnInit {
   public tiempoAprender : boolean = true;
 
   public timeLeft: number = 10;
-  public timeLeftTwo: number = 120;
   public interval: any;
-  public intervalTwo: any;
 
-  public imageEmotionAffections: IImageEmotionAffection[];
   public currentStep: ASYCO1012Step;
   public emocionesBasicas: string[];
   public emocionesSecundarias: string[];
@@ -114,24 +84,6 @@ export class Asyco1012Component implements OnInit {
   public audios: IAudioEmotionsAffection[];
   public currentAudio: HTMLAudioElement;
   public currentAudioTime: number;
-
-  public afeccionesAlegria: string[];
-  public afeccionesEnfado: string[];
-  public afeccionesMiedo: string[];
-  public afeccionesTristeza: string[];
-  public afeccionesSorpresa: string[];
-  public afeccionesAsco: string[];
-  public afeccionesConfianza: string[];
-  public afeccionesInteres: string[];
-  public afeccionesVerguenza: string[];
-  public afeccionesCulpa: string[];
-  public afeccionesBochorno: string[];
-  public afeccionesSatisfaccion: string[];
-  public afeccionesDesprecio: string[];
-  public afeccionesEntusiasmo: string[];
-  public afeccionesComplacencia: string[];
-  public afeccionesOrgullo: string[];
-  public afeccionesPlacer: string[];
   public volume: number;
   public currentVolumeImage: string;
   public hasHeardMusic: boolean;
@@ -141,13 +93,9 @@ export class Asyco1012Component implements OnInit {
   }
   // #endregion Variables públicas
 
-  // #region Variables privadas
-  // #endregion Variables privadas
-
   constructor(
     private _resultsService: ResultsService
   ) {
-    this.imageEmotionAffections = this.resetImageEmotionAffections();
     this.emocionesBasicas = [...this.emocionesBasicasDefault];
     this.emocionesSecundarias = [...this.emocionesSecundariasDefault];
     this.emocionesAfeccionesSeleccionadas = [];
@@ -161,24 +109,6 @@ export class Asyco1012Component implements OnInit {
     this.currentAudio = new Audio();
     this.currentAudioTime = 0;
     this.hasHeardMusic = true; // TODO: Reset to false
-
-    this.afeccionesAlegria = [];
-    this.afeccionesEnfado = [];
-    this.afeccionesMiedo = [];
-    this.afeccionesTristeza = [];
-    this.afeccionesSorpresa = [];
-    this.afeccionesAsco = [];
-    this.afeccionesConfianza = [];
-    this.afeccionesInteres = [];
-    this.afeccionesVerguenza = [];
-    this.afeccionesCulpa = [];
-    this.afeccionesBochorno = [];
-    this.afeccionesSatisfaccion = [];
-    this.afeccionesDesprecio = [];
-    this.afeccionesEntusiasmo = [];
-    this.afeccionesComplacencia = [];
-    this.afeccionesOrgullo = [];
-    this.afeccionesPlacer = [];
   }
 
   ngOnInit(): void {
@@ -219,15 +149,21 @@ export class Asyco1012Component implements OnInit {
         }
 
         if (this.audioIndex < this.audioMaxIndex) {
-          this.audioIndex++;
           this.currentAudio.pause();
-          this.currentAudio = new Audio(this.audios[this.audioIndex].audioUrl)
+          this.currentAudio = new Audio(this.audios[++this.audioIndex].audioUrl)
           this.currentAudio.volume = this.volume;
           this.resetAudioActivityState();
+          this.currentStep  = ASYCO1012Step.OneMinuteBreak;
+          this.startOneMinuteBreak();
         }
         else {
+          this.currentAudio.pause();
           this.currentStep  = ASYCO1012Step.End;
         }
+        break;
+
+      case ASYCO1012Step.OneMinuteBreak:
+        this.currentStep  = ASYCO1012Step.AudiosAndEmotions;
         break;
     }
   }
@@ -266,7 +202,7 @@ export class Asyco1012Component implements OnInit {
     this.afecciones1 = [...this.afeccionesDefault1];
     this.afecciones2 = [...this.afeccionesDefault2];
     this.emocionesAfeccionesSeleccionadas = []
-    this.hasHeardMusic = false;
+    this.hasHeardMusic = true; // TODO: Reset to false
   }
 
   public drop(event: CdkDragDrop<string[]>): void {
@@ -325,7 +261,6 @@ export class Asyco1012Component implements OnInit {
     this.showInstructions();
     this.resultados = false;
     this.tiempoAprender = true;
-    this.timeLeftTwo = 120;
   }
 
   private statusUpdate() {
@@ -336,16 +271,6 @@ export class Asyco1012Component implements OnInit {
         console.log(error);
       }
     )
-  }
-
-  private resetImageEmotionAffections(): IImageEmotionAffection[] {
-    return this.emotions.map(emotion => {
-      return {
-        imageUrl: `${this.imagesDirectory}/dibujos/${emotion}.png`,
-        affections: [],
-        emotion: emotion
-      }
-    });
   }
 
   private setAudioEmotionAffections(): IAudioEmotionsAffection[] {
@@ -366,13 +291,32 @@ export class Asyco1012Component implements OnInit {
       if(this.timeLeft > 0) {
         this.timeLeft--;
       } else {
-        // TODO: Check if uncomment
-        // let alarmInitRutina = <HTMLAudioElement>(document.getElementById('initRutAudio'));
-        // alarmInitRutina.play();
+        let alarmInitRutina = <HTMLAudioElement>(document.getElementById('initRutAudio'));
+        alarmInitRutina.volume = 0.4;
+        alarmInitRutina.play();
         this.currentStep  = ASYCO1012Step.Introduction;
         clearInterval(this.interval);
       }
     }, 100) // TODO: Set back to 1000
+  }
+
+  private startOneMinuteBreak(): void {
+    if(this.timeLeft > 0) {
+      clearInterval(this.interval);
+    }
+
+    this.timeLeft = 600;
+
+    this.interval = setInterval(() => {
+      console.log(this.timeLeft);
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      }
+      else {
+        this.currentStep  = ASYCO1012Step.AudiosAndEmotions;
+        clearInterval(this.interval);
+      }
+    }, 10); // TODO: Regresar a 100
   }
 
   // #region Funciones privadas con interacción con la API

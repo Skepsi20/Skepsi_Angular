@@ -68,9 +68,8 @@
     <!-- Paso 3: Audios, emociones y afecciones -->
     <div *ngIf="currentStep == ASYCO1012Step.AudiosAndEmotions" class="full-parent-height">
       <div style="height: 100px;">
-        <h1>
-          A continuación escucharás dos minutos de música clásica. ¿Puedes mostrarnos qué emoción te causa, cómo te hace sentir y que sentimiento te despierta?
-        </h1>
+        <h1 *ngIf="audioIndex == audioMinIndex">A continuación escucharás dos minutos de música clásica. ¿Puedes mostrarnos qué emoción te causa, cómo te hace sentir y que sentimiento te despierta?</h1>
+        <h1 *ngIf="audioIndex > audioMinIndex">No toda la música nos despierta las mismas emociones y afectos. Escucha la música y nuevamente toma las emociones y afectos que te despiertan.</h1>
       </div>
       <div style="height: calc(100% - 100px);">
         <div class="row full-parent-height">
@@ -207,7 +206,22 @@
       </div>
     </div>
 
-    <!-- Paso 4: Final -->
+    <!-- Paso 4: Descanso de 1 minuto -->
+    <div *ngIf="currentStep == ASYCO1012Step.OneMinuteBreak" class="full-parent-height">
+      <div style="display:flex; flex-direction: column; justify-content:center; align-items: center; width: 100%" class="full-parent-height">
+        <div class="row" style="margin-bottom: 30px;">
+          <h1 class="titulo">Descanso de 1 minuto</h1>
+        </div>
+        <div class="row progress" style="width:100%">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            [attr.aria-valuenow]="timeLeft" [style.width]="((timeLeft*100)/600)+'%'" aria-valuemin="0" aria-valuemax="20"
+            style="margin:0px auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 5: Final -->
     <div *ngIf="currentStep == ASYCO1012Step.End" class="row full-parent-height">
       <div class="row" class="row full-parent-height" style="display: flex; justify-content:center; align-items:center; align-content: center;">
         <h1 style="font-weight: bold;" *ngIf="audioIndex == audioMaxIndex">¡Felicidades! Has llegado al final de la rutina.</h1>
