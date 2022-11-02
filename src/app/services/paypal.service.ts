@@ -21,7 +21,7 @@ export class PaypalService {
     const addSubRequest: subscriptionPayPal={
       externalId: PayPalRequest.externalId,
       externalType: PayPalRequest.externalType,
-      planId: PayPalRequest.planId
+      groupId: PayPalRequest.groupId
     };
     return this.httpClient.post<subscriptionPayPal>(this.baseApiUrl+'/api/subscriptions/',addSubRequest);
   }
@@ -33,52 +33,7 @@ export class PaypalService {
 
   addSale(request:any): Observable<any>{
     const body: any={
-
       id: request.id
-
-
-
-      /*
-
-
-
-  const request = {
-    planId: this.skepsiPlanId,
-    receipts: [
-      {
-        transactions:[
-          {
-
-              "receiptId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-              "description": "string",
-              "grossAmount": 0,
-              "feeAmount": 0,
-              "netAmount": 0,
-              "status": "string",
-              "transactionDateTime": "2022-09-10T18:05:17.130Z",
-              "externalType": "string",
-              "externalId": "string"
-
-          }
-        ]
-      }
-    ]
-  }
-
-  this.paypalService.addSale(request)
-  .subscribe(
-    (success)=>{
-      console.log(success)
-    },(error)=>{
-      console.log(error)
-    }
-  )
-
-
-*/
-
-
-
     };
     return this.httpClient.post<any>(this.baseApiUrl+'/api/sales/',body);
   }

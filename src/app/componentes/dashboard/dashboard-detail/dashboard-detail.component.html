@@ -13,7 +13,6 @@
           <button *ngIf="dashboardDetail.session.status === 'InProgress'" type="button" class="btn btn-danger" (click)="detenerRutina()">Detener Rutina</button>
           <button *ngIf="dashboardDetail.session.status === 'Finished'" type="button" class="btn btn-warning" (click)="iniciarRutina()">Volver a abrir Rutina</button>
         </div>
-      <h3>Horario: {{dashboardDetail.plan.schedule}} </h3>
       <h3 *ngIf="dashboardDetail.routine">Rutina: {{dashboardDetail.routine.name}}</h3>
       <h3 *ngIf="!dashboardDetail.routine">No hay sesiones programadas para hoy</h3>
     </div>

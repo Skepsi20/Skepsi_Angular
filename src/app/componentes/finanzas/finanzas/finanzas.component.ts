@@ -65,7 +65,6 @@ export class FinanzasComponent implements OnInit, AfterViewInit {
 
 
 function createNewUser(todas: any): any {
-  console.log("TODAS",todas)
   const sinIva = todas.netAmount
   var iva = todas.feeAmount
   const conIva = todas.grossAmount

@@ -156,7 +156,6 @@ export class EntrenadorPanelComponent implements OnInit {
                   routine: success[x].plan.sessions[y].routine.name,
                   routineDescription: success[x].plan.sessions[y].routine.description,
                   estadoDeRutina: success[x].plan.sessions[y].status,
-                  horario: success[x].plan.schedule,
                   holiday: false,
                 }
                 counter++;

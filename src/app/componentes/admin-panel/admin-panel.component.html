@@ -72,6 +72,10 @@
                 <img src="../../../assets/img/skepsi/iconos/Sin título-1-07.png" alt="">
                 <p [class.seleccionada] = "opcionMenu === 'paquetesCreacion'">PAQUETES</p>
               </div>
+              <div class="col cuadricula" (click)="seleccionMenu('creacionGrupos')">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-04.png" alt="">
+                <p [class.seleccionada] = "opcionMenu === 'creacionGrupos'">GRUPOS</p>
+              </div>
               <div class="col cuadricula" (click)="seleccionMenu('asuetos')">
                 <img src="../../../assets/img/skepsi/iconos/Sin título-1-03.png" alt="">
                 <p [class.seleccionada] = "opcionMenu === 'asuetos'">DÍAS FESTIVOS</p>
@@ -114,6 +118,10 @@
                 <img src="../../../assets/img/skepsi/iconos/Sin título-1-07.png" alt="">
                 <p [class.seleccionada] = "opcionMenu === 'suspendidos'">ALUMNOS</p>
               </div>
+              <div class="col cuadricula" (click)="seleccionMenu('sesiones')">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-07.png" alt="">
+                <p [class.seleccionada] = "opcionMenu === 'sesiones'">SESIONES</p>
+              </div>              
             </div>
           </div>
           <div class="row" *ngIf="opcionMenu == 'configuracion'">
@@ -246,6 +254,12 @@
           </div>
           <div class="row" *ngIf="opcionMenu == 'finanzas'">
             <finanzas></finanzas>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'creacionGrupos'">
+            <creacion-grupos></creacion-grupos>
+          </div>
+          <div class="row" *ngIf="opcionMenu == 'sesiones'">
+            <sesiones-diarias></sesiones-diarias>
           </div>
         </div>
       </div>

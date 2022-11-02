@@ -24,15 +24,12 @@ export class VentasService {
       cost: paqueteRequest.cost,
       duration: paqueteRequest.duration,
       discountRate: paqueteRequest.discountRate,
-      capacity: paqueteRequest.capacity,
       registrationCost: paqueteRequest.registrationCost,
-      schedule: paqueteRequest.schedule,
-      templateId: paqueteRequest.templateId,
-      expirationDate: paqueteRequest.expirationDate,
-      institutionId: paqueteRequest.institutionId ? paqueteRequest.institutionId : undefined,
       PayPalProductId: paqueteRequest.PayPalProductId,
       isTrial: paqueteRequest.isTrial,
-      planDetail: paqueteRequest.planDetail
+      numberOfDaysPerWeek: paqueteRequest.numberOfDaysPerWeek, 
+      minAge: paqueteRequest.minAge, 
+      maxAge: paqueteRequest.maxAge, 
     };
     return this.httpClient.post<newPaquete>(this.baseApiUrl+'/api/plans/',addPaqueteRequest);
   }

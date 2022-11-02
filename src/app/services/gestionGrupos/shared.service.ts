@@ -64,13 +64,24 @@ export class SharedService {
     return this.httpClient.put<any[]>(this.baseApiUrl + '/api/sessions/'+id+'/status',requestBody);
   }
 
+  getSessions(): Observable<any>{
+    return this.httpClient.get<any>(this.baseApiUrl + '/api/sessions/');
+  }
+
+  getSession(id:string): Observable<any>{
+    return this.httpClient.get<any>(this.baseApiUrl + '/api/sessions/'+id);
+  }
+  
+  deleteSession(id:string): Observable<any>{
+    return this.httpClient.delete<any>(this.baseApiUrl + '/api/sessions/'+id);
+  }
+
+  createSession(sessionRequest: any): Observable<any>{
+    return this.httpClient.post<any>(this.baseApiUrl+'/api/sessions/',sessionRequest);
+  }
+
   createGroup(newGroupRequest: newGroup): Observable<newGroup>{
-    const addGroupRequest: newGroup={
-      code: newGroupRequest.code,
-      planId: newGroupRequest.planId,
-      tutorId: newGroupRequest.tutorId,
-    };
-    return this.httpClient.post<newGroup>(this.baseApiUrl+'/api/groups/',addGroupRequest);
+    return this.httpClient.post<newGroup>(this.baseApiUrl+'/api/groups/',newGroupRequest);
   }
 
   deleteGroup(groupId: string): Observable<any>{

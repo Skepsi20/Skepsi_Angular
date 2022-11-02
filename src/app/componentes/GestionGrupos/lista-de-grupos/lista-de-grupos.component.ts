@@ -27,11 +27,11 @@ export class ListaDeGruposComponent implements OnInit {
   public tutorsDOM: Array<ITutor> = [];
   public plansDOM: Array<paquete> = [];
   public planWithTutorDOM: Array<IPlanWithTutor> = [];
-  public newGroup: newGroup = {
+  /* public newGroup: newGroup = {
     planId: '',
     tutorId: '',
     code: ''
-  };
+  }; */
   public tutorsWithGroup:any = [];
   public tutorsAvailable : Array <ITutor> = [];
   public plan: paquete = {
@@ -41,24 +41,13 @@ export class ListaDeGruposComponent implements OnInit {
     cost: 0,
     duration: 0,
     discountRate: 0,
-    capacity: 0,
     registrationCost: 0,
-    schedule: '',
-    expirationDate: '',
-    institutionId: '',
-    templateId: '',
     externalPlanId:'',
     botonesPayPal:false,
     isTrial: false,
-    planDetail: {
-      onMonday: false,
-      onTuesday: false,
-      onWednesday: false,
-      onThursday: false,
-      onFriday: false,
-      onSaturday: false,
-      onSunday: false,
-    }
+    numberOfDaysPerWeek: 0, 
+    minAge: 0, 
+    maxAge: 0, 
   };
   groupToDelete : string = '';
   groupWithNoStudents : Array<boolean> = [];
@@ -132,7 +121,7 @@ export class ListaDeGruposComponent implements OnInit {
   }
 
   addGrupo(){
-    this.newGroup.planId = this.grupos;
+    /* this.newGroup.planId = this.grupos;
     if(this.groupsForm?.form.valid){
       this.shared.createGroup(this.newGroup)
       .subscribe(
@@ -149,7 +138,7 @@ export class ListaDeGruposComponent implements OnInit {
           });
         }
       );
-    }
+    } */
   }
 
   setGrupoShared(grupo: string){

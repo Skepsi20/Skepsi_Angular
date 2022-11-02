@@ -63,8 +63,6 @@
               <mat-error>El campo Descuento del paquete es requerido</mat-error>
             </mat-form-field>
           </div>
-        </div>
-        <div class="row">
           <div class="col">
             <mat-form-field appearance="legacy"   >
               <mat-label>Número de meses</mat-label>
@@ -75,71 +73,30 @@
             </mat-form-field>
           </div>
           <div class="col">
-            <mat-form-field appearance="legacy">
-              <mat-label>Horario del curso (Formato 24 hrs)</mat-label>
-              <input type="time" matInput [(ngModel)]="paqueteController.schedule" name="horario"
-              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
-              required>
-              <mat-error>El campo Horario del curso es requerido</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <section class="example-section" [formGroup]="dias" style="text-align: left; margin: 0px auto;">
-              <h4>Días de rutina</h4>
-              <mat-checkbox formControlName="OnMonday" style="margin: 5px; border-radius: 5px;">Lunes</mat-checkbox>
-              <mat-checkbox formControlName="OnTuesday" style="margin: 5px; border-radius: 5px;">Martes</mat-checkbox>
-              <mat-checkbox formControlName="OnWednesday" style="margin: 5px; border-radius: 5px;">Miércoles</mat-checkbox>
-              <mat-checkbox formControlName="OnThursday" style="margin: 5px; border-radius: 5px;">Jueves</mat-checkbox>
-              <mat-checkbox formControlName="OnFriday" style="margin: 5px; border-radius: 5px;">Viernes</mat-checkbox>
-              <mat-checkbox formControlName="OnSaturday" style="margin: 5px; border-radius: 5px;">Sábado</mat-checkbox>
-              <mat-checkbox formControlName="OnSunday" style="margin: 5px; border-radius: 5px;">Domingo</mat-checkbox>
-            </section>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field appearance="legacy">
-              <mat-label>Plantilla de rutinas</mat-label>
-              <mat-select [(ngModel)]="paqueteController.templateId" name="plantilla"
-              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
-              required>
-                <mat-option *ngFor="let template of templates" [value]="template.id">
-                  {{template.name}}
-                </mat-option>
-              </mat-select>
-              <mat-error>La plantilla de rutinas es requerida</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field appearance="legacy">
-              <mat-label>Institucion</mat-label>
-              <mat-select [(ngModel)]="paqueteController.institutionId" name="escuela"
-              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;">
-                <mat-option *ngFor="let institution of institutions" [value]="institution.id">
-                  {{institution.name}}
-                </mat-option>
-              </mat-select>
-              <mat-error>El campo Institucion es requerido</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col" *ngIf="!freePlan">
             <mat-form-field appearance="legacy"   >
-              <mat-label>Capacidad del curso</mat-label>
-              <input type="number" matInput [(ngModel)]="paqueteController.capacity" min="0" name="capacidad"
+              <mat-label>Número de días a la semana</mat-label>
+              <input type="number" matInput [(ngModel)]="paqueteController.numberOfDaysPerWeek" min="0" name="periodo"
               style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
               required>
-              <mat-error>El campo Capacidad del curso es requerido</mat-error>
+              <mat-error>El campo Número de días a la semana es requerido</mat-error>
+            </mat-form-field>
+          </div>          
+          <div class="col">
+            <mat-form-field appearance="legacy"   >
+              <mat-label>Edad mínima</mat-label>
+              <input type="number" matInput [(ngModel)]="paqueteController.minAge" min="0" name="periodo"
+              style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+              required>
+              <mat-error>El campo Edad mínima es requerido</mat-error>
             </mat-form-field>
           </div>
-          <div class="col" *ngIf="!freePlan">
+          <div class="col">
             <mat-form-field appearance="legacy"   >
-              <mat-label>Fecha de expiración del curso</mat-label>
-              <input type="date" matInput [(ngModel)]="paqueteController.expirationDate" name="expiracion"
+              <mat-label>Edad máxima</mat-label>
+              <input type="number" matInput [(ngModel)]="paqueteController.maxAge" min="0" name="periodo"
               style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
               required>
-              <mat-error>El campo Fecha de expiración del curso es requerido</mat-error>
+              <mat-error>El campo Edad máxima es requerido</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -171,7 +128,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <button mat-button class="buttonCreate" (click)="visualizacion()" data-toggle="modal" data-target="#example">
+            <button mat-button class="buttonCreate" data-toggle="modal" data-target="#example">
               Vista previa
             </button>
           </div>
@@ -210,36 +167,13 @@
         </div>
         <div class="row">
           <div class="col" style="border-right:1px solid black">
-            <h4 *ngIf="!freePlan"><b>Meses de duración:</b> {{paqueteController.duration}}</h4>
-          </div>
-          <div class="col" style="border-right:1px solid black">
             <h4 *ngIf="!freePlan"><b>Descuento del paquete:</b> {{paqueteController.discountRate}}%</h4>
           </div>
-          <div class="col">
-            <h4 *ngIf="!freePlan"><b>Capacidad de alumnos:</b> {{paqueteController.capacity}}</h4>
-          </div>
         </div>
-        <div class="row">
-          <div class="col" style="border-right:1px solid black">
-            <h4><b>Horario del paquete:</b> {{paqueteController.schedule}}</h4>
-          </div>
-          <div class="col" style="border-right:1px solid black">
-            <h4><b>Institución:</b> {{institution}}</h4>
-          </div>
-          <div class="col">
-            <h4><b>Plantilla de rutinas:</b> {{plantilla}}</h4>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <h4><b>Días de rutina:</b></h4>
-              <p *ngFor="let dias of diasdeRutina" style="float:left; margin-right:5px; padding-right:5px ;border-right: 1px solid black;">
-                {{dias}}
-              </p>
-          </div>
-        </div>
-        <h4 *ngIf="!freePlan"><b>Expiración del paquete:</b> {{paqueteController.expirationDate}}</h4>
         <h4 *ngIf="!freePlan"><b>Costo de inscripción:</b> ${{paqueteController.registrationCost}}.00 MXN</h4>
+        <h4 *ngIf="!freePlan"><b>Edad mínima:</b> {{paqueteController.minAge}}</h4>
+        <h4 *ngIf="!freePlan"><b>Edad máxima:</b> {{paqueteController.maxAge}}</h4>
+        <h4 *ngIf="!freePlan"><b>Días de clase a la semana:</b> {{paqueteController.numberOfDaysPerWeek}}</h4>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

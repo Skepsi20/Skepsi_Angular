@@ -59,6 +59,9 @@ export class AdminVentasGimnasioComponent implements OnInit {
           this.snackbar.open('Registro completado con éxito',undefined,{
             duration: 2000
           });
+          setTimeout(()=>{
+            window.location.reload();
+          }, 2000);
         },
         (error) =>{
           if(error.error.DuplicateEmail){
