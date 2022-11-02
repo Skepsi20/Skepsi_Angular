@@ -215,10 +215,7 @@ export class AGNCO1012Component implements OnInit {
       this.timeMostrar = 3;
       this.elementoVista = this.avesRandomCinco[this.indice];
       this.mostrarElemento();
-    }else{
-      if(this.intervalMostrar){
-        clearInterval(this.intervalMostrar);
-      } 
+    }else{      
       console.log("ESTE ESTA JODIENDO")
       this.mamiferosRutina();
     }
@@ -247,8 +244,8 @@ export class AGNCO1012Component implements OnInit {
         this.timeMostrar--;
       } else {
         if(this.indice <= 5){
-          this.avesRutina()
           clearInterval(this.intervalMostrar);
+          this.avesRutina()
         }
       }
     },1000)
