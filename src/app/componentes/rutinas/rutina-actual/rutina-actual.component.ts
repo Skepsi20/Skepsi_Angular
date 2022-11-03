@@ -25,6 +25,9 @@ import { AGNCO1012Component } from '../RutinasTerminadas/Gnostiki/Antochi/Compre
 import { EMARE1012Component } from '../RutinasTerminadas/Mathimatiki/Exousia/Recuperacion/emare1012/emare1012.component';
 import { DMARE1012Component } from '../RutinasTerminadas/Mathimatiki/Dynami/Recuperacion/dmare1012/dmare1012.component';
 import { DGNCO1012Component } from '../RutinasTerminadas/Gnostiki/Dynami/Comprension/dgnco1012/dgnco1012.component';
+import { Dsyco1012Component } from '../RutinasTerminadas/Synaisthimata/Dynami/Comprension/dsyco1012/dsyco1012.component';
+import { Asyco1012Component } from '../RutinasTerminadas/Synaisthimata/Antochi/Comprension/asyco1012/asyco1012.component';
+import { Esyco1012Component } from '../RutinasTerminadas/Synaisthimata/Exousia/Comprension/esyco1012/esyco1012.component';
 
 @Component({
   selector: 'app-rutina-actual',
@@ -104,7 +107,7 @@ export class RutinaActualComponent implements OnInit {
       case '1012DGLRE': { componenteACrear = DGLRE1012Component } break;
       case '1012AGLRE': { componenteACrear = Aglre1012Component } break;
       case '1012EGLRE': { componenteACrear = Eglre1012Component } break;
-      
+
       case '1012DGLCO': { componenteACrear = DGLCO1012Component } break;
       case '1012EGLCO': { componenteACrear = EGLCO1012Component } break;
       case '1012AGLCO': { componenteACrear = AGLCO1012Component } break;
@@ -113,9 +116,6 @@ export class RutinaActualComponent implements OnInit {
       case '1012DGNCO': { componenteACrear = DGNCO1012Component } break;
 
 
-
-
-      
       /* DANIEL */
       case '1012AMACO': { componenteACrear = Amaco1012Component } break;
       case '1012DMACO': { componenteACrear = Dmaco1012Component } break;
@@ -132,6 +132,10 @@ export class RutinaActualComponent implements OnInit {
       case '1012DSYRE': { componenteACrear = Dsyre1012Component } break;
       case '1012ASYRE': { componenteACrear = Asyre1012Component } break;
       case '1012ESYRE': { componenteACrear = Esyre1012Component } break;
+
+      case '1012DSYCO': { componenteACrear = Dsyco1012Component } break;
+      case '1012ASYCO': { componenteACrear = Asyco1012Component } break;
+      case '1012ESYCO': { componenteACrear = Esyco1012Component } break;
     }
     this.crearRutina(componenteACrear);
   }

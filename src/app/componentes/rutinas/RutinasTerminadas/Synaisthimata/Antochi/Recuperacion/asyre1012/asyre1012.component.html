@@ -186,7 +186,7 @@
     <!-- Paso 7: Reflexión -->
     <div *ngIf="currentStep == ASYRE1012Step.Introspective" class="row full-parent-height">
       <div class="row" class="row full-parent-height" style="display: flex; justify-content:center; align-items:center; align-content: center;">
-        <h1><b>Reflexiona:</b> Para controlar las emociones debes identiifcarlas y ordenarlas.</h1>
+        <h1><b>Reflexiona:</b> Para controlar las emociones debes identificarlas y ordenarlas.</h1>
         <button *ngIf="scenarioIndex < scenarioMaxIndex" style="width: 50%; max-width: 200px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
         <h2 *ngIf="scenarioIndex == scenarioMaxIndex">¡Felicidades! Has llegado al final de la rutina.</h2>
       </div>

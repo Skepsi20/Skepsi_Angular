@@ -137,12 +137,15 @@ import { Esyre1012Component } from './componentes/rutinas/RutinasTerminadas/Syna
 import { EGLCO1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Exousia/Comprension/eglco1012/eglco1012.component';
 import { AGLCO1012Component } from './componentes/rutinas/RutinasTerminadas/Glossa/Antochi/Comprension/aglco1012/aglco1012.component';
 import { AGNCO1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Antochi/Comprension/agnco1012/agnco1012.component';
+import { Dsyco1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Dynami/Comprension/dsyco1012/dsyco1012.component';
 import { DMARE1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Dynami/Recuperacion/dmare1012/dmare1012.component';
 import { EMARE1012Component } from './componentes/rutinas/RutinasTerminadas/Mathimatiki/Exousia/Recuperacion/emare1012/emare1012.component';
-import { DGNCO1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Dynami/Comprension/dgnco1012/dgnco1012.component';
 import { EGNCO1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Exousia/Comprension/egnco1012/egnco1012.component';
+import { DGNCO1012Component } from './componentes/rutinas/RutinasTerminadas/Gnostiki/Dynami/Comprension/dgnco1012/dgnco1012.component';
 import { CreacionGruposComponent } from './componentes/creacion-grupos/creacion-grupos.component';
 import { SesionesDiariasComponent } from './componentes/sesiones-diarias/sesiones-diarias.component';
+import { Asyco1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Antochi/Comprension/asyco1012/asyco1012.component';
+import { Esyco1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Exousia/Comprension/esyco1012/esyco1012.component';
 
 //AMARE-DMARE-EMARE
 
@@ -231,12 +234,15 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     EGLCO1012Component,
     AGLCO1012Component,
     AGNCO1012Component,
+    Dsyco1012Component,
     DMARE1012Component,
     EMARE1012Component,
     DGNCO1012Component,
     EGNCO1012Component,
     CreacionGruposComponent,
-    SesionesDiariasComponent
+    SesionesDiariasComponent,
+    Asyco1012Component,
+    Esyco1012Component
   ],
   imports: [
     BrowserModule,
