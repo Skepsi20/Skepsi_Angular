@@ -75,27 +75,52 @@
 
     <!-- Paso 4: Yoga -->
     <div *ngIf="currentStep == ESYCO1012Step.Yoga" class="full-parent-height">
-      <div style="height: 100px;">
-        <h1>A continuación escucharás dos minutos de música clásica. ¿Puedes mostrarnos qué emoción te causa, cómo te hace sentir y que sentimiento te despierta?</h1>
+      <div style="height: 60px;">
+        <h1>¿Puedes controlar tus emociones? Vamos a realizar unos ejercicios de yoga para empezar.</h1>
       </div>
-      <div style="height: calc(100% - 100px);">
+      <div style="height: calc(100% - 60px);">
         <div class="row full-parent-height">
-          <div class="row">
-            <div style="display:inline; width:50px; padding: 0">
+          <div class="row full-parent-height">
+            <div class="full-parent-height" style="display:inline; width:50px; padding: 0">
               <img width=30 height=30 src="../assets/img/skepsi/iconos/{{currentVolumeImage}}.png">
               <mat-slider vertical style="height:200px; max-height:100%;" [max]=1 [min]=0 [step]=0.01 [(ngModel)]="volume" (input)="onChangeVolume($event)"></mat-slider>
             </div>
-            <div style="display:inline; width: calc(100% - 100px); margin-top:15px">
-              <div id="yoga-content" class="row">
-                <h2>¿Puedes controlar tus emociones? Vamos a realizar unos ejercicios de yoga para empezar.</h2>
-                <div>
+            <div class="full-parent-height" style="display:inline; width: calc(100% - 100px); margin-top:15px">
+              <div class="row full-parent-height" id="yoga-content">
+                <div style="height: 50px">
+                  <h2>{{poseIndex + 1}}. {{posturasDeYoga[poseIndex].description}}</h2>
+                </div>
+                <div style="height: calc(100% - 120px); max-width: 100%;">
+                  <img style="height: 100%; max-width: 90%" src="{{posturasDeYoga[poseIndex].fileName}}">
+                </div>
+                <div style="height: 70px">
+                  <div *ngIf="!yogaAudio.paused" style="display:inline-block">
+                    <div *ngIf="poseIndex == 0; else leftEnabled" style="display:inline-block; padding: 1px 6px">
+                      <img width=64 height=64 src="../assets/img/skepsi/iconos/LeftDisabled.png">
+                    </div>
+                    <ng-template #leftEnabled>
+                      <button (click)="previousPose()" class="invisible-button">
+                        <img width=64 height=64 src="../assets/img/skepsi/iconos/SKEPSI_ICONOS_WEB-42.png">
+                      </button>
+                    </ng-template>
+                  </div>
                   <button (click)="togglePlayPause()" class="invisible-button">
                     <img width=64 height=64 src="../assets/img/skepsi/iconos/{{yogaAudio.paused ? 'Play' : 'Pause'}}.png">
                   </button>
+                  <div *ngIf="!yogaAudio.paused" style="display:inline-block">
+                    <div *ngIf="poseIndex == posturasDeYoga.length-1; else rightEnabled" style="display:inline-block; padding: 1px 6px">
+                      <img width=64 height=64 src="../assets/img/skepsi/iconos/RightDisabled.png">
+                    </div>
+                    <ng-template #rightEnabled>
+                      <button (click)="nextPose()" class="invisible-button">
+                        <img width=64 height=64 src="../assets/img/skepsi/iconos/SKEPSI_ICONOS_WEB-44.png">
+                      </button>
+                    </ng-template>
+                  </div>
                 </div>
               </div>
             </div>
-            <div style="display:inline; width:50px; padding: 0">
+            <div class="full-parent-height" style="display:inline; width:50px; padding: 0">
             </div>
           </div>
         </div>

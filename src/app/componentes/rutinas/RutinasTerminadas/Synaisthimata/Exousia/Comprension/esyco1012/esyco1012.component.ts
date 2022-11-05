@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { results } from 'src/app/Models/Resultados/sessionsResults';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { MatSliderChange } from '@angular/material/slider';
 
 // #region Tipos locales
@@ -11,6 +10,15 @@ enum ESYCO1012Step {
   Advertencia,
   Yoga,
   End
+}
+
+interface IPose {
+  name: string,
+  description: string
+}
+
+interface IPoseImage extends IPose {
+  fileName: string
 }
 // #endregion Tipos locales
 
@@ -23,6 +31,7 @@ export class Esyco1012Component implements OnInit {
 
   // #region Variables públicas de solo-lectura
   public readonly audiosDirectory: string = '../assets/Audios/esyco1012';
+  public readonly imagesDirectory: string = '../assets/img/emociones/yoga';
   // #endregion públicas privadas de solo-lectura
 
   // #region Variables privadas de solo-lectura
@@ -30,6 +39,40 @@ export class Esyco1012Component implements OnInit {
   private readonly emocionesSecundariasDefault: string[] = ["Vergüenza", "Culpa", "Bochorno", "Satisfacción", "Desprecio", "Entusiasmo", "Complacencia", "Orgullo", "Placer"];
   private readonly afeccionesDefault1: string[] = ['Generosidad', 'Agradecimiento', 'Bondad', 'Amabilidad', 'Integridad', 'Honestidad', 'Templanza', 'Serenidad'];
   private readonly afeccionesDefault2: string[] = ['Compasión', 'Aceptación', 'Benevolencia', 'Empatía', 'Armonía', 'Humildad', 'Autonomía'];
+  private readonly posturasDefault: IPose[] = [
+    {name: 'ExtensionLateral', description:'Extensión lateral'},
+    {name: 'InclinacionHaciaDelante', description:'Inclinación hacia adelante'},
+    {name: 'ManosLevantadas', description:'Manos levantadas'},
+    {name: 'PiernaEstirada', description:'Pierna estirada'},
+    {name: 'PosturaArbol', description:'Postura del árbol'},
+    {name: 'PosturaBarco', description:'Postura del barco'},
+    {name: 'PosturaCamello', description:'Postura del camello'},
+    {name: 'PosturaCobra', description:'Postura de la cobra'},
+    {name: 'PosturaCorporal', description:'Postura corporal'},
+    {name: 'PosturaDeArado', description:'Postura de arado'},
+    {name: 'PosturaGato', description:'Postura del gato'},
+    {name: 'PosturaGuerrero1', description:'Postura del guerrero 1'},
+    {name: 'PosturaGuerrero2', description:'Postura del guerrero 2'},
+    {name: 'PosturaGuerrero3', description:'Postura del guerrero 3'},
+    {name: 'PosturaLoto', description:'Postura del loto'},
+    {name: 'PosturaNino', description:'Postura del niño'},
+    {name: 'PosturaPuente', description:'Postura del puente'},
+    {name: 'PosturaSilla', description:'Postura de la silla'},
+    {name: 'PosturaTabla', description:'Postura de la tabla'},
+    {name: 'PosturaVaca', description:'Postura de la vaca'},
+    {name: 'PosturaZigzag', description:'Postura de zig zag'},
+    {name: 'Rezar', description:'Postura de rezar'},
+    {name: 'SoporteHombros', description:'Soporte en hombros'}
+  ];
+  // TODO: Reemplazar el audio de prueba por los audios reales de niños burlándose
+  private readonly audiosAleatoriosDefault: string[] = [
+    'EstrellaMarioPrueba',
+    'EstrellaMarioPrueba',
+    'EstrellaMarioPrueba',
+    'EstrellaMarioPrueba',
+    'EstrellaMarioPrueba'
+  ];
+  private readonly randomAudioDelays: number[] = [120, 40, 30, 45, 30];
   // #endregion Variables privadas de solo-lectura
 
   // #region Variables de resultados
@@ -59,7 +102,10 @@ export class Esyco1012Component implements OnInit {
   public yogaAudioTime: number;
   public volume: number;
   public currentVolumeImage: string;
-  public hasHeardMusic: boolean;
+  public posturasDeYoga: IPoseImage[];
+  public poseIndex: number;
+  public audiosAleatorios: string[];
+  public randomAudioIndex: number;
 
   public get ESYCO1012Step(): typeof ESYCO1012Step {
     return ESYCO1012Step;
@@ -79,7 +125,10 @@ export class Esyco1012Component implements OnInit {
     this.currentVolumeImage = 'VolumeMedium';
     this.yogaAudio = new Audio(`${this.audiosDirectory}/YogaMusica.mp3`);
     this.yogaAudioTime = 0;
-    this.hasHeardMusic = false;
+    this.posturasDeYoga = this.getYogaImages();
+    this.poseIndex = 0;
+    this.audiosAleatorios = this.getRandomAudios();
+    this.randomAudioIndex = 0;
   }
 
   ngOnInit(): void {
@@ -105,7 +154,6 @@ export class Esyco1012Component implements OnInit {
       case ESYCO1012Step.Advertencia:
         this.yogaAudio.loop = true;
         this.yogaAudio.volume = this.volume;
-        this.yogaAudio.play();
 
         if (contentContainerDiv) {
           contentContainerDiv.scrollTop = 0;
@@ -115,34 +163,28 @@ export class Esyco1012Component implements OnInit {
     }
   }
 
-  public resetAudioActivityState(): void {
-    this.emocionesBasicas = [...this.emocionesBasicasDefault]
-    this.emocionesSecundarias = [...this.emocionesSecundariasDefault]
-    this.afecciones1 = [...this.afeccionesDefault1];
-    this.afecciones2 = [...this.afeccionesDefault2];
-    this.emocionesAfeccionesSeleccionadas = []
-    this.hasHeardMusic = false;
+  public getYogaImages(): IPoseImage[] {
+    return this.posturasDefault.map((pose: IPose) => {
+      return {
+        ...pose,
+        fileName: `${this.imagesDirectory}/${pose.name}.png`
+      }
+    })
   }
 
-  public drop(event: CdkDragDrop<string[]>): void {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
+  public getRandomAudios(): string[] {
+    return this.audiosAleatoriosDefault.map(audioName => `${this.audiosDirectory}/${audioName}.mp3`)
   }
 
   public togglePlayPause(): void {
     if (this.yogaAudio.paused) {
       this.yogaAudio.play();
+
+      // Contar para hacer sonar audio pseudoaleatorio
     }
     else {
       this.yogaAudio.pause();
+      // Pausar contador de audios pseudoaleatorios
     }
   }
 
@@ -167,18 +209,13 @@ export class Esyco1012Component implements OnInit {
     }
   }
 
-  public isBasicEmotion(item: string): boolean {
-    return this.emocionesBasicasDefault.includes(item);
+  public nextPose(): void {
+    this.poseIndex++;
   }
 
-  public isSecondaryEmotion(item: string): boolean {
-    return this.emocionesSecundariasDefault.includes(item);
+  public previousPose(): void {
+    this.poseIndex--;
   }
-
-  public isAffection(item: string): boolean {
-    return this.afeccionesDefault1.includes(item) || this.afeccionesDefault2.includes(item);
-  }
-
   // #endregion Funciones públicas
 
   // #region Funciones privadas
@@ -208,7 +245,7 @@ export class Esyco1012Component implements OnInit {
         this.timeLeft--;
       } else {
         let alarmInitRutina = <HTMLAudioElement>(document.getElementById('initRutAudio'));
-        alarmInitRutina.volume = 0.4;
+        alarmInitRutina.volume = 0.2;
         alarmInitRutina.play();
         this.currentStep  = ESYCO1012Step.Introduction;
         clearInterval(this.interval);
@@ -237,14 +274,8 @@ export class Esyco1012Component implements OnInit {
       resultDetails:[{
         possiblePoints: 1,
         points: 1,
-        possiblePointsDescription: 'Tipos de afectos relacionados con la musica que escuchó',
-        pointsDescription: 'Tipos de afectos relacionados con la musica que escuchó'
-      },
-      {
-        possiblePoints: 1,
-        points: 1,
-        possiblePointsDescription: 'Determinación de emociones que fundamentaron los afectos de la música que escuchó',
-        pointsDescription: 'Determinación de emociones que fundamentaron los afectos de la música que escuchó'
+        possiblePointsDescription: 'Actividad de emociones. No hay indicador para esta rutina.',
+        pointsDescription: 'Actividad de emociones. No hay indicador para esta rutina.'
       }]
     }
 
