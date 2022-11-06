@@ -58,11 +58,11 @@ export class RutinaActualComponent implements OnInit {
       (success)=>{
         console.log("session de hoy", success)
         this.todaySession = success;
-        if(success.routine.code && success.status == 'InProgress'){
+        if(this.todaySession.routine.code && this.todaySession.status == true){
           this.zoomLink = success.meetingUrl;
           this.zoomPassword = success.meetingPassword;
-          this.elegirRutina(success.routine.code);
-        }else{
+          this.elegirRutina(this.todaySession.routine.code);
+        }/* else{
           this.resultsService.getNextSession(success.plan.id)
           .subscribe(
             (success)=>{
@@ -71,7 +71,7 @@ export class RutinaActualComponent implements OnInit {
               console.log(error)
             }
           )
-        }
+        } */
       },(error)=>{
         console.log(error)
       }
@@ -83,8 +83,9 @@ export class RutinaActualComponent implements OnInit {
     .subscribe(
       (success)=>{
         this.todaySession = success;
-        console.log(this.todaySession.status);
-        if(success.status == 'Finished'){
+
+        console.log("STATUS", this.todaySession.status);
+        if(this.todaySession.status == false){
           this.destruirRutina();
           console.log("TERMINADA")
         }

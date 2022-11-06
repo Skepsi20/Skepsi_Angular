@@ -131,6 +131,7 @@ export class UserDashboardComponent implements OnInit {
     this.studentService.allStudentSessions()
     .subscribe(
       (success)=>{
+        console.log("TODAS LAS SESIONES", success)
         this.todasLasSesiones = success;
         for (let index = 0; index < this.todasLasSesiones.length; index++) {
           var color = ''

@@ -8,6 +8,7 @@ import { CalendarOptions, render } from '@fullcalendar/angular';
 import esLocale from '@fullcalendar/core/locales/es';
 import { SharedService } from 'src/app/services/gestionGrupos/shared.service';
 import { GestionRutinasService } from 'src/app/services/rutinas/gestion-rutinas.service';
+import { RutinasFechadasService } from 'src/app/services/Plantillas/rutinas-fechadas.service';
 
 @Component({
   selector: 'sesiones-diarias',
@@ -16,14 +17,14 @@ import { GestionRutinasService } from 'src/app/services/rutinas/gestion-rutinas.
 })
 export class SesionesDiariasComponent implements OnInit {
   // CALENDARIO INICIO
-    public eventsCalendar: any = [];
+  public events: any = [];
     displayedColumns = ['rutina','fecha','edades','status'];
 
     calendarOptions: CalendarOptions = {
       initialView: 'dayGridMonth',
-      events: this.eventsCalendar,
+      events: this.events,
       eventClick: this.handleDateClick.bind(this),
-      locale: esLocale,
+      locale: esLocale
     };
   // CALENDARIO FIN
 
@@ -50,7 +51,7 @@ export class SesionesDiariasComponent implements OnInit {
     routineId: '',
   }
   routines: Array<any> = [];
-
+  mostrarClendario = false;
 
   title:any;
   description:any;
@@ -62,12 +63,14 @@ export class SesionesDiariasComponent implements OnInit {
   empleadosFiltrados: Array<any> = [];
   empleadoSeleccionado = '';
   updateButton= false;
-
+  meetingPassword = '';
+  meetingUrl = '';
 
   constructor(
     private sharedService:SharedService,
     private routineService: GestionRutinasService,
     private snackbar: MatSnackBar,
+    private rutinasService: RutinasFechadasService,
   ) {
     var date = new Date();
     var year = date.getFullYear();
@@ -75,11 +78,29 @@ export class SesionesDiariasComponent implements OnInit {
 
     this.sharedService.getSessions()
     .subscribe(
-      (successResponse)=>{
-        console.log("SESIONES",successResponse)
-        this.sessions = successResponse;
+      (success)=>{
+        console.log("SESIONES",success)
+        this.sessions = success;
+
+
         for (let i = 0; i < this.sessions.length; i++) {
-          this.sessionsArray.push(createNewUser(successResponse[i]));
+
+          var date = new Date(this.sessions[i].date);
+
+          this.events[i] = {
+            title: success[i].routine.code,
+            date: date.toISOString().split('T')[0],
+            description: success[i].routine.description,
+            meetingUrl: success[i].meetingUrl,
+            meetingPassword: success[i].meetingPassword,
+            color : '#4ACFC6'
+          }
+          console.log("evento de calendario",this.events[i])
+        }
+
+
+        for (let i = 0; i < this.sessions.length; i++) {
+          this.sessionsArray.push(createNewUser(success[i]));
         }
         this.dataSource = new MatTableDataSource(this.sessionsArray);
         this.dataSource.paginator = this.paginator;
@@ -89,8 +110,36 @@ export class SesionesDiariasComponent implements OnInit {
         console.log(error);
       }
     );  
-    
+    //Dias festivos
+    this.rutinasService.getHolidays()
+    .subscribe(
+      (success)=>{
+        console.log("DIAS FESTIVOS",success)
+        for (let index = 0; index < success.length; index++) {
+          this.events[this.sessions.length+index] = {
+            title: success[index].name,
+            date: success[index].date,
+            description: '',
+            meetingUrl: '',
+            meetingPassword: '',
+            color: '#a5b9c0',
+          }
+        }
+      },(error)=>{
+        console.log(error);
+      }
+    ) 
   }
+
+  handleDateClick(arg:any){
+    console.log("ARG", arg)
+    this.detailsCalendar = true;
+    this.title = arg.event._def.title;
+    this.description = arg.event.extendedProps.description;
+    this.meetingUrl = arg.event.extendedProps.meetingUrl;
+    this.meetingPassword = arg.event.extendedProps.meetingPassword;
+  } 
+
 
   ngOnInit(): void {
   this.routineService.getRoutines()
@@ -101,56 +150,10 @@ export class SesionesDiariasComponent implements OnInit {
         console.log(error)
       }
     );
-    /* this.eventService.getEvents()
-    .subscribe(
-      (success)=>{
-        console.log('DATA',success)
-        for (let i = 0; i < success.length; i++) {
-          var statusColor = '';
-          if(success[i].status == 'Pendiente'){
-            statusColor = '#f97300'
-          }else if(success[i].status == 'Completado'){
-            statusColor = '#2c8100'
-          }else if(success[i].status == 'Retrasado'){
-            statusColor = 'red'
-          }
-          var inicio = new Date(success[i].startDateTime);
-          var fin = new Date(success[i].endDateTime);
+  }
 
-          var final = (fin.getFullYear()).toString() +'-'+ (fin.getUTCMonth() + 1).toString().padStart(2, '0') +'-'+ (fin.getUTCDate()+1)
-    
-          this.eventsCalendar[i] = {
-            title: success[i].name,
-            start: inicio.toISOString().split('T')[0],
-            end: final,
-            description: success[i].description,
-            status: success[i].status,
-            form: success[i].form.code + ' - ' + success[i].form.name,
-            formId: success[i].form.id,
-            employee: success[i].employee.firstName +' '+success[i].employee.lastName,
-            color: statusColor,
-          }
-        }
-      },(error)=>{
-        console.log(error)
-      }
-    )
-    this.employeesService.getEmployees()
-    .subscribe(
-      (success)=>{
-        this.employees = success;
-      },(error)=>{
-        console.log(error);
-      }
-    )
-    this.auditoriasService.getForm()
-    .subscribe(
-      (success)=>{
-        this.forms = success
-      },(error)=>{
-        console.log(error);
-      }
-    ) */
+  mostrarCalendarioToggle(){
+    this.mostrarClendario = !this.mostrarClendario;
   }
 
   applyFilter(event: Event) {
@@ -162,39 +165,26 @@ export class SesionesDiariasComponent implements OnInit {
   }
 
   add(){
-      const eventRequest = {
-        date: this.evento.date,
-        routineId: this.evento.routineId,
+    const eventRequest = {
+      date: this.evento.date,
+      routineId: this.evento.routineId,
+    }
+
+    this.sharedService.createSession(eventRequest)
+    .subscribe(
+      (successResponse)=>{
+        this.snackbar.open('Se creó el evento correctamente',undefined,{
+          duration: 2000
+        });
+        window.location.reload();
+      },
+      (error) =>{
+        this.snackbar.open('Error creando el evento, intente nuevamente.',undefined,{
+          duration: 2000
+        });
       }
-      console.log("EL EVENTO",this.evento)
-
-      this.sharedService.createSession(eventRequest)
-      .subscribe(
-        (successResponse)=>{
-          this.snackbar.open('Se creó el evento correctamente',undefined,{
-            duration: 2000
-          });
-          window.location.reload();
-        },
-        (error) =>{
-          this.snackbar.open('Error creando el evento, intente nuevamente.',undefined,{
-            duration: 2000
-          });
-        }
-      );
-    
+    );    
   }
-
-  handleDateClick(arg:any){
-    this.detailsCalendar = true;
-
-    this.title = arg.event._def.title;
-    this.description = arg.event.extendedProps.description;
-    this.status = arg.event.extendedProps.status;
-    this.form = arg.event.extendedProps.form;
-    this.employee = arg.event.extendedProps.employee;
-  } 
-
 
   /* updateEvent(){
     this.eventService.updateEvent(this.eventUpdate, this.updateEvento)
@@ -243,8 +233,7 @@ export class SesionesDiariasComponent implements OnInit {
 }
 
 function createNewUser(todas: any): any {
-  console.log("TODAS",todas)
-  
+
   return {
     id: todas.id,
     date: todas.date,

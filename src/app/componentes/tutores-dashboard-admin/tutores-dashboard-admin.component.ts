@@ -62,8 +62,8 @@ export class TutoresDashboardAdminComponent implements OnInit {
     this.tutorService.getDashboardDetails(id)
     .subscribe(
       (success)=>{
+        console.log("DASHBOARD DETAIL", success)
         this.dashboardDetail = success;
-        console.log("ALUMNOS",this.dashboardDetail)
       },(error)=>{
         console.log(error)
       }
@@ -81,7 +81,7 @@ export class TutoresDashboardAdminComponent implements OnInit {
 
   iniciarRutina(){
     console.log(this.dashboardDetail.id)
-    this.sharedService.changeRoutineStatus(this.dashboardDetail.session.id,"InProgress")
+    this.sharedService.changeRoutineStatus(this.groupId,true)
     .subscribe(
       (success)=>{
         this.snackbar.open('Rutina iniciada.',undefined,{
@@ -95,7 +95,7 @@ export class TutoresDashboardAdminComponent implements OnInit {
   }
 
   detenerRutina(){
-    this.sharedService.changeRoutineStatus(this.dashboardDetail.session.id,"Finished")
+    this.sharedService.changeRoutineStatus(this.groupId,false)
     .subscribe(
       (success)=>{
         this.snackbar.open('Rutina detenida.',undefined,{
