@@ -10,16 +10,23 @@
   </div>
   <div class="row">
     <div class="col">
-      <p>Grupo: {{group.code}}</p>
-      <p>Tutor: {{group.tutor.firstName}} </p>
+      <p *ngIf="group">Grupo: {{group.code}}</p>
+      <p *ngIf="group">Capacidad: {{group.capacity}}</p>
+      <p *ngIf="group">Tutor: {{group.tutor.firstName}} </p>
+      Instituciones:
+      <div *ngIf="instituciones" >
+        <div *ngFor="let institucion of instituciones">
+          {{institucion.shortName}} | {{institucion.name}}
+        </div>
+      </div>
     </div>
-    <div class="col">
+    <div class="col" *ngIf="group">
       <h2>Cambiar estudiante de grupo</h2>
         <form #groupsForm="ngForm">
           <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
             <mat-label>Estudiante</mat-label>
-            <mat-select [(ngModel)]="cambioDeGrupo.student" name="student" required>
-              <mat-option *ngFor="let item of group.students" [value]="item.id">
+            <mat-select [(ngModel)]="cambioDeGrupo.student" name="student" (selectionChange)="verificarCambio($event)" required>
+              <mat-option *ngFor="let item of group.students" [value]="item">
                 {{item.user.userName}}
               </mat-option>
             </mat-select>
@@ -29,7 +36,7 @@
           <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
             <mat-label>Grupo</mat-label>
             <mat-select [(ngModel)]="cambioDeGrupo.group" name="group" required>
-              <mat-option *ngFor="let item of gruposShared" [value]="item.id">
+              <mat-option *ngFor="let item of institucionesDisponibles" [value]="item.id">
                 {{item.code}}
               </mat-option>
             </mat-select>
@@ -57,14 +64,15 @@
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col">
+    <div class="col" *ngIf="group">
       <table class="table">
         <thead class="thead-dark">
           <tr>
             <th scope="col">Id</th>
-            <th scope="col">Nombre alumno</th>
-            <th scope="col">Username alumno</th>
-            <th scope="col">Email alumno</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Email</th>
+            <th scope="col">Institución</th>
           </tr>
         </thead>
         <tbody>
@@ -73,6 +81,7 @@
             <td>{{student.firstName}}</td>
             <td>{{student.user.userName}}</td>
             <td>{{student.user.email}}</td>
+            <td>{{student.institution.shortName}}</td>
           </tr>
         </tbody>
       </table>

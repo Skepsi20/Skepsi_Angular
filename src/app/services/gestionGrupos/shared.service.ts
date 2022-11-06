@@ -53,15 +53,11 @@ export class SharedService {
     return this.httpClient.get<any>(this.baseApiUrl + '/api/groups/'+grupoId);
   }
 
-  getgrupo(grupoId: string): Observable<any[]>{
-    return this.httpClient.get<any[]>(this.baseApiUrl + '/api/groups/'+grupoId);
-  }
-
-  changeRoutineStatus(id: string, request:any): Observable<any[]>{
+  changeRoutineStatus(id: string, request:boolean): Observable<any[]>{
     const requestBody: any={
       status: request,
     };
-    return this.httpClient.put<any[]>(this.baseApiUrl + '/api/sessions/'+id+'/status',requestBody);
+    return this.httpClient.put<any[]>(this.baseApiUrl + '/api/groups/'+id+'/routine-status',requestBody);
   }
 
   getSessions(): Observable<any>{
@@ -100,7 +96,7 @@ export class SharedService {
     const changeGroup: any ={
       destinationGroupId: changeGroupRequest.group
     }
-    return this.httpClient.put<any>(this.baseApiUrl+'/api/students/'+changeGroupRequest.student+'/group', changeGroup);
+    return this.httpClient.put<any>(this.baseApiUrl+'/api/students/'+changeGroupRequest.student.id+'/group', changeGroup);
   }
 
   cambiarTutor(changeTutorRequest: any): Observable<any>{

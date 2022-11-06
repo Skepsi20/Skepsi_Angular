@@ -88,7 +88,7 @@
                     <div class="card-body">
                       <hr>
                       <div class="row" *ngIf="todaySession">
-                        <div *ngIf="todaySession.status == 'Pending' || todaySession.status == 'InProgress'">
+                        <div *ngIf="todaySession.status">
                           <div class="col">
                             <h2>Rutina de hoy: {{todaySession.routine.name}}</h2>
                               <div *ngIf="!mobile">
@@ -102,14 +102,14 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row" *ngIf="todaySession">
-                        <div *ngIf="todaySession.status == 'Finished'">
-                        <div class="col">
-                          <h1>Próxima sesión: {{nextSession.date | date:'dd / MMMM / yyyy':'+0200':'es'}}</h1>
-                          <h2>Próxima rutina: {{nextSession.routine.name}}</h2>
+                      <!-- <div class="row" *ngIf="todaySession">
+                        <div *ngIf="!todaySession.status">
+                          <div class="col">
+                            <h1>Próxima sesión: {{nextSession.date | date:'dd / MMMM / yyyy':'+0200':'es'}}</h1>
+                            <h2>Próxima rutina: {{nextSession.routine.name}}</h2>
+                          </div>
                         </div>
-                        </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
