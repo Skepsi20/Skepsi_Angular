@@ -29,7 +29,10 @@ export class PaypalService {
   getAllSales(): Observable<any>{
     return this.httpClient.get<any>(this.baseApiUrl + '/api/sales');
   }
-
+  
+  getFilteredSells(request:any): Observable<any>{
+    return this.httpClient.get<any>(this.baseApiUrl+'/api/sales/filtered',request);
+  }
 
   addSale(request:any): Observable<any>{
     const body: any={

@@ -106,8 +106,9 @@
             <div class="col-4" id="infoRutina" *ngIf="detailsCalendar">
               <div> 
                 <p class="subtitle">Informacion de la sesión</p>
-                <p>Código de rutina: {{title}}</p>
-                <p>Descripción de rutina: {{description}}</p>
+                <p *ngIf="title != 'Festivo'">Código de la rutina: {{title}}</p>
+                <p *ngIf="motivo">Motivo: {{motivo}}</p>
+                <p *ngIf="description">Descripción de rutina: {{description}}</p>
                 <p *ngIf="meetingUrl">Liga de zoom: {{meetingUrl}}</p>
                 <p *ngIf="meetingPassword">Contraseña de zoom: {{meetingPassword}}</p>
               </div>

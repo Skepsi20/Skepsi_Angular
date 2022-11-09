@@ -58,6 +58,7 @@ export class SesionesDiariasComponent implements OnInit {
   status:any;
   form:any;
   employee:any;
+  motivo:any;
   mostrar = false;
 
   empleadosFiltrados: Array<any> = [];
@@ -117,7 +118,8 @@ export class SesionesDiariasComponent implements OnInit {
         console.log("DIAS FESTIVOS",success)
         for (let index = 0; index < success.length; index++) {
           this.events[this.sessions.length+index] = {
-            title: success[index].name,
+            motivo: success[index].name,
+            title: 'Festivo',
             date: success[index].date,
             description: '',
             meetingUrl: '',
@@ -135,6 +137,7 @@ export class SesionesDiariasComponent implements OnInit {
     console.log("ARG", arg)
     this.detailsCalendar = true;
     this.title = arg.event._def.title;
+    this.motivo = arg.event._def.extendedProps.motivo;
     this.description = arg.event.extendedProps.description;
     this.meetingUrl = arg.event.extendedProps.meetingUrl;
     this.meetingPassword = arg.event.extendedProps.meetingPassword;

@@ -61,7 +61,7 @@
             </h1>
           </mat-card-actions>
           <div *ngIf="item.botonesPayPal && terminos[i]">
-            <app-paypal [planId]="item.externalPlanId" [skepsiPlanId]="item.id"></app-paypal>
+            <app-paypal [planId]="item.externalPlanId" [skepsiPlanId]="selectedGroup"></app-paypal>
           </div>
         </mat-card>
       </div>
@@ -110,7 +110,7 @@
             </h1>
           </mat-card-actions>
           <div *ngIf="item.botonesPayPal && terminos[i]" style="width: 100%">
-            <app-paypal [planId]="item.externalPlanId" [skepsiPlanId]="item.id"></app-paypal>
+            <app-paypal [planId]="item.externalPlanId" [skepsiPlanId]="selectedGroup"></app-paypal>
           </div>
         </mat-card>
       </div>

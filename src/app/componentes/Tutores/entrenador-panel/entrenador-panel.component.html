@@ -105,8 +105,9 @@
                           <p class="card-text">- {{item}}</p>
                         </div>
                     </div>
-                    <div class="card-footer" style="color:white">
-                      <a class="btn buttonSkepsi" (click)="panelPorGrupo(grupo.id)">Detalles</a>
+                    <div  class="card-footer" style="color:white">
+                      <a *ngIf="grupo.hasSessionToday == true" class="btn buttonSkepsi" (click)="panelPorGrupo(grupo.id)">Ver</a>
+                      <button *ngIf="grupo.hasSessionToday == false" type="button" class="btn btn-dark" disabled>No hay sesión hoy</button>
                     </div>
                   </div>
                 </div>
