@@ -16,6 +16,14 @@ export class FinanzasComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<any>;
   public ventas: Array<any> = [];
   public ventasDOM : Array<any> = [];
+  motivoSelected: string = '';
+  estadoSelected: string = '';
+  startDate: any; 
+  endDate: any;
+  warning = false;
+  filtrado = false;
+  motivos = ['Todos','Inscripcion','Mensualidad']
+  estados = ['Todos','Completado','Pendiente','Error']
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -59,6 +67,30 @@ export class FinanzasComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+  }
+
+  buscarVentas(){
+    if(!this.motivoSelected || !this.estadoSelected || !this.startDate || !this.endDate){
+      this.warning = true;
+    }else{
+      const request = {
+        startDate: this.startDate,
+        endDate: this.endDate,
+        status: this.estadoSelected,
+        description: this.motivoSelected
+      }
+      this.paypalService.getFilteredSells(request).
+      subscribe(
+        (success)=>{
+          console.log(success);
+        },(error)=>{
+          console.log(error);
+        }
+      )
+
+      this.filtrado = true;
+      this.warning = false;
     }
   }
 }

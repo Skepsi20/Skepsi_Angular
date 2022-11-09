@@ -29,8 +29,11 @@ export class EntrenadorPanelComponent implements OnInit {
   horarioArg = '';
   rutinaDescArg = '';
   estadoDeRutina = '';
+  zoomLinkProps = '';
+  zoomPasswordProps = '';
   todasLasSesiones: Array<any> = [];
   isHoliday:any;
+
 
   tutor:any = {
     name: '',
@@ -92,6 +95,7 @@ export class EntrenadorPanelComponent implements OnInit {
     this.tutorService.getDashboardGroups()
     .subscribe(
       (success)=>{
+        console.log("META?",success)
         this.grupos = success;
         for(let i=0; i<this.grupos.length; i++){
           this.grupos[i].plan.planDays = [];
@@ -143,19 +147,22 @@ export class EntrenadorPanelComponent implements OnInit {
         .subscribe(
           (success)=>{
             this.todasLasSesiones = success;
+            console.log("METAAAA", success)
             var counter = 0;
             for (let x = 0; x < success.length; x++) {
               var randomColor = Math.floor(Math.random()*16777215).toString(16);
-              for (let y = 0; y < success[x].plan.sessions.length; y++) {
-                var date = new Date(success[x].plan.sessions[y].date);
+              for (let y = 0; y < success[x].sessions.length; y++) {
+                var date = new Date(success[x].sessions[y].date);
                 this.events[counter+successResponse.length] = {
-                  title: success[x].plan.sessions[y].routine.name,
+                  title: success[x].sessions[y].routine.name,
                   date: date.toISOString().split('T')[0],
                   color: '#'+randomColor,
-                  description: success[x].plan.name,
-                  routine: success[x].plan.sessions[y].routine.name,
-                  routineDescription: success[x].plan.sessions[y].routine.description,
-                  estadoDeRutina: success[x].plan.sessions[y].status,
+                  descripcion: success[x].plan.description,
+                  horario: success[x].plan.schedule,
+                  routine: success[x].sessions[y].routine.name,
+                  routineDescription: success[x].sessions[y].routine.description,
+                  zoomLink: success[x].sessions[y].meetingUrl,
+                  zoomPassword: success[x].sessions[y].meetingPassword,
                   holiday: false,
                 }
                 counter++;
@@ -202,14 +209,18 @@ export class EntrenadorPanelComponent implements OnInit {
     this.title = arg.event._def.title;
     console.log(arg)
     this.fecha = arg.event._instance.range.start;
-    this.description = arg.event._def.extendedProps.description;
     this.rutinaArg = arg.event._def.extendedProps.routine;
     this.rutinaDescArg = arg.event._def.extendedProps.routineDescription;
     this.estadoDeRutina = arg.event._def.extendedProps.estadoDeRutina;
+    this.description = arg.event._def.extendedProps.descripcion;
+    this.zoomLinkProps = arg.event._def.extendedProps.zoomLink;
+    this.zoomPasswordProps = arg.event._def.extendedProps.zoomPassword;
     this.horarioArg = arg.event._def.extendedProps.horario;
     this.isHoliday = arg.event._def.extendedProps.holiday;
     this.rutinaSeleccionada = true;
   }
+
+
 
   mostrarCalendarioToggle(){
     this.mostrarClendario = !this.mostrarClendario;

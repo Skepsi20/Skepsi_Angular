@@ -1,11 +1,8 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VentasService } from '../../../services/Planes/ventas.service';
 import { CookieService } from 'ngx-cookie-service';
 import { PaypalService } from 'src/app/services/paypal.service';
 import jwt_decode from 'jwt-decode';
-import { Router } from '@angular/router';
-import { SharedService } from 'src/app/services/gestionGrupos/shared.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { StudentService } from 'src/app/services/Auth/student.service';
 
 @Component({
@@ -31,12 +28,9 @@ export class PaquetesComponent implements OnInit {
 
   constructor(
     private readonly ventasService: VentasService,
-    private readonly sharedService: SharedService,
     private readonly studentService: StudentService,
     private readonly paypalService: PaypalService,
     private cookieService : CookieService,
-    private snackbar: MatSnackBar,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -92,12 +86,12 @@ export class PaquetesComponent implements OnInit {
     );
   }
 
-  subscribeIfPaypal(planId: string,paypalPlan:string,index:number){
-    console.log(planId, paypalPlan)
+  subscribeIfPaypal(group: string,paypalPlan:string,index:number){
+    console.log(group, paypalPlan)
     if(paypalPlan != null){
       this.subscribeWithPaypal(index);
     }else{
-      this.subscribe(planId)
+      this.subscribe(group)
     }
   }
 
@@ -105,7 +99,7 @@ export class PaquetesComponent implements OnInit {
     this.paquetes[index].botonesPayPal = !this.paquetes[index].botonesPayPal;
   }
 
-  subscribe(planId: string){
+  subscribe(group: string){
   const currentAccessToken = this.cookieService.get('accessToken')
   const currentRefreshToken = this.cookieService.get('refreshToken')
   const actualTokens = {
@@ -115,7 +109,7 @@ export class PaquetesComponent implements OnInit {
   const request = {
     externalId: undefined,
     externalType: undefined,
-    groupId: planId
+    groupId: group
   }
   this.paypalService.addSubscription(request)
   .subscribe(
