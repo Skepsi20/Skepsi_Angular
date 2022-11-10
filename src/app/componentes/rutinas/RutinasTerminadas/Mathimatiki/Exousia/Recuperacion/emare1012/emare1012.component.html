@@ -97,7 +97,7 @@
               </div>
               <div class="row">
                 <div class="col" *ngFor="let figura of listFigGeoRand; index as i">
-                  <button mat-raised-button class="buttonSkepsi textoBoton" (click)="figSelection(i)" [style.background-color]="figura.toggle ? 'white':''">
+                  <button mat-raised-button class="buttonSkepsi textoBoton" (click)="figSelection(i)"  [style.border]="figura.toggle ? '5px': '1px'" [style.background-color]="figura.toggle ? '#4ACFC6': 'white'">
                     <img
                         src="..\assets\img\rutinas\LogicoMatematico\figurasGeo\FigurasGeo-{{figura.imgFigGeo}}.png" >
                   </button>

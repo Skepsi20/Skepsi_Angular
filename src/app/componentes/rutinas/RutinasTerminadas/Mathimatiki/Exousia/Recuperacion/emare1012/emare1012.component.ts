@@ -66,12 +66,12 @@ export class EMARE1012Component implements OnInit {
 
   public tiempoSegundosCrono = 120;
   //25
-  public segundosDescanso = 5;
+  public segundosDescanso = 10;
   //15
   public tiempoSegundosGeneral = 350;
   //150
 
-  public tiempoSegundosInstrucciones = 2;
+  public tiempoSegundosInstrucciones = 10;
 
   public tTimerGeneral = 0;
   public tTimer = 0;
