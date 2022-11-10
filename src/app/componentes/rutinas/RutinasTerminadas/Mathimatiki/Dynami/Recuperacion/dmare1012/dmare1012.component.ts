@@ -102,6 +102,7 @@ export class DMARE1012Component implements OnInit {
   public arrUsuario: Array<any> = [];
   public arrResults: Array<any> = [];
   public tiradasRestantes = 0;
+  public tiradaReview=false;
 
   constructor(
     private _emacoService: Emaco1012Service,
@@ -471,14 +472,22 @@ export class DMARE1012Component implements OnInit {
 
   funcion3() {
     this.tabTiradas.forEach((tirada) => {
+      this.evaluateOper(tirada)
       if (tirada.result) this.calificacion++;
       this.contadorEjer++;
     });
-
-    this.revisar();
-    this.calificacion = 0;
+    this.tiradaReview=true;
+    let _tiempo = setTimeout(() => {
+      //this.tiradaReview=true;
+      this.revisar();
+      this.calificacion = 0;
     this.resultados = true;
     this.rutina = true;
+    this.tiradaReview=false;
+    }, this.segundosDescanso * 1000);
+
+    //this.revisar();
+
 
   }
 
