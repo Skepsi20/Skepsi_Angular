@@ -7,5 +7,5 @@ export interface paypalProduct{
 export interface subscriptionPayPal{
   externalId?: string,
   externalType?: string
-  planId:string
+  groupId:string
 }

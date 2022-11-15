@@ -11,7 +11,6 @@
           <h3 class="card-header">{{grupo.code}}</h3>
           <div class="card-body">
             <h5 class="card-title">Paquete: {{grupo.plan.name}}</h5>
-            <p class="card-text">Horario: {{grupo.plan.schedule}}</p>
             <p>Dias hábiles: </p>
               <div *ngFor="let item of grupo.plan.planDays" style="text-align:left;">
                 <p class="card-text">- {{item}}</p>

@@ -13,23 +13,7 @@
     <div class="col">
       <p><b>Plan: </b>{{plan.name}}</p>
       <p><b>Descripcion: </b>{{plan.description}} </p>
-      <p><b>Horario: </b>{{plan.schedule}}</p>
-      <p><b>Fecha limite: </b>{{plan.expirationDate}}</p>
-    </div>
-    <div class="col">
-      <form #groupsForm="ngForm">
-        <label for="code" style="font-size: 20px;">Grupo nuevo con tutor:</label><br>
-        <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
-          <mat-select [(ngModel)]="newGroup.tutorId" name="tutorId" required>
-              <mat-option *ngFor="let item of tutorsDOM" [value]="item.id">
-                <p>{{item.firstName}}</p>
-              </mat-option>
-            </mat-select>
-          <mat-error>El campo Tutor es requerido</mat-error>
-        </mat-form-field>
-        <br>
-        <input type="button" class="btn buttonSkepsi" (click)="addGrupo()" value="Agregar">
-      </form>
+      <p><b>Número de clases a la semana: </b>{{plan.numberOfDaysPerWeek}} </p>
     </div>
   </div>
   <div class="row mt-4">

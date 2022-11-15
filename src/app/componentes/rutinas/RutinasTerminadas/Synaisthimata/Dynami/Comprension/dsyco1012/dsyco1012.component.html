@@ -1,0 +1,171 @@
+<div class="DSYCO">
+  <div class="skepsiLogo">
+    <img src="../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+  </div>
+  <div>
+    <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
+    preload="auto"></audio>
+    <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
+      preload="auto"></audio>
+    <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
+  </div>
+  <div class="general">
+
+    <!-- Paso 1: Instrucciones -->
+    <div *ngIf="currentStep == DSYCO1012Step.Instructions">
+      <div class="row progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeft" [style.width]="(timeLeft*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <p class="titulo">A continuación verás tres tablas. No es necesario que las memorices, sólo leelas y analízalas</p>
+      </div>
+    </div>
+
+    <!-- Paso 2: Introducción -->
+    <div *ngIf="currentStep == DSYCO1012Step.Introduction">
+      <div class="row" align="left">
+        <div class="col">
+          <h2>Esta tabla representa las emociones básicas. Todos nacemos con ellas. Léela y pregunta al entrenador si tienes dudas acerca de lo que significan.</h2>
+          <ul>
+            <li *ngFor="let emocion of emocionesBasicas" style="font-size:16px"><p style="margin-bottom:8px">{{emocion}}</p></li>
+          </ul>
+        </div>
+        <div class="col">
+          <h2>Estas son las emociones secundarias. Desde que nacemos las desarrollamos. Revísalas y pregunta al entrenador si tienes dudas acerca de lo que significan.</h2>
+          <ul>
+            <li *ngFor="let emocion of emocionesSecundarias" style="font-size:16px"><p style="margin-bottom:8px">{{emocion}}</p></li>
+          </ul>
+        </div>
+      </div>
+      <div class="row" align="left">
+        <div class="col">
+          <h2>Estos son tipos de afectos individuales. Desde niños aprendemos que la emoción se refleja en un afecto; por ejemplo, la satisfacción puede reflejarse en empatía.</h2>
+          <div class="row">
+            <div class="col">
+              <ul>
+                <li *ngFor="let afeccion of afecciones1" style="font-size:16px"><p style="margin-bottom:8px">{{afeccion}}</p></li>
+              </ul>
+            </div>
+            <div class="col">
+              <ul>
+                <li *ngFor="let afeccion of afecciones2" style="font-size:16px"><p style="margin-bottom:8px">{{afeccion}}</p></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div style="display: flex; justify-content: center; margin-top: 30px;">
+          <button style="width: 50%; max-width: 200px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 3: Relación de emociones con afecciones -->
+    <div *ngIf="currentStep == DSYCO1012Step.RelationOfEmotions" class="full-parent-height">
+      <div style="height: 50px;">
+        <h1>Relaciona la emoción con la afección que causa.</h1>
+      </div>
+      <div cdkDropListGroup style="height: calc(100% - 50px);">
+        <div class="row full-parent-height">
+          <div class="col full-parent-height">
+            <h2 style="font-weight:bold;">Afecciones individuales</h2>
+            <div class="example-container">
+              <div
+                cdkDropList
+                [cdkDropListData]="afecciones1"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of afecciones1" cdkDrag>{{item}}</div>
+              </div>
+            </div>
+
+            <div class="example-container">
+              <div
+                cdkDropList
+                [cdkDropListData]="afecciones2"
+                class="example-list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let item of afecciones2" cdkDrag>{{item}}</div>
+              </div>
+            </div>
+          </div>
+          <div id="caras-div" class="col-8 images-container caras">
+            <div *ngFor="let imageEmotion of imageEmotionAffections" class="image-container">
+              <img style="width: 200px; height: 200px" src="{{imageEmotion.imageUrl}}">
+              <div
+                cdkDropList
+                [cdkDropListData]="imageEmotion.affections"
+                class="example-list"
+                (cdkDropListDropped)="dropSingle($event, imageEmotion.emotion)">
+                <div *ngFor="let affection of imageEmotion.affections">
+                  <div class="example-box secondaryEmotion" cdkDrag>{{affection}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="display: flex; justify-content: center">
+              <button class="btn buttonSkepsi" [disabled]="!allEmotionsHaveAffections()" style="width: 50%; max-width: 200px; min-width: 100px;" (click)="nextStep()">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 4: Emociones y afecciones de casos  -->
+    <div *ngIf="currentStep == DSYCO1012Step.EmotionsAffectionsCases" class="full-parent-height">
+      <div style="height: 50px;">
+        <h1>¿Qué emociones y afecciones son necesarias para que estos niños puedan superar su problema?</h1>
+      </div>
+      <div style="height: calc(100% - 55px);">
+        <div class="row" style="margin: 10px 0">
+          <h1 style="font-weight:bold">{{cases[scenarioIndex].text}}</h1>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <h2>Emociones básicas</h2>
+            <div *ngFor="let emotion of basicEmotionCheckboxes" class="row" style="text-align:left; margin-left:30%">
+              <mat-checkbox class="example-margin" [(ngModel)]="emotion.checked">{{emotion.name}}</mat-checkbox>
+            </div>
+          </div>
+          <div class="col-3">
+            <h2>Emociones secundarias</h2>
+            <div *ngFor="let emotion of secondaryEmotionCheckboxes" class="row" style="text-align:left; margin-left:30%">
+              <mat-checkbox class="example-margin" [(ngModel)]="emotion.checked">{{emotion.name}}</mat-checkbox>
+            </div>
+          </div>
+          <div class="col-6">
+            <h2>Afecciones individuales</h2>
+            <div class="row">
+              <div class="col-6">
+                <div *ngFor="let affection of affectionCheckboxes1" class="row" style="text-align:left; margin-left:30%">
+                  <mat-checkbox class="example-margin" [(ngModel)]="affection.checked">{{affection.name}}</mat-checkbox>
+                </div>
+              </div>
+              <div class="col-6">
+                <div *ngFor="let affection of affectionCheckboxes2" class="row" style="text-align:left; margin-left:30%">
+                  <mat-checkbox class="example-margin" [(ngModel)]="affection.checked">{{affection.name}}</mat-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div style="display: flex; justify-content: center; margin-top: 5px;">
+            <button style="width: 50%; max-width: 200px; min-width: 100px;" [disabled]="!anyEmotionAffectionSelected()" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 5: Final -->
+    <div *ngIf="currentStep == DSYCO1012Step.End" class="row full-parent-height">
+      <div class="row" class="row full-parent-height" style="display: flex; justify-content:center; align-items:center; align-content: center;">
+        <h1 style="font-weight: bold;" *ngIf="scenarioIndex == scenarioMaxIndex">¡Felicidades! Has llegado al final de la rutina.</h1>
+      </div>
+    </div>
+  </div>
+</div>

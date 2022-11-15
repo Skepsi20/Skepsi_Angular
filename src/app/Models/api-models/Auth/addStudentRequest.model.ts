@@ -27,7 +27,8 @@ export interface IAddress{
 export interface IInstitution{
   id: string,
   name: string,
-  shortName: string
+  shortName: string,
+  isChecked?: boolean
 }
 
 export interface IRelative{

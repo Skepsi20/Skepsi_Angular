@@ -1,0 +1,86 @@
+.contenedor{
+    padding-bottom: 35px;
+    width: 90%;
+    margin: 0px auto;
+  }
+  
+  .title{
+    font-size: 30px;
+    text-align: left;
+  }
+  
+  .title button{
+    font-size: 15px;
+  }
+
+  .subtitle{
+    font-size: 20px;
+    text-align: left;
+  }
+  
+  .line{
+    float: left;
+    border: 1px solid black;
+    width: 60%;
+  }
+  
+  .optionButton{
+    float: left;
+    margin-right: 10px;
+    background-color: white;
+    border: 1px solid white;
+    color: black;
+    border-radius: 5px;
+  }
+  
+  .optionButton:hover{
+    cursor: pointer;
+    background-color: white;
+    color: red;
+    border: 1px solid red;
+  }
+  
+  .active{
+    background-color: #E2231A;
+    color: white;
+    border: 1px solid white;
+  }
+  
+  .filterUser{
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    width: 90%;
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  }
+  
+  .buttonCreate{
+    border-radius: 5px;
+    background-color: #0F2B40;
+    color: white;
+    border: 1px solid #0F2B40;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    padding: 8px;
+  }
+  .buttonCreate:hover{
+    background-color: white;
+    color: #0F2B40;
+    border: 1px solid white;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  }
+  
+  .addButton:hover{
+    cursor: pointer;
+    background-color: #E2231A;
+    color: white;
+    border: 1px solid #E2231A;
+  }
+  
+  .nav-pills .nav-link.active {
+    background-color: red;
+    color: white;
+  }
+  
+  .modal { background: rgba(000, 000, 000, 0.8); min-height:1000000px; }
+  

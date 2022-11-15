@@ -83,7 +83,7 @@
           <!-- BARRA DE PROGRESO INICIO -->
           <div class="row progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-              [attr.aria-valuenow]="timeMostrar" [style.width]="(timeMostrar*3.33)+'%'" aria-valuemin="0" aria-valuemax="20"
+              [attr.aria-valuenow]="timeMostrar" [style.width]="(timeMostrar*2.5)+'%'" aria-valuemin="0" aria-valuemax="20"
               style="margin:0px auto;">
             </div>
           </div><br>
@@ -95,60 +95,65 @@
             </div>
             <div class="col">
               <p class="titleDragAndDrop">Picos</p>
-              <div class="grid titleBorder">
-                <div class="col respuestas" 
+              <div class="grid"  style="border: 1px solid gray; border-radius: 5px; background-color:white">
+                <div class="col respuestas"
                     [sortablejs]="picos" 
                     [sortablejsOptions]="options">
                       <div *ngFor="let item of picos" 
                           class="grid-square item">
-                        <p class="opcionDrag">{{item.respuesta}}</p>
+                        <p class="opcionDrag" style="border: 2px solid #ea4758">{{item.respuesta}}</p>
                       </div>
                   </div>
               </div>
               <p class="titleDragAndDrop">Patas</p>
-              <div class="grid titleBorder">
+              <div class="grid"  style="border: 1px solid gray; border-radius: 5px; background-color:white">
                 <div class="col respuestas" 
                     [sortablejs]="patas" 
                     [sortablejsOptions]="options">
                       <div *ngFor="let item of patas" 
                           class="grid-square item">
-                        <p class="opcionDrag">{{item.respuesta}}</p>
+                        <p class="opcionDrag" style="border: 2px solid #F4D34C">{{item.respuesta}}</p>
                         </div>
                   </div>
               </div>
               <p class="titleDragAndDrop">Ojos</p>
-              <div class="grid titleBorder">
+              <div class="grid"  style="border: 1px solid gray; border-radius: 5px; background-color:white">
                 <div class="col respuestas" 
                     [sortablejs]="ojos" 
                     [sortablejsOptions]="options">
                       <div *ngFor="let item of ojos" 
                           class="grid-square item">
-                        <p class="opcionDrag">{{item.respuesta}}</p>
+                        <p class="opcionDrag" style="border: 2px solid #4ACFC6">{{item.respuesta}}</p>
                       </div>
                   </div>
               </div>
             </div>
             <div class="col">
-              <p class="titleDragAndDrop">Respuestas</p>              
-              <div class="grid" >
-                <div class="col titleBorder respuestas" style="min-height: 200px;"
-                    [sortablejs]="respuestasAves" 
-                    [sortablejsOptions]="options">
-                    <div *ngFor="let item of respuestasAves" 
-                        class="grid-square item">
-                        <p class="opcionDrag">{{item.respuesta}}</p>
-                    </div>
+              <div class="row">
+                <p class="titleDragAndDrop">Respuestas</p>              
+                <div class="grid" *ngIf="timeMostrar >= 1">
+                  <div class="col titleBorder respuestas" style="min-height: 200px;"
+                      [sortablejs]="respuestasAves" 
+                      [sortablejsOptions]="options">
+                      <div *ngFor="let item of respuestasAves" 
+                          class="grid-square item">
+                          <p class="opcionDrag" style="border: 2px solid #0B2A4A">{{item.respuesta}}</p>
+                      </div>
+                  </div>
+                </div>        
+              </div>
+              <div class="row">
+                <div class="btn" (click)="limpiarDragAndDrop(1)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                  </svg>
                 </div>
-              </div>               
+              </div>                     
             </div>
           </div>
         </div>
-
-        <div *ngIf="explicacionMamiferos">
           
-
-
-
         <div *ngIf="explicacionMamiferos">
           <div *ngIf="picosMamiferosDOM && !ojosMamiferosDOM && !patasMamiferosDOM">
             <h1 class="titleBorder">A continuación verás un conjunto de hocicos de mamiferos y su descripción de uso</h1>
@@ -165,7 +170,7 @@
           <div *ngIf="ojosMamiferosDOM">
             <h1 class="titleBorder">A continuación verás un conjunto de ojos de mamíferos y su descripción de uso</h1>
             <div class="row">
-              <div *ngFor="let ojo of vision" class="picos">
+              <div *ngFor="let ojo of vision" class="ojos">
                 <div class="col">
                   <img src="{{ojo.imagen}}">
                   <p style="width: 80%; margin: 0px auto;">{{ojo.respuesta}}</p>
@@ -200,32 +205,85 @@
           </div>
         </div>
 
-
-
-
-
-
         <div *ngIf="ejercicioMamiferos">
-
+          <!-- BARRA DE PROGRESO INICIO -->
+          <div class="row progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+              [attr.aria-valuenow]="timeMostrar" [style.width]="(timeMostrar*2.5)+'%'" aria-valuemin="0" aria-valuemax="20"
+              style="margin:0px auto;">
+            </div>
+          </div><br>
+          <!-- BARRA DE PROGRESO FIN -->
+          <h1 class="titleBorder">De acuerdo al mamífero mostrado, selecciona que clase de mandíbula, visión y patas tiene, recuerda seleccionar solamente <b>una respuesta</b> por área</h1>
+          <div class="row">
+            <div class="col">
+              <img src="{{elementoVista.imagen}}" width="100%">
+            </div>
+            <div class="col">
+              <p class="titleDragAndDrop">Mandibula</p>
+              <div class="grid"  style="border: 1px solid gray; border-radius: 5px; background-color:white">
+                <div class="col respuestas" 
+                    [sortablejs]="mandibulas" 
+                    [sortablejsOptions]="options">
+                      <div *ngFor="let item of mandibulas" 
+                          class="grid-square item">
+                        <p class="opcionDrag" style="border: 2px solid #ea4758">{{item.respuesta}}</p>
+                      </div>
+                  </div>
+              </div>
+              <p class="titleDragAndDrop">Patas</p>
+              <div class="grid"  style="border: 1px solid gray; border-radius: 5px; background-color:white">
+                <div class="col respuestas" 
+                    [sortablejs]="patasMam" 
+                    [sortablejsOptions]="options">
+                      <div *ngFor="let item of patasMam" 
+                          class="grid-square item">
+                        <p class="opcionDrag" style="border: 2px solid #F4D34C">{{item.respuesta}}</p>
+                        </div>
+                  </div>
+              </div>
+              <p class="titleDragAndDrop">Vision</p>
+              <div class="grid"  style="border: 1px solid gray; border-radius: 5px; background-color:white">
+                <div class="col respuestas" 
+                    [sortablejs]="vision" 
+                    [sortablejsOptions]="options">
+                      <div *ngFor="let item of vision" 
+                          class="grid-square item">
+                        <p class="opcionDrag" style="border: 2px solid #4ACFC6">{{item.respuesta}}</p>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row">
+                <p class="titleDragAndDrop">Respuestas</p>              
+                <div class="grid" *ngIf="timeMostrar >= 1">
+                  <div class="col titleBorder respuestas" style="min-height: 200px;"
+                      [sortablejs]="respuestasMamiferos" 
+                      [sortablejsOptions]="options">
+                      <div *ngFor="let item of respuestasMamiferos" 
+                          class="grid-square item">
+                          <p class="opcionDrag" style="border: 2px solid #0B2A4A">{{item.respuesta}}</p>
+                      </div>
+                  </div>
+                </div>   
+              </div>
+              <div class="row">
+                <div class="btn" (click)="limpiarDragAndDrop(2)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         
-
-
-
-
-
-
-
-
-
-        
-        
-      </div>
       <div *ngIf="resultadosDOM">
         <p class="titulo">Ejercicio terminado!</p>
         <p class="titulo"> Resultados:</p>
-        <!-- <p class="titulo">Tuviste {{calificacionDOM}} aciertos de {{aciertosDOM}}</p> -->
-        <button (click)="Inicializacion()" class="buttonSkepsi textoBoton" >Continuar</button>
+        <p class="titulo">Tuviste {{calificacionDOM}} aciertos de 30</p>
       </div>
     </div>
   </div>

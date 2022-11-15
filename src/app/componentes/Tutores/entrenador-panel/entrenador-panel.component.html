@@ -100,14 +100,14 @@
                     <h3 class="card-header">{{grupo.code}}</h3>
                     <div class="card-body">
                       <h3 class="card-title">Paquete: {{grupo.plan.name}}</h3>
-                      <p class="card-text">Horario: {{grupo.plan.schedule}}</p>
                       <p>Dias hábiles: </p>
                         <div *ngFor="let item of grupo.plan.planDays" style="text-align:left;">
                           <p class="card-text">- {{item}}</p>
                         </div>
                     </div>
-                    <div class="card-footer" style="color:white">
-                      <a class="btn buttonSkepsi" (click)="panelPorGrupo(grupo.id)">Detalles</a>
+                    <div  class="card-footer" style="color:white">
+                      <a *ngIf="grupo.hasSessionToday == true" class="btn buttonSkepsi" (click)="panelPorGrupo(grupo.id)">Ver</a>
+                      <button *ngIf="grupo.hasSessionToday == false" type="button" class="btn btn-dark" disabled>No hay sesión hoy</button>
                     </div>
                   </div>
                 </div>

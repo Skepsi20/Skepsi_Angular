@@ -57,6 +57,7 @@ export class DashboardDetailComponent implements OnInit {
       this.tutorService.getDashboardDetails(this.sharedService.getDashboardId())
       .subscribe(
         (success)=>{
+          console.log("DASHBOARD DETAIL", success)
           this.groupId = success.id
           this.dashboardDetail = success;
           this.tutorId = this.dashboardDetail.tutor.id;
@@ -97,7 +98,7 @@ export class DashboardDetailComponent implements OnInit {
   }
 
   iniciarRutina(){
-    this.sharedService.changeRoutineStatus(this.dashboardDetail.session.id,"InProgress")
+    this.sharedService.changeRoutineStatus(this.groupId,true)
     .subscribe(
       (success)=>{
         this.snackbar.open('Rutina iniciada.',undefined,{
@@ -111,7 +112,7 @@ export class DashboardDetailComponent implements OnInit {
   }
 
   detenerRutina(){
-    this.sharedService.changeRoutineStatus(this.dashboardDetail.session.id,"Finished")
+    this.sharedService.changeRoutineStatus(this.groupId,false)
     .subscribe(
       (success)=>{
         this.snackbar.open('Rutina detenida.',undefined,{

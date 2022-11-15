@@ -55,7 +55,7 @@ export class PaypalComponent implements OnInit {
         const request = {
           externalId: data.subscriptionID,
           externalType: 'PayPal',
-          planId: this.skepsiPlanId
+          groupId: this.skepsiPlanId
         }
         this.paypalService.addSubscription(request)
         .subscribe(

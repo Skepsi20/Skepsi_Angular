@@ -105,7 +105,7 @@ export class TutoresComponent implements OnInit {
             duration: 2000
           });
           setTimeout(()=>{
-            this.router.navigateByUrl(`/emailConfirm`);
+            window.location.reload();
           }, 2000);
         },
         (error) =>{

@@ -35,27 +35,16 @@ export class VentasComponent implements OnInit {
     cost: 0,
     duration: 0,
     discountRate: 0,
-    capacity: 0,
     registrationCost: 0,
-    schedule: '',
-    expirationDate: '',
-    templateId: '',
-    institutionId: '',
     PayPalProductId: '',
-    isTrial: false,
-    planDetail: {
-      onMonday: false,
-      onTuesday: false,
-      onWednesday: false,
-      onThursday: false,
-      onFriday: false,
-      onSaturday: false,
-      onSunday: false,
-    }
+    isTrial: false,    
+    numberOfDaysPerWeek: 0, 
+    minAge: 0, 
+    maxAge: 0, 
   }
+
   public institutions : Array<IInstitution> = [];
   public institution: string  | undefined;
-  public plantilla: string  | undefined;
   public diasdeRutina : string[] = [];
   public paypalCheckBox= false;
   public payPalProducts!: Array<paypalProduct>;
@@ -86,65 +75,14 @@ export class VentasComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.todayDate)
     this.getTutors();
-    this.getTemplates();
   }
 
-  visualizacion(){
-    if(this.paqueteController.institutionId){
-      this.institutionService.getInstitution(this.paqueteController.institutionId)
-        .subscribe(
-          (successResponse)=>{
-            this.institution = successResponse.name;
-          },
-          (error) =>{
-            console.log(error);
-          }
-      );
-    }else{
-      this.institution = 'Sin institución';
-    }
-    this.gestionRutinasService.getTemplateWithNoRoutines(this.paqueteController.templateId)
-    .subscribe(
-      (successResponse)=>{
-        this.plantilla = successResponse.name;
-      },
-      (error) =>{
-        console.log(error);
-      }
-    );
-    this.diasdeRutina = [];
-    if(this.dias.get('OnMonday')!.value == true)
-      this.diasdeRutina.push('Lunes')
-      if(this.dias.get('OnTuesday')!.value == true)
-      this.diasdeRutina.push('Martes')
-    if(this.dias.get('OnWednesday')!.value == true)
-      this.diasdeRutina.push('Miércoles')
-    if(this.dias.get('OnThursday')!.value == true)
-      this.diasdeRutina.push('Jueves')
-    if(this.dias.get('OnFriday')!.value == true)
-      this.diasdeRutina.push('Viernes')
-    if(this.dias.get('OnSaturday')!.value == true)
-      this.diasdeRutina.push('Sábado')
-    if(this.dias.get('OnSunday')!.value == true)
-      this.diasdeRutina.push('Domingo')
-  }
 
   onAdd():void{
-    this.paqueteController.planDetail.onMonday = this.dias.get('OnMonday')!.value;
-    this.paqueteController.planDetail.onTuesday = this.dias.get('OnTuesday')!.value;
-    this.paqueteController.planDetail.onWednesday = this.dias.get('OnWednesday')!.value;
-    this.paqueteController.planDetail.onThursday = this.dias.get('OnThursday')!.value;
-    this.paqueteController.planDetail.onFriday = this.dias.get('OnFriday')!.value;
-    this.paqueteController.planDetail.onSaturday = this.dias.get('OnSaturday')!.value;
-    this.paqueteController.planDetail.onSunday = this.dias.get('OnSunday')!.value;
-
-
     if(this.freePlan == true){
       this.paqueteController.cost = 0;
       this.paqueteController.duration = 0;
       this.paqueteController.discountRate = undefined;
-      this.paqueteController.capacity = 30;
-      this.paqueteController.expirationDate = this.todayDate;
       this.paqueteController.isTrial = true;
     }
 
@@ -156,6 +94,7 @@ export class VentasComponent implements OnInit {
           this.snackbar.open('Se agregó el paquete con éxito',undefined,{
             duration: 2000
           });
+          window.location.reload();
         },
         (error) =>{
           this.snackbar.open('Error creando paquete, intente nuevamente.',undefined,{
@@ -192,17 +131,6 @@ export class VentasComponent implements OnInit {
     );
   }
 
-  getTemplates(){
-    this.gestionRutinasService.getTemplatesWithNoRoutines()
-    .subscribe(
-      (successResponse)=>{
-        this.templates = successResponse;
-      },
-      (error) =>{
-        console.log(error);
-      }
-    );
-  }
 
   paypalOptions(){
     if(this.paypalCheckBox){

@@ -7,7 +7,16 @@ export interface grupo {
 }
 
 export interface newGroup{
-  code: string,
   planId: string,
-  tutorId: string
+  tutorId : string,
+  schedule: string,
+  capacity: number,
+  onMonday: boolean,
+  onTuesday: boolean,
+  onWednesday: boolean,
+  onThursday: boolean,
+  onFriday: boolean,
+  onSaturday: boolean,
+  onSunday: boolean,
+  institutionIds: string[],
 }

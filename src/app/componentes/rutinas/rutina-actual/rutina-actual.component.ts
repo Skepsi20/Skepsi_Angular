@@ -22,8 +22,12 @@ import { Esyre1012Component } from '../RutinasTerminadas/Synaisthimata/Exousia/R
 import { EGLCO1012Component } from '../RutinasTerminadas/Glossa/Exousia/Comprension/eglco1012/eglco1012.component';
 import { AGLCO1012Component } from '../RutinasTerminadas/Glossa/Antochi/Comprension/aglco1012/aglco1012.component';
 import { AGNCO1012Component } from '../RutinasTerminadas/Gnostiki/Antochi/Comprension/agnco1012/agnco1012.component';
-import { DMARE1012Component } from '../RutinasTerminadas/Mathimatiki/Dynami/Recuperacion/dmare1012/dmare1012.component';
 import { EMARE1012Component } from '../RutinasTerminadas/Mathimatiki/Exousia/Recuperacion/emare1012/emare1012.component';
+import { DMARE1012Component } from '../RutinasTerminadas/Mathimatiki/Dynami/Recuperacion/dmare1012/dmare1012.component';
+import { DGNCO1012Component } from '../RutinasTerminadas/Gnostiki/Dynami/Comprension/dgnco1012/dgnco1012.component';
+import { Dsyco1012Component } from '../RutinasTerminadas/Synaisthimata/Dynami/Comprension/dsyco1012/dsyco1012.component';
+import { Asyco1012Component } from '../RutinasTerminadas/Synaisthimata/Antochi/Comprension/asyco1012/asyco1012.component';
+import { Esyco1012Component } from '../RutinasTerminadas/Synaisthimata/Exousia/Comprension/esyco1012/esyco1012.component';
 
 @Component({
   selector: 'app-rutina-actual',
@@ -54,11 +58,11 @@ export class RutinaActualComponent implements OnInit {
       (success)=>{
         console.log("session de hoy", success)
         this.todaySession = success;
-        if(success.routine.code && success.status == 'InProgress'){
+        if(this.todaySession.routine.code && this.todaySession.status == true){
           this.zoomLink = success.meetingUrl;
           this.zoomPassword = success.meetingPassword;
-          this.elegirRutina(success.routine.code);
-        }else{
+          this.elegirRutina(this.todaySession.routine.code);
+        }/* else{
           this.resultsService.getNextSession(success.plan.id)
           .subscribe(
             (success)=>{
@@ -67,7 +71,7 @@ export class RutinaActualComponent implements OnInit {
               console.log(error)
             }
           )
-        }
+        } */
       },(error)=>{
         console.log(error)
       }
@@ -79,8 +83,9 @@ export class RutinaActualComponent implements OnInit {
     .subscribe(
       (success)=>{
         this.todaySession = success;
-        console.log(this.todaySession.status);
-        if(success.status == 'Finished'){
+
+        console.log("STATUS", this.todaySession.status);
+        if(this.todaySession.status == false){
           this.destruirRutina();
           console.log("TERMINADA")
         }
@@ -109,9 +114,7 @@ export class RutinaActualComponent implements OnInit {
       case '1012AGLCO': { componenteACrear = AGLCO1012Component } break;
 
       case '1012AGNCO': { componenteACrear = AGNCO1012Component } break;
-
-
-
+      case '1012DGNCO': { componenteACrear = DGNCO1012Component } break;
 
 
       /* DANIEL */
@@ -123,13 +126,17 @@ export class RutinaActualComponent implements OnInit {
       case '1012DMAAN': { componenteACrear = Dmaan1012Component } break;
       case '1012EMAAN': { componenteACrear = Emaan1012Component } break;
 
-      case '1012DMARE': { componenteACrear = DMARE1012Component } break;
       case '1012EMARE': { componenteACrear = EMARE1012Component } break;
+      case '1012DMARE': { componenteACrear = DMARE1012Component } break;
 
       /* OMAR */
       case '1012DSYRE': { componenteACrear = Dsyre1012Component } break;
       case '1012ASYRE': { componenteACrear = Asyre1012Component } break;
       case '1012ESYRE': { componenteACrear = Esyre1012Component } break;
+
+      case '1012DSYCO': { componenteACrear = Dsyco1012Component } break;
+      case '1012ASYCO': { componenteACrear = Asyco1012Component } break;
+      case '1012ESYCO': { componenteACrear = Esyco1012Component } break;
     }
     this.crearRutina(componenteACrear);
   }

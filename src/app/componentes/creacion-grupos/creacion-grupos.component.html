@@ -1,0 +1,108 @@
+<div class="container" style="background-color: white">
+    <form #groupForm="ngForm" class="formulario">
+      <div class="row">
+        <div class="col">
+          <div class="encabezado">
+            <p>Creación de grupos</p>
+            <hr>
+          </div>
+          <div class="row">
+            <div class="col">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Plan</mat-label>
+                    <mat-select [(ngModel)]="grupoController.planId" name="plan" (selectionChange)="planSelected()" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+                        <mat-option *ngFor="let plan of plans" [value]="plan.id">
+                        {{plan.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>El campo Plan es requerido</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Entrenador</mat-label>
+                  <mat-select [(ngModel)]="grupoController.tutorId" name="tutorId" required  style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+                      <mat-option *ngFor="let item of tutorsDOM" [value]="item.id">
+                        <p>{{item.firstName}}</p>
+                      </mat-option>
+                    </mat-select>
+                  <mat-error>El campo Tutor es requerido</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Capacidad del grupo</mat-label>
+                    <input type="number" matInput [(ngModel)]="grupoController.capacity" min="1" name="capacity"
+                    style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+                    required>
+                    <mat-error>El campo Capacidad del grupo es requerido</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Horario del curso</mat-label>
+                    <input type="time" matInput [(ngModel)]="grupoController.schedule" name="schedule"
+                    style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
+                    required>
+                    <mat-error>El campo Horario del curso es requerido</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col" class="listadoInstituciones">
+                <h1>Instituciones</h1>
+                <hr>
+                <div *ngFor="let institution of institutions">
+                    <mat-checkbox  [(ngModel)]="institution.isChecked" [ngModelOptions]="{standalone: true}" (change)="onCheckboxChange(institution)">{{institution.name}}</mat-checkbox>
+                </div>
+            </div>
+            <div class="col" style="box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;">
+                <h1>Días de clase (Máximo {{diasDisponibles}})</h1>
+                <hr>
+                <div *ngIf="grupoController.planId" class="diasSelect">
+                  <mat-checkbox (click)="addDay('Lu')" *ngIf="!disableDay || (disableDay && grupoController.onMonday)">Lunes</mat-checkbox>
+                  <mat-checkbox (click)="addDay('Ma')" *ngIf="!disableDay || (disableDay && grupoController.onTuesday)">Martes</mat-checkbox>
+                  <mat-checkbox (click)="addDay('Mi')" *ngIf="!disableDay || (disableDay && grupoController.onWednesday)">Miércoles</mat-checkbox>
+                  <mat-checkbox (click)="addDay('Ju')" *ngIf="!disableDay || (disableDay && grupoController.onThursday)">Jueves</mat-checkbox>
+                  <mat-checkbox (click)="addDay('Vi')" *ngIf="!disableDay || (disableDay && grupoController.onFriday)">Viernes</mat-checkbox>
+                  <mat-checkbox (click)="addDay('Sa')" *ngIf="!disableDay || (disableDay && grupoController.onSaturday)">Sábado</mat-checkbox>
+                  <mat-checkbox (click)="addDay('Do')" *ngIf="!disableDay || (disableDay && grupoController.onSunday)">Domingo</mat-checkbox>
+                </div>                
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col">
+              <button mat-button class="btn buttonSkepsi" data-toggle="modal" data-target="#example">
+                Vista previa
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  
+  
+  <!-- Update Modal -->
+  <div class="modal fade" id="example" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width: 50rem;">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalLabel">Vista previa de paquete</h1>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-subtitle">
+          <p style="background-color: red; color: white; padding: 5px;">Atención, después de crear el paquete no será posible editarlo, confirme que los datos sean correctos.</p>
+        </div>
+        <div class="modal-body">
+          :)
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn buttonCreate" (click)="onAdd()" data-dismiss="modal" style="border: 1px solid #673AB7;">Crear paquete</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -197,3 +197,8 @@ mat-form-field{
   line-height: 40px;
   border: 1px solid black;
 }
+
+.cuadricula img{
+  width: 12rem;
+  margin: 0px auto;  
+}

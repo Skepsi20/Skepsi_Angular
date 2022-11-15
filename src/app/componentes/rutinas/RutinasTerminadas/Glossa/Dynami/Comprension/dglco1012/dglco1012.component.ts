@@ -33,45 +33,45 @@ export class DGLCO1012Component implements OnInit {
   public reactivos = [
     {
       silabas: ['to','ji','es','la','tu','ri','pa','ra','co','po','me','che','mo','ta','so','za','fa','sa','no','chi','ma'],
-      respuestas: ['pato','sopa','mochila','taco','estuche','risa','sala','jirafa','mapache','mariposa','ramo','mesa','cometa','masa','rama','taza','rico','coche','noche']      
+      respuestas: ['pato','sopa','mochila','taco','estuche','risa','sala','jirafa','mapache','mariposa','ramo','mesa','cometa','masa','rama','taza','rico','coche','noche']
     },
     {
       silabas: ['li','zo','hi','rro','bo','co','tín','no','pa','ja','pe','bu','bro','ta','ma','que','te','bar','lo'],
-      respuestas: ['libro','patín','jarro','buzo','mano','loma','hija','malo','buque','perro','barco','bote','corro','pelota','bora']      
+      respuestas: ['libro','patín','jarro','buzo','mano','loma','hija','malo','buque','perro','barco','bote','corro','pelota','bora']
     },
     {
       silabas: ['que','lor','ro','es','tad','xi','he','ja','so','bur','li','chi','fu','zo','tu','ta','bu','ca','ber','che','sa'],
-      respuestas: ['queso','burbuja','cazo','calor','libertad','caro','hechizo','roja','chica','futuro','chita','casa','estuche','buzo','taxi','roca']      
+      respuestas: ['queso','burbuja','cazo','calor','libertad','caro','hechizo','roja','chica','futuro','chita','casa','estuche','buzo','taxi','roca']
     },
     {
       silabas: ['que','há','gar','vi','la','bi','za','dad','ble','to','res','li','ta','ser','in','ri','pe','bra','dor','ho'],
-      respuestas: ['labrador','resta','tabique','hábito','garza','taza','braza','respetabilidad','hola','inservible','braza','riqueza','resto','hogar','lila']      
+      respuestas: ['labrador','resta','tabique','hábito','garza','taza','braza','respetabilidad','hola','inservible','braza','riqueza','resto','hogar','lila']
     },
     {
       silabas: ['li','sa','pel','ca','piz','co','na','che','to','ta','lá','ju','ga','me','bro','ven','gue','te','pa','mi'],
-      respuestas: ['libro','casa','juguete','gato','lápiz','coche','mesa','camisa','ventana','papel','cometa','pata','pizca','cachete','tapa','nata']      
+      respuestas: ['libro','casa','juguete','gato','lápiz','coche','mesa','camisa','ventana','papel','cometa','pata','pizca','cachete','tapa','nata']
     },
     {
       silabas: ['nio','lla','le','pu','ho','na','co','fa','ji','ve','ra','za','cé','bre','ge','ra','do','ta','ne','ria','jo','com'],
-      respuestas: ['llave','conejo','jirafa','genio','geranio','cobre','célebre','zanahoria','computadora','rata','raza','nevería','dona','taza','hora','nata']      
+      respuestas: ['llave','conejo','jirafa','genio','geranio','cobre','célebre','zanahoria','computadora','rata','raza','nevería','dona','taza','hora','nata']
     },
     {
       silabas: ['be','ra','rin','ta','co','lu','ya','rra','la','to','min','do','la','pa','so','gui','cho','te','pa','que','go'],
-      respuestas: ['lupa','raqueta','domingo','guitarra','chocolate','payaso','pala','techo','latoso','laberinto','taco','gota','gorra','codo']      
+      respuestas: ['lupa','raqueta','domingo','guitarra','chocolate','payaso','pala','techo','latoso','laberinto','taco','gota','gorra','codo']
     },
     {
       silabas: ['bo','sa','da','bre','ma','no','prin','glo','sol','che','so','bru','blu','na','ro','ja','do','bro','som','ce','lu'],
-      respuestas: ['dado','broche','princesa','noche','blusa','sombrero','globo','noche','bruja','broma','sobre','soldado','sano','luna']      
+      respuestas: ['dado','broche','princesa','noche','blusa','sombrero','globo','noche','bruja','broma','sobre','soldado','sano','luna']
     },
     {
       silabas: ['je','to','za','cu','ras','la','ma','pa','tu','cha','ti','pie','sub','gri','cán','ra','dra','llo','jau','no','ri','ta'],
-      respuestas: ['taza','chato','cuchara','piedra','grillo','submarino','zapato','tijeras','tucán','pieza','jaula','grita','rama','drama','pato']      
+      respuestas: ['taza','chato','cuchara','piedra','grillo','submarino','zapato','tijeras','tucán','pieza','jaula','grita','rama','drama','pato']
     },
     {
       silabas: ['co','ga','pue','ta','bi','be','es','hor','ham','a','blo','ci','ja','mi','bur','fo','cle','que','bla','sa','gue'],
-      respuestas: ['gata','hormiga','amiga','pueblo','bicicleta','establo','abeja','tabla','hamburguesa','foco','cita']      
+      respuestas: ['gata','hormiga','amiga','pueblo','bicicleta','establo','abeja','tabla','hamburguesa','foco','cita']
     }
-  ] 
+  ]
 
   public silabasRandom = [];
   public respuestasRandom = [''];
@@ -79,7 +79,7 @@ export class DGLCO1012Component implements OnInit {
 
   public silabaDOM:any = [];
   public silabasRespuesta:any = [];
-  
+
   public palabraUsuario: string = '';
   public instruccionesDOM: boolean = true;
   public mostrarSilabasDOM: boolean = false;
@@ -120,7 +120,7 @@ export class DGLCO1012Component implements OnInit {
     this.respuestasRandom = this.arregloRandom(this.reactivos[this.ronda].respuestas.length, this.respuestasRandom, this.reactivos[this.ronda].respuestas);
     this.instruccionesFunc();
   }
-  
+
   arregloRandom(cantidadDeReactivos: any, arregloDestino:any, arregloFuente: any){
     var valor = cantidadDeReactivos;
     var fuente = arregloFuente;
@@ -182,7 +182,7 @@ export class DGLCO1012Component implements OnInit {
   }
 
 
-  mostrarSilabas(){    
+  mostrarSilabas(){
     var aux = 0;
     var tiempo = setInterval(()=>{
       if(aux < this.silabasRandom.length){
@@ -199,14 +199,14 @@ export class DGLCO1012Component implements OnInit {
         alarmInitRutina.play();
       }
     },1000);
-    
+
   }
 
   agregarPalabra(){
     this.respuestasUsuario.push(this.palabraUsuario);
     this.palabraUsuario = '';
   }
-  
+
   revisar(){
     let alarmInitRutina = <HTMLAudioElement>(
       document.getElementById('finEjerAudio')
@@ -221,41 +221,41 @@ export class DGLCO1012Component implements OnInit {
 
     this.cantidadFigurasDOM = this.reactivos[this.ronda].respuestas.length;
     this.calificacionDOM = this.calificacion;
-  
+
       //LLENADO DE TABLA RESULTS INICIO
       this.round++;
       //StudentSessionId
       this.resultsTable.studentSessionId = this.studentSessionId;
-  
+
       //Grade
       var partialGrade = ((this.calificacion/this.respuestasRandom.length)*100);
       this.resultsTable.grade = partialGrade;
-  
+
       //Round
       this.resultsTable.round = this.round;
-  
+
       //level
       this.resultsTable.level = this.level+1;
-  
+
       //LLENADO DE TABLA RESULTS FIN
-  
+
       //LLENADO DE TABLA RESULTS DETAILS INICIO
       //Possible points
       this.resultsTable.resultDetails[0].possiblePoints = this.respuestasRandom.length;
-  
+
       //Points
       this.resultsTable.resultDetails[0].points = this.calificacion;
-  
+
       //Possible points description
       this.resultsTable.resultDetails[0].possiblePointsDescription = "Cantidad de posibles palabras creadas";
-  
+
       //Points description
       this.resultsTable.resultDetails[0].pointsDescription ="Cantidad de palabras correctas";
-  
+
       //Metodo para crear resultado
       this.addResult(this.resultsTable);
       //LLENADO DE TABLA RESULTS DETAILS FIN
-  
+
     porcentaje = this.respuestasRandom.length * .6;
     if(this.calificacion >= porcentaje){
       this.level++;

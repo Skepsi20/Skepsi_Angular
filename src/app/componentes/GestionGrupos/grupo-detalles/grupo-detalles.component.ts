@@ -28,6 +28,9 @@ export class GrupoDetallesComponent implements OnInit {
     group: ''
   }
   public allTutors: ITutor[] = [];
+  public instituciones: any;
+  public todosLosGrupos: any;
+  public institucionesDisponibles: Array<any> = [];
 
   @ViewChild('groupsForm') groupsForm?: NgForm;
   @ViewChild('tutorsForm') tutorsForm?: NgForm;
@@ -50,13 +53,16 @@ export class GrupoDetallesComponent implements OnInit {
   }
 
   getAll(){
-    this.shared.getgrupo(this.grupo)
+    this.shared.getgroup(this.grupo)
       .subscribe(
         (successResponse)=>{
           this.group = successResponse;
+          this.instituciones = this.group.institutions;
+          console.log("GRUPOOOOO",this.group)
           this.shared.getAllgrupos(this.plan)
             .subscribe(
               (successResponse)=>{
+                this.todosLosGrupos = successResponse;
                 this.gruposShared = successResponse.filter(g => g.id != this.grupo);
                 this.tutorService.getTutores()
                 .subscribe(
@@ -78,16 +84,31 @@ export class GrupoDetallesComponent implements OnInit {
         }
     );
   }
+  
+  verificarCambio(event:any){
+    this.institucionesDisponibles = [];
+    let institucionAlumno: any; 
+    institucionAlumno = event.value.institution.id;
+    for (let i = 0; i < this.todosLosGrupos.length; i++) {
+      for (let j = 0; j < this.todosLosGrupos[i].institutions.length; j++) {
+        if(this.todosLosGrupos[i].institutions[j].id == institucionAlumno && this.todosLosGrupos[i].id != this.group.id){
+          this.institucionesDisponibles.push(this.todosLosGrupos[i])
+        }        
+      }
+    }
+  }
 
   cambiarGrupo(){
     if(this.groupsForm?.form.valid && this.cambioDeGrupo.student != '' && this.cambioDeGrupo.group != ''){
+      console.log("Cambio de grupo",this.cambioDeGrupo)
       this.shared.cambiarGrupo(this.cambioDeGrupo)
       .subscribe(
         (successResponse)=>{
           this.snackbar.open('Se cambió al estudiante correctamente',undefined,{
             duration: 2000
           });
-          console.log(successResponse);
+          this.ngOnInit();
+          this.institucionesDisponibles = [];
           this.getAll();
         },
         (error) =>{

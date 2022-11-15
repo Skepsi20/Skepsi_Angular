@@ -1,0 +1,174 @@
+<div class="DGNCO">
+    <div class="skepsiLogo">
+      <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+    </div>
+    <div>
+      <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
+      preload="auto"></audio>
+      <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
+        preload="auto"></audio>
+      <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
+    </div>
+    <div class="general">
+      <!-- INSTRUCCIONES -->
+      <div *ngIf="instruccionesDOM" class="instructions">
+  
+        <!-- BARRA DE PROGRESO INICIO -->
+        <div class="row progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            [attr.aria-valuenow]="timeInstructions" [style.width]="(timeInstructions*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+            style="margin:0px auto;">
+          </div>
+        </div>
+        <!-- BARRA DE PROGRESO FIN -->
+  
+        <br>
+        <div class="row">
+          <p class="titulo">A continuación realizarás ejercicios para identificar grupos de imágenes, secuencias y consecuencias a eventos, diviértete mucho y aprende.</p>
+        </div>
+      </div>
+  
+      <div *ngIf="!instruccionesDOM">
+        
+        <div *ngIf="conjuntosDOM">
+            <!-- BARRA DE PROGRESO INICIO -->
+          <div class="row progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+              [attr.aria-valuenow]="timeMostrar" [style.width]="(timeMostrar*3.333)+'%'" aria-valuemin="0" aria-valuemax="20"
+              style="margin:0px auto;">
+            </div>
+          </div>
+          <!-- BARRA DE PROGRESO FIN -->
+          <br>
+          <h1>La imagen de la izquierda pertenece al conjunto de la derecha?</h1>
+          <div class="row">
+            <div class="col">
+              <div class="row">
+                <div class="imagenConjunto">
+                  <img src="{{conjuntoActual[0].imagen}}" alt="">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col" align="right">
+                  <button class="btn buttonSkepsi" (click)="agregarRespuesta('true')">Si pertenece</button>
+                </div>
+                <div class="col" align="left">
+                  <button class="btn buttonSkepsi" (click)="agregarRespuesta('false')">No pertenece</button>
+                </div>
+              </div><br>
+              <div *ngIf="respuestaAux == 'true'">
+                <h1>Si pertenece</h1>
+              </div><br>
+              <div *ngIf="respuestaAux == 'false'">
+                <h1>No pertenece</h1>
+              </div>
+            </div>
+            <div class="col marcoConjunto">
+              <div class="imagenConjunto">
+                <img src="{{conjuntoActual[0].opcionA}}" alt="">
+                <img src="{{conjuntoActual[0].opcionB}}" alt="">
+                <img src="{{conjuntoActual[0].opcionC}}" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div *ngIf="secuenciasDOM">
+        <!-- BARRA DE PROGRESO INICIO -->
+        <div class="row progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            [attr.aria-valuenow]="timeMostrar" [style.width]="(timeMostrar*3.333)+'%'" aria-valuemin="0" aria-valuemax="20"
+            style="margin:0px auto;">
+          </div>
+        </div>
+        <!-- BARRA DE PROGRESO FIN -->
+        <br>
+        <h1>Cuál es la opción correcta para terminar la secuencia?</h1>
+        <div class="row">
+          <div class="col">
+            <h1>{{secuenciaActual[0].imagen}} -> ___</h1>
+            <br>
+            <h1>{{respuestaAux}}</h1>
+          </div>
+          <div class="col">
+            <div class="row mb-4">
+              <button class="btn buttonSkepsi" style="width: 6rem; margin: 0px auto;" (click)="agregarRespuesta(secuenciaActual[0].opcionA)">
+                <p style="padding-top: 10px;">{{secuenciaActual[0].opcionA}}</p>
+              </button>
+            </div>
+            <div class="row mt-4 mb-4">
+              <button class="btn buttonSkepsi" style="width: 6rem; margin: 0px auto;" (click)="agregarRespuesta(secuenciaActual[0].opcionB)">
+                <p style="padding-top: 10px;">{{secuenciaActual[0].opcionB}}</p>
+              </button>
+            </div>
+            <div class="row mt-4">
+              <button class="btn buttonSkepsi" style="width: 6rem; margin: 0px auto;" (click)="agregarRespuesta(secuenciaActual[0].opcionC)">
+                <p style="padding-top: 10px;">{{secuenciaActual[0].opcionC}}</p>
+              </button>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div *ngIf="consecuenciasDOM">
+        <!-- BARRA DE PROGRESO INICIO -->
+        <div class="row progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            [attr.aria-valuenow]="timeMostrar" [style.width]="(timeMostrar*3.333)+'%'" aria-valuemin="0" aria-valuemax="20"
+            style="margin:0px auto;">
+          </div>
+        </div>
+        <!-- BARRA DE PROGRESO FIN -->
+        <br>
+        <h1>{{consecuenciaActual[0].nombre}}</h1>
+
+        <div class="row">
+          <div class="col">
+            <h1>Imagen:</h1>
+            <div class="imagenConjunto">
+              <img src="{{consecuenciaActual[0].imagen}}" alt="">
+            </div>
+          </div>
+          <div class="col">
+            <h1>Respuesta:</h1>
+            <div class="imagenConjunto">
+              <img src="{{respuestaAux}}" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col imagenConjunto">
+            <button class="btn buttonSkepsi" (click)="agregarRespuesta(consecuenciaActual[0].opcionA)">
+              <img style="width: 10rem;" src="{{consecuenciaActual[0].opcionA}}" alt="">
+            </button>
+          </div>
+          <div class="col imagenConjunto">
+            <button class="btn buttonSkepsi" (click)="agregarRespuesta(consecuenciaActual[0].opcionB)">
+              <img style="width: 10rem;" src="{{consecuenciaActual[0].opcionB}}" alt="">
+            </button>
+          </div>
+          <div class="col imagenConjunto">
+            <button class="btn buttonSkepsi" (click)="agregarRespuesta(consecuenciaActual[0].opcionC)">
+              <img style="width: 10rem;" src="{{consecuenciaActual[0].opcionC}}" alt="">
+            </button>
+          </div>
+        </div>
+        </div>
+
+        
+      <div *ngIf="resultadosDOM">
+         <!-- BARRA DE PROGRESO INICIO -->
+         <div class="row progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            [attr.aria-valuenow]="timeDescanso" [style.width]="(timeDescanso*1.6667)+'%'" aria-valuemin="0" aria-valuemax="20"
+            style="margin:0px auto;">
+          </div>
+        </div>
+        <!-- BARRA DE PROGRESO FIN -->
+        <p class="titulo">Ejercicio terminado!</p>
+        <p class="titulo"> Resultados:</p>
+        <p class="titulo">Tuviste {{calificacionDOM}} aciertos de 3</p>
+      </div>
+    </div>
+  </div>
+    
