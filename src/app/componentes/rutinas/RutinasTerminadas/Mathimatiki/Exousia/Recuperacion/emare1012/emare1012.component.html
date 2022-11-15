@@ -69,6 +69,13 @@
                 <img src="..\assets\img\rutinas\LogicoMatematico\espaciosFig\FigurasGeom-{{espacio}}.png" >
               </div>
             </div>
+            <div class="row">
+            <div class="col-2" style="margin:0px auto" *ngIf="!rutina">
+              <button (click)="funcion1()" mat-raised-button class="buttonSkepsi textoBoton">
+                Siguiente
+              </button>
+            </div>
+            </div>
           </div>
         </div>
       </div>

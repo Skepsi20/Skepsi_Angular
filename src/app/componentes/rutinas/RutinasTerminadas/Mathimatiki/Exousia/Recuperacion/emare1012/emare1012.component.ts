@@ -66,12 +66,12 @@ export class EMARE1012Component implements OnInit {
 
   public tiempoSegundosCrono = 120;
   //25
-  public segundosDescanso = 10;
+  public segundosDescanso = 60;
   //15
-  public tiempoSegundosGeneral = 300;
+  public tiempoSegundosGeneral = 1000000;
   //150
 
-  public tiempoSegundosInstrucciones = 10;
+  public tiempoSegundosInstrucciones = 15;
 
   public tTimerGeneral = 0;
   public tTimer = 0;
@@ -398,29 +398,39 @@ export class EMARE1012Component implements OnInit {
 
     this.tTimerDescanso = this.segundosDescanso;
     this.tiempoDescanso = true;
-      if (this.tTimerGeneral > 0) {
-        if (this.ejercActivo == 1){
+    if (this.tTimerGeneral > 0) {
+      console.log('timer general, ejer', this.ejercActivo);
+
+      if (this.ejercActivo == 1) {
+        console.log('ejer = 1', this.ejercActivo);
+        let _tiempo1 = setTimeout(() => {
           this.ejercActivo++;
           this.tiempoDescanso = false;
-          this.Inicializacion();}
-          else{
+          this.Inicializacion();
+        }, 10);
+      } else {
         let _tiempo = setTimeout(() => {
+          console.log('set timeout', this.ejercActivo);
           if (this.ejercActivo > 0) this.ejercActivo++;
 
           if (this.ejercActivo == 3) {
             this.ejercActivo = 1;
-            this.numEspaciosFig += 3;
+            if (this.resultsTable.grade > 60) {
+              this.numEspaciosFig += 3;
+            }
           }
           this.tiempoDescanso = false;
           this.Inicializacion();
-        }, this.segundosDescanso * 1000);}
-      } else {
-        this.ejercActivo = 4;
-        this.tiempoDescanso = false;
-        this.getresultadosRutina();
-        console.log('Aciertos T', this.aciertosTotales);
-        console.log('Intentos T', this.intentosTotales);
-        this.Inicializacion();
+        }, this.segundosDescanso * 1000);
+      }
+    } else {
+      console.log('else 4', this.ejercActivo);
+      this.ejercActivo = 4;
+      this.tiempoDescanso = false;
+      this.getresultadosRutina();
+      console.log('Aciertos T', this.aciertosTotales);
+      console.log('Intentos T', this.intentosTotales);
+      this.Inicializacion();
     }
   }
 
@@ -536,47 +546,51 @@ export class EMARE1012Component implements OnInit {
   }
 
   revisar() {
-    this.resultadoEjer[this.ejercActivo - 1].aciertos += this.calificacion;
-    this.resultadoEjer[this.ejercActivo - 1].intentos += this.contadorEjer;
-    this.calificacionVista = this.calificacion;
-    console.log('RESULTADO: ' + this.calificacion + ' de ' + this.contadorEjer);
+    if (this.ejercActivo == 2) {
+      this.resultadoEjer[this.ejercActivo - 1].aciertos += this.calificacion;
+      this.resultadoEjer[this.ejercActivo - 1].intentos += this.contadorEjer;
+      this.calificacionVista = this.calificacion;
+      console.log(
+        'RESULTADO: ' + this.calificacion + ' de ' + this.contadorEjer
+      );
 
-    //LLENADO DE TABLA RESULTS INICIO
-    this.round++;
-    console.log('STUDENT SESSION ID', this.studentSessionId);
-    //StudentSessionId
-    this.resultsTable.studentSessionId = this.studentSessionId;
+      //LLENADO DE TABLA RESULTS INICIO
+      this.round++;
+      console.log('STUDENT SESSION ID', this.studentSessionId);
+      //StudentSessionId
+      this.resultsTable.studentSessionId = this.studentSessionId;
 
-    //Grade
-    let partialGrade = (this.calificacion / this.contadorEjer) * 100;
-    this.resultsTable.grade = partialGrade;
+      //Grade
+      let partialGrade = (this.calificacion / this.contadorEjer) * 100;
+      this.resultsTable.grade = partialGrade;
 
-    //Round
-    this.resultsTable.round = this.round;
+      //Round
+      this.resultsTable.round = this.round;
 
-    //level
-    this.resultsTable.level = this.level + 1;
+      //level
+      this.resultsTable.level = this.level + 1;
 
-    //LLENADO DE TABLA RESULTS FIN
+      //LLENADO DE TABLA RESULTS FIN
 
-    //LLENADO DE TABLA RESULTS DETAILS INICIO
-    //Possible points
-    this.resultsTable.resultDetails[0].possiblePoints = this.contadorEjer;
+      //LLENADO DE TABLA RESULTS DETAILS INICIO
+      //Possible points
+      this.resultsTable.resultDetails[0].possiblePoints = this.contadorEjer;
 
-    //Points
-    this.resultsTable.resultDetails[0].points = this.calificacion;
+      //Points
+      this.resultsTable.resultDetails[0].points = this.calificacion;
 
-    //Possible points description
-    this.resultsTable.resultDetails[0].possiblePointsDescription =
-      'Cantidad de ejecicios resueltos';
+      //Possible points description
+      this.resultsTable.resultDetails[0].possiblePointsDescription =
+        'Cantidad de ejecicios resueltos';
 
-    //Points description
-    this.resultsTable.resultDetails[0].pointsDescription =
-      'Cantidad de aciertos';
+      //Points description
+      this.resultsTable.resultDetails[0].pointsDescription =
+        'Cantidad de aciertos';
 
-    //Metodo para crear resultado
-    this.addResult(this.resultsTable);
-    //LLENADO DE TABLA RESULTS DETAILS FIN
+      //Metodo para crear resultado
+      this.addResult(this.resultsTable);
+      //LLENADO DE TABLA RESULTS DETAILS FIN
+    }
 
     this.descanso();
   }
