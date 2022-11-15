@@ -66,12 +66,12 @@ export class EMARE1012Component implements OnInit {
 
   public tiempoSegundosCrono = 120;
   //25
-  public segundosDescanso = 5;
+  public segundosDescanso = 60;
   //15
-  public tiempoSegundosGeneral = 350;
+  public tiempoSegundosGeneral = 1000000;
   //150
 
-  public tiempoSegundosInstrucciones = 2;
+  public tiempoSegundosInstrucciones = 15;
 
   public tTimerGeneral = 0;
   public tTimer = 0;
@@ -95,7 +95,7 @@ export class EMARE1012Component implements OnInit {
   public listFigGeoRand: any;
   public listEspsFig: Array<any> = [];
   public vistaEspacios: Array<any> = [];
-  public numEspaciosFig=6;
+  public numEspaciosFig = 6;
 
   //Ejercicio3
   public fraccionesRand: Array<any> = [];
@@ -150,7 +150,6 @@ export class EMARE1012Component implements OnInit {
       console.log('T-General', this.tTimerGeneral);
       console.log('T-Instrucciones', this.tTimerInstrucciones);
       */
-
     });
   }
 
@@ -362,25 +361,31 @@ export class EMARE1012Component implements OnInit {
       this.listEspsFig.push(element.espacioCorr);
     });
     this.listFigGeoRand.sort(() => Math.random() - 0.45);
-
   }
 
-  figSelection(i:any){
-    if(!this.listFigGeoRand[i].toggle)this.listFigGeoRand[i].toggle=true;
-    else{if(this.listFigGeoRand[i].toggle)this.listFigGeoRand[i].toggle=false;}
-    console.log('EspaciosFaltantes', this.listEspsFig)
+  figSelection(i: any) {
+    if (!this.listFigGeoRand[i].toggle) this.listFigGeoRand[i].toggle = true;
+    else {
+      if (this.listFigGeoRand[i].toggle) this.listFigGeoRand[i].toggle = false;
+    }
+    console.log('EspaciosFaltantes', this.listEspsFig);
     //console.log('FGRand', this.listFigGeoRand);
 
-    this.listFigGeoRand.forEach((figura: {
-      espacioCorr: any; toggle: any; "": (value: any, index: number, obj: any[]) => unknown;
-}) => {
-      if (figura.toggle){
-        this.listEspsFig = this.listEspsFig.filter(e => e !== figura.espacioCorr)
+    this.listFigGeoRand.forEach(
+      (figura: {
+        espacioCorr: any;
+        toggle: any;
+        '': (value: any, index: number, obj: any[]) => unknown;
+      }) => {
+        if (figura.toggle) {
+          this.listEspsFig = this.listEspsFig.filter(
+            (e) => e !== figura.espacioCorr
+          );
+        }
       }
-    });
+    );
 
-    console.log('EspaciosFaltantes', this.listEspsFig)
-
+    console.log('EspaciosFaltantes', this.listEspsFig);
   }
 
   crearDuplasFracciones() {
@@ -393,15 +398,33 @@ export class EMARE1012Component implements OnInit {
 
     this.tTimerDescanso = this.segundosDescanso;
     this.tiempoDescanso = true;
-
     if (this.tTimerGeneral > 0) {
-      let _tiempo = setTimeout(() => {
-        if (this.ejercActivo > 0) this.ejercActivo++;
-        if (this.ejercActivo == 3) {this.ejercActivo = 1; this.numEspaciosFig+=3;}
-        this.tiempoDescanso = false;
-        this.Inicializacion();
-      }, this.segundosDescanso * 1000);
+      console.log('timer general, ejer', this.ejercActivo);
+
+      if (this.ejercActivo == 1) {
+        console.log('ejer = 1', this.ejercActivo);
+        let _tiempo1 = setTimeout(() => {
+          this.ejercActivo++;
+          this.tiempoDescanso = false;
+          this.Inicializacion();
+        }, 10);
+      } else {
+        let _tiempo = setTimeout(() => {
+          console.log('set timeout', this.ejercActivo);
+          if (this.ejercActivo > 0) this.ejercActivo++;
+
+          if (this.ejercActivo == 3) {
+            this.ejercActivo = 1;
+            if (this.resultsTable.grade > 60) {
+              this.numEspaciosFig += 3;
+            }
+          }
+          this.tiempoDescanso = false;
+          this.Inicializacion();
+        }, this.segundosDescanso * 1000);
+      }
     } else {
+      console.log('else 4', this.ejercActivo);
       this.ejercActivo = 4;
       this.tiempoDescanso = false;
       this.getresultadosRutina();
@@ -432,7 +455,6 @@ export class EMARE1012Component implements OnInit {
     this.tTimer = this.tiempoSegundosCrono + 1;
   }
 
-
   mostrarEjer1() {
     this.initListasFigGeo();
     let RestaTiempo = Math.floor(
@@ -449,7 +471,7 @@ export class EMARE1012Component implements OnInit {
   }
 
   mostrarEjer2() {
-    console.log('EspaciosFaltantes', this.listEspsFig)
+    console.log('EspaciosFaltantes', this.listEspsFig);
 
     if (this.timerActivo) {
       //this.crearListasFigGeo();
@@ -480,17 +502,14 @@ export class EMARE1012Component implements OnInit {
   funcion1() {
     //this.tTimer=1;
     this.revisar();
-      this.calificacion = 0;
-      this.resultados = true;
-      this.rutina = true;
-
+    this.calificacion = 0;
+    this.resultados = true;
+    this.rutina = true;
   }
 
   funcion2() {
-
-
     this.contadorEjer += this.numEspaciosFig;
-    this.calificacion+= this.numEspaciosFig-this.listEspsFig.length;
+    this.calificacion += this.numEspaciosFig - this.listEspsFig.length;
 
     console.log('Calificacion Acumulada -> ' + this.calificacion);
     this.revisar();
@@ -527,47 +546,51 @@ export class EMARE1012Component implements OnInit {
   }
 
   revisar() {
-    this.resultadoEjer[this.ejercActivo - 1].aciertos += this.calificacion;
-    this.resultadoEjer[this.ejercActivo - 1].intentos += this.contadorEjer;
-    this.calificacionVista = this.calificacion;
-    console.log('RESULTADO: ' + this.calificacion + ' de ' + this.contadorEjer);
+    if (this.ejercActivo == 2) {
+      this.resultadoEjer[this.ejercActivo - 1].aciertos += this.calificacion;
+      this.resultadoEjer[this.ejercActivo - 1].intentos += this.contadorEjer;
+      this.calificacionVista = this.calificacion;
+      console.log(
+        'RESULTADO: ' + this.calificacion + ' de ' + this.contadorEjer
+      );
 
-    //LLENADO DE TABLA RESULTS INICIO
-    this.round++;
-    console.log('STUDENT SESSION ID', this.studentSessionId);
-    //StudentSessionId
-    this.resultsTable.studentSessionId = this.studentSessionId;
+      //LLENADO DE TABLA RESULTS INICIO
+      this.round++;
+      console.log('STUDENT SESSION ID', this.studentSessionId);
+      //StudentSessionId
+      this.resultsTable.studentSessionId = this.studentSessionId;
 
-    //Grade
-    let partialGrade = (this.calificacion / this.contadorEjer) * 100;
-    this.resultsTable.grade = partialGrade;
+      //Grade
+      let partialGrade = (this.calificacion / this.contadorEjer) * 100;
+      this.resultsTable.grade = partialGrade;
 
-    //Round
-    this.resultsTable.round = this.round;
+      //Round
+      this.resultsTable.round = this.round;
 
-    //level
-    this.resultsTable.level = this.level + 1;
+      //level
+      this.resultsTable.level = this.level + 1;
 
-    //LLENADO DE TABLA RESULTS FIN
+      //LLENADO DE TABLA RESULTS FIN
 
-    //LLENADO DE TABLA RESULTS DETAILS INICIO
-    //Possible points
-    this.resultsTable.resultDetails[0].possiblePoints = this.contadorEjer;
+      //LLENADO DE TABLA RESULTS DETAILS INICIO
+      //Possible points
+      this.resultsTable.resultDetails[0].possiblePoints = this.contadorEjer;
 
-    //Points
-    this.resultsTable.resultDetails[0].points = this.calificacion;
+      //Points
+      this.resultsTable.resultDetails[0].points = this.calificacion;
 
-    //Possible points description
-    this.resultsTable.resultDetails[0].possiblePointsDescription =
-      'Cantidad de ejecicios resueltos';
+      //Possible points description
+      this.resultsTable.resultDetails[0].possiblePointsDescription =
+        'Cantidad de ejecicios resueltos';
 
-    //Points description
-    this.resultsTable.resultDetails[0].pointsDescription =
-      'Cantidad de aciertos';
+      //Points description
+      this.resultsTable.resultDetails[0].pointsDescription =
+        'Cantidad de aciertos';
 
-    //Metodo para crear resultado
-    this.addResult(this.resultsTable);
-    //LLENADO DE TABLA RESULTS DETAILS FIN
+      //Metodo para crear resultado
+      this.addResult(this.resultsTable);
+      //LLENADO DE TABLA RESULTS DETAILS FIN
+    }
 
     this.descanso();
   }

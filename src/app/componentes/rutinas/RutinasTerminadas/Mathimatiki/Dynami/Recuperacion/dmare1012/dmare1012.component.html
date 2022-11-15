@@ -8,7 +8,6 @@
   <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
     preload="auto"></audio>
   <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
-  <h1>{{tTimer}}</h1>
 </div>
 <div class="general">
   <div *ngIf="instrucciones" class="instructions">
@@ -136,7 +135,7 @@
                   -->
                   <td><mat-form-field>
                     <mat-label>Tirada {{i+1}}</mat-label>
-                    <mat-select [(ngModel)]="tirada.operTirada" (selectionChange)="evaluateOper(tirada)"placeholder="">
+                    <mat-select [(ngModel)]="tirada.operTirada" placeholder="">
                       <mat-option *ngFor="let operador of opcionesOper" [value]="operador">{{ operador.simbolo }}</mat-option>
                     </mat-select>
                   </mat-form-field></td>
@@ -147,7 +146,7 @@
                 </tbody>
               </table>
               <div class="row">
-                <div class="col-2" style="margin: 0px auto;">
+                <div class="col-2" style="margin: 0px auto;" *ngIf="!tiradaReview===true">
                   <button (click)="funcion3()" mat-raised-button class="buttonSkepsi textoBoton">
                     Continuar
                   </button>

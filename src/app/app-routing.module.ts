@@ -99,7 +99,7 @@ const routes: Routes = [
 
   {path:'test', component: DGNRE1012Component},
   {path:'test-omar', component: Esyco1012Component},
-  {path:'test-daniel', component: DMARE1012Component},
+  {path:'test-daniel', component: Dmaco1012Component},
 
   //https://www.skepsi.com.mx/#/confirm-email?email=rixflos77@gmail.com&token=CfDJ8H7g1sKTX9xBlBUi+eUBYoN3X3Ff3NBDHOpzFSfD1/b61DMU+uZrWa57L2v5w6zKgOoATD4/ckqcTxsXBHjN8XQZ5WYdjXozhEbhU4N2yB2xBLm0KOxZeYgfjLf6sT+TGuuySBMBe3yinIt+k8z0OMz8v7X1qBfux5Fji1Lmt2eVH81niLwtxhv0INBWXGVGNKdnluLmilKBngyaoN8sT+4n8SDWY3fRkuuuQIs7swPzTHLgKJiAz9E/9glDVIESRQ==
 

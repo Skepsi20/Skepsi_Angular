@@ -69,8 +69,8 @@ export class DMARE1012Component implements OnInit {
 
   public tiempoSegundosCrono = 35;
   public segundosDescanso = 10;
-  public tiempoSegundosGeneral = 120;
-  public tiempoSegundosInstrucciones = 10;
+  public tiempoSegundosGeneral = 45*60;
+  public tiempoSegundosInstrucciones = 15;
 
   public tTimerGeneral = 0;
   public tTimer = 0;
@@ -102,6 +102,7 @@ export class DMARE1012Component implements OnInit {
   public arrUsuario: Array<any> = [];
   public arrResults: Array<any> = [];
   public tiradasRestantes = 0;
+  public tiradaReview=false;
 
   constructor(
     private _emacoService: Emaco1012Service,
@@ -315,7 +316,10 @@ export class DMARE1012Component implements OnInit {
         if (this.ejercActivo > 0) this.ejercActivo++;
         if (this.ejercActivo == 4) {
           this.ejercActivo = 2;
-          this.numeroTiradas += 3;
+          console.log(this.resultsTable.grade)
+          if((this.resultsTable.grade)>60){this.numeroTiradas += 3;console.log('mas del 0.6');
+          }
+
         }
         this.tiempoDescanso = false;
         this.Inicializacion();
@@ -471,14 +475,22 @@ export class DMARE1012Component implements OnInit {
 
   funcion3() {
     this.tabTiradas.forEach((tirada) => {
+      this.evaluateOper(tirada)
       if (tirada.result) this.calificacion++;
       this.contadorEjer++;
     });
-
-    this.revisar();
-    this.calificacion = 0;
+    this.tiradaReview=true;
+    let _tiempo = setTimeout(() => {
+      //this.tiradaReview=true;
+      this.revisar();
+      this.calificacion = 0;
     this.resultados = true;
     this.rutina = true;
+    this.tiradaReview=false;
+    }, this.segundosDescanso * 1000);
+
+    //this.revisar();
+
 
   }
 
