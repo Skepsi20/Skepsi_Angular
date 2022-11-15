@@ -62,13 +62,13 @@ export class Dmaco1012Component implements OnInit {
   public inicioCrono: Date = new Date();
 
   //5 minutos (300)
-  public tiempoSegundosCrono = 20;
+  public tiempoSegundosCrono = 300;
   // 1 minuto (60)
-  public segundosDescanso: any = 5;
+  public segundosDescanso: any = 60;
   //----na----
-  public tiempoSegundosGeneral = 120;
+  public tiempoSegundosGeneral = 1200000;
   //15 segundos (15)
-  public tiempoSegundosInstrucciones = 8;
+  public tiempoSegundosInstrucciones = 15;
 
   public tTimerGeneral = 0;
   public tTimer = 0;

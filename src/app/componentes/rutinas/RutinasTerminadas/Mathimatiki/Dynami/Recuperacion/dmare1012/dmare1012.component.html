@@ -8,7 +8,6 @@
   <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
     preload="auto"></audio>
   <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
-  <h1>{{tTimer}}</h1>
 </div>
 <div class="general">
   <div *ngIf="instrucciones" class="instructions">
@@ -147,7 +146,7 @@
                 </tbody>
               </table>
               <div class="row">
-                <div class="col-2" style="margin: 0px auto;">
+                <div class="col-2" style="margin: 0px auto;" *ngIf="!tiradaReview===true">
                   <button (click)="funcion3()" mat-raised-button class="buttonSkepsi textoBoton">
                     Continuar
                   </button>

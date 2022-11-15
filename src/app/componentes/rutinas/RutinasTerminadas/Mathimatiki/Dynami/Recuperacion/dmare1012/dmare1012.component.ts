@@ -69,8 +69,8 @@ export class DMARE1012Component implements OnInit {
 
   public tiempoSegundosCrono = 35;
   public segundosDescanso = 10;
-  public tiempoSegundosGeneral = 120;
-  public tiempoSegundosInstrucciones = 10;
+  public tiempoSegundosGeneral = 45*60;
+  public tiempoSegundosInstrucciones = 15;
 
   public tTimerGeneral = 0;
   public tTimer = 0;
@@ -316,7 +316,10 @@ export class DMARE1012Component implements OnInit {
         if (this.ejercActivo > 0) this.ejercActivo++;
         if (this.ejercActivo == 4) {
           this.ejercActivo = 2;
-          this.numeroTiradas += 3;
+          console.log(this.resultsTable.grade)
+          if((this.resultsTable.grade)>60){this.numeroTiradas += 3;console.log('mas del 0.6');
+          }
+
         }
         this.tiempoDescanso = false;
         this.Inicializacion();

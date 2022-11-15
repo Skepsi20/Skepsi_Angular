@@ -68,7 +68,7 @@ export class EMARE1012Component implements OnInit {
   //25
   public segundosDescanso = 10;
   //15
-  public tiempoSegundosGeneral = 350;
+  public tiempoSegundosGeneral = 300;
   //150
 
   public tiempoSegundosInstrucciones = 10;
@@ -95,7 +95,7 @@ export class EMARE1012Component implements OnInit {
   public listFigGeoRand: any;
   public listEspsFig: Array<any> = [];
   public vistaEspacios: Array<any> = [];
-  public numEspaciosFig=6;
+  public numEspaciosFig = 6;
 
   //Ejercicio3
   public fraccionesRand: Array<any> = [];
@@ -150,7 +150,6 @@ export class EMARE1012Component implements OnInit {
       console.log('T-General', this.tTimerGeneral);
       console.log('T-Instrucciones', this.tTimerInstrucciones);
       */
-
     });
   }
 
@@ -362,25 +361,31 @@ export class EMARE1012Component implements OnInit {
       this.listEspsFig.push(element.espacioCorr);
     });
     this.listFigGeoRand.sort(() => Math.random() - 0.45);
-
   }
 
-  figSelection(i:any){
-    if(!this.listFigGeoRand[i].toggle)this.listFigGeoRand[i].toggle=true;
-    else{if(this.listFigGeoRand[i].toggle)this.listFigGeoRand[i].toggle=false;}
-    console.log('EspaciosFaltantes', this.listEspsFig)
+  figSelection(i: any) {
+    if (!this.listFigGeoRand[i].toggle) this.listFigGeoRand[i].toggle = true;
+    else {
+      if (this.listFigGeoRand[i].toggle) this.listFigGeoRand[i].toggle = false;
+    }
+    console.log('EspaciosFaltantes', this.listEspsFig);
     //console.log('FGRand', this.listFigGeoRand);
 
-    this.listFigGeoRand.forEach((figura: {
-      espacioCorr: any; toggle: any; "": (value: any, index: number, obj: any[]) => unknown;
-}) => {
-      if (figura.toggle){
-        this.listEspsFig = this.listEspsFig.filter(e => e !== figura.espacioCorr)
+    this.listFigGeoRand.forEach(
+      (figura: {
+        espacioCorr: any;
+        toggle: any;
+        '': (value: any, index: number, obj: any[]) => unknown;
+      }) => {
+        if (figura.toggle) {
+          this.listEspsFig = this.listEspsFig.filter(
+            (e) => e !== figura.espacioCorr
+          );
+        }
       }
-    });
+    );
 
-    console.log('EspaciosFaltantes', this.listEspsFig)
-
+    console.log('EspaciosFaltantes', this.listEspsFig);
   }
 
   crearDuplasFracciones() {
@@ -393,21 +398,29 @@ export class EMARE1012Component implements OnInit {
 
     this.tTimerDescanso = this.segundosDescanso;
     this.tiempoDescanso = true;
+      if (this.tTimerGeneral > 0) {
+        if (this.ejercActivo == 1){
+          this.ejercActivo++;
+          this.tiempoDescanso = false;
+          this.Inicializacion();}
+          else{
+        let _tiempo = setTimeout(() => {
+          if (this.ejercActivo > 0) this.ejercActivo++;
 
-    if (this.tTimerGeneral > 0) {
-      let _tiempo = setTimeout(() => {
-        if (this.ejercActivo > 0) this.ejercActivo++;
-        if (this.ejercActivo == 3) {this.ejercActivo = 1; this.numEspaciosFig+=3;}
+          if (this.ejercActivo == 3) {
+            this.ejercActivo = 1;
+            this.numEspaciosFig += 3;
+          }
+          this.tiempoDescanso = false;
+          this.Inicializacion();
+        }, this.segundosDescanso * 1000);}
+      } else {
+        this.ejercActivo = 4;
         this.tiempoDescanso = false;
+        this.getresultadosRutina();
+        console.log('Aciertos T', this.aciertosTotales);
+        console.log('Intentos T', this.intentosTotales);
         this.Inicializacion();
-      }, this.segundosDescanso * 1000);
-    } else {
-      this.ejercActivo = 4;
-      this.tiempoDescanso = false;
-      this.getresultadosRutina();
-      console.log('Aciertos T', this.aciertosTotales);
-      console.log('Intentos T', this.intentosTotales);
-      this.Inicializacion();
     }
   }
 
@@ -432,7 +445,6 @@ export class EMARE1012Component implements OnInit {
     this.tTimer = this.tiempoSegundosCrono + 1;
   }
 
-
   mostrarEjer1() {
     this.initListasFigGeo();
     let RestaTiempo = Math.floor(
@@ -449,7 +461,7 @@ export class EMARE1012Component implements OnInit {
   }
 
   mostrarEjer2() {
-    console.log('EspaciosFaltantes', this.listEspsFig)
+    console.log('EspaciosFaltantes', this.listEspsFig);
 
     if (this.timerActivo) {
       //this.crearListasFigGeo();
@@ -480,17 +492,14 @@ export class EMARE1012Component implements OnInit {
   funcion1() {
     //this.tTimer=1;
     this.revisar();
-      this.calificacion = 0;
-      this.resultados = true;
-      this.rutina = true;
-
+    this.calificacion = 0;
+    this.resultados = true;
+    this.rutina = true;
   }
 
   funcion2() {
-
-
     this.contadorEjer += this.numEspaciosFig;
-    this.calificacion+= this.numEspaciosFig-this.listEspsFig.length;
+    this.calificacion += this.numEspaciosFig - this.listEspsFig.length;
 
     console.log('Calificacion Acumulada -> ' + this.calificacion);
     this.revisar();
