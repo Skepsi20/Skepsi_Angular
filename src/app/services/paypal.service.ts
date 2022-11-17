@@ -31,7 +31,7 @@ export class PaypalService {
   }
   
   getFilteredSells(request:any): Observable<any>{
-    return this.httpClient.get<any>(this.baseApiUrl+'/api/sales/filtered',request);
+    return this.httpClient.get<any>(this.baseApiUrl+'/api/sales/?StartDate='+request.startDate+'&EndDate='+request.endDate+'&status='+request.status+'&description='+request.description);
   }
 
   addSale(request:any): Observable<any>{

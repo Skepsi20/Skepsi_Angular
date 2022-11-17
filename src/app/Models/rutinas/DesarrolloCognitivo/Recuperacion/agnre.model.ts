@@ -5,6 +5,5 @@ export class agnre{
       public opcion1: string,
       public opcion2: string,
       public nombre: string,
-      public estado: string,
   ){}
 }

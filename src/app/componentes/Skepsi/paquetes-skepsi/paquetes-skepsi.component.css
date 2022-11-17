@@ -15,7 +15,7 @@
 }
 .tarjetaUno{
   width:90%;
-  height:400px;
+  height:auto;
   margin: 0px auto;
   margin-top: 30px;
   text-align: center;
@@ -137,7 +137,7 @@ hr{
   background-size: cover;
   height: 330px;
   overflow: hidden;
-  margin-top: 35px;
+  margin: 10px;
 }
 .overlayTwo {
   font-family: 'roboto-regular', Arial;
@@ -146,7 +146,7 @@ hr{
   bottom: 0;
   left: 0;
   right: 0;
-  height: 400px;
+  height: auto;
   width: 100%;
   opacity: 0;
   transition: .5s ease;
@@ -299,3 +299,30 @@ li{
   background-color: white;
   color: #0A2A49;
 }
+
+@media (max-width:510px)
+{
+  .preguntasMostrar
+  {
+    font-size: 15px;
+    line-height: 20px;
+  }
+  .pistasMostrar{
+    font-size: 15px;
+    line-height: 20px;
+  }
+  .espacio ul{
+    min-width: 0px;
+  }
+}
+
+@media (max-width:400px)
+{
+  .espacio{
+    margin: 0px;
+  }
+  .espacio ul li{
+    padding: 4px;
+  }
+}
+

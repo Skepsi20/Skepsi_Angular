@@ -99,7 +99,16 @@ export class Agnco1012Service {
         new dgnco ('Secuencia cinco','A;8; D;15; H;22; M;29','S;30','R;36','T;37','R;36'),
         new dgnco ('Secuencia seis','7;a; 14;e; 16;i; 32;o','o;64','a;36','u;34','u;34'),
       ]
+/* 
 
+        nombre: string, 
+        imagen: string, 
+        opcionA: string, 
+        opcionB: string, 
+        opcionC: string, 
+        respuesta: any
+
+*/
       this.consecuencias = [  
         new dgnco ('Cómo estaría el agua dentro del camión inclinado?'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion.png'
@@ -107,12 +116,37 @@ export class Agnco1012Service {
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion02.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion03.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion01.png'),     
-        new dgnco ('Cómo estaría el agua dentro del camión inclinado?'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion01.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion02.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion03.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion01.png'),    
+        new dgnco ('Qué se necesita para cambiar de estado?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/estadoUno.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/frio.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/hielo.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/frio.png'),  
+        new dgnco ('Qué se necesita para cambiar de estado?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/estadoDos.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/frio.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/hielo.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'),  
+        new dgnco ('Qué se necesita para cambiar de estado?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/estadoTres.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/frio.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/hielo.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'),  
+        new dgnco ('Un estudiante pone 100 ml de agua en cada uno de estos recipientes, y los expone al sol  durante todo el día. ¿Cuál de los recipientes perderá mayor cantidad de agua por acción de la evaporación?'
+        ,''
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Liquido01.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Liquido02.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Liquido.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Liquido02.png'),  
+        /* new dgnco ('Don Carlos camina para comprar un diario, ¿Cómo te das cuenta que don Carlos está avanzando?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/estadoTres.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/frio.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/hielo.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'), */  
+
       ]
   }
 
