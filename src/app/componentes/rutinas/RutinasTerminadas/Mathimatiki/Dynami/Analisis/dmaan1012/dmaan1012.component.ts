@@ -10,6 +10,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dmaan1012',
@@ -109,8 +110,11 @@ export class Dmaan1012Component implements OnInit {
   public sliderRValue: number = 0;
   public fractionR: string = '';
 
-  constructor(private _DMAANService: Dmaan1012Service,
-    private _resultsService: ResultsService) {}
+  constructor(
+    private _DMAANService: Dmaan1012Service,
+    private _resultsService: ResultsService,
+    private router:Router
+    ) {}
 
   ngOnInit(): void {
     //Instrucciones API
@@ -632,5 +636,11 @@ export class Dmaan1012Component implements OnInit {
 
   reloadPage() {
     window.location.reload();
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
+    });
   }
 }

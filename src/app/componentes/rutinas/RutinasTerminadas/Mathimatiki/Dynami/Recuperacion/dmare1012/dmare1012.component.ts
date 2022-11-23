@@ -11,6 +11,7 @@ import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { Emaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/emaco1012.service';
 import { dmare } from 'src/app/Models/rutinas/LogicoMatematico/Recuperacion/dmare.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dmare1012',
@@ -106,7 +107,8 @@ export class DMARE1012Component implements OnInit {
 
   constructor(
     private _emacoService: Emaco1012Service,
-    private _resultsService: ResultsService
+    private _resultsService: ResultsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -541,5 +543,11 @@ export class DMARE1012Component implements OnInit {
 
   reloadPage() {
     window.location.reload();
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
+    });
   }
 }

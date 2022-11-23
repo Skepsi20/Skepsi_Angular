@@ -9,6 +9,7 @@ import { AMACO } from 'src/app/Models/rutinas/LogicoMatematico/Comprension/amaco
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { Amaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/amaco1012.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'emare1012',
@@ -103,7 +104,8 @@ export class EMARE1012Component implements OnInit {
 
   constructor(
     private _amacoService: Amaco1012Service,
-    private _resultsService: ResultsService
+    private _resultsService: ResultsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -597,5 +599,11 @@ export class EMARE1012Component implements OnInit {
 
   reloadPage() {
     window.location.reload();
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
+    });
   }
 }

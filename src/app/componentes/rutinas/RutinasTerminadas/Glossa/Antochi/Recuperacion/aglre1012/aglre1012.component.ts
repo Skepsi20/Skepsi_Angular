@@ -5,6 +5,7 @@ import { DGLRE1012Service } from 'src/app/services/rutinas/LenguajeComunicacion/
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { SortableData } from 'ngx-sortablejs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-aglre1012',
@@ -89,7 +90,8 @@ export class Aglre1012Component implements OnInit {
 
   constructor(
     private _dglreService: DGLRE1012Service,
-    private _resultsService: ResultsService
+    private _resultsService: ResultsService,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -365,5 +367,10 @@ export class Aglre1012Component implements OnInit {
       console.log("ERROR",error)
     });
   }
-  
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
+    });
+  }  
 }

@@ -10,6 +10,7 @@ import { EMACO } from 'src/app/Models/rutinas/LogicoMatematico/Comprension/emaco
 import { Emaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/emaco1012.service';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'emaco1012',
@@ -96,8 +97,11 @@ export class Emaco1012Component implements OnInit {
   public fraccionesRand: Array<any> = [];
   public duplaCarasDado: Array<number> = [];
 
-  constructor(private _emacoService: Emaco1012Service,
-    private _resultsService: ResultsService) {}
+  constructor(
+    private _emacoService: Emaco1012Service,
+    private _resultsService: ResultsService,
+    private router: Router  
+  ) {}
 
   ngOnInit(): void {
     //Instrucciones API
@@ -554,5 +558,11 @@ export class Emaco1012Component implements OnInit {
 
   reloadPage() {
     window.location.reload();
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
+    });
   }
 }

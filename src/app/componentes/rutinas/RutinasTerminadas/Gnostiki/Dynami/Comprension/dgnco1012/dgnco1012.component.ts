@@ -4,6 +4,7 @@ import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { SortableData } from 'ngx-sortablejs';
 import { Agnco1012Service } from 'src/app/services/rutinas/DesarrolloCognitivo/Comprension/agnco1012.service';
 import { dgnco } from 'src/app/Models/rutinas/DesarrolloCognitivo/Comprension/agnco.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dgnco1012',
@@ -78,7 +79,8 @@ export class DGNCO1012Component implements OnInit {
 
   constructor(
     private _resultsService: ResultsService,
-    private agncoService: Agnco1012Service
+    private agncoService: Agnco1012Service,
+    private router: Router,
   ) { 
     
   }
@@ -341,6 +343,12 @@ export class DGNCO1012Component implements OnInit {
     },
     (error)=>{
       console.log("ERROR",error)
+    });
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
     });
   }
 }

@@ -218,6 +218,15 @@ input[type=submit]{
 }
 
 
+.modal { background: rgba(000, 000, 000, 0.8); min-height:1000000px; }
+  
+.promo{
+  width: 30%; 
+  height:auto;
+}
+.promo:hover{
+  cursor: pointer;
+}
 
 
 

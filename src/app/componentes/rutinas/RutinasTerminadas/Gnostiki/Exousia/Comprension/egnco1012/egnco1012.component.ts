@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { SortableData } from 'ngx-sortablejs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-egnco1012',
@@ -60,6 +61,7 @@ export class EGNCO1012Component implements OnInit {
 
   constructor(
     private _resultsService: ResultsService,
+    private router: Router
   ) { 
     
   }
@@ -299,6 +301,12 @@ export class EGNCO1012Component implements OnInit {
     },
     (error)=>{
       console.log("ERROR",error)
+    });
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
     });
   }
 }

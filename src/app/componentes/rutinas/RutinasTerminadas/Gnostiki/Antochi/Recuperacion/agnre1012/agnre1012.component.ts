@@ -5,6 +5,7 @@ import { resultados } from 'src/app/Models/api-models/resultados';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agnre1012',
@@ -68,6 +69,7 @@ intervalTwo:any;
     private _agnreService: AGNRE2012Service,
     private _resultsService: ResultsService,
     private snackbar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -310,6 +312,12 @@ intervalTwo:any;
     },
     (error)=>{
       console.log("ERROR",error)
+    });
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
     });
   }
 }
