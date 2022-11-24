@@ -50,23 +50,9 @@
                 <img src="../../../assets/img/skepsi/iconos/Sin título-1-05.png" alt="">
                 <p [class.seleccionada] = "opcionMenu === 'instituciones'">INSTITUCIONES</p>
               </div>
-              <div class="col cuadricula" (click)="seleccionMenu('plantillas')">
-                <img src="../../../assets/img/skepsi/iconos/Sin título-1-04.png" alt="">
-                <p [class.seleccionada] = "opcionMenu === 'plantillas'">PLANTILLAS</p>
-              </div>
-            </div>
-            <div class="row" style="margin: 0px auto" >
               <div class="col cuadricula" (click)="seleccionMenu('paquetesCreacion')">
                 <img src="../../../assets/img/skepsi/iconos/Sin título-1-07.png" alt="">
                 <p [class.seleccionada] = "opcionMenu === 'paquetesCreacion'">PAQUETES</p>
-              </div>
-              <div class="col cuadricula" (click)="seleccionMenu('creacionGrupos')">
-                <img src="../../../assets/img/skepsi/iconos/Sin título-1-04.png" alt="">
-                <p [class.seleccionada] = "opcionMenu === 'creacionGrupos'">GRUPOS</p>
-              </div>
-              <div class="col cuadricula" (click)="seleccionMenu('asuetos')">
-                <img src="../../../assets/img/skepsi/iconos/Sin título-1-03.png" alt="">
-                <p [class.seleccionada] = "opcionMenu === 'asuetos'">DÍAS FESTIVOS</p>
               </div>
             </div>
           </div>
@@ -76,17 +62,23 @@
                 <img src="../../../assets/img/skepsi/iconos/Sin título-1-06.png" alt="">
                 <p [class.seleccionada] = "opcionMenu === 'paquetes'">PAQUETES</p>
               </div>
+              <div class="col cuadricula" (click)="seleccionMenu('finanzas')">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-06.png" alt="">
+                <p [class.seleccionada] = "opcionMenu === 'finanzas'">FINANZAS</p>
+              </div>
+              <div class="col cuadricula" (click)="seleccionMenu('panelGeneral')">
+                <img src="../../../assets/img/skepsi/iconos/Sin título-1-01.png" alt="">
+                <p [class.seleccionada] = "opcionMenu === 'panelGeneral'">PANEL GENERAL</p>
+              </div>     
+            </div>
+            <div class="row" style="margin: 0px auto">
               <div class="col cuadricula" (click)="seleccionMenu('interesados')">
                 <img src="../../../assets/img/skepsi/iconos/Sin título-1-07.png" alt="">
-                <p [class.seleccionada] = "opcionMenu === 'interesados'">INTERESADOS</p>
-              </div>
+                <p [class.seleccionada] = "opcionMenu === 'interesados'">MENSAJES</p>
+              </div>              
               <div class="col cuadricula" (click)="seleccionMenu('suspendidos')">
-                <img src="../../../assets/img/skepsi/iconos/Sin título-1-07.png" alt="">
-                <p [class.seleccionada] = "opcionMenu === 'suspendidos'">SUSPENDIDOS</p>
-              </div>
-              <div class="col cuadricula" (click)="seleccionMenu('finanzas')">
-                <img src="../../../assets/img/skepsi/iconos/Sin título-1-07.png" alt="">
-                <p [class.seleccionada] = "opcionMenu === 'finanzas'">FINANZAS</p>
+                <img src="../../../assets/img/skepsi/iconos/iconoss-02.png" alt="">
+                <p [class.seleccionada] = "opcionMenu === 'suspendidos'">ALUMNOS</p>
               </div>
             </div>
           </div>
@@ -179,26 +171,23 @@
           <div class="row" *ngIf="opcionMenu == 'instituciones'">
             <app-institucion></app-institucion>
           </div>
-          <div class="row" *ngIf="opcionMenu == 'plantillas'">
-            <app-creacion-plantillas></app-creacion-plantillas>
+          <div class="row" *ngIf="opcionMenu == 'paquetes'">
+            <app-paquetes></app-paquetes>
           </div>
           <div class="row" *ngIf="opcionMenu == 'paquetesCreacion'">
             <app-ventas></app-ventas>
           </div>
-          <div class="row" *ngIf="opcionMenu == 'asuetos'">
-            <app-holidays></app-holidays>
-          </div>
-          <div class="row" *ngIf="opcionMenu == 'paquetes'">
-            <app-paquetes></app-paquetes>
+          <div class="row" *ngIf="opcionMenu == 'finanzas'">
+            <finanzas></finanzas>
+          </div>          
+          <div class="row" *ngIf="opcionMenu == 'panelGeneral'">
+            <app-admin-dashboard></app-admin-dashboard>
           </div>
           <div class="row" *ngIf="opcionMenu == 'interesados'">
             <app-posibles-clientes></app-posibles-clientes>
           </div>
           <div class="row" *ngIf="opcionMenu == 'suspendidos'">
             <app-suspendidos></app-suspendidos>
-          </div>
-          <div class="row" *ngIf="opcionMenu == 'finanzas'">
-            <finanzas></finanzas>
           </div>
         </div>
       </div>

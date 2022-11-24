@@ -88,19 +88,19 @@
                     <div class="card-body">
                       <hr>
                       <div class="row" *ngIf="todaySession">
-                        <div *ngIf="todaySession.status">
-                          <div class="col">
-                            <h2>Rutina de hoy: {{todaySession.routine.name}}</h2>
-                              <div *ngIf="!mobile">
-                                <a routerLink="/rutina" class="btn btn-success mr-1">Jugar</a>
-                              </div>
-                              <div *ngIf="mobile">
-                                <p>Ingresa desde una PC o Laptop para realizar la rutina</p>
-                              </div>
-                              <a *ngIf="meetingURL" href="{{meetingURL}}" class="btn btn-primary" target="_blank">Zoom</a>
-                              <p *ngIf="meetingPassword">Contraseña de Zoom: {{meetingPassword}} </p>
-                          </div>
+                        <div *ngIf="todaySession.status" class="col">
+                            <div *ngIf="!mobile">
+                              <a routerLink="/rutina" class="btn btn-success mr-1">Jugar</a>
+                            </div>
+                            <div *ngIf="mobile">
+                              <p>Ingresa desde una PC o Laptop para realizar la rutina</p>
+                            </div>
+                            <p>Rutina de hoy: {{todaySession.routine.description}}</p>
                         </div>
+                        <div class="col">
+                          <a *ngIf="meetingURL" href="{{meetingURL}}" class="btn btn-primary" target="_blank" style="width: auto;">Zoom</a>
+                          <p *ngIf="meetingPassword">Contraseña:  <b> {{meetingPassword}} </b></p>
+                        </div>                     
                       </div>
                       <!-- <div class="row" *ngIf="todaySession">
                         <div *ngIf="!todaySession.status">
@@ -270,22 +270,29 @@
             </div>
           </div>
           <div class="row" *ngIf="opcionMenu == 'soporte'">
-            <div class="row soporte">
-              <div class="col soporteUno" (click)="seleccionMenu('introduccion')" style="text-align:center">
-                <img src="../../../assets/img/skepsi/iconos/SKEPSI_ICONO_03.png">
-                <p class="soporteTitle">INTRODUCCIÓN</p>
-                <p>Todo lo que necesitas saber para empezar a utilizar SKEPSI.</p>
+            <div class="row">
+              <img src="../../../assets/img/skepsi/iconos/newsletter-01.jpg" alt="Indice" style="width: 100%; height:auto;">
+            </div>
+            <div class="row">
+              <div class="card" style="width: 50%; margin:10px">
+                <div class="card-header">
+                  <h1>Tienes alguna duda o problema?, contáctanos!</h1>
+                </div>
+                <div class="card-body">
+                  <form [formGroup]="contactForm" (ngSubmit)="sendData(contactForm)">
+                    <p>
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                      <mat-label>Mensaje</mat-label>
+                      <textarea name="comentarios" matInput formControlName="comentarios" cols="10" rows="5" placeholder="Dinos cuáles son tus dudas y preguntas." required></textarea>
+                      <mat-error>Los comentarios son requeridos</mat-error>
+                    </mat-form-field>
+                    </p>
+                    <input type="submit" value="ENVIAR" class="btn btn-primary" [disabled]="!contactForm.valid">
+                  </form>
+                </div>
               </div>
-              <div class="col soporteDos" (click)="seleccionMenu('audioVideo')" style="text-align:center">
-                <img src="../../../assets/img/skepsi/iconos/Sin título-1-10.png">
-                <p class="soporteTitle">AUDIO Y VIDEO</p>
-                <p>Problemas técnicos para conectarte a tu sesión de entrenamiento.</p>
-              </div>
-              <div class="col soporteTres" (click)="seleccionMenu('configuracion')" style="text-align:center">
-                <img src="../../../assets/img/skepsi/iconos/Sin título-1-11.png">
-                <p class="soporteTitle">ADMINISTRACIÓN DE LA CUENTA</p>
-                <p>Administra tu cuenta.</p>
-              </div>
+
+
             </div>
           </div>
           <div class="row" *ngIf="opcionMenu == 'introduccion'">

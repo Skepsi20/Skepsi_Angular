@@ -13,6 +13,7 @@ import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { ResultadosRutinasService } from 'src/app/services/rutinas/resultados-rutinas.service';
 import { TutorService } from 'src/app/services/Tutores/tutor.service';
 import jwt_decode from 'jwt-decode';
+import { SkepsiService } from 'src/app/services/skepsi.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -41,6 +42,7 @@ export class UserDashboardComponent implements OnInit {
   meetingURL = '';
   meetingPassword = '';
   planStatus!: string;
+  estudiante: any;
   student:any = {
     name: '',
     lastName: '',
@@ -52,6 +54,9 @@ export class UserDashboardComponent implements OnInit {
   }
   hide = true;
   mobile:any;
+  contactForm = new FormGroup({
+    comentarios: new FormControl('',Validators.required),
+  });
 
   public mostrarAvatar = false;
   public rutinasConResultados: Array<any> = [];
@@ -94,7 +99,8 @@ export class UserDashboardComponent implements OnInit {
     private cookieService : CookieService,
     private rutinasService: RutinasFechadasService,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private skepsiService:SkepsiService,
   ) {}
 
   ngOnInit(): void {
@@ -200,6 +206,7 @@ export class UserDashboardComponent implements OnInit {
     .subscribe(
       (success)=>{
         console.log("DATOS DEL ESTUDIANTE",success)
+        this.estudiante = success;
         this.student.name = success.firstName;
         this.student.lastName = success.lastName;
         this.student.profileImageUrl = success.profileImageUrl;
@@ -361,6 +368,31 @@ export class UserDashboardComponent implements OnInit {
   buscarResultadosPorRutina(rutina:any){
     this.resultadosPorRutina = !this.resultadosPorRutina;
     console.log("LA RUTINA",rutina)
+  }
+
+  sendData(form:any){
+    console.log("ENTRE")
+    const data = {
+      name: this.estudiante.firstName +' '+this.estudiante.lastName,
+      phoneNumber: this.estudiante.user.phoneNumber,
+      email: this.estudiante.user.email,
+      comments: form.value.comentarios,
+      sourceArea: 'Chatbot'
+    }
+    this.skepsiService.addMessage(data)
+    .subscribe(
+      (success)=>{
+        this.snackbar.open('Información enviada correctamente.',undefined,{
+          duration: 2000
+        });
+        setTimeout(()=>{
+          window.location.reload();
+        }, 2000);      
+      },
+      (error)=>{
+        console.log(error)
+      }
+    )
   }
 
   logOut(){

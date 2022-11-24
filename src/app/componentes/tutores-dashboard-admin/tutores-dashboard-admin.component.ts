@@ -42,6 +42,12 @@ export class TutoresDashboardAdminComponent implements OnInit {
         console.log(error);
       }
     )
+    setInterval(()=> {
+      if(this.groupId){
+        this.selectedGroup(this.groupId)
+      }
+    }
+    ,20000);
   }
 
   selectedTutor(tutorId:any){
@@ -62,7 +68,7 @@ export class TutoresDashboardAdminComponent implements OnInit {
     this.tutorService.getDashboardDetails(id)
     .subscribe(
       (success)=>{
-        console.log("DASHBOARD DETAIL", success)
+        console.log("DASHBOARD DETAIL ADMIN", success)
         this.dashboardDetail = success;
       },(error)=>{
         console.log(error)
