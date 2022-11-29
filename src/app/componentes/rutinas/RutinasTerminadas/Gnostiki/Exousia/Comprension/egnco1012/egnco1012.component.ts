@@ -130,7 +130,7 @@ export class EGNCO1012Component implements OnInit {
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('initRutAudio')
           );
-          alarmInitRutina.play();
+          //alarmInitRutina.play();
           clearInterval(this.intervalInstructions);
       }
     },1000)

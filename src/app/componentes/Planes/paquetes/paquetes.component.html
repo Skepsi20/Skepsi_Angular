@@ -29,7 +29,7 @@
             </span><br>
             <span>
               Días de clase a la semana: {{item.numberOfDaysPerWeek}}
-            </span><br>
+            </span><br>          
             <mat-form-field appearance="legacy" style="width: 100%; margin-top: 25px;">
               <mat-label>Grupos disponibles</mat-label>
               <mat-select [(ngModel)]="selectedGroup" name="selectedGroup" required  style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
@@ -47,14 +47,17 @@
                     </div>
                   </mat-option>
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field>                    
+            <div class="alert alert-danger" role="alert" style="width: 50%; text-align: center; margin: 0px auto;">
+              Selecciona un grupo
+            </div>
           </mat-card-content>
           <mat-divider inset></mat-divider>
-          <mat-card-actions  *ngIf="role != 'Usuario'" style="text-align:center;">
+          <mat-card-actions  *ngIf="role != 'Usuario' && selectedGroup" style="text-align:center;">
             <label style="margin: 0px auto; width:100%"><input type="checkbox" id="checkme" [(ngModel)]="terminos[i]"  /> <a routerLink="/terminos">Acepto los términos y condiciones</a></label>
             <button mat-button mat-raised-button class="ml-1" disabled>Suscribirse</button>
           </mat-card-actions>
-          <mat-card-actions  *ngIf="role == 'Usuario'" style="text-align:center;">
+          <mat-card-actions  *ngIf="role == 'Usuario' && selectedGroup" style="text-align:center;">
             <label style="margin: 0px auto; width:100%"><input type="checkbox" id="checkme" [(ngModel)]="terminos[i]"  /> <a routerLink="/terminos">Acepto los términos y condiciones</a></label>
             <h1 *ngIf="!item.botonesPayPal && terminos[i]">
               <button mat-button mat-raised-button class="ml-1 buttonCreate" (click)="subscribeIfPaypal(selectedGroup,item.externalPlanId,i)">Suscribirse</button>
@@ -96,14 +99,17 @@
                     </div>
                   </mat-option>
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field>            
+            <div class="alert alert-danger" role="alert" style="width: 50%; text-align: center; margin: 0px auto;">
+              Selecciona un grupo
+            </div>
           </mat-card-content>
           <mat-divider inset></mat-divider>
-          <mat-card-actions  *ngIf="role != 'Usuario'" style="text-align:center;">
+          <mat-card-actions  *ngIf="role != 'Usuario' && selectedGroup" style="text-align:center;">
             <label style="margin: 0px auto; width:100%"><input type="checkbox" id="checkme" [(ngModel)]="terminos[i]" /> <a routerLink="/terminos">Acepto los términos y condiciones</a></label>
             <button mat-button mat-raised-button class="ml-1" disabled>Suscribirse</button>
           </mat-card-actions>
-          <mat-card-actions  *ngIf="role == 'Usuario'" style="text-align:center;">
+          <mat-card-actions  *ngIf="role == 'Usuario' && selectedGroup" style="text-align:center;">
             <label style="margin: 0px auto; width:100%"><input type="checkbox" id="checkme" [(ngModel)]="terminos[i]"  /> <a routerLink="/terminos">Acepto los términos y condiciones</a></label>
             <h1 *ngIf="!item.botonesPayPal && terminos[i]">
               <button mat-button mat-raised-button class="ml-1 buttonCreate" (click)="subscribeIfPaypal(selectedGroup,item.externalPlanId,i)">Suscribirse</button>

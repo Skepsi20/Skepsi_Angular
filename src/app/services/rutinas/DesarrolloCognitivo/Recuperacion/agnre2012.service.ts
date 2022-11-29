@@ -21,7 +21,7 @@ export class AGNRE2012Service {
         new agnre('../assets/img/rutinas/desarrolloCognitivo/agnre/Alemania.png','../assets/img/rutinas/desarrolloCognitivo/agnre/AlemaniaBN.png',
         '../assets/img/rutinas/desarrolloCognitivo/agnre/Alemania01.png','../assets/img/rutinas/desarrolloCognitivo/agnre/Alemania02.png','Alemania'),
         new agnre('../assets/img/rutinas/desarrolloCognitivo/agnre/Antigua.png','../assets/img/rutinas/desarrolloCognitivo/agnre/AntiguaBN.png',
-        '../assets/img/rutinas/desarrolloCognitivo/agnre/Antigua01.png','../assets/img/rutinas/desarrolloCognitivo/agnre/Antigua02.png','Antigua y barbuda'),
+        '../assets/img/rutinas/desarrolloCognitivo/agnre/Antigua01.png','../assets/img/rutinas/desarrolloCognitivo/agnre/Antigua02.png','Antigua y Barbuda'),
         new agnre('../assets/img/rutinas/desarrolloCognitivo/agnre/Argentina.png','../assets/img/rutinas/desarrolloCognitivo/agnre/ArgentinaBN.png',
         '../assets/img/rutinas/desarrolloCognitivo/agnre/Argentina01.png','../assets/img/rutinas/desarrolloCognitivo/agnre/Argentina02.png','Argentina'),
         new agnre('../assets/img/rutinas/desarrolloCognitivo/agnre/Armenia.png','../assets/img/rutinas/desarrolloCognitivo/agnre/ArmeniaBN.png',

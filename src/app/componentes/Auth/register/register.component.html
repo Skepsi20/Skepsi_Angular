@@ -1,5 +1,46 @@
 <div class="container">
   <form #studentDetailsForm="ngForm">
+    
+    <div class="row" id="registroPadre">
+      <div class="col">
+        <div class="encabezado">
+          <p>Datos del padre o tutor</p>
+          <hr>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
+              <mat-label>Nombre del padre o tutor</mat-label>
+              <input type="text" matInput [(ngModel)]="student.student.relative.firstName" name="padreTutor" required>
+              <mat-error>El campo es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;">
+              <mat-label>Apellido del padre o tutor</mat-label>
+              <input type="text" matInput [(ngModel)]="student.student.relative.lastName" name="apellidoTutor" required>
+              <mat-error>El campo es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;">
+              <mat-label>Teléfono del padre o tutor</mat-label>
+              <input type="text" matInput placeholder="Telefono" [(ngModel)]="student.student.relative.phoneNumber" name="telefonoEmergencia" required>
+              <mat-error>El campo es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;">
+              <mat-label>Correo del padre o tutor</mat-label>
+              <input type="email" matInput [(ngModel)]="student.student.relative.email" name="correoEmergencia" required>
+              <mat-error>El campo es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row" id="registroNuevo" style="background-color:#80C8BC; color: white;">
       <div class="col">
         <div class="encabezado">
@@ -11,14 +52,14 @@
             <mat-form-field appearance="legacy">
               <mat-label>Nombre</mat-label>
               <input type="text" matInput [(ngModel)]="student.student.firstName" name="nombre" required>
-              <mat-error>El campo Nombre es requerido</mat-error>
+              <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
           <div class="col">
           <mat-form-field appearance="legacy">
             <mat-label>Apellido</mat-label>
             <input type="text" matInput [(ngModel)]="student.student.lastName" name="apellidoP" required>
-            <mat-error>El campo Apellido requerido</mat-error>
+            <mat-error>El campo es requerido</mat-error>
           </mat-form-field>
           </div>
         </div>
@@ -44,7 +85,7 @@
                   {{gender}}
                 </mat-option>
               </mat-select>
-              <mat-error>El campo genero es requerido</mat-error>
+              <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
           <div class="col">
@@ -55,8 +96,8 @@
                 {{institution.name}}
               </mat-option>
             </mat-select>
-            <mat-error>El campo Institucion es requerido</mat-error>
-            </mat-form-field>
+            <mat-error>El campo es requerido</mat-error>
+          </mat-form-field>
           </div>
         </div>
         <div class="row">
@@ -64,7 +105,7 @@
             <mat-form-field appearance="legacy">
               <mat-label>Ciudad</mat-label>
               <input type="text" matInput [(ngModel)]="student.student.address.city" name="ciudad" required>
-              <mat-error>El campo ciudad es requerido</mat-error>
+              <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
           <div class="col">
@@ -81,8 +122,8 @@
             <mat-form-field appearance="legacy">
             <mat-label>Código Postal</mat-label>
             <input type="text" matInput [(ngModel)]="student.student.address.postalCode" maxlength="5" name="codigoPostal" required>
-            <mat-error>El campo Código Postal es requerido</mat-error>
-            </mat-form-field>
+            <mat-error>El campo es requerido</mat-error>
+          </mat-form-field>
           </div>
         </div>
         <div class="row">
@@ -90,73 +131,21 @@
             <mat-form-field appearance="legacy">
               <mat-label>Direccion (linea 1)</mat-label>
               <textarea matInput placeholder="Dirección 1" [(ngModel)]="student.student.address.line1" name="line1" required></textarea>
-              <mat-error>El campo Dirección (linea 1) es requerido</mat-error>
+              <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field appearance="legacy">
               <mat-label>Direccion (linea 2)</mat-label>
               <textarea matInput placeholder="Dirección 2" [(ngModel)]="student.student.address.line2" name="line2"></textarea>
-              <mat-error>El campo Dirección (linea 2) es requerido</mat-error>
+              <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="row" id="registroPadre">
-      <div class="col">
-        <div class="encabezado">
-          <p>Datos del padre o tutor</p>
-          <hr>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
-              <mat-label>Nombre</mat-label>
-              <input type="text" matInput [(ngModel)]="student.student.relative.firstName" name="padreTutor" required>
-              <mat-error>El campo Nombre padre o tutor requerido</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;">
-              <mat-label>Apellido</mat-label>
-              <input type="text" matInput [(ngModel)]="student.student.relative.lastName" name="apellidoTutor" required>
-              <mat-error>El campo apellido del padre o tutor requerido</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;">
-              <mat-label>Teléfono</mat-label>
-              <input type="text" matInput placeholder="Telefono" [(ngModel)]="student.student.relative.phoneNumber" name="telefonoEmergencia" required>
-              <mat-error>El campo Teléfono es requerido</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;">
-              <mat-label>Correo</mat-label>
-              <input type="email" matInput [(ngModel)]="student.student.relative.email" name="correoEmergencia" required>
-              <mat-error>El campo Correo es requerido</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-2" *ngIf="!privacidad">
-            <label style="margin: 0px auto; width:100%"><input type="checkbox" id="checkme" (click)="privacidad = true" /> <a routerLink="/privacidad">Estoy de acuerdo con el aviso de privacidad</a></label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row" id="registroUsuario" style="background-color:#80C8BC; color: white;">
-      <div class="col">
-        <div class="encabezado">
-          <p>Datos del usuario (Estudiante)</p>
-          <hr>
-        </div>
-
+        </div>        
         <div class="row">
           <div class="col">
             <mat-form-field appearance="legacy">
-              <mat-label>Email</mat-label>
+              <mat-label>Correo del usuario</mat-label>
               <input type="text" matInput [(ngModel)]="student.user.email" name="email" [formControl]="email" required>
               <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
@@ -165,7 +154,7 @@
             <mat-form-field appearance="legacy">
               <mat-label>Teléfono</mat-label>
               <input type="text" matInput [(ngModel)]="student.user.phoneNumber" name="telefono" required>
-              <mat-error>El campo teléfono es requerido</mat-error>
+              <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -192,13 +181,16 @@
               <mat-error>Las contraseñas no coinciden</mat-error>
             </div>
           </div>
+          <div class="col-2" *ngIf="!privacidad">
+            <label style="margin: 0px auto; width:100%"><input type="checkbox" id="checkme" (click)="privacidad = true" /> <a routerLink="/privacidad">Estoy de acuerdo con el aviso de privacidad</a></label>
+          </div>
           <div class="col-2">
             <div *ngIf="privacidad">
               <button class="botonLogin" (click)="onAdd()">Registrar</button>
             </div>
           </div>
         </div>
-        </div>
+      </div>
     </div>
   </form>
 </div>
