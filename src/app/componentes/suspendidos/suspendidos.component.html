@@ -53,7 +53,7 @@
               <div class="example-header">
                 <mat-form-field appearance="standard">
                   <mat-label style="padding:10px">Buscar</mat-label>
-                  <input matInput (keyup)="applyFilter($event)" placeholder="Rutina"#input>
+                  <input matInput (keyup)="applyFilter($event)" #input>
                 </mat-form-field>
               </div>
               <table mat-table [dataSource]="dataSource" matSort style="width:100%">
@@ -81,15 +81,32 @@
                   <th mat-header-cell *matHeaderCellDef> Status </th>
                   <td mat-cell *matCellDef="let row">Activo</td>
                 </ng-container>
+                <ng-container matColumnDef="opciones">
+                  <th mat-header-cell *matHeaderCellDef  style="text-align:center;"> Eliminar </th>
+                  <td mat-cell *matCellDef="let row"  style="text-align:center;">
+                    <button mat-button  data-toggle="modal" data-target="#deleteStudent" style="margin-left:20px; height: 100%;" (click)="studentToDelete(row.id)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                      </svg>
+                    </button>
+                  </td>
+                </ng-container>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 <tr class="mat-row" *matNoDataRow>
                   <td class="mat-cell" colspan="4">Escribe algo en la barra de busqueda</td>
                 </tr>
-              </table>
+              </table>              
+              <mat-paginator 
+                #paginator
+                [length]="alumnos.length"
+                [pageSize]="10"
+                [pageSizeOptions]="[10, 25, 50, 100]"
+                aria-label="Select page">
+              </mat-paginator>
             </div>
           </div>
-          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
         </div>
       </div>
       <div *ngIf="alumnos == '' && status != ''">
@@ -98,8 +115,6 @@
     </div>
   </div>
 </div>
-
-
 
 <!-- Restaurar Modal -->
 <div class="modal fade" id="exampleModalReactivate" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -138,6 +153,27 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn buttonCreate"  (click)="confirmarDesactivar()"  data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteStudent" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar empleado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Seguro que deseas eliminar al estudiante?</p>
+      </div>    
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger"  data-dismiss="modal" (click)="deleteStudent()">Eliminar</button>
       </div>
     </div>
   </div>
