@@ -140,13 +140,140 @@ export class Agnco1012Service {
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Liquido02.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Liquido.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Liquido02.png'),  
-        /* new dgnco ('Don Carlos camina para comprar un diario, ¿Cómo te das cuenta que don Carlos está avanzando?'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/estadoTres.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/frio.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/hielo.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'), */  
 
+        new dgnco ('Don Carlos camina para comprar un diario, ¿Cómo te das cuenta que don Carlos está avanzando?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/MovimientoA.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/movimientoOpA.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/movimientoOpB.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/movimientoOpC.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/movimientoOpA.png'),
+
+        new dgnco ('¿Son iguales los recorridos de los dos vehículos?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/AutosOp.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/si.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/no.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/nosesabe.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/no.png'),
+
+        new dgnco ('¿Cuál se mueve en línea recta?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/AutosOp.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/azul.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/amarillo.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/ninguno.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/azul.png'),
+
+        new dgnco ('¿Cuál carro se mueve en línea curva?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/AutosOp.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/azul.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/amarillo.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/ninguno.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/amarillo.png'),
+
+        new dgnco ('¿ Cuál es más veloz?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/AutosOp.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/azul.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/amarillo.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/ninguno.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/amarillo.png'),
+
+        
+        new dgnco ('Alguien te entrega una caja abierta con un agujero en un lado y te invita a mirar adentro, no sabes que la persona que construyó la caja colocó un espejo en una de las paredes, el resto de las paredes no reflejan nada de luz.'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/espejo1.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/0.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/1.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/2.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/1.png'),
+
+        new dgnco ('Alguien te entrega una caja abierta con un agujero en un lado y te invita a mirar adentro, no sabes que la persona que construyó la caja colocó un espejo en una de las paredes, el resto de las paredes no reflejan nada de luz.'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/espejo2.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/1.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/2.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/3.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/1.png'),
+
+        new dgnco ('En la caja con dos espejos ¿las imágenes de la joya parecen estar a la misma distancia de ti?  Elige la respuesta correcta.'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/espejo3.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/espejo3Op1.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/espejo3Op2.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/espejo3Op3.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/espejo3Op2.png'),
+
+        new dgnco ('Imagínate ahora, en lugar de una caja rectangular, se nos da una caja triangular para mirar. Dos de las paredes están reflejadas y el ángulo entre las paredes es de 60°'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Triangulo1.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/2.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/3.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/4.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/4.png'),
+
+        new dgnco ('Aquí hay una forma en que el rayo de la joya puede salir de la caja triangular después de dos reflejos.'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Triangulo2E.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/izquierda.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/derecha.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/op3.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/derecha.png'),
+
+        new dgnco ('Al final tenemos una caja larga cuyos extremos son triángulos equiláteros y que tiene lados rectangulares reflejados, hay un orificio de visualización en una de las tapas triangulares.'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Triangulo3E.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/4.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/6.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/8.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/8.png'),
+
+        new dgnco ('Aquí tenemos una balanza con una barra que tiene dos pesos iguales en los extremos.'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/balanzaE.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/cercaDerecha.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/cercaIzquierda.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/nocambio.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/cercaIzquierda.png'),
+
+        new dgnco ('En la barra de arriba el objeto del extremo izquierdo pesa el doble del peso del objeto del lado derecho. ¿En dónde debe ir el soporte del alambre para que la varilla permanezca equilibrada?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Balanza1.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionA.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionB.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionC.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionB.png'),
+        
+        new dgnco ('Considere este móvil que tiene un peso de 3 kg a la izquierda y un peso de 1kg a la derecha, ¿Dónde debemos colocar el peso de 2 kg para equilibrar el móvil?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Balanza2.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionA.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionC.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionD.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionA.png'),
+
+        new dgnco ('Ahora pasemos a los móviles de dos niveles, donde tenemos que equilibrar cada nivel sin desequilibrar el equilibrio del otro. Para empezar, usaremos un segundo nivel que tiene pesos iguales en cualquier lado. ¿Dónde debemos unir un cable de soporte a la primera varilla para que todo el móvil quede equilibrado?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Balanza3.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionB.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionC.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionD.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionD.png'),
+
+        new dgnco ('Ahora supongamos que reemplazamos el segundo nivel con uno nuevo que tiene pesos desiguales y distribuye sus pesos más lejos a lo largo de la barra: ¿Dónde debemos colgar un cable de soporte para mantener equilibrados ambos niveles del móvil?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Balanza4.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/balanzaop1.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/balanzaop2.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/balanzaop3.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/balanzaop2.png'),
+
+        new dgnco ('Los arreglos anteriores tienen longitudes de barras idénticas: El arreglo 1 está balanceado. ¿Está equilibrado el arreglo 2?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/balanza5.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/siesta.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/noesta.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/nose.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/siesta.png'),
+        
+        new dgnco ('El siguiente móvil está equilibrado (en todos los niveles) cuando el peso amarillo en el tercer nivel está en su posición original (puntos abajo). Supongamos que movemos el peso amarillo hacia la izquierda, perturbando el equilibrio del tercere nivel. Afecta esto al equilibrio de algún otro nivel del móvil? De ser así, ¿cuáles?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Balanza-conjunto.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/primerNivel.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/cuartoNivel.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/ningunNivel.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/ningunNivel.png'),
+        
+        new dgnco ('Aquí hay un rompecabezas móvil más para probar. Tómese su tiempo, el centro de masa es la posición promedio del peso podemos girar una barra alrededor de su centro de masa sin cambiar su ubicación ¿Cuántas de la varillas no están balanceadas?'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/balanza-conjunto1.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/2.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/3.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/equilibrado.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/equilibrado.png'),
       ]
   }
 

@@ -65,11 +65,11 @@ export class Amaco1012Component implements OnInit {
   public vistaOperacion = new AMACO('', '', '', '', '', '', '');
   public inicioCrono: Date = new Date();
 
-  public tiempoSegundosCrono = 11;
+  public tiempoSegundosCrono = 60;
   //25
   public segundosDescanso = 15;
   //15
-  public tiempoSegundosGeneral = 65;
+  public tiempoSegundosGeneral = 150;
   //150
 
   public tiempoSegundosInstrucciones = 8;

@@ -59,3 +59,25 @@
   }
   /* CLASES PREDETERMINADAS FIN */
   
+  .pregunta{
+    width: 40%;
+    height: auto;
+    margin: 0px auto;
+    background-color:#0B2A4A;
+    padding: 10px;
+  }
+  .opcion{
+    width: auto;
+    margin: 15px;
+    border: 1px solid gray;
+  }
+  .opcion img{
+    width: 50%;
+    height: auto;
+  }
+  .imagenSabiasQue{
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    margin: 0px auto;
+  }

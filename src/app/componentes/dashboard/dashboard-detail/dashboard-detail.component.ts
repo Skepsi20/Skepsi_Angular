@@ -32,6 +32,7 @@ export class DashboardDetailComponent implements OnInit {
   studentToSuspend: string = '';
   comentariosDeSuspension: string = '';
   tutorId = '';
+  mostrarAyuda = false;
 
   @ViewChild('zoomForm') zoomForm?: NgForm;
 

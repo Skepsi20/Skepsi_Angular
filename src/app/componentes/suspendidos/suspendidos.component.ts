@@ -34,6 +34,7 @@ export class SuspendidosComponent implements OnInit{
     this.tutorService.getSuspendedStudents('Activo')
       .subscribe(
         (success)=>{
+          console.log("ESTUDIANTES",success)
           this.spinnerService.hide();
           this.alumnos = success;
           for (let i = 0; i < this.alumnos.length; i++) {
@@ -42,7 +43,6 @@ export class SuspendidosComponent implements OnInit{
           this.dataSource = new MatTableDataSource(this.alumnosArray);
           
           console.log(success)
-          console.log("PAGINATOR",this.dataSource.paginator)
         },(error)=>{
           this.spinnerService.hide();
           console.log(error)

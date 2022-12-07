@@ -67,10 +67,10 @@ export class Emaco1012Component implements OnInit {
   public vistaOperacion = new EMACO('','','','');
   public inicioCrono: Date = new Date();
 
-  public tiempoSegundosCrono = 25;
-  public segundosDescanso = 5;
+  public tiempoSegundosCrono = 60;
+  public segundosDescanso = 15;
   public tiempoSegundosGeneral = 120;
-  public tiempoSegundosInstrucciones = 2;
+  public tiempoSegundosInstrucciones = 10;
 
   public tTimerGeneral = 0;
   public tTimer = 0;

@@ -138,7 +138,7 @@ export class AGNCO1012Component implements OnInit {
     ]
     this.patasMam = [
       { valor:'1PM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosPatas-30.png', respuesta:'Excavación: Pueden excavar en la tierra para encontrar insectos' },
-      { valor:'2PM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosPatas-31.png', respuesta:'Aprención de objetos: Pueden agarrar comida con sus manos o patas que tienen dedos' },
+      { valor:'2PM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosPatas-31.png', respuesta:'Aprensión de objetos: Pueden agarrar comida con sus manos o patas que tienen dedos' },
       { valor:'3PM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosPatas-32.png', respuesta:'Natación: Como las aletas en ballenas que le ayudan a nadar' },
       { valor:'4PM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosPatas-33.png', respuesta:'Marcha: Las patas marchadoras pueden acabar en uñas o dedos' },
 

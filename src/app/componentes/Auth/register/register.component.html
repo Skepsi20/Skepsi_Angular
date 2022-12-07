@@ -11,14 +11,14 @@
           <div class="col">
             <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;" >
               <mat-label>Nombre del padre o tutor</mat-label>
-              <input type="text" matInput [(ngModel)]="student.student.relative.firstName" name="padreTutor" required>
+              <input type="text" matInput [(ngModel)]="student.student.relative.firstName" name="padreTutor" maxlength="60" required>
               <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;">
               <mat-label>Apellido del padre o tutor</mat-label>
-              <input type="text" matInput [(ngModel)]="student.student.relative.lastName" name="apellidoTutor" required>
+              <input type="text" matInput [(ngModel)]="student.student.relative.lastName" name="apellidoTutor" maxlength="60" required>
               <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
@@ -27,14 +27,14 @@
           <div class="col">
             <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;">
               <mat-label>Teléfono del padre o tutor</mat-label>
-              <input type="text" matInput placeholder="Telefono" [(ngModel)]="student.student.relative.phoneNumber" name="telefonoEmergencia" required>
+              <input type="text" matInput placeholder="Telefono" [(ngModel)]="student.student.relative.phoneNumber" maxlength="20" name="telefonoEmergencia" required>
               <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field appearance="legacy" style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;">
               <mat-label>Correo del padre o tutor</mat-label>
-              <input type="email" matInput [(ngModel)]="student.student.relative.email" name="correoEmergencia" required>
+              <input type="email" matInput [(ngModel)]="student.student.relative.email" name="correoEmergencia" maxlength="20" required>
               <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
@@ -51,14 +51,14 @@
           <div class="col">
             <mat-form-field appearance="legacy">
               <mat-label>Nombre</mat-label>
-              <input type="text" matInput [(ngModel)]="student.student.firstName" name="nombre" required>
+              <input type="text" matInput [(ngModel)]="student.student.firstName" name="nombre" maxlength="60" required>
               <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
           <div class="col">
           <mat-form-field appearance="legacy">
             <mat-label>Apellido</mat-label>
-            <input type="text" matInput [(ngModel)]="student.student.lastName" name="apellidoP" required>
+            <input type="text" matInput [(ngModel)]="student.student.lastName" name="apellidoP" maxlength="60" required>
             <mat-error>El campo es requerido</mat-error>
           </mat-form-field>
           </div>
@@ -104,7 +104,7 @@
           <div class="col">
             <mat-form-field appearance="legacy">
               <mat-label>Ciudad</mat-label>
-              <input type="text" matInput [(ngModel)]="student.student.address.city" name="ciudad" required>
+              <input type="text" matInput [(ngModel)]="student.student.address.city" name="ciudad" maxlength="100" required>
               <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
@@ -121,7 +121,7 @@
           <div class="col">
             <mat-form-field appearance="legacy">
             <mat-label>Código Postal</mat-label>
-            <input type="text" matInput [(ngModel)]="student.student.address.postalCode" maxlength="5" name="codigoPostal" required>
+            <input type="text" matInput [(ngModel)]="student.student.address.postalCode" maxlength="10" name="codigoPostal" required>
             <mat-error>El campo es requerido</mat-error>
           </mat-form-field>
           </div>
@@ -130,14 +130,14 @@
           <div class="col">
             <mat-form-field appearance="legacy">
               <mat-label>Direccion (linea 1)</mat-label>
-              <textarea matInput placeholder="Dirección 1" [(ngModel)]="student.student.address.line1" name="line1" required></textarea>
+              <textarea matInput placeholder="Dirección 1" [(ngModel)]="student.student.address.line1" name="line1" maxlength="256" required></textarea>
               <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field appearance="legacy">
               <mat-label>Direccion (linea 2)</mat-label>
-              <textarea matInput placeholder="Dirección 2" [(ngModel)]="student.student.address.line2" name="line2"></textarea>
+              <textarea matInput placeholder="Dirección 2" [(ngModel)]="student.student.address.line2" maxlength="256" name="line2"></textarea>
               <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
@@ -146,14 +146,14 @@
           <div class="col">
             <mat-form-field appearance="legacy">
               <mat-label>Correo del usuario</mat-label>
-              <input type="text" matInput [(ngModel)]="student.user.email" name="email" [formControl]="email" required>
+              <input type="text" matInput [(ngModel)]="student.user.email" name="email" [formControl]="email" maxlength="256" required>
               <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field appearance="legacy">
               <mat-label>Teléfono</mat-label>
-              <input type="text" matInput [(ngModel)]="student.user.phoneNumber" name="telefono" required>
+              <input type="text" matInput [(ngModel)]="student.user.phoneNumber" name="telefono" maxlength="20" required>
               <mat-error>El campo es requerido</mat-error>
             </mat-form-field>
           </div>
@@ -187,6 +187,11 @@
           <div class="col-2">
             <div *ngIf="privacidad">
               <button class="botonLogin" (click)="onAdd()">Registrar</button>
+            </div>
+          </div>
+          <div *ngIf="error">
+            <div class="alert alert-danger" role="alert">
+              {{error}}
             </div>
           </div>
         </div>
