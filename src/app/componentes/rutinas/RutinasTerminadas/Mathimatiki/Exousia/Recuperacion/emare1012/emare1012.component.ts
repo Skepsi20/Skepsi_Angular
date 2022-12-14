@@ -10,6 +10,7 @@ import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { Amaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/amaco1012.service';
 import { Router } from '@angular/router';
+import { Emare1012Service } from 'src/app/services/rutinas/LogicoMatematico/emare1012.service';
 
 @Component({
   selector: 'emare1012',
@@ -95,6 +96,8 @@ export class EMARE1012Component implements OnInit {
   public listFigGeoController: any;
   public listFigGeoRand: any;
   public listEspsFig: Array<any> = [];
+  public listFigSelection: Array<any> = [];
+
   public vistaEspacios: Array<any> = [];
   public numEspaciosFig = 6;
 
@@ -104,6 +107,7 @@ export class EMARE1012Component implements OnInit {
 
   constructor(
     private _amacoService: Amaco1012Service,
+    private _emareService: Emare1012Service,
     private _resultsService: ResultsService,
     private router: Router
   ) {}
@@ -306,7 +310,7 @@ export class EMARE1012Component implements OnInit {
       if (this.ejercActivo > 0 && this.ejercActivo < 4) this.resetTimerEjer();
       if (this.ejercActivo == 1) {
         this.listFigGeoController = JSON.parse(
-          JSON.stringify(this._amacoService.getFigGeo())
+          JSON.stringify(this._emareService.getEspaciosFig())
         );
         this.listFigGeoRand = this.listFigGeoController.sort(
           () => Math.random() - 0.5
@@ -350,9 +354,6 @@ export class EMARE1012Component implements OnInit {
     this.listFigGeoRand = this.listFigGeoController.sort(
       () => Math.random() - 0.5
     );
-    for (let i = 0; i < 5; i++) {
-      this.listaContenedores[i] = [];
-    }
   }
 
   crearListasFigGeo() {
@@ -360,34 +361,56 @@ export class EMARE1012Component implements OnInit {
     this.vistaFigGeo = this.listFigGeoRand.slice(0, this.numEspaciosFig);
     console.log('VFG', this.vistaFigGeo);
     this.vistaFigGeo.forEach((element) => {
-      this.listEspsFig.push(element.espacioCorr);
+      this.listEspsFig.push(element.espacio);
     });
+
+    console.log('espacios', this.listEspsFig);
     this.listFigGeoRand.sort(() => Math.random() - 0.45);
   }
 
   figSelection(i: any) {
+    this.listFigSelection = [];
     if (!this.listFigGeoRand[i].toggle) this.listFigGeoRand[i].toggle = true;
     else {
       if (this.listFigGeoRand[i].toggle) this.listFigGeoRand[i].toggle = false;
     }
-    console.log('EspaciosFaltantes', this.listEspsFig);
+    //console.log('EspaciosFaltantes', this.listEspsFig);
     //console.log('FGRand', this.listFigGeoRand);
 
-    this.listFigGeoRand.forEach(
+    this.listFigGeoRand.forEach((figura: { toggle: any; espacio: any; }) => {
+      if (figura.toggle) {
+        this.listFigSelection.push(figura.espacio);
+      }
+    });
+
+    //console.log('listFigSelection', this.listFigSelection);
+
+
+
+    /*this.listFigGeoRand.forEach(
       (figura: {
-        espacioCorr: any;
+        espacio: any;
         toggle: any;
         '': (value: any, index: number, obj: any[]) => unknown;
       }) => {
         if (figura.toggle) {
           this.listEspsFig = this.listEspsFig.filter(
-            (e) => e !== figura.espacioCorr
+            (e) => e !== figura.espacio
           );
         }
       }
-    );
+    );*/
 
+    console.log('ListDiff',this.getListDiff());
     console.log('EspaciosFaltantes', this.listEspsFig);
+
+  }
+
+  getListDiff(){
+    let _diffList=[ ...(this.listEspsFig.filter(x => !this.listFigSelection.includes(x))),
+      ...(this.listFigSelection.filter(x => !this.listEspsFig.includes(x)))];
+    return _diffList;
+
   }
 
   crearDuplasFracciones() {
@@ -459,9 +482,6 @@ export class EMARE1012Component implements OnInit {
 
   mostrarEjer1() {
     this.initListasFigGeo();
-    let RestaTiempo = Math.floor(
-      (new Date().getTime() - this.inicioCrono.getTime()) / 1000
-    );
     if (this.timerActivo) {
       this.crearListasFigGeo();
     } else {
@@ -510,8 +530,16 @@ export class EMARE1012Component implements OnInit {
   }
 
   funcion2() {
+
     this.contadorEjer += this.numEspaciosFig;
-    this.calificacion += this.numEspaciosFig - this.listEspsFig.length;
+    if (this.numEspaciosFig - this.getListDiff().length>0){
+      this.calificacion += this.numEspaciosFig - this.getListDiff().length;
+    }
+    else{
+      this.calificacion = 0;
+    }
+
+
 
     console.log('Calificacion Acumulada -> ' + this.calificacion);
     this.revisar();
@@ -601,7 +629,7 @@ export class EMARE1012Component implements OnInit {
     window.location.reload();
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });
