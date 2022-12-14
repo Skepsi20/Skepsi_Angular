@@ -126,26 +126,14 @@ export class DMARE1012Component implements OnInit {
       this.tTimer--;
       this.tTimerGeneral--;
       this.tTimerInstrucciones--;
+
       if (this.tTimerInstrucciones == 0) {
         this.instrucciones = false;
         this.Inicializacion();
       }
       if (this.tTimer == 0) {
         this.timerActivo = false;
-        switch (this.ejercActivo) {
-          case 1:
-            break;
-          case 2:
-            //this.funcion2();
-            break;
 
-          case 3:
-            //this.funcion3(this.operador.oper);
-            break;
-
-          default:
-            break;
-        }
       } else if (this.tTimer > 0) this.timerActivo = true;
       if (this.tTimerDescanso > 0) this.tTimerDescanso--;
     });
@@ -224,8 +212,8 @@ export class DMARE1012Component implements OnInit {
   }
 
   sonarAlarmas() {
-    if (this.tTimer >= this.tiempoSegundosCrono) {
-      if (this.tTimerGeneral >= this.tiempoSegundosGeneral - 1) {
+    if (this.tTimer >= this.tiempoSegundosGeneral) {
+      if (this.tTimerGeneral >= (this.tiempoSegundosGeneral -1)) {
         let alarmInitRutina = <HTMLAudioElement>(
           document.getElementById('initRutAudio')
         );
@@ -354,7 +342,7 @@ export class DMARE1012Component implements OnInit {
 
   resetTimerEjer() {
     this.timerActivo = true;
-    this.tTimer = this.tiempoSegundosCrono + 1;
+    this.tTimer = this.tiempoSegundosGeneral;
   }
 
   mostrarEjer1() {
@@ -384,6 +372,7 @@ export class DMARE1012Component implements OnInit {
       this.crearDuplasDados();
       console.log('VistaFracciones', this.duplaCarasDado);
     } else {
+      this.tTimer=3;
       console.log('ArrTiradas', this.arrTiradas);
       this.revisar();
       this.calificacion = 0;
@@ -394,10 +383,6 @@ export class DMARE1012Component implements OnInit {
 
   mostrarEjer3() {
     this.operador = { oper: '', simbolo: '' };
-
-    let RestaTiempo = Math.floor(
-      (new Date().getTime() - this.inicioCrono.getTime()) / 1000
-    );
     if (this.timerActivo) {
       this.crearDuplasDados();
       console.log('VistaFracciones', this.duplaCarasDado);
@@ -482,6 +467,7 @@ export class DMARE1012Component implements OnInit {
       this.contadorEjer++;
     });
     this.tiradaReview=true;
+    this.tTimer=3;
     let _tiempo = setTimeout(() => {
       //this.tiradaReview=true;
       this.revisar();
@@ -545,7 +531,7 @@ export class DMARE1012Component implements OnInit {
     window.location.reload();
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });
