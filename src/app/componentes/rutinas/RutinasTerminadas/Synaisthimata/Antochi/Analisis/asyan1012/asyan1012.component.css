@@ -1,0 +1,95 @@
+/* CLASES PREDETERMINADAS INICIO */
+.ASYAN{
+    width: 100%;
+    height: 100%;
+    background-image: url('../../../../../.././../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-36.png');
+    background-repeat: repeat;
+    padding-bottom: 50px;
+  }
+  .skepsiLogo{
+    width: 100%;
+    background-color:#0B2A4A;
+    padding: 5px;
+  }
+  .skepsiLogo img{
+    width: 100px;
+    height: auto;
+  }
+  .general{
+    width: 85%;
+    height: 85%;
+    text-align: center;
+    margin: 0px auto;
+    margin-top: 50px;
+    border: 5px solid #0B2A4A;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: white;
+    background-image:  linear-gradient(rgba(255,255,255,0.8), rgba(255, 255, 255, 0.5)), url('../../../../../.././../../assets/img/skepsi/fondos/SKEPSI_TEXTURASpng-33.png');
+    overflow: scroll;
+  }
+  .progress{
+    height: 20px;
+  }
+  .progress-bar-animated{
+    border-radius: 5px;
+  }
+  .buttonSkepsi{
+    border-radius: 5px;
+    background-color: #0F2B40;
+    color: white;
+    border: 1px solid #0F2B40;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    padding: 5px;
+  }
+  .buttonSkepsi:hover{
+    background-color: white;
+    color: #0F2B40 !important;
+    border: 1px solid white;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  }
+  .titulo{
+    font-size: 50px;
+    line-height: 60px;
+  }
+  .titleBorder{
+    border: 5px solid #F4D247;
+    border-radius: 4px;
+  }
+  /* CLASES PREDETERMINADAS FIN */
+
+  .mapa{
+    background-image: url(../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/mapa.png);
+    background-color: crimson;
+    width: 70rem;
+    height: 40rem;
+    margin: 0px auto;
+    border-radius: 10px;
+    box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px, rgb(31, 193, 27) 0px 0px 0px 6px, rgb(255, 217, 19) 0px 0px 0px 9px, rgb(255, 156, 85) 0px 0px 0px 12px, rgb(255, 85, 85) 0px 0px 0px 15px;
+  }
+
+  .personaje{
+    width: 90px;
+    height: 100px;
+  }
+
+  .personaje img{
+    position: relative;
+    height: 60px;
+    width: 60px;
+  }
+
+  .vidasCss img{
+    position: relative;
+    width: 35px;
+    height: 35px;
+    float: right;
+  }
+
+  .score{
+    font-family: 'game', Arial;
+    color: white;
+    font-size: 20px;
+    background-color: black;
+  }

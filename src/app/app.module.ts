@@ -146,6 +146,9 @@ import { CreacionGruposComponent } from './componentes/creacion-grupos/creacion-
 import { SesionesDiariasComponent } from './componentes/sesiones-diarias/sesiones-diarias.component';
 import { Asyco1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Antochi/Comprension/asyco1012/asyco1012.component';
 import { Esyco1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Exousia/Comprension/esyco1012/esyco1012.component';
+import { Dsyan1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Dynami/Analisis/dsyan1012/dsyan1012.component';
+import { Asyan1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Antochi/Analisis/asyan1012/asyan1012.component';
+import { Esyan1012Component } from './componentes/rutinas/RutinasTerminadas/Synaisthimata/Exousia/Analisis/esyan1012/esyan1012.component';
 
 //AMARE-DMARE-EMARE
 
@@ -242,7 +245,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CreacionGruposComponent,
     SesionesDiariasComponent,
     Asyco1012Component,
-    Esyco1012Component
+    Esyco1012Component,
+    Dsyan1012Component,
+    Asyan1012Component,
+    Esyan1012Component
   ],
   imports: [
     BrowserModule,
