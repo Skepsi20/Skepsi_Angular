@@ -10,6 +10,7 @@ import { EMAAN } from 'src/app/Models/rutinas/LogicoMatematico/Analisis/emaan.mo
 import { Emaan1012Service } from 'src/app/services/rutinas/LogicoMatematico/emaan1012.service';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'emaan1012',
@@ -108,8 +109,11 @@ export class Emaan1012Component implements OnInit {
   public sliderRValue: number = 0;
   public fractionR: string = '';
 
-  constructor(private _EMAANService: Emaan1012Service,
-    private _resultsService: ResultsService) {}
+  constructor(
+    private _EMAANService: Emaan1012Service,
+    private _resultsService: ResultsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     //Instrucciones API
@@ -630,5 +634,11 @@ export class Emaan1012Component implements OnInit {
 
   reloadPage() {
     window.location.reload();
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
+    });
   }
 }

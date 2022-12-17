@@ -40,6 +40,7 @@ export class PaypalComponent implements OnInit {
 
     paypal.Buttons({
       createSubscription: function(data:any, actions:any) {
+        debugger
         return actions.subscription.create({
           'plan_id': planId // Creates the subscription
         });

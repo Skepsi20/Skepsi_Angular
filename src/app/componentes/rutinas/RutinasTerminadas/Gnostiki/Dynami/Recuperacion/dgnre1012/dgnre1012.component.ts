@@ -3,6 +3,7 @@ import { dgnre } from 'src/app/Models/rutinas/DesarrolloCognitivo/Recuperacion/d
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { DGNRE1012Service } from 'src/app/services/rutinas/DesarrolloCognitivo/Recuperacion/dgnre1012.service';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dgnre1012',
@@ -64,7 +65,8 @@ export class DGNRE1012Component implements OnInit {
 
   constructor(
     private _dgnreService: DGNRE1012Service,
-    private _resultsService: ResultsService
+    private _resultsService: ResultsService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -307,6 +309,12 @@ export class DGNRE1012Component implements OnInit {
     },
     (error)=>{
       console.log("ERROR",error)
+    });
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
     });
   }
 }

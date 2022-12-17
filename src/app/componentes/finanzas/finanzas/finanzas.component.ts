@@ -5,15 +5,17 @@ import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'finanzas',
   templateUrl: './finanzas.component.html',
-  styleUrls: ['./finanzas.component.css']
+  styleUrls: ['./finanzas.component.css'],
+  providers: [DatePipe]
 })
 export class FinanzasComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['concepto','sinIva','iva','conIva','estado','fecha','alumno'];
-  dataSource: MatTableDataSource<any>;
+  displayedColumns: string[] = ['concepto','sinIva','iva','conIva','estado','fecha','alumno'];
+  dataSource = new MatTableDataSource<any> ();
   public ventas: Array<any> = [];
   public ventasDOM : Array<any> = [];
   motivoSelected: string = '';
@@ -32,27 +34,8 @@ export class FinanzasComponent implements OnInit, AfterViewInit {
     private paypalService: PaypalService,
     private snackbar: MatSnackBar,
     private router: Router,
-  ) {
-    this.paypalService.getAllSales()
-    .subscribe(
-      (successResponse)=>{
-        this.ventasDOM = successResponse;
-        console.log(this.ventasDOM,"las ventas dom")
-        console.log(this.ventasDOM[0].receipts[0].transactions,"las ventas que quiero")
-
-        for (let i = 0; i < this.ventasDOM.length; i++) {
-          for (let j = 0; j < this.ventasDOM[i].receipts[i].transactions.length; j++) {
-            this.ventas.push(createNewUser(successResponse[i].receipts[i].transactions[j]));
-
-          }
-        }
-      },
-      (error) =>{
-        console.log(error);
-      }
-    );
-    this.dataSource = new MatTableDataSource(this.ventas);
-  }
+    private datePipe: DatePipe
+  ) { }
 
   ngOnInit(): void {
   }
@@ -71,24 +54,34 @@ export class FinanzasComponent implements OnInit, AfterViewInit {
   }
 
   buscarVentas(){
+    this.ventas = [];
     if(!this.motivoSelected || !this.estadoSelected || !this.startDate || !this.endDate){
       this.warning = true;
     }else{
+      this.startDate = this.datePipe.transform(this.startDate, 'yyyy-MM-dd');
+      this.endDate = this.datePipe.transform(this.endDate, 'yyyy-MM-dd');
       const request = {
         startDate: this.startDate,
         endDate: this.endDate,
         status: this.estadoSelected,
         description: this.motivoSelected
-      }
+      }      
+      console.log(request)
       this.paypalService.getFilteredSells(request).
       subscribe(
         (success)=>{
-          console.log(success);
+          for (let i = 0; i < success.length; i++) {
+            for (let j = 0; j < success[i].receipts.length; j++) {
+              for (let k = 0; k < success[i].receipts[j].transactions.length; k++) {
+                this.ventas.push(createNewUser(success[i].receipts[j].transactions[k]));
+              }
+            }
+          }
+          this.dataSource = new MatTableDataSource(this.ventas);
         },(error)=>{
           console.log(error);
         }
       )
-
       this.filtrado = true;
       this.warning = false;
     }

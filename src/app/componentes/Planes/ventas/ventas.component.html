@@ -75,7 +75,7 @@
           <div class="col">
             <mat-form-field appearance="legacy"   >
               <mat-label>Número de días a la semana</mat-label>
-              <input type="number" matInput [(ngModel)]="paqueteController.numberOfDaysPerWeek" min="0" name="periodo"
+              <input type="number" matInput [(ngModel)]="paqueteController.numberOfDaysPerWeek" min="0" name="dias"
               style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
               required>
               <mat-error>El campo Número de días a la semana es requerido</mat-error>
@@ -84,7 +84,7 @@
           <div class="col">
             <mat-form-field appearance="legacy"   >
               <mat-label>Edad mínima</mat-label>
-              <input type="number" matInput [(ngModel)]="paqueteController.minAge" min="0" name="periodo"
+              <input type="number" matInput [(ngModel)]="paqueteController.minAge" min="0" name="minima"
               style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
               required>
               <mat-error>El campo Edad mínima es requerido</mat-error>
@@ -93,7 +93,7 @@
           <div class="col">
             <mat-form-field appearance="legacy"   >
               <mat-label>Edad máxima</mat-label>
-              <input type="number" matInput [(ngModel)]="paqueteController.maxAge" min="0" name="periodo"
+              <input type="number" matInput [(ngModel)]="paqueteController.maxAge" min="0" name="maxima"
               style="box-shadow:rgba(0, 0, 0, 0.3) 0px 1px 0px 0px; margin-bottom: 10px;"
               required>
               <mat-error>El campo Edad máxima es requerido</mat-error>

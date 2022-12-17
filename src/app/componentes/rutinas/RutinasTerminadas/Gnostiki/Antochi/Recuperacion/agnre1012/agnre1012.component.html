@@ -1,6 +1,6 @@
 <div class="AGNRE">
   <div class="skepsiLogo">
-    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" (click)="regresar()" class="skepsiLogo">
   </div>
   <div>
     <audio id="initEjerAudio" #initEjerAudio src="../../../../../assets/Audios/InicioFin/SonidoInicioEjercicio.mpeg"
@@ -51,8 +51,9 @@
       <div *ngIf="!resultados">
         <p class="titulo">Cuál es la bandera real?</p>
         <div class="row" *ngIf="banderasDOM">
-          <img src="{{banderaVista[0].imagenBN}}" class="banderaBN">
-        </div>
+          <h1>{{banderaVista[0].nombre}}</h1>
+          <!--<img src="{{banderaVista[0].imagenBN}}" class="banderaBN"> -->       
+         </div>
         <div class="row">
           <div *ngFor="let item of opcionesDeBanderasRandom" class="col">
             <img (click)="respuestasBanderasDOM(item)" src="{{item}}" class="banderasOpciones">

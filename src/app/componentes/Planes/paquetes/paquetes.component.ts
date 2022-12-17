@@ -64,7 +64,7 @@ export class PaquetesComponent implements OnInit {
     this.ventasService.getAllPaquetes()
       .subscribe(
         (successResponse)=>{
-          console.log("PAQUETES",successResponse)
+          console.log("PAQUETES 1",successResponse)
           this.paquetes = successResponse;
         },
         (error) =>{
@@ -77,7 +77,7 @@ export class PaquetesComponent implements OnInit {
     this.ventasService.getAllPaquetesAvailable()
       .subscribe(
         (successResponse)=>{
-          console.log("PAQUETES",successResponse)
+          console.log("PAQUETES 2",successResponse)
           this.paquetes = successResponse;
         },
         (error) =>{

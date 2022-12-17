@@ -6,6 +6,7 @@ import { dmaco } from 'src/app/Models/rutinas/LogicoMatematico/Comprension/dmaco
 import { Dmaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/dmaco1012.service';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dmaco1012',
@@ -62,13 +63,13 @@ export class Dmaco1012Component implements OnInit {
   public inicioCrono: Date = new Date();
 
   //5 minutos (300)
-  public tiempoSegundosCrono = 20;
+  public tiempoSegundosCrono = 300;
   // 1 minuto (60)
-  public segundosDescanso: any = 5;
+  public segundosDescanso: any = 60;
   //----na----
-  public tiempoSegundosGeneral = 120;
+  public tiempoSegundosGeneral = 1200000;
   //15 segundos (15)
-  public tiempoSegundosInstrucciones = 8;
+  public tiempoSegundosInstrucciones = 15;
 
   public tTimerGeneral = 0;
   public tTimer = 0;
@@ -112,7 +113,8 @@ export class Dmaco1012Component implements OnInit {
   constructor(
     private _dmacoService: Dmaco1012Service,
     public datepipe: DatePipe,
-    private _resultsService: ResultsService
+    private _resultsService: ResultsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -632,5 +634,11 @@ export class Dmaco1012Component implements OnInit {
 
   reloadPage() {
     window.location.reload();
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
+    });
   }
 }

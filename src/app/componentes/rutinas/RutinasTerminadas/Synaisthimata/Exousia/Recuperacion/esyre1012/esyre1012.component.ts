@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { Router } from '@angular/router';
 
 // #region Tipos locales
 enum ESYRE1012Step {
@@ -71,7 +72,8 @@ export class Esyre1012Component implements OnInit {
   // #endregion Variables privadas
 
   constructor(
-    private _resultsService: ResultsService
+    private _resultsService: ResultsService,
+    private router: Router
   ) {
     this.emocionesBasicas = [...this.emocionesBasicasDefault];
     this.emocionesSecundarias = [...this.emocionesSecundariasDefault];
@@ -321,6 +323,12 @@ export class Esyre1012Component implements OnInit {
     },
     (error)=>{
       console.log("ERROR",error)
+    });
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
     });
   }
   // #endregion Funciones privadas con interacción con la API

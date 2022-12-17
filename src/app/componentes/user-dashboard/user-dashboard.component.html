@@ -25,7 +25,10 @@
           </div>
           <div class="row" style="width: 100%;" *ngIf="planStatus == 'False'">
             <div class="col">
-              <p [class.seleccionada] = "opcionMenu === 'paquetes'" (click)="seleccionMenu('paquetes')">PAQUETES</p>
+              <p [class.seleccionada] = "opcionMenu === 'paquetes'" (click)="seleccionMenu('paquetes')" style="border: 5px solid yellow; border-radius:3px">PAQUETES 
+                <svg style="margin-left: 4px; margin-top:-5px" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="yellow" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+              </svg></p>
             </div>
           </div>
           <div class="row" style="width: 100%;">
@@ -88,19 +91,19 @@
                     <div class="card-body">
                       <hr>
                       <div class="row" *ngIf="todaySession">
-                        <div *ngIf="todaySession.status">
-                          <div class="col">
-                            <h2>Rutina de hoy: {{todaySession.routine.name}}</h2>
-                              <div *ngIf="!mobile">
-                                <a routerLink="/rutina" class="btn btn-success mr-1">Jugar</a>
-                              </div>
-                              <div *ngIf="mobile">
-                                <p>Ingresa desde una PC o Laptop para realizar la rutina</p>
-                              </div>
-                              <a *ngIf="meetingURL" href="{{meetingURL}}" class="btn btn-primary" target="_blank">Zoom</a>
-                              <p *ngIf="meetingPassword">Contraseña de Zoom: {{meetingPassword}} </p>
-                          </div>
+                        <div *ngIf="todaySession.status" class="col">
+                            <div *ngIf="!mobile">
+                              <a routerLink="/rutina" class="btn btn-success mr-1">Jugar</a>
+                            </div>
+                            <div *ngIf="mobile">
+                              <p>Ingresa desde una PC o Laptop para realizar la rutina</p>
+                            </div>
+                            <p>Rutina de hoy: {{todaySession.routine.description}}</p>
                         </div>
+                        <div class="col">
+                          <a *ngIf="meetingURL" href="{{meetingURL}}" class="btn btn-primary" target="_blank" style="width: auto;">Zoom</a>
+                          <p *ngIf="meetingPassword">Contraseña:  <b> {{meetingPassword}} </b></p>
+                        </div>                     
                       </div>
                       <!-- <div class="row" *ngIf="todaySession">
                         <div *ngIf="!todaySession.status">
@@ -270,22 +273,29 @@
             </div>
           </div>
           <div class="row" *ngIf="opcionMenu == 'soporte'">
-            <div class="row soporte">
-              <div class="col soporteUno" (click)="seleccionMenu('introduccion')" style="text-align:center">
-                <img src="../../../assets/img/skepsi/iconos/SKEPSI_ICONO_03.png">
-                <p class="soporteTitle">INTRODUCCIÓN</p>
-                <p>Todo lo que necesitas saber para empezar a utilizar SKEPSI.</p>
+            <div class="row">
+              <img src="../../../assets/img/skepsi/iconos/newsletter-01.jpg" alt="Indice" style="width: 100%; height:auto;">
+            </div>
+            <div class="row">
+              <div class="card" style="width: 50%; margin:10px">
+                <div class="card-header">
+                  <h1>Tienes alguna duda o problema?, contáctanos!</h1>
+                </div>
+                <div class="card-body">
+                  <form [formGroup]="contactForm" (ngSubmit)="sendData(contactForm)">
+                    <p>
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                      <mat-label>Mensaje</mat-label>
+                      <textarea name="comentarios" matInput formControlName="comentarios" cols="10" rows="5" placeholder="Dinos cuáles son tus dudas y preguntas." required></textarea>
+                      <mat-error>Los comentarios son requeridos</mat-error>
+                    </mat-form-field>
+                    </p>
+                    <input type="submit" value="ENVIAR" class="btn btn-primary" [disabled]="!contactForm.valid">
+                  </form>
+                </div>
               </div>
-              <div class="col soporteDos" (click)="seleccionMenu('audioVideo')" style="text-align:center">
-                <img src="../../../assets/img/skepsi/iconos/Sin título-1-10.png">
-                <p class="soporteTitle">AUDIO Y VIDEO</p>
-                <p>Problemas técnicos para conectarte a tu sesión de entrenamiento.</p>
-              </div>
-              <div class="col soporteTres" (click)="seleccionMenu('configuracion')" style="text-align:center">
-                <img src="../../../assets/img/skepsi/iconos/Sin título-1-11.png">
-                <p class="soporteTitle">ADMINISTRACIÓN DE LA CUENTA</p>
-                <p>Administra tu cuenta.</p>
-              </div>
+
+
             </div>
           </div>
           <div class="row" *ngIf="opcionMenu == 'introduccion'">

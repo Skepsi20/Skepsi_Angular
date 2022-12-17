@@ -1,6 +1,6 @@
-<div class="DGNCO">
+<div class="EGNCO">
     <div class="skepsiLogo">
-      <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+      <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" (click)="regresar()" class="skepsiLogo">
     </div>
     <div>
       <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
@@ -20,22 +20,102 @@
             style="margin:0px auto;">
           </div>
         </div>
-        <!-- BARRA DE PROGRESO FIN -->
-  
+        <!-- BARRA DE PROGRESO FIN -->  
         <br>
         <div class="row">
-          <p class="titulo">A continuación aprenderás mucho sobre la anatomía de las aves y los mamíferos, presta mucha atención a las instrucciones</p>
+          <p class="titulo">A continuación verás una serie de fichas de dominó, dados, y terminará con una sección de preguntas "Sabías que", presta mucha atención y diviertete mucho</p>
         </div>
-      </div>
-  
+      </div>  
       <div *ngIf="!instruccionesDOM">
-        
-        
+        <div *ngIf="dadosYdomino">
+          <div class="row progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+              [attr.aria-valuenow]="timerEjercicio" [style.width]="(timerEjercicio*0.33)+'%'" aria-valuemin="0" aria-valuemax="20"
+              style="margin:0px auto;">
+            </div>
+          </div>          
+          <div *ngIf="elementoAMostrar[0] == 'Imagenes'">
+            <div class="row">
+              <h2>{{elementoAMostrar[1]}}</h2>  
+              <img src="{{elementoAMostrar[2]}}" class="pregunta">
+            </div>
+            <div class="row">
+              <div class="col d-flex justify-content-center">
+                <button (click)="aumentarContadorDeEstado(elementoAMostrar[3])" class="btn btn-light opcion"><img src="{{elementoAMostrar[3]}}"></button>
+                <button (click)="aumentarContadorDeEstado(elementoAMostrar[4])" class="btn btn-light opcion"><img src="{{elementoAMostrar[4]}}"></button>
+                <button (click)="aumentarContadorDeEstado(elementoAMostrar[5])" class="btn btn-light opcion"><img src="{{elementoAMostrar[5]}}"></button>  
+              </div>
+            </div>
+          </div>
+          <div *ngIf="elementoAMostrar[0] == 'Imagen'">
+            <div class="row">
+              <div class="col">
+                <img src="{{elementoAMostrar[1]}}" class="imagenSabiasQue">
+                <button (click)="aumentarContadorDeEstado()" class="buttonSkepsi">Continuar</button>
+              </div>
+            </div>  
+          </div>
+          <div *ngIf="elementoAMostrar[0] == 'Imagenes y texto'">
+            <div class="row">
+              <h2>{{elementoAMostrar[1]}}</h2>  
+              <h1>{{elementoAMostrar[2]}}</h1>
+            </div>
+            <div class="row">
+              <div class="col d-flex justify-content-center">
+                <button (click)="aumentarContadorDeEstado(elementoAMostrar[3])" class="btn btn-light opcion"><img src="{{elementoAMostrar[3]}}"></button>
+                <button (click)="aumentarContadorDeEstado(elementoAMostrar[4])" class="btn btn-light opcion"><img src="{{elementoAMostrar[4]}}"></button>
+                <button (click)="aumentarContadorDeEstado(elementoAMostrar[5])" class="btn btn-light opcion"><img src="{{elementoAMostrar[5]}}"></button>  
+              </div>
+            </div>
+          </div>
+          <div  *ngIf="elementoAMostrar[0] == 'Texto'">
+            <div class="row">
+              <h2>{{elementoAMostrar[1]}}</h2>  
+              <h1>{{elementoAMostrar[2]}}</h1>
+            </div>
+            <div class="row">
+              <div class="col d-flex justify-content-center">
+                <button (click)="aumentarContadorDeEstado(elementoAMostrar[3])" class="btn btn-light opcion">{{elementoAMostrar[3]}}</button>
+                <button (click)="aumentarContadorDeEstado(elementoAMostrar[4])" class="btn btn-light opcion">{{elementoAMostrar[4]}}</button>
+                <button (click)="aumentarContadorDeEstado(elementoAMostrar[5])" class="btn btn-light opcion">{{elementoAMostrar[5]}}</button>
+              </div>
+            </div>
+          </div>
+          <!-- <div *ngIf="estado == 1">
+            <div class="grid">
+              <div class="col respuestas" 
+                  [sortablejs]="dadosYDomino" 
+                  [sortablejsOptions]="options">
+                    <div *ngFor="let item of arregloDeAudiosExtendidoRandom" 
+                        class="grid-square item">
+                        <img src="{{item.imagen}}" alt="">
+                    </div>
+                </div>
+            </div>       
+            <h1>Respuesta</h1>
+            <div class="grid">
+                <div class="col respuestas" 
+                    [sortablejs]="respuestasDragAndDrop" 
+                    [sortablejsOptions]="options">
+                      <div *ngFor="let item of respuestasDragAndDrop"
+                          class="grid-square item">
+                          <img src="{{item.imagen}}" alt="">
+                      </div>
+                </div>
+            </div>
+          </div> -->      
+        </div>  
       <div *ngIf="resultadosDOM">
+        <div class="row progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            [attr.aria-valuenow]="timerDescanso" [style.width]="(timerDescanso*1.66)+'%'" aria-valuemin="0" aria-valuemax="20"
+            style="margin:0px auto;">
+          </div>
+        </div>
         <p class="titulo">Ejercicio terminado!</p>
-        <p class="titulo"> Resultados:</p>
-<!--         <p class="titulo">Tuviste {{calificacionDOM}} aciertos de 30</p>
- -->      </div>
+        <p class="titulo">Resultados:</p>
+        <p class="titulo">Tuviste {{calificacionDOM}} aciertos {{contadorDeEstado}}</p>
+     </div>
     </div>
   </div>
     

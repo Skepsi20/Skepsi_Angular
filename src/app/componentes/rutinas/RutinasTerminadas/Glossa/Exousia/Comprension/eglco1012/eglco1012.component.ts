@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-eglco1012',
@@ -105,6 +106,7 @@ export class EGLCO1012Component implements OnInit {
   constructor(
     private _resultsService: ResultsService,
     private snackbar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -371,6 +373,12 @@ export class EGLCO1012Component implements OnInit {
     },
     (error)=>{
       console.log("ERROR",error)
+    });
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
     });
   }
 }

@@ -9,6 +9,7 @@ import { AMACO } from 'src/app/Models/rutinas/LogicoMatematico/Comprension/amaco
 import { Amaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/amaco1012.service';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'amaco1012',
@@ -64,11 +65,11 @@ export class Amaco1012Component implements OnInit {
   public vistaOperacion = new AMACO('', '', '', '', '', '', '');
   public inicioCrono: Date = new Date();
 
-  public tiempoSegundosCrono = 11;
+  public tiempoSegundosCrono = 60;
   //25
   public segundosDescanso = 15;
   //15
-  public tiempoSegundosGeneral = 65;
+  public tiempoSegundosGeneral = 150;
   //150
 
   public tiempoSegundosInstrucciones = 8;
@@ -102,7 +103,8 @@ export class Amaco1012Component implements OnInit {
 
   constructor(
     private _amacoService: Amaco1012Service,
-    private _resultsService: ResultsService
+    private _resultsService: ResultsService, 
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -568,5 +570,11 @@ export class Amaco1012Component implements OnInit {
 
   reloadPage() {
     window.location.reload();
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
+    });
   }
 }

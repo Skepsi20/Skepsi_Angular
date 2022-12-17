@@ -10,6 +10,7 @@ import { AMAAN } from 'src/app/Models/rutinas/LogicoMatematico/Analisis/amaan.mo
 import { Amaan1012Service } from 'src/app/services/rutinas/LogicoMatematico/amaan1012.service';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'amaan1012',
@@ -125,8 +126,11 @@ export class Amaan1012Component implements OnInit {
   public numFigSelect:any;
 
 
-  constructor(private _AMAANService: Amaan1012Service,
-    private _resultsService: ResultsService) {}
+  constructor(
+    private _AMAANService: Amaan1012Service,
+    private _resultsService: ResultsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     //Instrucciones API
@@ -713,6 +717,12 @@ export class Amaan1012Component implements OnInit {
 
   reloadPage() {
     //window.location.reload();
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
+    });
   }
 }
 

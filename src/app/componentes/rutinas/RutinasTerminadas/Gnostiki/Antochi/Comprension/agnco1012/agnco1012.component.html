@@ -1,6 +1,6 @@
 <div class="AGNCO">
     <div class="skepsiLogo">
-      <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+      <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" (click)="regresar()" class="skepsiLogo">
     </div>
     <div>
       <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
@@ -132,7 +132,7 @@
               <div class="row">
                 <p class="titleDragAndDrop">Respuestas</p>              
                 <div class="grid" *ngIf="timeMostrar >= 1">
-                  <div class="col titleBorder respuestas" style="min-height: 200px;"
+                  <div class="col titleBorder respuestas" style="min-height: 400px;"
                       [sortablejs]="respuestasAves" 
                       [sortablejsOptions]="options">
                       <div *ngFor="let item of respuestasAves" 
@@ -258,7 +258,7 @@
               <div class="row">
                 <p class="titleDragAndDrop">Respuestas</p>              
                 <div class="grid" *ngIf="timeMostrar >= 1">
-                  <div class="col titleBorder respuestas" style="min-height: 200px;"
+                  <div class="col titleBorder respuestas" style="min-height: 400px;"
                       [sortablejs]="respuestasMamiferos" 
                       [sortablejsOptions]="options">
                       <div *ngFor="let item of respuestasMamiferos" 

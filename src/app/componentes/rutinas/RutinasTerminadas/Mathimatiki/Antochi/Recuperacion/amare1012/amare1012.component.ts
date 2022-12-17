@@ -6,6 +6,7 @@ import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { SortableData } from 'ngx-sortablejs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-amare1012',
@@ -72,6 +73,7 @@ export class AMARE1012Component implements OnInit {
     private _amareService: AMARE1012Service,
     private _resultsService: ResultsService,
     private snackbar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -303,6 +305,12 @@ export class AMARE1012Component implements OnInit {
     },
     (error)=>{
       console.log("ERROR",error)
+    });
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
     });
   }
 }

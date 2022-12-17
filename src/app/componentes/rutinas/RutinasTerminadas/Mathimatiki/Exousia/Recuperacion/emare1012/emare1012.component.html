@@ -1,6 +1,6 @@
 <div class="EMARE">
   <div class="skepsiLogo">
-    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" (click)="regresar()" class="skepsiLogo">
   </div>
   <div *ngIf="timerActivo">
     <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
@@ -66,13 +66,15 @@
             </div>
             <div class="row">
               <div class="col" *ngFor="let espacio of listEspsFig; index as i">
-                <img src="..\assets\img\rutinas\LogicoMatematico\espaciosFig\FigurasGeom-{{espacio}}.png" >
+                <img src="..\assets\img\rutinas\LogicoMatematico\Emare1012\FigurasGeo-{{espacio}}.png" >
               </div>
             </div>
-            <div class="col-2" style="margin:0px auto">
+            <div class="row">
+            <div class="col-2" style="margin:0px auto" *ngIf="!rutina">
               <button (click)="funcion1()" mat-raised-button class="buttonSkepsi textoBoton">
                 Siguiente
               </button>
+            </div>
             </div>
           </div>
         </div>
@@ -97,9 +99,9 @@
               </div>
               <div class="row">
                 <div class="col" *ngFor="let figura of listFigGeoRand; index as i">
-                  <button mat-raised-button class="buttonSkepsi textoBoton" (click)="figSelection(i)" [style.background-color]="figura.toggle ? 'white':''">
+                  <button mat-raised-button class="buttonSkepsi textoBoton" (click)="figSelection(i)"  [style.border]="figura.toggle ? '5px': '1px'" [style.background-color]="figura.toggle ? '#4ACFC6': 'white'">
                     <img
-                        src="..\assets\img\rutinas\LogicoMatematico\figurasGeo\FigurasGeo-{{figura.imgFigGeo}}.png" >
+                        src="..\assets\img\rutinas\LogicoMatematico\Emare1012\FigurasGeo-{{figura.cuerpo}}.png" >
                   </button>
                    </div>
               </div>
@@ -166,17 +168,7 @@
           </div>
           <div class="row">
             <div class="col">
-              <h3>Ejericicio 1: {{ resultadoEjer[0].aciertos }} aciertos de {{ resultadoEjer[0].intentos }}</h3>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <h3> Ejericicio 2: {{ resultadoEjer[1].aciertos }} aciertos de {{ resultadoEjer[1].intentos }}</h3>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <h3> Ejericicio 3: {{ resultadoEjer[2].aciertos }} aciertos de {{ resultadoEjer[2].intentos }}</h3>
+              <h3> Ejericicio : {{ resultadoEjer[1].aciertos }} aciertos de {{ resultadoEjer[1].intentos }}</h3>
             </div>
           </div>
           <div class="row">

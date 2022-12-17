@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TutorService } from 'src/app/services/Tutores/tutor.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SpinnerService } from 'src/app/services/spinner/spinner.service';
@@ -12,15 +12,16 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './suspendidos.component.html',
   styleUrls: ['./suspendidos.component.css']
 })
-export class SuspendidosComponent implements OnInit, AfterViewInit{
-  status = '';
+export class SuspendidosComponent implements OnInit{
+  status = 'Activo';
   statuses = ['Activo','Suspendido','Inactivo'];
-  displayedColumns = ['name','institution','grupo','date','dateModify','status'];
+  displayedColumns = ['name','institution','grupo','date','dateModify','status','opciones'];
   alumnos:any = [];
   studentToReactivate = '';
   studentToCancel = '';
-  dataSource: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<any>;
   alumnosArray: Array<any> = [];
+  studentDelete: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -33,18 +34,20 @@ export class SuspendidosComponent implements OnInit, AfterViewInit{
     this.tutorService.getSuspendedStudents('Activo')
       .subscribe(
         (success)=>{
+          console.log("ESTUDIANTES",success)
           this.spinnerService.hide();
           this.alumnos = success;
           for (let i = 0; i < this.alumnos.length; i++) {
             this.alumnosArray.push(createNewUser(success[i]));
-          }
+          }              
+          this.dataSource = new MatTableDataSource(this.alumnosArray);
+          
           console.log(success)
         },(error)=>{
           this.spinnerService.hide();
           console.log(error)
         }
       )
-      this.dataSource = new MatTableDataSource(this.alumnosArray);
   }
 
   ngOnInit(): void {
@@ -55,6 +58,8 @@ export class SuspendidosComponent implements OnInit, AfterViewInit{
         (success)=>{
           this.spinnerService.hide();
           this.alumnos = success;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
           console.log(success)
         },(error)=>{
           this.spinnerService.hide();
@@ -62,11 +67,6 @@ export class SuspendidosComponent implements OnInit, AfterViewInit{
         }
       )
     }
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
@@ -107,6 +107,30 @@ export class SuspendidosComponent implements OnInit, AfterViewInit{
         console.log(error)
       }
     )
+  }
+
+  studentToDelete(id:any){
+    this.studentDelete = id;
+  }
+
+  deleteStudent(){
+    console.log("ESTUDIANTE A ELIMINAR",this.studentDelete)
+    /* this.employeService.deleteEmployee(this.userToDelete)
+    .subscribe(
+      (success)=>{
+        this.snackbar.open('Se eliminó el usuario correctamente',undefined,{
+          duration: 2000
+        });
+          var tiempos = setTimeout(()=>{
+            window.location.reload();
+          },2000);      
+        },(error)=>{
+        this.snackbar.open('Error eliminando al usuario',undefined,{
+          duration: 2000
+        });
+        console.log(error)
+      }
+    ) */
   }
 
 }

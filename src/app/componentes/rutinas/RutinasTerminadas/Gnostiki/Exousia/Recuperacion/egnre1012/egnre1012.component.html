@@ -1,6 +1,6 @@
 <div class="DGNRE">
   <div class="skepsiLogo">
-    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" class="skepsiLogo">
+    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" (click)="regresar()" class="skepsiLogo">
   </div>
   <div>
     <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
@@ -33,7 +33,7 @@
         <div class="row">
           <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-              [attr.aria-valuenow]="timeLeftTwo" [style.width]="(timeLeftTwo*0.83)+'%'" aria-valuemin="0" aria-valuemax="20"
+              [attr.aria-valuenow]="timeLeftTwo" [style.width]="(timeLeftTwo)+'%'" aria-valuemin="0" aria-valuemax="20"
               style="margin:0px auto;">
             </div>
           </div>

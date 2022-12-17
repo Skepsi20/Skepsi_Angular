@@ -10,6 +10,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dglre1012',
@@ -82,7 +83,8 @@ export class DGLRE1012Component implements OnInit {
 
   constructor(
     private _dglreService: DGLRE1012Service,
-    private _resultsService: ResultsService
+    private _resultsService: ResultsService,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -412,5 +414,10 @@ export class DGLRE1012Component implements OnInit {
       console.log("ERROR",error)
     });
   }
-  
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
+    });
+  }
 }

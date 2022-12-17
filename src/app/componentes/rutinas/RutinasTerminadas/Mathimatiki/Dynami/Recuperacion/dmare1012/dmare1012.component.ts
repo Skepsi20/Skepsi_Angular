@@ -11,6 +11,7 @@ import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
 import { Emaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/emaco1012.service';
 import { dmare } from 'src/app/Models/rutinas/LogicoMatematico/Recuperacion/dmare.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dmare1012',
@@ -69,8 +70,8 @@ export class DMARE1012Component implements OnInit {
 
   public tiempoSegundosCrono = 35;
   public segundosDescanso = 10;
-  public tiempoSegundosGeneral = 120;
-  public tiempoSegundosInstrucciones = 10;
+  public tiempoSegundosGeneral = 45*60;
+  public tiempoSegundosInstrucciones = 15;
 
   public tTimerGeneral = 0;
   public tTimer = 0;
@@ -102,10 +103,12 @@ export class DMARE1012Component implements OnInit {
   public arrUsuario: Array<any> = [];
   public arrResults: Array<any> = [];
   public tiradasRestantes = 0;
+  public tiradaReview=false;
 
   constructor(
     private _emacoService: Emaco1012Service,
-    private _resultsService: ResultsService
+    private _resultsService: ResultsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -123,26 +126,14 @@ export class DMARE1012Component implements OnInit {
       this.tTimer--;
       this.tTimerGeneral--;
       this.tTimerInstrucciones--;
+
       if (this.tTimerInstrucciones == 0) {
         this.instrucciones = false;
         this.Inicializacion();
       }
       if (this.tTimer == 0) {
         this.timerActivo = false;
-        switch (this.ejercActivo) {
-          case 1:
-            break;
-          case 2:
-            //this.funcion2();
-            break;
 
-          case 3:
-            //this.funcion3(this.operador.oper);
-            break;
-
-          default:
-            break;
-        }
       } else if (this.tTimer > 0) this.timerActivo = true;
       if (this.tTimerDescanso > 0) this.tTimerDescanso--;
     });
@@ -221,8 +212,8 @@ export class DMARE1012Component implements OnInit {
   }
 
   sonarAlarmas() {
-    if (this.tTimer >= this.tiempoSegundosCrono) {
-      if (this.tTimerGeneral >= this.tiempoSegundosGeneral - 1) {
+    if (this.tTimer >= this.tiempoSegundosGeneral) {
+      if (this.tTimerGeneral >= (this.tiempoSegundosGeneral -1)) {
         let alarmInitRutina = <HTMLAudioElement>(
           document.getElementById('initRutAudio')
         );
@@ -315,7 +306,10 @@ export class DMARE1012Component implements OnInit {
         if (this.ejercActivo > 0) this.ejercActivo++;
         if (this.ejercActivo == 4) {
           this.ejercActivo = 2;
-          this.numeroTiradas += 3;
+          console.log(this.resultsTable.grade)
+          if((this.resultsTable.grade)>60){this.numeroTiradas += 3;console.log('mas del 0.6');
+          }
+
         }
         this.tiempoDescanso = false;
         this.Inicializacion();
@@ -348,7 +342,7 @@ export class DMARE1012Component implements OnInit {
 
   resetTimerEjer() {
     this.timerActivo = true;
-    this.tTimer = this.tiempoSegundosCrono + 1;
+    this.tTimer = this.tiempoSegundosGeneral;
   }
 
   mostrarEjer1() {
@@ -378,6 +372,7 @@ export class DMARE1012Component implements OnInit {
       this.crearDuplasDados();
       console.log('VistaFracciones', this.duplaCarasDado);
     } else {
+      this.tTimer=3;
       console.log('ArrTiradas', this.arrTiradas);
       this.revisar();
       this.calificacion = 0;
@@ -388,10 +383,6 @@ export class DMARE1012Component implements OnInit {
 
   mostrarEjer3() {
     this.operador = { oper: '', simbolo: '' };
-
-    let RestaTiempo = Math.floor(
-      (new Date().getTime() - this.inicioCrono.getTime()) / 1000
-    );
     if (this.timerActivo) {
       this.crearDuplasDados();
       console.log('VistaFracciones', this.duplaCarasDado);
@@ -471,14 +462,23 @@ export class DMARE1012Component implements OnInit {
 
   funcion3() {
     this.tabTiradas.forEach((tirada) => {
+      this.evaluateOper(tirada)
       if (tirada.result) this.calificacion++;
       this.contadorEjer++;
     });
-
-    this.revisar();
-    this.calificacion = 0;
+    this.tiradaReview=true;
+    this.tTimer=3;
+    let _tiempo = setTimeout(() => {
+      //this.tiradaReview=true;
+      this.revisar();
+      this.calificacion = 0;
     this.resultados = true;
     this.rutina = true;
+    this.tiradaReview=false;
+    }, this.segundosDescanso * 1000);
+
+    //this.revisar();
+
 
   }
 
@@ -529,5 +529,11 @@ export class DMARE1012Component implements OnInit {
 
   reloadPage() {
     window.location.reload();
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`)
+    .then(() => {
+      window.location.reload();
+    });
   }
 }

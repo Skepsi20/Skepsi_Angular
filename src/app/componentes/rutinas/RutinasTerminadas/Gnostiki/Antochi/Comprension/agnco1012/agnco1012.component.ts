@@ -5,6 +5,7 @@ import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { Agnco1012Service } from 'src/app/services/rutinas/DesarrolloCognitivo/Comprension/agnco1012.service';
 import { agnco } from 'src/app/Models/rutinas/DesarrolloCognitivo/Comprension/agnco.model';
 import { SortableData } from 'ngx-sortablejs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-agnco1012',
@@ -96,6 +97,7 @@ export class AGNCO1012Component implements OnInit {
   constructor(
     private _resultsService: ResultsService,
     private agncoService: Agnco1012Service,
+    private router: Router
   ) { 
     
   }
@@ -136,7 +138,7 @@ export class AGNCO1012Component implements OnInit {
     ]
     this.patasMam = [
       { valor:'1PM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosPatas-30.png', respuesta:'Excavación: Pueden excavar en la tierra para encontrar insectos' },
-      { valor:'2PM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosPatas-31.png', respuesta:'Aprención de objetos: Pueden agarrar comida con sus manos o patas que tienen dedos' },
+      { valor:'2PM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosPatas-31.png', respuesta:'Aprensión de objetos: Pueden agarrar comida con sus manos o patas que tienen dedos' },
       { valor:'3PM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosPatas-32.png', respuesta:'Natación: Como las aletas en ballenas que le ayudan a nadar' },
       { valor:'4PM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosPatas-33.png', respuesta:'Marcha: Las patas marchadoras pueden acabar en uñas o dedos' },
 
@@ -447,6 +449,12 @@ export class AGNCO1012Component implements OnInit {
     },
     (error)=>{
       console.log("ERROR",error)
+    });
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
     });
   }
 }

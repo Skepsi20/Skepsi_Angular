@@ -32,6 +32,7 @@ export class DashboardDetailComponent implements OnInit {
   studentToSuspend: string = '';
   comentariosDeSuspension: string = '';
   tutorId = '';
+  mostrarAyuda = false;
 
   @ViewChild('zoomForm') zoomForm?: NgForm;
 
@@ -57,7 +58,7 @@ export class DashboardDetailComponent implements OnInit {
       this.tutorService.getDashboardDetails(this.sharedService.getDashboardId())
       .subscribe(
         (success)=>{
-          console.log("DASHBOARD DETAIL", success)
+          console.log("DASHBOARD DETAIL TUTOR", success)
           this.groupId = success.id
           this.dashboardDetail = success;
           this.tutorId = this.dashboardDetail.tutor.id;

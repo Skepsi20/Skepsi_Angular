@@ -10,6 +10,7 @@ import { EMACO } from 'src/app/Models/rutinas/LogicoMatematico/Comprension/emaco
 import { Emaco1012Service } from 'src/app/services/rutinas/LogicoMatematico/emaco1012.service';
 import { resultsWithDate } from 'src/app/Models/Resultados/sessionsResults';
 import { ResultsService } from 'src/app/services/Resultados/results.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'emaco1012',
@@ -66,10 +67,10 @@ export class Emaco1012Component implements OnInit {
   public vistaOperacion = new EMACO('','','','');
   public inicioCrono: Date = new Date();
 
-  public tiempoSegundosCrono = 25;
-  public segundosDescanso = 5;
+  public tiempoSegundosCrono = 60;
+  public segundosDescanso = 15;
   public tiempoSegundosGeneral = 120;
-  public tiempoSegundosInstrucciones = 2;
+  public tiempoSegundosInstrucciones = 10;
 
   public tTimerGeneral = 0;
   public tTimer = 0;
@@ -96,8 +97,11 @@ export class Emaco1012Component implements OnInit {
   public fraccionesRand: Array<any> = [];
   public duplaCarasDado: Array<number> = [];
 
-  constructor(private _emacoService: Emaco1012Service,
-    private _resultsService: ResultsService) {}
+  constructor(
+    private _emacoService: Emaco1012Service,
+    private _resultsService: ResultsService,
+    private router: Router  
+  ) {}
 
   ngOnInit(): void {
     //Instrucciones API
@@ -554,5 +558,11 @@ export class Emaco1012Component implements OnInit {
 
   reloadPage() {
     window.location.reload();
+  }
+  regresar(){
+    this.router.navigateByUrl(`/usuario`) 
+    .then(() => {
+      window.location.reload();
+    });
   }
 }

@@ -56,6 +56,7 @@ export class RegisterComponent implements OnInit {
       phoneNumber: '',
     }
   }
+  error: any;
   public errorMessage: Array<any> = [];
   public passwordConfirm = '';
   public cookieUser : string = '';
@@ -146,6 +147,9 @@ export class RegisterComponent implements OnInit {
           this.snackbar.open('Error creando cuenta, intente nuevamente.',undefined,{
             duration: 2000
           });
+          if(error.error.PasswordRequiresDigit){
+            this.error = "La contraseña necesita al menos 10 caracteres y 1 dígito";
+          }
           if(error.error.DuplicateEmail){
             this.errorMessage.push('El correo de alumno '+this.student.user.email+'  ya está siendo utilizado.')
           }
