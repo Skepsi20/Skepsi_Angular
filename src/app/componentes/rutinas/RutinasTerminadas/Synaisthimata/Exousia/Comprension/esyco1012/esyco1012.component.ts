@@ -21,6 +21,7 @@ interface IPose {
 interface IPoseImage extends IPose {
   fileName: string
 }
+
 // #endregion Tipos locales
 
 @Component({
@@ -65,15 +66,28 @@ export class Esyco1012Component implements OnInit {
     {name: 'Rezar', description:'Postura de rezar'},
     {name: 'SoporteHombros', description:'Soporte en hombros'}
   ];
-  // TODO: Reemplazar el audio de prueba por los audios reales de niños burlándose
   private readonly audiosAleatoriosDefault: string[] = [
-    'EstrellaMarioPrueba',
-    'EstrellaMarioPrueba',
-    'EstrellaMarioPrueba',
-    'EstrellaMarioPrueba',
-    'EstrellaMarioPrueba'
+    'CaraDeChango',
+    'CaraDeLlantaAplastada',
+    'EresLoPeor',
+    'EresUnTorpe',
+    'GuacalaAsqueroso',
+    'GuacalaYaBanate',
+    'NacoVuelveATuBarrio',
+    'NiParaEsoSirves',
+    'ParacesUnChango',
+    'ParecesUnTopo',
+    'PorEsoNadieTeTomaEnSerio',
+    'PorEsoNoTienesAmigos',
+    'PorEsoNoTienesQuienTeQuiera',
+    'QueRatitoTeVes',
+    'QueRidiculo',
+    'RidiculoSiTeVieraTuMama',
+    'TeniaQueSer',
+    'TeVesRidiculo',
+    'TipicoDeTi',
+    'TuPapaNoTeQuiere',
   ];
-  private readonly randomAudioDelays: number[] = [120, 40, 30, 45, 30];
   // #endregion Variables privadas de solo-lectura
 
   // #region Variables de resultados
@@ -106,7 +120,9 @@ export class Esyco1012Component implements OnInit {
   public posturasDeYoga: IPoseImage[];
   public poseIndex: number;
   public audiosAleatorios: string[];
+  public randomAudio: HTMLAudioElement;
   public randomAudioIndex: number;
+  public randomAudioTimer?: NodeJS.Timeout;
 
   public get ESYCO1012Step(): typeof ESYCO1012Step {
     return ESYCO1012Step;
@@ -125,17 +141,16 @@ export class Esyco1012Component implements OnInit {
     this.afecciones2 = [...this.afeccionesDefault2];
     this.volume = 0.6;
     this.currentVolumeImage = 'VolumeMedium';
-    this.yogaAudio = new Audio(`${this.audiosDirectory}/YogaMusica.mp3`);
+    this.yogaAudio = new Audio(`${this.audiosDirectory}/MusicaYoga.mp3`);
     this.yogaAudioTime = 0;
     this.posturasDeYoga = this.getYogaImages();
     this.poseIndex = 0;
     this.audiosAleatorios = this.getRandomAudios();
     this.randomAudioIndex = 0;
+    this.randomAudio = new Audio(`${this.audiosDirectory}/${this.audiosAleatorios[this.randomAudioIndex]}`);
   }
 
   ngOnInit(): void {
-    this.initializeComponent();
-
     setInterval(()=> this.statusUpdate(), 30000);
     this.getSession();
   }
@@ -161,6 +176,7 @@ export class Esyco1012Component implements OnInit {
           contentContainerDiv.scrollTop = 0;
         }
         this.currentStep  = ESYCO1012Step.Yoga;
+        this.sendResult();
         break;
     }
   }
@@ -182,11 +198,27 @@ export class Esyco1012Component implements OnInit {
     if (this.yogaAudio.paused) {
       this.yogaAudio.play();
 
-      // Contar para hacer sonar audio pseudoaleatorio
+      if (this.randomAudioTimer) {
+        clearInterval(this.randomAudioTimer);
+        this.randomAudioTimer = undefined;
+      }
+      else {
+        this.randomAudioTimer = setInterval(() => {
+          if (!this.yogaAudio.paused) {
+            this.randomAudio = new Audio(this.audiosAleatorios[this.randomAudioIndex]);
+            this.randomAudio.volume = this.volume;
+            this.randomAudio.play();
+            this.nextAudio();
+          }
+        }, 60000);
+      }
     }
     else {
       this.yogaAudio.pause();
-      // Pausar contador de audios pseudoaleatorios
+      if (this.randomAudioTimer) {
+        clearInterval(this.randomAudioTimer);
+        this.randomAudioTimer = undefined;
+      }
     }
   }
 
@@ -252,7 +284,7 @@ export class Esyco1012Component implements OnInit {
         this.currentStep  = ESYCO1012Step.Introduction;
         clearInterval(this.interval);
       }
-    }, 100) // TODO: Regresar a 1000
+    }, 1000)
   }
 
   // #region Funciones privadas con interacción con la API
@@ -291,7 +323,6 @@ export class Esyco1012Component implements OnInit {
         if(success){
           this.sessionId = success.id;
           this.getCurrentStudentSession();
-        } else {
         }
       },
       (error) =>{
@@ -325,8 +356,16 @@ export class Esyco1012Component implements OnInit {
       console.log("ERROR",error)
     });
   }
-  regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+
+  private nextAudio() {
+    this.randomAudioIndex++;
+    if (this.randomAudioIndex >= this.audiosAleatoriosDefault.length) {
+      this.randomAudioIndex = 0;
+    }
+  }
+
+  regresar() {
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });
