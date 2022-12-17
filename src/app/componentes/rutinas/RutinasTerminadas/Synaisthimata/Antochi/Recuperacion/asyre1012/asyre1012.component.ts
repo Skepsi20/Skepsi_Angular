@@ -143,8 +143,6 @@ export class Asyre1012Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initializeComponent();
-
     setInterval(()=> this.statusUpdate(), 30000);
     this.getSession();
   }
@@ -357,7 +355,7 @@ export class Asyre1012Component implements OnInit {
     });
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });

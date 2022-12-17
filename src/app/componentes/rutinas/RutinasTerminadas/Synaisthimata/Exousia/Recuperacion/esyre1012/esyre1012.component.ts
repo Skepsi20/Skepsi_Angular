@@ -45,7 +45,6 @@ export class Esyre1012Component implements OnInit {
   public tiempoAprender : boolean = true;
 
   public timeLeft: number = 10;
-  public timeLeftTwo: number = 120;
   public interval: any;
   public intervalTwo: any;
 
@@ -91,8 +90,6 @@ export class Esyre1012Component implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initializeComponent();
-
     setInterval(()=> this.statusUpdate(), 30000);
     this.getSession();
   }
@@ -201,7 +198,6 @@ export class Esyre1012Component implements OnInit {
   private initializeComponent() {
     this.showInstructions();
     this.tiempoAprender = true;
-    this.timeLeftTwo = 120;
   }
 
   private statusUpdate() {
@@ -326,7 +322,7 @@ export class Esyre1012Component implements OnInit {
     });
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });
