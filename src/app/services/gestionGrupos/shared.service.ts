@@ -7,7 +7,7 @@ import { newGroup } from '../../Models/api-models/Plans/grupo.model';
   providedIn: 'root'
 })
 export class SharedService {
-  private baseApiUrl = 'https://skepsi.azurewebsites.net';
+  private baseApiUrl = 'https://skepsitest.azurewebsites.net';
 
   public plan: string = ''
   public grupo: string = ''
@@ -67,7 +67,7 @@ export class SharedService {
   getSession(id:string): Observable<any>{
     return this.httpClient.get<any>(this.baseApiUrl + '/api/sessions/'+id);
   }
-  
+
   deleteSession(id:string): Observable<any>{
     return this.httpClient.delete<any>(this.baseApiUrl + '/api/sessions/'+id);
   }

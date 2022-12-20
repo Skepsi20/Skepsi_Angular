@@ -8,7 +8,7 @@ import { paypalProduct, subscriptionPayPal } from '../Models/PayPal/paypal';
 })
 export class PaypalService {
 
-  private baseApiUrl = 'https://skepsi.azurewebsites.net';
+  private baseApiUrl = 'https://skepsitest.azurewebsites.net';
   constructor(
     private httpClient: HttpClient
   ){}
@@ -29,7 +29,7 @@ export class PaypalService {
   getAllSales(): Observable<any>{
     return this.httpClient.get<any>(this.baseApiUrl + '/api/sales');
   }
-  
+
   getFilteredSells(request:any): Observable<any>{
     return this.httpClient.get<any>(this.baseApiUrl+'/api/sales/?StartDate='+request.startDate+'&EndDate='+request.endDate+'&status='+request.status+'&description='+request.description);
   }

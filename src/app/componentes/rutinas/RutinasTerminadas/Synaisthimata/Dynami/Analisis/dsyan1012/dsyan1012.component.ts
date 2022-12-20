@@ -14,7 +14,8 @@ export class Dsyan1012Component implements OnInit {
   juegoDOM = false;
   leftPosition = '1rem';
   topPosition = '1rem';
-  personaje = 0;  
+  personaje = 0;
+  insultos = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t']
   vidas:any = ['../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/vida.png','../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/vida.png','../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/vida.png'];
   score:number = 0;
   endGame = false;
@@ -23,11 +24,12 @@ export class Dsyan1012Component implements OnInit {
   dificultad: string = 'Fácil';
   respuestaPendiente = true;
   nuevaPartida = true;
-  
+  musicaDeFondo:any;
+
   timerDescanso: number = 60;
   intervalDescanso:any;
 
-  timeInstructions: number = 3;
+  timeInstructions: number = 10;
   intervalInstructions:any;
 
   timerJugada: number = 3;
@@ -47,14 +49,13 @@ export class Dsyan1012Component implements OnInit {
 
   inicializacion(){
     this.tiempoDeAparicion = 2000;
-    this.personaje = 0;  
+    this.personaje = 0;
     this.personajeDOM = true;
     this.dificultad = 'Fácil';
-    this.timerJugada = 3;        
+    this.timerJugada = 3;
     this.endGame = false;
     this.emocionesDOM = false;
     this.timerDescanso = 60;
-
     this.vidas = ['../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/vida.png','../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/vida.png','../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/vida.png'];
     this.score = 0;
   }
@@ -70,7 +71,7 @@ export class Dsyan1012Component implements OnInit {
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('initRutAudio')
           );
-          //alarmInitRutina.play();
+          alarmInitRutina.play();
           clearInterval(this.intervalInstructions);
           this.instruccionesDOM = false;
           this.emocionesDOM = true;
@@ -92,7 +93,12 @@ export class Dsyan1012Component implements OnInit {
 
   iniciarJuego(){
     this.bienvenidaJuegoDOM = false;
-    this.juegoDOM = true;   
+    this.juegoDOM = true;
+    this.musicaDeFondo = new Audio();
+    this.musicaDeFondo.src = "../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/fondo.mp3";
+    this.musicaDeFondo.load();
+    this.musicaDeFondo.volume = 0.1;
+    this.musicaDeFondo.play();
     this.juegoTemp();
   }
 
@@ -108,11 +114,19 @@ export class Dsyan1012Component implements OnInit {
             this.endGame = true;
             this.descanso();
           }else{
+            const insultoRandom = Math.floor(Math.random() * this.insultos.length);
+            const insulto = this.insultos[insultoRandom];
+            let audio = new Audio();
+            audio.src = "../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/insultos/"+insulto+'.mp3';
+            audio.load();
+            audio.play();
             this.vidas.pop();
           }
         }
-        this.randomPosition(0);
-      }      
+        if(!this.endGame){
+          this.randomPosition(0);
+        }
+      }
     },this.tiempoDeAparicion);
   }
 
@@ -129,21 +143,27 @@ export class Dsyan1012Component implements OnInit {
         this.endGame = true;
         this.descanso();
       }else{
+        const insultoRandom = Math.floor(Math.random() * this.insultos.length);
+        const insulto = this.insultos[insultoRandom];
+        let audio = new Audio();
+        audio.src = "../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/insultos/"+insulto+'.mp3';
+        audio.load();
+        audio.play();
         this.vidas.pop();
       }
-    }  
+    }
 
-    if(this.score < 25){ 
-      this.dificultad = "Fácil"; 
-      this.timerJugada = 3; 
+    if(this.score < 25){
+      this.dificultad = "Fácil";
+      this.timerJugada = 3;
     }
-    else if(this.score > 25 && this.score < 50){ 
-      this.dificultad = "Medio"; 
-      this.timerJugada = 2; 
+    else if(this.score > 25 && this.score < 50){
+      this.dificultad = "Medio";
+      this.timerJugada = 2;
     }
-    else{ 
-      this.dificultad = "Experto"; 
-      this.timerJugada = 1; 
+    else{
+      this.dificultad = "Experto";
+      this.timerJugada = 1;
     }
 
     this.randomPosition();
@@ -181,7 +201,13 @@ export class Dsyan1012Component implements OnInit {
   }
 
    //DESCANSO
-   descanso(){
+  descanso(){
+    let alarmInitRutina = <HTMLAudioElement>(
+      document.getElementById('finEjerAudio')
+    );
+    alarmInitRutina.play();
+    this.musicaDeFondo.pause();
+
     if(this.timerDescanso > 0){
       clearInterval(this.intervalDescanso);
     }
@@ -195,9 +221,9 @@ export class Dsyan1012Component implements OnInit {
       }
     },1000)
   }
-  
+
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });

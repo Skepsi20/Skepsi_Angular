@@ -8,7 +8,7 @@ import { addStudentRequest } from '../../Models/api-models/Auth/addStudentReques
   providedIn: 'root'
 })
 export class RegisterService {
-  private baseApiUrl = 'https://skepsi.azurewebsites.net';
+  private baseApiUrl = 'https://skepsitest.azurewebsites.net';
 
   constructor(
     private httpClient: HttpClient

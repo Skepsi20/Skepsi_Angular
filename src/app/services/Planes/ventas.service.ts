@@ -8,7 +8,7 @@ import { groupOfTutors, ITutorPlan, IPlanWithTutor } from 'src/app/Models/api-mo
   providedIn: 'root'
 })
 export class VentasService {
-  private baseApiUrl = 'https://skepsi.azurewebsites.net';
+  private baseApiUrl = 'https://skepsitest.azurewebsites.net';
   constructor(
     private httpClient: HttpClient
   ){}
@@ -27,9 +27,9 @@ export class VentasService {
       registrationCost: paqueteRequest.registrationCost,
       PayPalProductId: paqueteRequest.PayPalProductId,
       isTrial: paqueteRequest.isTrial,
-      numberOfDaysPerWeek: paqueteRequest.numberOfDaysPerWeek, 
-      minAge: paqueteRequest.minAge, 
-      maxAge: paqueteRequest.maxAge, 
+      numberOfDaysPerWeek: paqueteRequest.numberOfDaysPerWeek,
+      minAge: paqueteRequest.minAge,
+      maxAge: paqueteRequest.maxAge,
     };
     return this.httpClient.post<newPaquete>(this.baseApiUrl+'/api/plans/',addPaqueteRequest);
   }

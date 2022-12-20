@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RutinasFechadasService {
 
-  private baseApiUrl = 'https://skepsi.azurewebsites.net';
+  private baseApiUrl = 'https://skepsitest.azurewebsites.net';
   constructor(
     private httpClient: HttpClient
   ){}

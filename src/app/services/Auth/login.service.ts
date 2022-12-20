@@ -7,7 +7,7 @@ import { credentials } from '../../Models/api-models/Auth/credentials.model';
   providedIn: 'root'
 })
 export class LoginService {
-  private baseApiUrl = 'https://skepsi.azurewebsites.net';
+  private baseApiUrl = 'https://skepsitest.azurewebsites.net';
   constructor(private httpClient: HttpClient) { }
 
   login(credentialsRequest: credentials): Observable<any>{

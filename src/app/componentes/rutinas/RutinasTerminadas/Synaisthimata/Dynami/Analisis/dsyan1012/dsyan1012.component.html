@@ -12,7 +12,7 @@
     <div class="general">
       <!-- INSTRUCCIONES -->
       <div *ngIf="instruccionesDOM" class="instructions">
-  
+
         <!-- BARRA DE PROGRESO INICIO -->
         <div class="row progress">
           <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
@@ -20,12 +20,12 @@
             style="margin:0px auto;">
           </div>
         </div>
-        <!-- BARRA DE PROGRESO FIN -->  
+        <!-- BARRA DE PROGRESO FIN -->
         <br>
         <div class="row">
           <p class="titulo">¿Qué tan bueno eres para controlar tus emociones?</p>
         </div>
-      </div>  
+      </div>
       <div *ngIf="!instruccionesDOM">
         <div *ngIf="emocionesDOM">
             <h1>Revisa la lista de emociones individuales, estas te acompañan y se manifiestan en ti antes que las muestres a los demás, si tienes duda acerca del algún significado pregunta</h1>
@@ -33,7 +33,8 @@
             <button class="buttonSkepsi" (click)="emocionesDOM=false; bienvenidaJuegoDOM=true;">Siguiente</button>
         </div>
         <div *ngIf="bienvenidaJuegoDOM">
-            <h1>AHORA VAMOS A JUGAR XXXXXXXX</h1>
+            <h1>AHORA VAMOS A JUGAR</h1>
+            <img src="../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/portada.png" alt="">
             <button class="btn btn-success" (click)="iniciarJuego()">Jugar</button>
         </div>
         <div *ngIf="juegoDOM">
@@ -42,28 +43,28 @@
                 <div class="row">
                     <div class="col">
                         <div style="float: left; margin: 10px;">
-                            <p class="score">Puntos: {{score}}</p>                            
+                            <p class="score">Puntos: {{score}}</p>
                         </div>
                     </div>
                     <div class="col">
                         <div class="vidasCss">
                             <div *ngFor="let vida of vidas">
                                   <img src="{{vida}}" alt="">
-                             </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <!-- Score +1 -->
                 <div *ngIf="personaje == 0 && personajeDOM" class="personaje" (click)="revisar(1); respuestaPendiente=false">
-                    <img src="../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/kirby.gif" alt="" style="left: {{leftPosition}}; top:{{topPosition}}">
-                </div>                
+                    <img src="../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/Lola.gif" alt="" style="left: {{leftPosition}}; top:{{topPosition}}">
+                </div>
                 <!-- Vida -1 -->
                 <div *ngIf="personaje == 1 && personajeDOM" class="personaje" (click)="revisar(3); respuestaPendiente=false">
-                    <img src="../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/bomba.png" alt="" style="left: {{leftPosition}}; top:{{topPosition}}">
+                    <img src="../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/bomba.gif" alt="" style="left: {{leftPosition}}; top:{{topPosition}}">
                 </div>
                 <!-- Vida +2 -->
                 <div *ngIf="personaje == 2 && personajeDOM" class="personaje" (click)="revisar(2); respuestaPendiente=false">
-                    <img src="../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/vida.png" alt="" style="left: {{leftPosition}}; top:{{topPosition}}">
+                    <img src="../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/Hueso.png" alt="" style="left: {{leftPosition}}; top:{{topPosition}}">
                 </div>
 
             </div>
@@ -75,12 +76,12 @@
                   </div>
               </div>
               <h1>Ups... parece que perdiste...</h1>
+              <img src="../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/GameOver.png" alt="">
               <h2>Espera en lo que reflexionas las emociones que este juego que hizo sentir</h2>
               <img src="../../../../../../../../assets/img/rutinas/emocionesYAfectos/dsyan/emociones.png" style="width: 50%;" alt=""><br>
           </div>
-        </div>        
-        
-      </div>         
+        </div>
+
+      </div>
     </div>
   </div>
-    

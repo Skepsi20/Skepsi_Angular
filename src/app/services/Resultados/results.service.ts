@@ -10,7 +10,7 @@ import { results,resultsWithDate } from 'src/app/Models/Resultados/sessionsResul
 })
 export class ResultsService {
 
-  private baseApiUrl = 'https://skepsi.azurewebsites.net';
+  private baseApiUrl = 'https://skepsitest.azurewebsites.net';
   constructor(
     private httpClient: HttpClient
   ){}

@@ -12,10 +12,10 @@ export class Agnco1012Service {
   public consecuencias:Array<dgnco>;
 
   constructor(){
-      
+
     //Picos, Ojos, Patas
       this.aves = [
-          new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/aves/Aguila.png','Águila','5PA','4PAA','2OA',''),          
+          new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/aves/Aguila.png','Águila','5PA','4PAA','2OA',''),
           new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/aves/Buho.png','Búho','5PA','4PAA','2OA',''),
           new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/aves/Cacatua.png','Cacatúa','4PA','4PAA','1OA',''),
           new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/aves/Cisne.png','Cisne','3PA','6PAA','1OA',''),
@@ -44,7 +44,7 @@ export class Agnco1012Service {
           new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/mamiferos/Chimpance.png','Chimpancé','3MM','2PM','2VM',''),
           new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/mamiferos/Conejo.png','Conejo','1MM','2PM','1VM',''),
           new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/mamiferos/Elefante.png','Elefante','1MM','4PM','1VM',''),
-          new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/mamiferos/Erizo.png','Erizo','2MM','4PM','1VM',''),         
+          new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/mamiferos/Erizo.png','Erizo','2MM','4PM','1VM',''),
           new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/mamiferos/Gato.png','Gato','2MM','4PM','2VM',''),
           new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/mamiferos/Hamster.png','Hamster','3MM','1PM','2VM',''),
           new agnco ('../assets/img/rutinas/desarrolloCognitivo/agnco/mamiferos/Jirafa.png','Jirafa','1MM','4PM','1VM',''),
@@ -70,13 +70,13 @@ export class Agnco1012Service {
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Imagenes-06.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Imagenes-07.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Imagenes-08.png','false'),
-        
+
         new dgnco ('Conjunto tres'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Imagenes-09.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Imagenes-10.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Imagenes-11.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Imagenes-12.png','false'),
-        
+
         new dgnco ('Conjunto cuatro'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Imagenes-13.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Imagenes-14.png'
@@ -88,7 +88,96 @@ export class Agnco1012Service {
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Imagenes-18.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Imagenes-19.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Imagenes-20.png','false'),
-        
+
+        new dgnco ('Conjunto seis'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.6.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.(3).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.6(1).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.6(2).png','false'),
+
+        new dgnco ('Conjunto siete'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.7.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.7(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.7(3).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.7(1).png','false'),
+
+        new dgnco ('Conjunto ocho'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.8.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.8(3).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.8(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.8(1).png','false'),
+
+        new dgnco ('Conjunto nueve'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.9.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.9(3).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.9(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.9(1).png','false'),
+
+        new dgnco ('Conjunto diez'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.10.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.10(3).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.10(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.10(1).png','false'),
+
+        new dgnco ('Conjunto once'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.11.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.11(3).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.11(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.11(1).png','false'),
+
+        new dgnco ('Conjunto doce'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.12.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.12(3).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.12(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.12(1).png','false'),
+
+        new dgnco ('Conjunto trece'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.13.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.13(3).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.13(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.13(1).png','false'),
+
+        new dgnco ('Conjunto catorce'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.14.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.14(3).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.14(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.14(1).png','false'),
+
+        new dgnco ('Conjunto quince'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.15.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.15(3).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.15(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.15(1).png','false'),
+
+        new dgnco ('Conjunto dieciséis'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.16.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.16(1).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.16(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.16(1).png','false'),
+
+        new dgnco ('Conjunto diecisiete'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.17.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.17(1).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.17(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.17(1).png','false'),
+
+        new dgnco ('Conjunto dieciocho'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.18.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.18(1).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.18(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.18(1).png','false'),
+
+        new dgnco ('Conjunto diecinueve'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.19.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.19(1).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.19(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.19(1).png','false'),
+
+        new dgnco ('Conjunto veinte'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.20.png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.20(1).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.20(2).png'
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Act.20(1).png','false'),
       ]
 
       this.secuencias = [
@@ -98,48 +187,53 @@ export class Agnco1012Service {
         new dgnco ('Secuencia cuatro','Z;3; W;5; T;7; Q;9','Ñ;11','N;10','O;9','Ñ;11'),
         new dgnco ('Secuencia cinco','A;8; D;15; H;22; M;29','S;30','R;36','T;37','R;36'),
         new dgnco ('Secuencia seis','7;a; 14;e; 16;i; 32;o','o;64','a;36','u;34','u;34'),
+        new dgnco ('Secuencia siete','A;4; C;8; E;16; G;32','K;70','J;64','L;77',''),
+        new dgnco ('Secuencia ocho','B;20; C;32; E;44; H;56','I;64','J;66','L;68',''),
+        new dgnco ('Secuencia nueve','E;5; F;10; M;15; A;20','M;25','J;44','A;55',''),
+        new dgnco ('Secuencia diez','L;18; M;24; M;30; J;36','D;42','S;42','V;42',''),
+        new dgnco ('Secuencia once','3;C; 10;G; 17;K; 24;Ñ','30;P','31;R','33;Q',''),
+        new dgnco ('Secuencia doce','D;44; H;49; L;55; O;62','S;65','S;68','S;70',''),
+        new dgnco ('Secuencia trece','Z;5; X;10; V;15; T;20','30;P','25;R','35;Q',''),
+        new dgnco ('Secuencia catorce','F;7; K;28; O;112; T;448','W;1648','X;1700','Y;1792',''),
+        new dgnco ('Secuencia quince','A;10; C;11; F;13; J;16','N;19','Ñ;20','O;21',''),
+        new dgnco ('Secuencia dieciséis','A;80; D;64; G;48; J;32','K;15','L;17','M;16',''),
+        new dgnco ('Secuencia diecisiete','A;9; C;12; F;15; J;18','N;19','P;20','O;21',''),
+        new dgnco ('Secuencia dieciocho','B;500; F;470; J;440; N;410','O;370','Q;380','P;390',''),
+        new dgnco ('Secuencia diecinueve','S;22; P;28; N;34; K;40','J;44','I;45','H;46',''),
+        new dgnco ('Secuencia veinte','D;589; F;582; H;575; J;568','L;561','M;562','N;563',''),
       ]
-/* 
 
-        nombre: string, 
-        imagen: string, 
-        opcionA: string, 
-        opcionB: string, 
-        opcionC: string, 
-        respuesta: any
-
-*/
-      this.consecuencias = [  
+      this.consecuencias = [
         new dgnco ('Cómo estaría el agua dentro del camión inclinado?'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion01.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion02.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion03.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion01.png'),     
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Camion01.png'),
         new dgnco ('Qué se necesita para cambiar de estado?'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/estadoUno.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/frio.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/hielo.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/frio.png'),  
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/frio.png'),
         new dgnco ('Qué se necesita para cambiar de estado?'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/estadoDos.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/frio.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/hielo.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'),  
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'),
         new dgnco ('Qué se necesita para cambiar de estado?'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/estadoTres.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/frio.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/hielo.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'),  
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/calor.png'),
         new dgnco ('Un estudiante pone 100 ml de agua en cada uno de estos recipientes, y los expone al sol  durante todo el día. ¿Cuál de los recipientes perderá mayor cantidad de agua por acción de la evaporación?'
         ,''
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Liquido01.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Liquido02.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Liquido.png'
-        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Liquido02.png'),  
+        ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Liquido02.png'),
 
         new dgnco ('Don Carlos camina para comprar un diario, ¿Cómo te das cuenta que don Carlos está avanzando?'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/MovimientoA.png'
@@ -176,7 +270,7 @@ export class Agnco1012Service {
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/ninguno.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/amarillo.png'),
 
-        
+
         new dgnco ('Alguien te entrega una caja abierta con un agujero en un lado y te invita a mirar adentro, no sabes que la persona que construyó la caja colocó un espejo en una de las paredes, el resto de las paredes no reflejan nada de luz.'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/espejo1.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/0.png'
@@ -232,7 +326,7 @@ export class Agnco1012Service {
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionB.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionC.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionB.png'),
-        
+
         new dgnco ('Considere este móvil que tiene un peso de 3 kg a la izquierda y un peso de 1kg a la derecha, ¿Dónde debemos colocar el peso de 2 kg para equilibrar el móvil?'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Balanza2.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/posicionA.png'
@@ -260,14 +354,14 @@ export class Agnco1012Service {
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/noesta.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/nose.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/siesta.png'),
-        
+
         new dgnco ('El siguiente móvil está equilibrado (en todos los niveles) cuando el peso amarillo en el tercer nivel está en su posición original (puntos abajo). Supongamos que movemos el peso amarillo hacia la izquierda, perturbando el equilibrio del tercere nivel. Afecta esto al equilibrio de algún otro nivel del móvil? De ser así, ¿cuáles?'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/Balanza-conjunto.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/primerNivel.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/cuartoNivel.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/ningunNivel.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/ningunNivel.png'),
-        
+
         new dgnco ('Aquí hay un rompecabezas móvil más para probar. Tómese su tiempo, el centro de masa es la posición promedio del peso podemos girar una barra alrededor de su centro de masa sin cambiar su ubicación ¿Cuántas de la varillas no están balanceadas?'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/balanza-conjunto1.png'
         ,'../assets/img/rutinas/desarrolloCognitivo/dgnco/2.png'

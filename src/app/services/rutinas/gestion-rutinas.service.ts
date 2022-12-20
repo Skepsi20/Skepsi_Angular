@@ -8,7 +8,7 @@ import { templateCreate, template } from 'src/app/Models/api-models/rutina.model
   providedIn: 'root'
 })
 export class GestionRutinasService {
-  private baseApiUrl = 'https://skepsi.azurewebsites.net';
+  private baseApiUrl = 'https://skepsitest.azurewebsites.net';
 
   constructor(private httpClient: HttpClient) { }
 

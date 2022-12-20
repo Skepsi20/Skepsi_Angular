@@ -30,6 +30,7 @@ import { Asyco1012Component } from '../RutinasTerminadas/Synaisthimata/Antochi/C
 import { Esyco1012Component } from '../RutinasTerminadas/Synaisthimata/Exousia/Comprension/esyco1012/esyco1012.component';
 import { EGNCO1012Component } from '../RutinasTerminadas/Gnostiki/Exousia/Comprension/egnco1012/egnco1012.component';
 import { Dsyan1012Component } from '../RutinasTerminadas/Synaisthimata/Dynami/Analisis/dsyan1012/dsyan1012.component';
+import { Asyan1012Component } from '../RutinasTerminadas/Synaisthimata/Antochi/Analisis/asyan1012/asyan1012.component';
 
 @Component({
   selector: 'app-rutina-actual',
@@ -118,7 +119,9 @@ export class RutinaActualComponent implements OnInit {
       case '1012AGNCO': { componenteACrear = AGNCO1012Component } break;
       case '1012DGNCO': { componenteACrear = DGNCO1012Component } break;
       case '1012EGNCO': { componenteACrear = EGNCO1012Component } break;
+
       case '1012DSYAN': { componenteACrear = Dsyan1012Component } break;
+      case '1012ASYAN': { componenteACrear = Asyan1012Component } break;
 
 
       /* DANIEL */

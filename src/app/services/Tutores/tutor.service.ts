@@ -9,7 +9,7 @@ import { ITutor } from '../../Models/api-models/tutores.model';
   providedIn: 'root'
 })
 export class TutorService {
-  private baseApiUrl = 'https://skepsi.azurewebsites.net';
+  private baseApiUrl = 'https://skepsitest.azurewebsites.net';
   constructor(private httpClient: HttpClient) { }
 
   getTutores(): Observable<ITutor[]>{

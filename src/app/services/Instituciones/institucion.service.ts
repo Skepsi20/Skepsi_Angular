@@ -7,7 +7,7 @@ import { IInstitution } from 'src/app/Models/api-models/Auth/addStudentRequest.m
   providedIn: 'root'
 })
 export class InstitucionService {
-  private baseApiUrl = 'https://skepsi.azurewebsites.net';
+  private baseApiUrl = 'https://skepsitest.azurewebsites.net';
   constructor(private httpClient: HttpClient) { }
 
   add(institutionRequest: IInstitution): Observable<any>{

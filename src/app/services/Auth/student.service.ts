@@ -8,7 +8,7 @@ import { updateStudentRequest } from '../../Models/api-models/Auth/updateStudent
   providedIn: 'root'
 })
 export class StudentService {
-  private baseApiUrl = 'https://skepsi.azurewebsites.net';
+  private baseApiUrl = 'https://skepsitest.azurewebsites.net';
 
   constructor(private httpClient: HttpClient) { }
 
