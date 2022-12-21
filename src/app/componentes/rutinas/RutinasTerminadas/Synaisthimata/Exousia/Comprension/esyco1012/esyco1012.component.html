@@ -108,14 +108,9 @@
                     <img width=64 height=64 src="../assets/img/skepsi/iconos/{{yogaAudio.paused ? 'Play' : 'Pause'}}.png">
                   </button>
                   <div *ngIf="!yogaAudio.paused" style="display:inline-block">
-                    <div *ngIf="poseIndex == posturasDeYoga.length-1; else rightEnabled" style="display:inline-block; padding: 1px 6px">
-                      <img width=64 height=64 src="../assets/img/skepsi/iconos/RightDisabled.png">
-                    </div>
-                    <ng-template #rightEnabled>
-                      <button (click)="nextPose()" class="invisible-button">
-                        <img width=64 height=64 src="../assets/img/skepsi/iconos/SKEPSI_ICONOS_WEB-44.png">
-                      </button>
-                    </ng-template>
+                    <button (click)="nextPose()" class="invisible-button">
+                      <img width=64 height=64 src="../assets/img/skepsi/iconos/SKEPSI_ICONOS_WEB-44.png">
+                    </button>
                   </div>
                 </div>
               </div>

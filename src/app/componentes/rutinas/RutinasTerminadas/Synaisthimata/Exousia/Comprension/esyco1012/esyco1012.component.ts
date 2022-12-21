@@ -210,7 +210,7 @@ export class Esyco1012Component implements OnInit {
             this.randomAudio.play();
             this.nextAudio();
           }
-        }, 60000);
+        }, 30000);
       }
     }
     else {
@@ -244,7 +244,12 @@ export class Esyco1012Component implements OnInit {
   }
 
   public nextPose(): void {
-    this.poseIndex++;
+    if (this.poseIndex === this.posturasDeYoga.length - 1) {
+      this.poseIndex = 0
+    }
+    else {
+      this.poseIndex++;
+    }
   }
 
   public previousPose(): void {
