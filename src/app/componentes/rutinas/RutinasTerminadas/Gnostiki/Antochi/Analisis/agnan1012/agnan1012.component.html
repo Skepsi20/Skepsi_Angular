@@ -1,0 +1,47 @@
+<div class="AGNAN">
+  <div class="skepsiLogo">
+    <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" (click)="regresar()" class="skepsiLogo">
+  </div>
+  <div>
+    <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
+    preload="auto"></audio>
+    <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
+      preload="auto"></audio>
+    <audio id="initRutAudio" #iniRutAudio src="..\assets\Audios\InicioFin\SonidoInicioRutina.mpeg" preload="auto"></audio>
+  </div>
+  <div class="general">
+
+    <!-- Paso 1: Instrucciones -->
+    <div *ngIf="currentStep == AGNAN1012Step.Instructions">
+      <div class="row progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+          [attr.aria-valuenow]="timeLeft" [style.width]="(timeLeft*10)+'%'" aria-valuemin="0" aria-valuemax="20"
+          style="margin:0px auto;">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <p class="titulo">¿Has pensado que todo lo que usamos tiene un orden? Vamos a armar mecanismos.</p>
+      </div>
+    </div>
+
+    <!-- Paso 2: Mecanismos -->
+    <div *ngIf="currentStep == AGNAN1012Step.Mechanisms">
+      <div class="row">
+        <h2>A continuación verás una estructura</h2>
+      </div>
+      <div class="row">
+        <div style="display: flex; justify-content: center; margin-top: 30px;">
+          <button style="width: 50%; max-width: 200px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 6: Final -->
+    <div *ngIf="currentStep == AGNAN1012Step.End" class="row full-parent-height">
+      <div class="row" class="row full-parent-height" style="display: flex; justify-content:center; align-items:center; align-content: center;">
+        <h1 style="font-weight: bold;">¡Felicidades! Has llegado al final de la rutina.</h1>
+      </div>
+    </div>
+  </div>
+</div>
