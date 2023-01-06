@@ -1,13 +1,14 @@
 export class dmaco{
   constructor(
-      public operacion: string,
-      public resultado: string,
-      public figAreaPer: string,
-      public valorArea: string,
-      public valorPer: string,
-      public imgDinero: string,
-      public valorDinero: string,
-      public imgDesglose: Array<number>
+      public imagen: string,
+      public area: string,
+      public perimetro: string
+  ){}
+}
 
+export class dmacoDinero{
+  constructor(
+    public imagen: string, 
+    public cantidad: number
   ){}
 }

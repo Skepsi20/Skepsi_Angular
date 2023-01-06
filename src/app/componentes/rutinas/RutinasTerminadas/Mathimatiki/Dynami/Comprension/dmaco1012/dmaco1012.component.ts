@@ -40,73 +40,79 @@ export class Dmaco1012Component implements OnInit {
   private level: number = 0;
   private studentSessionId: string = '';
   //VARIABLES RESULTADOS FIN
+  cantidadReactivos = 0;
+  calificacion = 0;
 
-  public operacionesController: any;
-  public areaPerController: any;
-  public operacionesRandom: any;
-  public areaPerRandom: any;
-  public contadorEjer: number = 0;
-  public resultados: boolean = false;
-  public rutina: boolean = true;
-  private calificacion: number = 0;
-  public calificacionVista: number = 0;
-  public tiempoDescanso: boolean = true;
-  public opcionesOper: Array<any> = [
-    { oper: 'mayorq', simbolo: '>' },
-    { oper: 'menorq', simbolo: '<' },
-    { oper: 'igual', simbolo: '=' },
-  ];
-  public operador: any = { oper: 'operador', simbolo: '' };
-  public duplaOperaciones: Array<dmaco> = [];
-  public duplaAreaPer: Array<dmaco> = [];
-  public resultadoDupla: any;
-  public inicioCrono: Date = new Date();
+  //Variables ejercicio operaciones
+  operacionUno = '';
+  operacionDos = '';
+  operaciones = ['+','-','*','/',];
+  operadores = ['>','<','=']
+  operacion = '';
+  operacion1 = '';
+  operacion2 = '';
+  contadorAciertosEj1 = 0;
+  resultado1 = 0;
+  resultado2 = 0;
+  num1:any;
+  num2:any;
+  num3:any;
+  num4:any;
 
-  //5 minutos (300)
-  public tiempoSegundosCrono = 300;
-  // 1 minuto (60)
-  public segundosDescanso: any = 60;
-  //----na----
-  public tiempoSegundosGeneral = 1200000;
-  //15 segundos (15)
-  public tiempoSegundosInstrucciones = 15;
+  //Variables ejercicio areas y perimetros 
+  areasYPerimetrosService: Array<any> = [];
+  contadorAciertosEj2 = 0;
+  figuraUno:any;
+  figuraDos:any;
 
-  public tTimerGeneral = 0;
-  public tTimer = 0;
-  public tTimerDescanso = 0;
-  public tTimerInstrucciones = 0;
+  //Variables de dinero 
+  dineroService: any;
+  dineroArray: Array<any> = [];
+  cantidadDeDinero: number = 0;
+  unidades: number = 0; 
+  decenas: number = 0;
+  centenas: number = 0;
+  contadorDineroUno = 0;
+  cantidadDineroDos = 0;
+  contadorDineroDos = 0;
+
+  //Temporizadores
+  timeInstructions: number = 1;
+  //10
+  intervalInstructions:any;
+
+  timerDescanso: number = 6000;
+  intervalDescanso:any;
+  
+  timerEjerUno: number = 30;
+  //300
+  ejerUnoDescanso:any;
+  
+  timerEjerDos: number = 30;
+  //300
+  ejerDosDescanso:any;
+
+  timerEjerTres: number = 15;
+  //120
+  ejerTresDescanso:any;
+  
+  timerEjerCuatro: number = 15;
+  //120
+  ejerCuatroDescanso:any;
 
 
-  public timerActivo:boolean=true;
 
-
-  public instrucciones: boolean = true;
-  public banderaEjer1: boolean = true;
-  public banderaEjer2: boolean = false;
-
-  public banderaEjer3: boolean = false;
-  public bandEjer4: boolean = false;
-
-  public strTituloAreaPer: any;
-  public bandAreaPer: boolean = false;
-  public resultadoEjer: Array<any> = [];
-
-  public billMoneController: Array<dmaco> = [];
-  public billMoneRandom: Array<dmaco> = [];
-  public vistaBillMone: any;
-  public formDesglose: any = {
-    centenas: new FormControl(0),
-    decenas: new FormControl(0),
-    unidades: new FormControl(0),
-  };
-  public formCantidadBillMon: any = {
-    bill100: new FormControl(0),
-    bill50: new FormControl(0),
-    mone10: new FormControl(0),
-    mone05: new FormControl(0),
-    mone01: new FormControl(0),
-  };
-
+  //Variables DOM
+  instruccionesDOM = true;
+  ejercicioOperaciones = false;
+  ejercicioAreas = false;
+  ejercicioDineroUno = false;
+  ejercicioDineroDos = false;
+  descansoDOM = false;
+  correctoDOM = false;
+  incorrectoDOM = false;
+  calificacionDOM = 0;
+  cantidadReactivosDOM = 0;
 
   public formCantDinero = new FormControl(0);
 
@@ -117,524 +123,423 @@ export class Dmaco1012Component implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    //Instrucciones API
-    setInterval(() => this.statusUpdate(), 30000);
+  ngOnInit(): void {   
+    this.areasYPerimetrosService = this._dmacoService.getAreasYPerimetros();
+    this.dineroService = this._dmacoService.dineroService;
+    setInterval(()=> this.statusUpdate(),30000);
     this.getSession();
-
-    this.tTimerGeneral = this.tiempoSegundosGeneral;
-    this.tTimerInstrucciones = this.tiempoSegundosInstrucciones;
-
-    //this.Inicializacion();
-    let conteoTiempo = timer(0, 1000).subscribe(x =>{
-      this.sonarAlarmas();
-      this.tTimer--;
-      this.tTimerInstrucciones--;
-      if (this.tTimerInstrucciones == 0) {
-        this.instrucciones = false;
-        this.Inicializacion();
-      }
-      if (this.tTimer<=0)this.timerActivo=false;
-      else this.timerActivo=true;
-      if(this.tTimerDescanso>0) this.tTimerDescanso--;
-    });
-
   }
-
-  //StatusUpdate API
-  statusUpdate() {
-    this._resultsService.addStatus().subscribe(
-      (success) => {
-        console.log('Actividad actualizada');
-      },
-      (error) => {
+  
+  statusUpdate(){
+    this._resultsService.addStatus()
+    .subscribe(
+      (success)=>{
+        console.log("Actividad actualizada")
+      },(error)=>{
         console.log(error);
       }
-    );
+    )
+  }
+  
+  Inicializacion(){
+    this.instrucciones();
+  }
+    
+   // INSTRUCCIONES
+   instrucciones(){
+    if(this.timeInstructions > 0){
+      clearInterval(this.intervalInstructions);
+    }
+    this.intervalInstructions = setInterval(() => {
+      if(this.timeInstructions > 0) {
+        this.timeInstructions--;
+      } else {
+          let alarmInitRutina = <HTMLAudioElement>(
+            document.getElementById('initRutAudio')
+          );
+          //alarmInitRutina.play();
+          clearInterval(this.intervalInstructions);
+          this.ejercicioOperacionesFunc();
+          this.instruccionesDOM = false;
+          this.ejercicioOperaciones = true;
+          this.ejercicioUno();
+      }
+    },1000)
+  }
+  
+  ejercicioOperacionesFunc(){
+    //Math.floor(Math.random() * (max - min) + min);
+    this.num1 = Math.floor(Math.random() * (12 - 0) + 1)
+    this.num2 = Math.floor(Math.random() * (12 - 0) + 1)
+    const operacion1 = Math.floor(Math.random() * (4 - 1) + 1)
+    const operacion2 = Math.floor(Math.random() * (4 - 1) + 1)
+    this.num3 = Math.floor(Math.random() * (12 - 0) + 1)
+    this.num4 = Math.floor(Math.random() * (12 - 0) + 1)
+    this.operacion1 = this.operaciones[operacion1];
+    this.operacion2 = this.operaciones[operacion2];
+    if(this.num2>this.num1){
+      const aux = this.num2;
+      this.num2 = this.num1;
+      this.num1 = aux;
+    }
+    if(this.num4>this.num3){
+      const aux = this.num4;
+      this.num4 = this.num3;
+      this.num3 = aux;
+    }
+    this.operacionUno = this.num1+this.operacion1+this.num2;
+    this.operacionDos = this.num3+this.operacion2+this.num4;
   }
 
-  //RESULTADOS INICIO
-  getSession() {
-    this._resultsService.getSession().subscribe(
-      (success) => {
-        if (success) {
+  operacionSeleccionada(){
+    if(this.operacion1 == '+'){ this.resultado1 = this.num1 + this.num2; }
+    else if(this.operacion1 == '-'){ this.resultado1 = this.num1 - this.num2; }
+    else if(this.operacion1 == '*'){ this.resultado1 = this.num1 * this.num2; }
+    else if(this.operacion1 == '/'){ this.resultado1 = this.num1 / this.num2; }
+    if(this.operacion2 == '+'){ this.resultado2 = this.num3 + this.num4; }
+    else if(this.operacion2 == '-'){ this.resultado2 = this.num3 - this.num4; }
+    else if(this.operacion2 == '*'){ this.resultado2 = this.num3 * this.num4; }
+    else if(this.operacion2 == '/'){ this.resultado2 = this.num3 / this.num4; }
+  }
+
+  correct(){
+    console.log("CORRECTO")
+    this.correctoDOM = true;
+    this.incorrectoDOM = false;
+    setTimeout(()=>{
+      this.correctoDOM = false;
+    }, 1000);
+  }
+  incorrect(){
+    console.log("INCORRECTO")
+    this.correctoDOM = false;
+    this.incorrectoDOM = true;
+    setTimeout(()=>{
+      this.incorrectoDOM = false;
+    }, 1000);
+  }
+
+  comprobarOperacion(){
+    if(this.operacion == '>' && (this.resultado1 > this.resultado2)){
+      this.contadorAciertosEj1++;
+      this.cantidadReactivos++;
+      this.correct();
+    }else if(this.operacion == '<' && (this.resultado1 < this.resultado2)){
+      this.contadorAciertosEj1++;
+      this.cantidadReactivos++;
+      this.correct();
+    }else if(this.operacion == '=' && (this.resultado1 == this.resultado2)){
+      this.contadorAciertosEj1++;
+      this.cantidadReactivos++;
+      this.correct();
+    }else{
+      this.cantidadReactivos++;
+      this.incorrect();
+    }
+    this.operacion = '';
+    this.ejercicioOperacionesFunc();
+  }
+
+
+  ejercicioUno(){
+    if(this.timerEjerUno > 0){
+      clearInterval(this.ejerUnoDescanso);
+    }
+    this.ejerUnoDescanso = setInterval(() => {
+      if(this.timerEjerUno > 0) {
+        this.timerEjerUno--;
+      } else {
+        clearInterval(this.ejerUnoDescanso);
+        this.areasYPerimetrosInicializaion();
+        this.ejercicioOperaciones = false;
+        this.ejercicioAreas = true;
+        this.ejercicioDos();
+      }
+    },1000)
+  }
+
+  ejercicioDos(){
+    if(this.timerEjerDos > 0){
+      clearInterval(this.ejerDosDescanso);
+    }
+    this.ejerDosDescanso = setInterval(() => {
+      if(this.timerEjerDos > 0) {
+        this.timerEjerDos--;
+      } else {
+        clearInterval(this.ejerDosDescanso);
+        this.ejercicioAreas = false;
+        this.ejercicioDineroUno = true;
+        this.dineroUno();
+        this.ejercicioTres();
+      }
+    },1000)
+  }
+
+  ejercicioTres(){
+    if(this.timerEjerTres > 0){
+      clearInterval(this.ejerTresDescanso);
+    }
+    this.ejerTresDescanso = setInterval(() => {
+      if(this.timerEjerTres > 0) {
+        this.timerEjerTres--;
+      } else {
+        clearInterval(this.ejerTresDescanso);
+        this.ejercicioCuatro();
+        this.ejercicioDineroUno = false;
+        this.ejercicioDineroDos = true;
+        this.dineroDos();
+      }
+    },1000)
+  }
+
+  ejercicioCuatro(){
+    if(this.timerEjerCuatro > 0){
+      clearInterval(this.ejerCuatroDescanso);
+    }
+    this.ejerCuatroDescanso = setInterval(() => {
+      if(this.timerEjerCuatro > 0) {
+        this.timerEjerCuatro--;
+      } else {
+        clearInterval(this.ejerCuatroDescanso);
+        this.ejercicioDineroDos = false;
+        this.revisar();
+      }
+    },1000)
+  }
+
+  areasYPerimetrosInicializaion(){
+    console.log(this.areasYPerimetrosService)
+    const imagen1 = Math.floor(Math.random() * (47 - 0) + 0)
+    const imagen2 = Math.floor(Math.random() * (47 - 0) + 0)
+    const ejercicio = Math.floor(Math.random() * (2 - 1) + 1)
+    this.figuraUno = this.areasYPerimetrosService[imagen1];
+    this.figuraDos = this.areasYPerimetrosService[imagen2];    
+  }
+
+  comprobarayp(){
+    const perimetro1 = this.figuraUno.perimetro;
+    const perimetro2 = this.figuraDos.perimetro;
+
+    if(this.operacion == '>' && (perimetro1 > perimetro2)){
+      this.contadorAciertosEj2++;
+      this.cantidadReactivos++;
+      this.correct();
+    }else if(this.operacion == '<' && (perimetro1 < perimetro2)){
+      this.contadorAciertosEj2++;
+      this.cantidadReactivos++;
+      this.correct();
+    }else if(this.operacion == '=' && (perimetro1 == perimetro2)){
+      this.contadorAciertosEj2++;
+      this.cantidadReactivos++;
+      this.correct();
+    }else{
+      this.cantidadReactivos++;
+      this.incorrect();
+    }
+    this.areasYPerimetrosInicializaion();
+  }
+
+  dineroUno(){
+    this.cantidadDeDinero = 0;
+    const cantidadImagenes = Math.floor(Math.random() * (10 - 1) + 1);
+    for (let index = 0; index < cantidadImagenes; index++) {
+      var imagenRandom = Math.floor(Math.random() * (this.dineroService.length - 0) + 0);
+      this.dineroArray.push(this.dineroService[imagenRandom]);
+      this.cantidadDeDinero = this.cantidadDeDinero + this.dineroService[imagenRandom].cantidad;
+    }   
+  }
+
+  comprobarDineroUno(){
+    const centenas = (this.cantidadDeDinero%1000-this.cantidadDeDinero%100)/100;
+    const decenas = (this.cantidadDeDinero%100-this.cantidadDeDinero%10)/10;;
+    const unidades = this.cantidadDeDinero%10;
+    
+    if(centenas == this.centenas && this.decenas == decenas && this.unidades == unidades){
+      this.contadorDineroUno++;
+      this.cantidadReactivos++;
+      this.correct();
+    }else{
+      this.cantidadReactivos++;
+      this.incorrect();
+    }    
+    this.dineroArray = [];
+    this.unidades = 0;
+    this.decenas = 0;
+    this.centenas = 0;
+    this.dineroUno();
+  }
+
+  dineroDos(){
+    this.dineroArray = [];
+    this.dineroUno();
+    const variante = Math.floor(Math.random() * (30 - 0) + 0);
+
+
+    const sumaOResta = Math.floor(Math.random() * (3 - 0) + 0);
+    console.log(sumaOResta,"SUMA O RESTA")
+
+    console.log("Cantidad de dinero", this.cantidadDeDinero)
+    console.log("VARIANTE", variante)
+    if(sumaOResta == 0){
+      if(this.cantidadDeDinero - variante < 0){
+        this.cantidadDineroDos = 5;
+      }else{
+        this.cantidadDineroDos = this.cantidadDeDinero - variante;
+      }
+    }else if(sumaOResta == 1){
+      this.cantidadDineroDos = this.cantidadDeDinero + variante;
+    }else {
+      this.cantidadDineroDos = this.cantidadDeDinero;
+    }
+  }
+
+  comprobarDineroDos(){
+    if(this.operacion == '>' && (this.cantidadDeDinero > this.cantidadDineroDos)){
+      this.contadorDineroDos++;
+      this.cantidadReactivos++;
+      this.correct();
+    }else if(this.operacion == '<' && (this.cantidadDeDinero < this.cantidadDineroDos)){
+      this.contadorDineroDos++;
+      this.cantidadReactivos++;
+      this.correct();
+    }else if(this.operacion == '=' && (this.cantidadDeDinero == this.cantidadDineroDos)){
+      this.contadorDineroDos++;
+      this.cantidadReactivos++;
+      this.correct();
+    }else{
+      this.cantidadReactivos++;
+      this.incorrect();
+    }
+    this.dineroDos();
+  }
+
+  descanso(){
+    if(this.timerDescanso > 0){
+      clearInterval(this.intervalDescanso);
+    }
+    this.intervalDescanso = setInterval(() => {
+      if(this.timerDescanso > 0) {
+        this.timerDescanso--;
+      } else {
+        this.Inicializacion();
+        clearInterval(this.intervalDescanso);
+        this.calificacionDOM = 0;
+        this.cantidadReactivosDOM = 0;
+      }
+    },1000)
+  }
+
+  revisar(){    
+    this.descanso();
+    let alarmInitRutina = <HTMLAudioElement>(
+      document.getElementById('finEjerAudio')
+    );
+    alarmInitRutina.play();
+    this.calificacion = this.contadorAciertosEj1 + this.contadorAciertosEj2 + this.contadorDineroUno + this.contadorDineroDos
+    this.calificacionDOM = this.calificacion;
+    this.cantidadReactivosDOM = this.cantidadReactivos;
+
+      //LLENADO DE TABLA RESULTS INICIO
+      this.round++;
+      //StudentSessionId
+      this.resultsTable.studentSessionId = this.studentSessionId;
+  
+      //Grade
+      var partialGrade = ((this.calificacion/this.cantidadReactivos)*100);
+      this.resultsTable.grade = partialGrade;
+  
+      //Round
+      this.resultsTable.round = this.round;
+  
+      //level
+      this.resultsTable.level = this.level+1;
+  
+      //LLENADO DE TABLA RESULTS FIN
+  
+      //LLENADO DE TABLA RESULTS DETAILS INICIO
+      //Possible points
+      this.resultsTable.resultDetails[0].possiblePoints = this.cantidadReactivos;
+  
+      //Points
+      this.resultsTable.resultDetails[0].points = this.calificacion;
+  
+      //Possible points description
+      this.resultsTable.resultDetails[0].possiblePointsDescription = "Cantidad de posibles ejercicios resueltos";
+  
+      //Points description
+      this.resultsTable.resultDetails[0].pointsDescription ="Cantidad de ejercicios contestados correctamente";
+  
+      //Metodo para crear resultado
+      this.addResult(this.resultsTable);
+      //LLENADO DE TABLA RESULTS DETAILS FIN
+  
+    this.level++;
+    this.calificacion = 0;
+    this.cantidadReactivos = 0;
+    this.descansoDOM = true;
+  }
+
+   //RESULTADOS INICIO
+   getSession(){
+    this._resultsService.getSession()
+    .subscribe(
+      (success)=>{
+        if(success){
           this.sessionId = success.id;
           this.getStudentSessions();
-        } else {
+        }else{
           //TODO: show message not session available
         }
       },
-      (error) => {
+      (error) =>{
         console.log(error);
       }
     );
   }
 
-  //Datos Estudiante API
-  getStudentSessions() {
-    this._resultsService.getStudentSessions().subscribe(
-      (success) => {
-        if (success) {
+  getStudentSessions(){
+    this._resultsService.getStudentSessions()
+    .subscribe(
+      (success)=>{
+        if(success){
           this.studentSessionId = success.id;
-          if (success.results[success.results.length - 1]) {
-            this.level = success.results[success.results.length - 1].level - 1;
-            this.aciertosTotales = this.level;
-            this.round = success.results[success.results.length - 1].round;
-          } else {
+          if(success.results[success.results.length-1]){
+            this.level = success.results[success.results.length-1].level-1;
+            this.round = success.results[success.results.length-1].round;
+          }else{
             this.level = 0;
             this.round = 0;
           }
           this.Inicializacion();
-        } else {
-          this._resultsService.addStudentSessions(this.sessionId).subscribe(
-            (success) => {
+        }
+        else{
+          this._resultsService.addStudentSessions(this.sessionId)
+          .subscribe(
+            (success)=>{
               this.studentSessionId = success.id;
               this.Inicializacion();
             },
-            (error) => {
-              console.log(error);
+            (error) =>{
+              console.log(error)
             }
           );
         }
-      },
-      (error) => {
-        console.log('ERROR', error);
-      }
-    );
+    },
+    (error)=>{
+      console.log("ERROR",error)
+    });
   }
 
-  //Reportar Resultados API
-  addResult(results: resultsWithDate) {
-    this._resultsService.addResults(results).subscribe(
-      (successResponse) => {},
-      (error) => {
-        console.log('ERROR', error);
-      }
-    );
+  addResult(results: resultsWithDate){
+    this._resultsService.addResults(results)
+    .subscribe(
+      (successResponse)=>{
+    },
+    (error)=>{
+      console.log("ERROR",error)
+    });
   }
 
-  sonarAlarmas() {
-    if (this.rutina){
-    if (this.tTimer >= this.tiempoSegundosCrono) {
-      if (this.tTimerGeneral >= this.tiempoSegundosGeneral - 1) {
-        let alarmInitRutina = <HTMLAudioElement>(
-          document.getElementById('initRutAudio')
-        );
-        alarmInitRutina.play();
-      } else {
-        let alarmInitEjer = <HTMLAudioElement>(
-          document.getElementById('initEjerAudio')
-        );
-        alarmInitEjer.play();
-      }
-    }
-    if (this.tTimer == 3) {
-      let alarmFinEjer = <HTMLAudioElement>(
-        document.getElementById('finEjerAudio')
-      );
-      alarmFinEjer.play();
-    }}
-  }
-
-
-  Inicializacion() {
-    this.resultados = false;
-    this.tiempoDescanso = false;
-    this.contadorEjer = 0;
-    if (!this.instrucciones) {
-    this.resetTimerEjer();
-    if (this.banderaEjer1) {
-      this.operacionesController = this._dmacoService.getOperaciones();
-      this.operacionesRandom = this.operacionesController.sort(
-        () => Math.random() - 0.5
-      );
-      this.inicioCrono = new Date();
-      console.log(this.inicioCrono);
-      this.mostrarEjer1();
-    } else if (this.banderaEjer2) {
-      this.areaPerController = this._dmacoService.getAreaPer();
-      this.areaPerRandom = this.areaPerController.sort(
-        () => Math.random() - 0.5
-      );
-      this.inicioCrono = new Date();
-      console.log(this.inicioCrono);
-      this.mostrarEjer2();
-    } else if (this.banderaEjer3) {
-      this.billMoneController = JSON.parse(
-        JSON.stringify(this._dmacoService.getBillMine())
-      );
-      this.billMoneRandom = this.billMoneController.sort(
-        () => Math.random() - 0.5
-      );
-      this.inicioCrono = new Date();
-      console.log(this.inicioCrono);
-      this.mostrarEjer3();
-    }
-    else if(this.bandEjer4){
-      this.billMoneController = JSON.parse(
-        JSON.stringify(this._dmacoService.getBillMine())
-      );
-      this.billMoneRandom = this.billMoneController.sort(
-        () => Math.random() - 0.5
-      );
-      this.inicioCrono = new Date();
-      console.log(this.inicioCrono);
-      this.mostrarEjer4();
-
-    }
-
-    else this.rutina=false;
-  }
-  }
-
-  crearDuplasOperaciones() {
-    this.duplaOperaciones = [];
-    this.operacionesRandom = this.operacionesController.sort(
-      () => Math.random() - 0.5
-    );
-    this.duplaOperaciones.push(this.operacionesRandom[0]);
-    this.duplaOperaciones.push(this.operacionesRandom[1]);
-  }
-
-  crearDuplasAreaPer() {
-    this.duplaAreaPer = [];
-    this.areaPerRandom = this.areaPerRandom.sort(() => Math.random() - 0.5);
-    this.duplaAreaPer.push(this.areaPerRandom[1]);
-    /* Se comenta, solo se requiere perimetros
-    if (this.contadorEjer % 2 == 0) {
-      this.strTituloAreaPer = 'las áreas';
-      this.bandAreaPer = true;
-    } else {
-      this.bandAreaPer = false;
-      this.strTituloAreaPer = 'los perímetros';
-    }
-    */
-
-    for (var i = this.areaPerRandom.length - 1; i >= 0; i--) {
-      if (this.areaPerRandom[i] != this.duplaAreaPer[0]) {
-        this.duplaAreaPer.push(this.areaPerRandom[i]);
-        break;
-      }
-    }
-
-    /*console.log(
-      'A Izq:' +
-        this.duplaAreaPer[0].valorArea +
-        'A der:' +
-        this.duplaAreaPer[1].valorArea
-    );
-    */
-    console.log(
-      'P Izq:' +
-        this.duplaAreaPer[0].valorPer +
-        'P der:' +
-        this.duplaAreaPer[1].valorPer
-    );
-  }
-
-  descanso() {
-    this.tTimerDescanso=this.segundosDescanso;
-    var inicioCronoDescanso=new Date();
-    this.tiempoDescanso = true;
-    if (this.banderaEjer3) {
-      this.banderaEjer3 = false;
-      this.bandEjer4 = true;
-      this.Inicializacion();
-    }
-    else if(this.bandEjer4){
-      this.bandEjer4=false;
-      this.Inicializacion();
-    }
-    else {
-      var tiempo = setTimeout(() => {
-        if (this.banderaEjer1) {
-          this.banderaEjer1 = false;
-          this.banderaEjer2 = true;
-        } else if (this.banderaEjer2) {
-          this.banderaEjer2 = false;
-          this.banderaEjer3 = true;
-        }
-        this.tiempoDescanso = false;
-        this.Inicializacion();
-      }, this.segundosDescanso * 1000);
-    }
-  }
-
-  esperar() {
-    var tiempo = setTimeout(() => {
-      this.tiempoDescanso = false;
-      this.Inicializacion();
-    }, this.segundosDescanso * 1000);
-  }
-
-  resetTimerEjer(){
-    this.timerActivo=true;
-    this.tTimer=this.tiempoSegundosCrono+1;
-  }
-
-
-  mostrarEjer1() {
-    let RestaTiempo = Math.floor(
-      (new Date().getTime() - this.inicioCrono.getTime()) / 1000
-    );
-    //console.log('RestaTime:' + RestaTiempo);
-    if (RestaTiempo < this.tiempoSegundosCrono) {
-      this.crearDuplasOperaciones();
-    } else {
-      this.revisar();
-      this.resultadoEjer[0] = {
-        aciertos: this.calificacion,
-        intentos: this.contadorEjer,
-      };
-      this.calificacion = 0;
-      this.resultados = true;
-      this.rutina = true;
-    }
-  }
-
-  mostrarEjer2() {
-    let RestaTiempo = Math.floor(
-      (new Date().getTime() - this.inicioCrono.getTime()) / 1000
-    );
-    //console.log('RestaTime:' + RestaTiempo);
-    if (RestaTiempo < this.tiempoSegundosCrono) {
-      this.crearDuplasAreaPer();
-    } else {
-      this.revisar();
-      this.resultadoEjer[1] = {
-        aciertos: this.calificacion,
-        intentos: this.contadorEjer,
-      };
-      this.calificacion = 0;
-      this.resultados = true;
-      this.rutina = true;
-    }
-  }
-
-  mostrarEjer3() {
-    //reset de FormControl en cada imagen
-    this.formDesglose.centenas = new FormControl(0);
-    this.formDesglose.decenas = new FormControl(0);
-    this.formDesglose.unidades = new FormControl(0);
-    this.formCantidadBillMon.bill100 = new FormControl(0);
-    this.formCantidadBillMon.bill50 = new FormControl(0);
-    this.formCantidadBillMon.mone10 = new FormControl(0);
-    this.formCantidadBillMon.mone05 = new FormControl(0);
-    this.formCantidadBillMon.mone01 = new FormControl(0);
-
-    //Compara tiempo con respecto a contador
-    let RestaTiempo = Math.floor(
-      (new Date().getTime() - this.inicioCrono.getTime()) / 1000
-    );
-    //console.log('RestaTime:' + RestaTiempo);
-    if (RestaTiempo < this.tiempoSegundosCrono) {
-      this.vistaBillMone = this.billMoneRandom.pop();
-      console.log('Vista', this.vistaBillMone);
-    } else {
-      this.revisar();
-      this.resultadoEjer[2] = {
-        aciertos: this.calificacion,
-        intentos: this.contadorEjer,
-      };
-      this.calificacion = 0;
-      this.resultados = true;
-      this.rutina = true;
-    }
-  }
-
-  mostrarEjer4(){
-    this.formCantDinero=new FormControl(0);
-    let RestaTiempo = Math.floor(
-      (new Date().getTime() - this.inicioCrono.getTime()) / 1000
-    );
-    //console.log('RestaTime:' + RestaTiempo);
-    if (RestaTiempo < this.tiempoSegundosCrono) {
-      this.vistaBillMone = this.billMoneRandom.pop();
-      console.log('Vista', this.vistaBillMone);
-    } else {
-      this.revisar();
-      this.resultadoEjer[3] = {
-        aciertos: this.calificacion,
-        intentos: this.contadorEjer,
-      };
-      this.calificacion = 0;
-      this.resultados = true;
-      this.rutina = true;
-    }
-  }
-
-  funcionUno(valor: any) {
-    //console.log("Seleccion:"+valor);
-
-    //console.log('Dupla 0 ' +this.duplaOperaciones[0].resultado);
-    //console.log('Dupla 1 ' +this.duplaOperaciones[1].resultado);
-
-    if (
-      this.duplaOperaciones[0].resultado == this.duplaOperaciones[1].resultado
-    )
-      this.resultadoDupla = 'igual';
-    if (this.duplaOperaciones[0].resultado > this.duplaOperaciones[1].resultado)
-      this.resultadoDupla = 'mayorq';
-    if (this.duplaOperaciones[0].resultado < this.duplaOperaciones[1].resultado)
-      this.resultadoDupla = 'menorq';
-    //console.log('ResultadoDupla:'+this.resultadoDupla);
-
-    if (valor == this.resultadoDupla) this.calificacion++;
-
-    this.contadorEjer++;
-    this.mostrarEjer1();
-    console.log('Calificacion Acumulada -> ' + this.calificacion);
-  }
-
-  funcionDos(valor: any) {
-    //console.log("Seleccion:"+valor);
-
-    //console.log('Dupla 0 ' +this.duplaOperaciones[0].resultado);
-    //console.log('Dupla 1 ' +this.duplaOperaciones[1].resultado);
-
-    var valorArea: any;
-    var valorPer: any;
-
-    if (
-      parseInt(this.duplaAreaPer[0].valorArea) ==
-      parseInt(this.duplaAreaPer[1].valorArea)
-    )
-      valorArea = 'igual';
-    if (
-      parseInt(this.duplaAreaPer[0].valorArea) >
-      parseInt(this.duplaAreaPer[1].valorArea)
-    )
-      valorArea = 'mayorq';
-    if (
-      parseInt(this.duplaAreaPer[0].valorArea) <
-      parseInt(this.duplaAreaPer[1].valorArea)
-    )
-      valorArea = 'menorq';
-
-    if (
-      parseInt(this.duplaAreaPer[0].valorPer) ==
-      parseInt(this.duplaAreaPer[1].valorPer)
-    )
-      valorPer = 'igual';
-    if (
-      parseInt(this.duplaAreaPer[0].valorPer) >
-      parseInt(this.duplaAreaPer[1].valorPer)
-    )
-      valorPer = 'mayorq';
-    if (
-      parseInt(this.duplaAreaPer[0].valorPer) <
-      parseInt(this.duplaAreaPer[1].valorPer)
-    )
-      valorPer = 'menorq';
-    //Se ajusta solo perimetros
-    //if (this.bandAreaPer) this.resultadoDupla = valorArea;
-    //else this.resultadoDupla = valorPer;
-    this.resultadoDupla = valorPer;
-
-    //console.log('ResultadoDupla:'+this.resultadoDupla);
-    if (valor == this.resultadoDupla) this.calificacion++;
-
-    this.contadorEjer++;
-    this.mostrarEjer2();
-    console.log('Calificacion Acumulada -> ' + this.calificacion);
-  }
-
-  funcionTres() {
-    let vistaDesglose = {
-      centenas: Math.floor(this.vistaBillMone.valorDinero / 100),
-      decenas: Math.floor((this.vistaBillMone.valorDinero % 100) / 10),
-      unidades: this.vistaBillMone.valorDinero % 10,
-    };
-    console.log('FormDesglose', this.formDesglose);
-
-    console.log('VistaDesglose', vistaDesglose);
-
-    if (
-      vistaDesglose.centenas == this.formDesglose.centenas.value &&
-      vistaDesglose.decenas == this.formDesglose.decenas.value &&
-      vistaDesglose.unidades == this.formDesglose.unidades.value
-    ) {
-      this.calificacion++;
-      console.log('Desgloce CDU correcto');
-    }
-
-    if (
-      this.vistaBillMone.imgDesglose[0] ==
-        this.formCantidadBillMon.bill100.value &&
-      this.vistaBillMone.imgDesglose[1] ==
-        this.formCantidadBillMon.bill50.value &&
-      this.vistaBillMone.imgDesglose[2] ==
-        this.formCantidadBillMon.mone10.value &&
-      this.vistaBillMone.imgDesglose[3] ==
-        this.formCantidadBillMon.mone05.value &&
-      this.vistaBillMone.imgDesglose[4] == this.formCantidadBillMon.mone01.value
-    ) {
-      this.calificacion++;
-
-      console.log('Cantidad Monedas y billetes correcto');
-    }
-
-    this.contadorEjer += 2;
-
-    this.mostrarEjer3();
-  }
-
-  funcionCuatro() {
-    console.log('InputFormDinero', this.formCantDinero.value);
-
-    if (this.formCantDinero.value==this.vistaBillMone.valorDinero) {this.calificacion++;
-    console.log('dinero correcto');
-    }
-    this.contadorEjer++;
-    this.mostrarEjer4();
-  }
-
-  revisar() {
-    this.calificacionVista = this.calificacion;
-
-    console.log('RESULTADO: ' + this.calificacion + ' de ' + this.contadorEjer);
-
-    //LLENADO DE TABLA RESULTS INICIO
-    this.round++;
-    console.log('STUDENT SESSION ID', this.studentSessionId);
-    //StudentSessionId
-    this.resultsTable.studentSessionId = this.studentSessionId;
-
-    //Grade
-    let partialGrade = (this.calificacion / this.contadorEjer) * 100;
-    this.resultsTable.grade = partialGrade;
-
-    //Round
-    this.resultsTable.round = this.round;
-
-    //level
-    this.resultsTable.level = this.level + 1;
-
-    //LLENADO DE TABLA RESULTS FIN
-
-    //LLENADO DE TABLA RESULTS DETAILS INICIO
-    //Possible points
-    this.resultsTable.resultDetails[0].possiblePoints = this.contadorEjer;
-
-    //Points
-    this.resultsTable.resultDetails[0].points = this.calificacion;
-
-    //Possible points description
-    this.resultsTable.resultDetails[0].possiblePointsDescription =
-      'Cantidad de ejecicios resueltos';
-
-    //Points description
-    this.resultsTable.resultDetails[0].pointsDescription =
-      'Cantidad de aciertos';
-
-    //Metodo para crear resultado
-    this.addResult(this.resultsTable);
-    //LLENADO DE TABLA RESULTS DETAILS FIN
-  }
-
-  reloadPage() {
-    window.location.reload();
-  }
   regresar(){
     this.router.navigateByUrl(`/usuario`) 
     .then(() => {

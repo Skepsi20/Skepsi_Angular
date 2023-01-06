@@ -91,3 +91,8 @@ img {
   max-height: 100%;
   object-fit: contain;
 }
+
+.dinero{
+  max-width: 120px;
+  float: left;
+}

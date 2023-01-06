@@ -2,7 +2,7 @@
   <div class="skepsiLogo">
     <img src="../../../../../assets/img/skepsi/logo/SKEPSI_LOGO_05.png" (click)="regresar()" class="skepsiLogo">
   </div>
-  <div *ngIf="timerActivo">
+  <div>
     <audio id="initEjerAudio" #initEjerAudio src="..\assets\Audios\InicioFin\SonidoInicioEjercicio.mpeg"
       preload="auto"></audio>
     <audio id="finEjerAudio" #finEjerAudio src="..\assets\Audios\InicioFin\SonidoFinEjercicio.mpeg"
@@ -13,339 +13,258 @@
   </div>
   <div class="general">
     <div style="width: 100%">
-      <div *ngIf="instrucciones" class="instructions">
-
+      <div *ngIf="instruccionesDOM" class="instructions">
         <!-- BARRA DE PROGRESO INICIO -->
         <div class="row progress">
           <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-            [attr.aria-valuenow]="tTimerInstrucciones" [style.width]="(tTimerInstrucciones/tiempoSegundosInstrucciones)*100+'%'" aria-valuemin="0" aria-valuemax="20"
+            [attr.aria-valuenow]="timeInstructions" [style.width]="(timeInstructions*10)+'%'" aria-valuemin="0" aria-valuemax="20"
             style="margin:0px auto;">
           </div>
         </div>
-        <!-- BARRA DE PROGRESO FIN -->
-
+        <!-- BARRA DE PROGRESO FIN -->        
         <br>
         <div class="row">
           <p class="titulo">A continuación verás una serie de ejercicios. Tienes 1 minuto por ejercicio para responder todos los que puedas</p>
         </div>
       </div>
-      <div *ngIf="!instrucciones">
-      <mat-drawer-container class="example-container" autosize>
-        <div *ngIf="tiempoDescanso" class="row" style="width: 100%;">
-          <!-- BARRA DE PROGRESO Descanso -->
+
+      <div *ngIf="!instruccionesDOM">
+        <div *ngIf="ejercicioOperaciones">
+          <!-- BARRA DE PROGRESO INICIO -->
           <div class="row progress">
             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-              [attr.aria-valuenow]="tTimerDescanso" [style.width]="(tTimerDescanso/segundosDescanso)*100+'%'"
-              aria-valuemin="0" aria-valuemax="20" style="margin:0px auto;">
+              [attr.aria-valuenow]="timerEjerUno" [style.width]="(timerEjerUno*0.33)+'%'" aria-valuemin="0" aria-valuemax="20"
+              style="margin:0px auto;">
             </div>
           </div>
-          <!-- BARRA DE PROGRESO FIN -->
-          <h1>Descanso de 1 minuto</h1>
-          <div class="row titulo" style="width: 100%;">
-            <h1>Preparate para la siguiente actividad</h1>
-            <p *ngIf="tTimerDescanso<11">{{tTimerDescanso}}</p>
+          <!-- BARRA DE PROGRESO FIN -->   
+          <div class="row">
+            <div class="col">
+              <h1>Que operación es más grande?</h1>
+            </div>
           </div>
-        </div>
-      </mat-drawer-container>
-      <div *ngIf="!tiempoDescanso">
-        <div *ngIf="!resultados">
-          <div *ngIf="banderaEjer1">
-            <mat-drawer-container class="example-container" autosize>
-              <div class="row" *ngIf="rutina" style="width: 100%;">
-                <!-- BARRA DE PROGRESO INICIO -->
-                <div class="row progress" *ngIf="tTimer>0">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                    [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'" aria-valuemin="0"
-                    aria-valuemax="20" style="margin:0px auto;">
-                  </div>
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Operación uno</h5>
+                  <p>{{operacionUno}}</p>
                 </div>
-                <!-- BARRA DE PROGRESO FIN -->
-                <div class="row titulo">
-                  <h1>Selecciona el simbolo correcto para las operaciones:</h1>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <mat-select (selectionChange)="operacionSeleccionada()" [(ngModel)]="operacion">                    
+                    <mat-option *ngFor="let operacion of operadores" [value]="operacion">
+                      {{operacion}}
+                    </mat-option>
+                  </mat-select>
                 </div>
-                <div class="row">
-                  <div class="col-sm texto-oper">{{ duplaOperaciones[0].operacion }}</div>
-                  <div class="col-sm">
-                    <mat-form-field>
-                      <mat-label>Operador</mat-label>
-                      <mat-select [(ngModel)]="operador">
-                        <mat-option *ngFor="let operador of opcionesOper" [value]="operador">{{ operador.simbolo }}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-sm texto-oper">{{ duplaOperaciones[1].operacion }}</div>
-                </div>
-                <div class="row">
-                  <div class="col-2" style="margin:0px auto">
-                  <button (click)="funcionUno(operador.oper)" class="buttonSkepsi textoBoton">
+                <div class="card-footer">
+                  <button class="btn buttonSkepsi" (click)="comprobarOperacion()">
                     Siguiente
                   </button>
-                  </div>
+                </div>
+              </div><br>
+              <div class="alert alert-success" role="alert" *ngIf="correctoDOM" style="width: auto;">
+                CORRECTO!
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="incorrectoDOM" style="width: auto;">
+                Incorrecto
+              </div>         
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Operación dos</h5>
+                  <p>{{operacionDos}}</p>
                 </div>
               </div>
-            </mat-drawer-container>
+            </div>
           </div>
         </div>
-
-        <div *ngIf="!tiempoDescanso">
-          <div *ngIf="!resultados">
-            <div *ngIf="banderaEjer2">
-              <mat-drawer-container class="example-container" autosize>
-                <!-- BARRA DE PROGRESO INICIO -->
-                <div class="row progress" *ngIf="tTimer>0">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                    [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'" aria-valuemin="0"
-                    aria-valuemax="20" style="margin:0px auto;">
-                  </div>
+        <div *ngIf="ejercicioAreas">
+          <!-- BARRA DE PROGRESO INICIO -->
+          <div class="row progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+              [attr.aria-valuenow]="timerEjerDos" [style.width]="(timerEjerDos*0.33)+'%'" aria-valuemin="0" aria-valuemax="20"
+              style="margin:0px auto;">
+            </div>
+          </div>
+          <!-- BARRA DE PROGRESO FIN -->   
+          <div class="row">
+            <div class="col">
+              <h1>Que figura tiene más perímetro?</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Figura uno</h5>
+                  <img [src]="figuraUno.imagen">
                 </div>
-                <!-- BARRA DE PROGRESO FIN -->
-                <div *ngIf="rutina" class="row" >
-                  <div class="row titulo" >
-                    <h1>Selecciona el simbolo correcto para perimetro:</h1>
-                  </div>
-                  <div class="row" >
-                    <div class="col-sm">
-
-
-                      <img src="{{ duplaAreaPer[0].figAreaPer }}" style="border-radius: 10px" />
-                    </div>
-                    <div class="col-sm">
-                      <mat-form-field appearance="fill">
-                        <mat-label>Operador</mat-label>
-                        <mat-select [(ngModel)]="operador">
-                          <mat-option *ngFor="let operador of opcionesOper" [value]="operador">{{ operador.simbolo }}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-sm">
-                      <img src="{{ duplaAreaPer[1].figAreaPer }}" style="border-radius: 10px" />
-                    </div>
-
-                  </div>
-                  <div class="row">
-                  <div class="col-2"style="margin:0px auto">
-                  <button (click)="funcionDos(operador.oper)" mat-raised-button class="buttonSkepsi textoBoton">
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <mat-select [(ngModel)]="operacion">                    
+                    <mat-option *ngFor="let operacion of operadores" [value]="operacion">
+                      {{operacion}}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div class="card-footer">
+                  <button class="btn buttonSkepsi" (click)="comprobarayp()">
                     Siguiente
                   </button>
-                  </div>
-                  </div>
                 </div>
-              </mat-drawer-container>
+              </div><br>
+              <div class="alert alert-success" role="alert" *ngIf="correctoDOM" style="width: auto;">
+                CORRECTO!
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="incorrectoDOM" style="width: auto;">
+                Incorrecto
+              </div>     
             </div>
-          </div>
-
-          <div *ngIf="!tiempoDescanso">
-            <div *ngIf="!resultados">
-              <div *ngIf="banderaEjer3">
-                <mat-drawer-container class="example-container" autosize>
-                  <div *ngIf="rutina" class="row" >
-                    <!-- BARRA DE PROGRESO INICIO -->
-                    <div class="row progress" *ngIf="tTimer>0">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                        [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'"
-                        aria-valuemin="0" aria-valuemax="20" style="margin:0px auto;">
-                      </div>
-                    </div>
-                    <!-- BARRA DE PROGRESO FIN -->
-                    <div class="row" >
-                      <h1>
-                        <img src="{{ vistaBillMone.imgDinero }}" style="border-radius: 10px" />
-                      </h1>
-                    </div>
-                    <div class="row titulo">
-                      <h1>Desglosa el dinero en unidades, decenas y centenas:</h1>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <mat-form-field appearance="fill">
-                          <mat-label>Centenas</mat-label>
-                          <input matInput type="number" [formControl]="formDesglose.centenas" />
-                          <mat-hint>100</mat-hint>
-                        </mat-form-field>
-                      </div>
-                      <div class="col">
-                        <mat-form-field appearance="fill">
-                          <mat-label>Decenas</mat-label>
-                          <input matInput type="number" [formControl]="formDesglose.decenas" />
-                          <mat-hint>10</mat-hint>
-                        </mat-form-field>
-                      </div>
-                      <div class="col">
-                        <mat-form-field appearance="fill">
-                          <mat-label>Unidades</mat-label>
-                          <input matInput type="number" [formControl]="formDesglose.unidades" />
-                          <mat-hint>1</mat-hint>
-                        </mat-form-field>
-                      </div>
-                    </div>
-                    <div class="row titulo">
-
-                      <h1>Indica la cantidad de billetes y monedas.</h1>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <mat-form-field appearance="fill">
-                          <mat-label>Billetes $100</mat-label>
-                          <input matInput type="number" [formControl]="formCantidadBillMon.bill100" />
-                          <mat-hint>$100</mat-hint>
-                        </mat-form-field>
-                      </div>
-                      <div class="col">
-                        <mat-form-field appearance="fill">
-                          <mat-label>Billetes $50</mat-label>
-                          <input matInput type="number" [formControl]="formCantidadBillMon.bill50" />
-                          <mat-hint>$50</mat-hint>
-                        </mat-form-field>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                        <mat-form-field appearance="fill">
-                          <mat-label>Monedas $10</mat-label>
-                          <input matInput type="number" [formControl]="formCantidadBillMon.mone10" />
-                          <mat-hint>$10</mat-hint>
-                        </mat-form-field>
-
-                      </div>
-                      <div class="col">
-                        <mat-form-field appearance="fill">
-                          <mat-label>Monedas $5</mat-label>
-                          <input matInput type="number" [formControl]="formCantidadBillMon.mone05" />
-                          <mat-hint>$5</mat-hint>
-                        </mat-form-field>
-                      </div>
-                      <div class="col">
-                        <mat-form-field appearance="fill">
-                          <mat-label>Monedas $1</mat-label>
-                          <input matInput type="number" [formControl]="formCantidadBillMon.mone01" />
-                          <mat-hint>$1</mat-hint>
-                        </mat-form-field>
-
-                        <h1></h1>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-2"style="margin:0px auto">
-                    <button (click)="funcionTres()" mat-raised-button class="buttonSkepsi textoBoton">
-                      Siguiente
-                    </button>
-                      </div>
-                    </div>
-                  </div>
-                </mat-drawer-container>
-              </div>
-            </div>
-          </div>
-          <div *ngIf="!tiempoDescanso">
-            <div *ngIf="!resultados">
-              <div *ngIf="bandEjer4">
-                <mat-drawer-container class="example-container" autosize>
-                  <div *ngIf="rutina" class="row" style="width: 100%;">
-                    <!-- BARRA DE PROGRESO INICIO -->
-                    <div class="row progress" *ngIf="tTimer>0">
-                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                        [attr.aria-valuenow]="tTimer" [style.width]="(tTimer/tiempoSegundosCrono)*100+'%'"
-                        aria-valuemin="0" aria-valuemax="20" style="margin:0px auto;">
-                      </div>
-                    </div>
-                    <!-- BARRA DE PROGRESO FIN -->
-                    <div class="row">
-                      <h1>Expresa la cantidad de billetes y monedas en numero:</h1>
-                    </div>
-                    <div class="row">
-                      <h1>
-                        <img src="{{ vistaBillMone.imgDinero }}" style="border-radius: 10px">
-                      </h1>
-                    </div>
-                    <div class="row">
-                      <div class="col-3"style="margin:0px auto">
-                      <mat-form-field appearance="fill">
-                        <mat-label>Cantidad Dinero</mat-label>
-                        <input matInput type="number" [formControl]="formCantDinero" />
-                      </mat-form-field>
-                    </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-2"style="margin:0px auto">
-                      <button (click)="funcionCuatro()" mat-raised-button class="buttonSkepsi textoBoton">
-                        Siguiente
-                      </button>
-                      </div>
-                    </div>
-                  </div>
-                </mat-drawer-container>
-              </div>
-            </div>
-          </div>
-          <div *ngIf="resultados" style="width: 100%">
-            <mat-drawer-container class="example-container" autosize>
-              <div class="row" style="width: 100%;">
-                <h1>Resultados:</h1>
-              </div>
-              <div class="row" style="width: 100%;">
-                <h1>
-                  Tuviste {{ calificacionVista }} aciertos de {{ contadorEjer }}
-                </h1>
-              </div>
-              <div class="row" style="width: 100%;">
-                <div class="col-2"style="margin:0px auto">
-                <button (click)="descanso()" mat-raised-button class="buttonSkepsi textoBoton">
-                  Continuar
-                </button>
-              </div>
-              </div>
-            </mat-drawer-container>
-          </div>
-          <div *ngIf="!tiempoDescanso">
-            <div *ngIf="!resultados">
-              <div *ngIf="!banderaEjer1">
-                <div *ngIf="!banderaEjer2">
-                  <div *ngIf="!banderaEjer3">
-                    <div *ngIf="!bandEjer4">
-                      <audio id="finRutAudio" #finRutAudio src="..\assets\Audios\InicioFin\SonidoFinRutina.mpeg"
-                        autoplay></audio>
-                      <div class="row">
-                        <h1>Resultados Generales:</h1>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-
-                        Ejericicio 1: {{ resultadoEjer[0].aciertos }} aciertos de
-                        {{ resultadoEjer[0].intentos }}
-
-                      </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-
-                        Ejericicio 2: {{ resultadoEjer[1].aciertos }} aciertos de
-                        {{ resultadoEjer[1].intentos }}
-
-                      </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                        Ejericicio 3: {{ resultadoEjer[2].aciertos }} aciertos de {{ resultadoEjer[2].intentos }}
-                      </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-2"style="margin:0px auto">
-                            <button (click)="reloadPage()" mat-raised-button class="buttonSkepsi textoBoton">
-                              Finalizar
-                            </button>
-                      </div>
-                      </div>
-                      </div>
-                    </div>
-                  </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Figura dos</h5>
+                  <img [src]="figuraDos.imagen">
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <div *ngIf="ejercicioDineroUno">
+          <!-- BARRA DE PROGRESO INICIO -->
+          <div class="row progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+              [attr.aria-valuenow]="timerEjerTres" [style.width]="(timerEjerTres*0.83)+'%'" aria-valuemin="0" aria-valuemax="20"
+              style="margin:0px auto;">
+            </div>
+          </div>
+          <!-- BARRA DE PROGRESO FIN -->   
+          DINERO UNO
+          <div class="row">
+            <h5>Desgloza el dinero en unidades, decenas y centenas</h5>
+            <div class="col">
+              CANTIDAD DE DINERO
+              <div *ngFor="let imagen of dineroArray">
+                <img [src]="imagen.imagen" class="dinero">
+              </div>
+            </div>
+            <div class="col">
+              <div class="row">                
+                <div class="col">                  
+                  <mat-form-field appearance="outline">
+                    <mat-label>Centenas</mat-label>
+                    <input matInput type="number" min="0" value="0" [(ngModel)]="centenas">
+                  </mat-form-field>
+                </div>
+                <div class="col">                  
+                  <mat-form-field appearance="outline">
+                    <mat-label>Decenas</mat-label>
+                    <input matInput type="number" min="0" value="0" [(ngModel)]="decenas">
+                  </mat-form-field>
+                </div>                
+                <div class="col">                  
+                  <mat-form-field appearance="outline">
+                    <mat-label>Unidades</mat-label>
+                    <input matInput type="number" min="0" value="0" [(ngModel)]="unidades">
+                  </mat-form-field>
+                </div>
+              </div>              
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button class="btn buttonSkepsi" (click)="comprobarDineroUno()">
+                Siguiente
+              </button>
+            </div>
+          </div><br>
+          <div class="alert alert-success" role="alert" *ngIf="correctoDOM" style="width: auto;">
+            CORRECTO!
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="incorrectoDOM" style="width: auto;">
+            Incorrecto
+          </div>  
+        </div>
+
+        <div *ngIf="ejercicioDineroDos">
+          <!-- BARRA DE PROGRESO INICIO -->
+          <div class="row progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+              [attr.aria-valuenow]="timerEjerCuatro" [style.width]="(timerEjerCuatro*0.83)+'%'" aria-valuemin="0" aria-valuemax="20"
+              style="margin:0px auto;">
+            </div>
+          </div>
+          <!-- BARRA DE PROGRESO FIN -->  
+          <div class="row">
+            <div class="col">
+              <h1>Evalúa las cantidades</h1>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Dinero</h5>
+                  <div *ngFor="let imagen of dineroArray">
+                    <img [src]="imagen.imagen" class="dinero">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <mat-select [(ngModel)]="operacion">                    
+                    <mat-option *ngFor="let operacion of operadores" [value]="operacion">
+                      {{operacion}}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div class="card-footer">
+                  <button class="btn buttonSkepsi" (click)="comprobarDineroDos()">
+                    Siguiente
+                  </button>
+                </div>
+              </div><br>
+              <div class="alert alert-success" role="alert" *ngIf="correctoDOM" style="width: auto;">
+                CORRECTO!
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="incorrectoDOM" style="width: auto;">
+                Incorrecto
+              </div>     
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Cantidad</h5>
+                  {{cantidadDineroDos}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>         
+        <div *ngIf="descansoDOM">
+          <div class="row progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+              [attr.aria-valuenow]="timerDescanso" [style.width]="(timerDescanso*1.66)+'%'" aria-valuemin="0" aria-valuemax="20"
+              style="margin:0px auto;">
+            </div>
+          </div>
+          <p class="titulo">Ejercicio terminado!</p>
+          <p class="titulo">Resultados:</p>
+          <p class="titulo">Tuviste {{calificacionDOM}} aciertos de {{cantidadReactivosDOM}}</p>
+        </div>        
       </div>
     </div>
-    </div>
   </div>
+</div>
