@@ -55,7 +55,7 @@ export class AGNCO1012Component implements OnInit {
 
   public elementoVista:any;
   public avesService: Array<agnco> = [];
-  public mamiferosService: Array<agnco> = []; 
+  public mamiferosService: Array<agnco> = [];
   avesRandom = [];
   mamiferosRandom = [];
   avesRandomCinco: Array<any> = [];
@@ -75,7 +75,7 @@ export class AGNCO1012Component implements OnInit {
   ejercicioAves = false;
   explicacionMamiferos = false;
   ejercicioMamiferos = false;
-  
+
   picosAvesDOM = false;
   ojosAvesDOM = false;
   patasAvesDOM = false;
@@ -90,7 +90,7 @@ export class AGNCO1012Component implements OnInit {
   timeMostrar: number = 40;
   intervalMostrar:any;
 
-  
+
 /* VARIABLES DE RUTINA FIN */
 
 
@@ -98,28 +98,28 @@ export class AGNCO1012Component implements OnInit {
     private _resultsService: ResultsService,
     private agncoService: Agnco1012Service,
     private router: Router
-  ) { 
-    
+  ) {
+
   }
 
   arraysCreation(){
     this.picos = [
-      { valor:'1PA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-41.png', 
+      { valor:'1PA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-41.png',
       respuesta:'Los picos finos y alargados son para comer el néctar de las flores' },
 
-      { valor:'2PA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-42.png', 
+      { valor:'2PA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-42.png',
       respuesta:'Su pico es corto, ancho y plano para comer insectos' },
 
-      { valor:'3PA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-43.png', 
+      { valor:'3PA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-43.png',
       respuesta:'Los picos grandes y fuertes sirven para comer peces' },
 
-      { valor:'4PA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-39.png', 
+      { valor:'4PA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-39.png',
       respuesta:'El pico corto es para comer frutos y semillas' },
 
-      { valor:'5PA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-40.png', 
+      { valor:'5PA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-40.png',
       respuesta:'El pico en forma de gancho y filoso es para comer trozos de carne' },
 
-      { valor:'6PA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-44.png', 
+      { valor:'6PA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-44.png',
       respuesta:'Se alimentan de distintos tipos de comida' },
 
     ]
@@ -148,7 +148,7 @@ export class AGNCO1012Component implements OnInit {
       { valor:'2OA', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/Ojos-37.png', respuesta:'Visión binocular: Sus ojos están juntos enfrente de la cabeza, puede ver bien a sus presas' },
     ]
     this.vision = [
-      { valor:'1VM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosVista-25.png', respuesta:'Visión Monocular: Pueden ver muy bien todo lo que les rodea, pueden ver a que distancia están sus depredadores, sus ojos están en los dos lados de la cabeza' },      
+      { valor:'1VM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosVista-25.png', respuesta:'Visión Monocular: Pueden ver muy bien todo lo que les rodea, pueden ver a que distancia están sus depredadores, sus ojos están en los dos lados de la cabeza' },
       { valor:'2VM', imagen:'../assets/img/rutinas/desarrolloCognitivo/agnco/MamiferosVista-26.png', respuesta:'Visión Binocular: Con sus ojos calculan muy bien las distancias, sus ojos están al frente de la cabeza' }
     ]
   }
@@ -168,7 +168,7 @@ export class AGNCO1012Component implements OnInit {
     this.ejercicioMamiferos = false;
     this.patasMamiferosDOM = false;
     this.patasAvesDOM = false;
-    this.resultadosDOM = false;    
+    this.resultadosDOM = false;
     this.indice = 0;
     this.avesService = this.agncoService.getAves();
     this.mamiferosService = this.agncoService.getMamiferos();
@@ -224,6 +224,7 @@ export class AGNCO1012Component implements OnInit {
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('initRutAudio')
           );
+          alarmInitRutina.volume = 0.2;
           alarmInitRutina.play();
           this.instruccionesDOM = false;
           this.explicacionAves = true;
@@ -235,16 +236,16 @@ export class AGNCO1012Component implements OnInit {
 
   avesRutina(){
     if(this.indice <= 4){
-      this.explicacionAves = false; 
+      this.explicacionAves = false;
       this.ejercicioAves = true;
       this.timeMostrar = 40;
       this.elementoVista = this.avesRandomCinco[this.indice];
       this.mostrarElemento(1);
-    }else{      
+    }else{
       this.ejercicioAves = false;
       this.explicacionMamiferos = true;
-      this.picosMamiferosDOM = true;    
-      this.indice = 0;  
+      this.picosMamiferosDOM = true;
+      this.indice = 0;
     }
   }
 
@@ -255,7 +256,7 @@ export class AGNCO1012Component implements OnInit {
       this.timeMostrar = 40;
       this.elementoVista = this.mamiferosRandomCinco[this.indice];
       this.mostrarElemento(2);
-    }else{      
+    }else{
       this.revisar();
     }
   }
@@ -311,11 +312,12 @@ export class AGNCO1012Component implements OnInit {
     }
   }
 
-  revisar(){    
+  revisar(){
     this.descanso();
     let alarmInitRutina = <HTMLAudioElement>(
       document.getElementById('finEjerAudio')
     );
+    alarmInitRutina.volume = 0.2;
     alarmInitRutina.play();
 
     for(let i = 0; i<5; i++){
@@ -325,11 +327,11 @@ export class AGNCO1012Component implements OnInit {
           this.respuestasAvesAcumulado[i][j].valor == this.avesRandomCinco[j].patas ){
             console.log("Correcta para aves valor = ", this.respuestasAvesAcumulado[i][j], "boca ", this.avesRandomCinco[j].boca, "ojos ", this.avesRandomCinco[j].ojos, "patas ", this.avesRandomCinco[j].patas)
             this.calificacion++
-        }    
+        }
       }
     }
 
-    
+
     for(let i = 0; i<5; i++){
       for (let j = 0; j < this.respuestasMamiferosAcumulado[i].length; j++) {
         if(this.respuestasMamiferosAcumulado[i][j].valor == this.mamiferosRandomCinco[j].boca ||
@@ -337,7 +339,7 @@ export class AGNCO1012Component implements OnInit {
           this.respuestasMamiferosAcumulado[i][j].valor == this.mamiferosRandomCinco[j].patas ){
             console.log("Correcta para mamiferos valor = ", this.respuestasMamiferosAcumulado[i][j], "mandibula ", this.mamiferosRandomCinco[j].boca, "ojos ", this.mamiferosRandomCinco[j].ojos, "patas ", this.mamiferosRandomCinco[j].patas)
             this.calificacion++
-        } 
+        }
       }
     }
 
@@ -349,36 +351,36 @@ export class AGNCO1012Component implements OnInit {
       this.round++;
       //StudentSessionId
       this.resultsTable.studentSessionId = this.studentSessionId;
-  
+
       //Grade
       var partialGrade = ((this.calificacion/30)*100);
       this.resultsTable.grade = partialGrade;
-  
+
       //Round
       this.resultsTable.round = this.round;
-  
+
       //level
       this.resultsTable.level = this.level+1;
-  
+
       //LLENADO DE TABLA RESULTS FIN
-  
+
       //LLENADO DE TABLA RESULTS DETAILS INICIO
       //Possible points
       this.resultsTable.resultDetails[0].possiblePoints = 30;
-  
+
       //Points
       this.resultsTable.resultDetails[0].points = this.calificacion;
-  
+
       //Possible points description
       this.resultsTable.resultDetails[0].possiblePointsDescription = "Cantidad de posibles palabras creadas";
-  
+
       //Points description
       this.resultsTable.resultDetails[0].pointsDescription ="Cantidad de palabras correctas";
-  
+
       //Metodo para crear resultado
       this.addResult(this.resultsTable);
       //LLENADO DE TABLA RESULTS DETAILS FIN
-  
+
    porcentaje = 30 * .6;
     if(this.calificacion >= porcentaje){
       this.level++;
@@ -386,7 +388,7 @@ export class AGNCO1012Component implements OnInit {
       this.resultadosDOM = true;
     }else{
       this.ejercicioMamiferos = false;
-      this.resultadosDOM = true;    
+      this.resultadosDOM = true;
     }
     this.calificacion = 0;
   }
@@ -452,7 +454,7 @@ export class AGNCO1012Component implements OnInit {
     });
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });

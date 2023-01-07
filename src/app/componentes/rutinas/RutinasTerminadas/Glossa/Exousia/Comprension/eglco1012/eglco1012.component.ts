@@ -34,39 +34,39 @@ export class EGLCO1012Component implements OnInit {
   public starts = [
     {
       silaba: ['ma'],
-      respuestas: ['maleta','mamá','manzana','mariposa','mano','mago','mapa','maceta','madera','maíz','maratón','masa','medalla','madre','manopla','mandona','mazorca','maestra','madrugar','magia','manguera','mango','mantequilla','marsupial','macarrón','magnesio','machete','manta','magma','mancha','mandarina','marino','malabarista']      
+      respuestas: ['maleta','mamá','manzana','mariposa','mano','mago','mapa','maceta','madera','maíz','maratón','masa','medalla','madre','manopla','mandona','mazorca','maestra','madrugar','magia','manguera','mango','mantequilla','marsupial','macarrón','magnesio','machete','manta','magma','mancha','mandarina','marino','malabarista']
     },{
       silaba: ['bu'],
-      respuestas: ['buzo','bullicio','buscar','burbuja','búfalo','bullicio','burlón','búsqueda','bueno','búho','burro','bullicio','buitre','bujía','buñuelo','butaca','bulto','bufanda','buque','buitre','buffet','buscador','bucear','budismo','bucanero']      
+      respuestas: ['buzo','bullicio','buscar','burbuja','búfalo','bullicio','burlón','búsqueda','bueno','búho','burro','bullicio','buitre','bujía','buñuelo','butaca','bulto','bufanda','buque','buitre','buffet','buscador','bucear','budismo','bucanero']
     },{
       silaba: ['pe'],
-      respuestas: ['pelota','pez','pedazo','peligro','peinar','pescado','pelaje','penacho','pecera','pensamiento','pegajoso','pelusa','pegar','peluquero','pedir','pelar','peludo','peine','peluca','pelea','pechuga','periódico','penalti','peleador','pelador','pedal','peleonero','pelícano','pellejo','pepino','pediatra','pedalear','pelirrojo']      
+      respuestas: ['pelota','pez','pedazo','peligro','peinar','pescado','pelaje','penacho','pecera','pensamiento','pegajoso','pelusa','pegar','peluquero','pedir','pelar','peludo','peine','peluca','pelea','pechuga','periódico','penalti','peleador','pelador','pedal','peleonero','pelícano','pellejo','pepino','pediatra','pedalear','pelirrojo']
     },{
       silaba: ['si'],
-      respuestas: ['sillón','silbar','situación','siempre','siempre','siete','sílaba','silencio','signo','sirena','silbato','silla','simio','síntoma','simetría','sinopsis','silbato','singular','sinfín','simulacro','sinfonía','simpatía','simple','silvestre','similar','silueta','siglo','símbolo','silueta','sincero','sigla','sierra','siempre','simular','síntesis']      
+      respuestas: ['sillón','silbar','situación','siempre','siempre','siete','sílaba','silencio','signo','sirena','silbato','silla','simio','síntoma','simetría','sinopsis','silbato','singular','sinfín','simulacro','sinfonía','simpatía','simple','silvestre','similar','silueta','siglo','símbolo','silueta','sincero','sigla','sierra','siempre','simular','síntesis']
     },{
       silaba: ['ve'],
-      respuestas: ['verde','velero','ventana','veloz','veces','vegetación','veneno','venus','vender','ver','veinticinco','verso','velero','veo','verdad','vegetariano','vehículo','verano','veneno','veneno','vencer','vegetal','vecino','veraz','verdura','vena','venecia','veintiocho','verificar','velocidad','ventrílocuo','vertical','vela','venado','vestido']      
-    },    
-  ] 
+      respuestas: ['verde','velero','ventana','veloz','veces','vegetación','veneno','venus','vender','ver','veinticinco','verso','velero','veo','verdad','vegetariano','vehículo','verano','veneno','veneno','vencer','vegetal','vecino','veraz','verdura','vena','venecia','veintiocho','verificar','velocidad','ventrílocuo','vertical','vela','venado','vestido']
+    },
+  ]
   public include = [
     {
       silaba: ['ta'],
-      respuestas: ['computadora','pelota','pirata','azafata','ermitaño','tinta','tormenta','pimienta','raqueta','anota','fiesta','atajar','atar','lista','tabla','paleta','importante','establecer','resultado','bastante','espectacular','maleta','tarea','destacar','inestable','alimentación']      
+      respuestas: ['computadora','pelota','pirata','azafata','ermitaño','tinta','tormenta','pimienta','raqueta','anota','fiesta','atajar','atar','lista','tabla','paleta','importante','establecer','resultado','bastante','espectacular','maleta','tarea','destacar','inestable','alimentación']
     },{
       silaba: ['li'],
-      respuestas: ['película','solicitar','inteligente','utilizar','caliente','feliz','delicioso','salida','alimento','libro','felicidad','valioso','peligro','familia','helicóptero','listo','alimentar','felicitar','salir','eliminar','militar','calificar','policía','localizar','remolino','lista','libreta','licuado']      
+      respuestas: ['película','solicitar','inteligente','utilizar','caliente','feliz','delicioso','salida','alimento','libro','felicidad','valioso','peligro','familia','helicóptero','listo','alimentar','felicitar','salir','eliminar','militar','calificar','policía','localizar','remolino','lista','libreta','licuado']
     },{
       silaba: ['pre'],
-      respuestas: ['presentar','expresar','aprender','presente','sorpresa','pregunta','aprendizaje','preguntar','siempre','apreciar','precio','prestar','premio','apretar','comprender','premio','preposición','imprenta','comprender','empresa','presente','apretar']      
+      respuestas: ['presentar','expresar','aprender','presente','sorpresa','pregunta','aprendizaje','preguntar','siempre','apreciar','precio','prestar','premio','apretar','comprender','premio','preposición','imprenta','comprender','empresa','presente','apretar']
     },{
       silaba: ['la'],
-      respuestas: ['largo','relato','escuela','elaborar','colaborar','labor','relatar','dilatar','palabra','helado','isla','ola','jaula','vela','salario','película','lado','fila','lavar','ladrar','brújula','tela','cápsula','simulacro','lavar','ladrar','sala','laguna','novela','perla','águila']      
+      respuestas: ['largo','relato','escuela','elaborar','colaborar','labor','relatar','dilatar','palabra','helado','isla','ola','jaula','vela','salario','película','lado','fila','lavar','ladrar','brújula','tela','cápsula','simulacro','lavar','ladrar','sala','laguna','novela','perla','águila']
     },{
       silaba: ['bra'],
-      respuestas: ['sombra','celebra','palabra','abrazar','siembra','brazo','alfombra','brazalete','acostumbrado','alumbrado','sobra','cabra','celebrar','quebrar','cobraron','sobraron','penumbra','branquias','culebra','cebra','membrana','obra']      
-    },    
-  ] 
+      respuestas: ['sombra','celebra','palabra','abrazar','siembra','brazo','alfombra','brazalete','acostumbrado','alumbrado','sobra','cabra','celebrar','quebrar','cobraron','sobraron','penumbra','branquias','culebra','cebra','membrana','obra']
+    },
+  ]
 
   public palabrasRespuesta = [''];
   public palabraUsuario = '';
@@ -76,7 +76,7 @@ export class EGLCO1012Component implements OnInit {
   public palabrasRespuestaInclude = [''];
   public startActual:any;
   public includeActual:any;
-  startCalif = 0  
+  startCalif = 0
   includeCalif = 0
 
 
@@ -152,6 +152,7 @@ export class EGLCO1012Component implements OnInit {
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('initRutAudio')
           );
+          alarmInitRutina.volume = 0.2;
           alarmInitRutina.play();
           this.instruccionesDOM = false;
           this.startDOM = true;
@@ -165,7 +166,7 @@ export class EGLCO1012Component implements OnInit {
     },1000)
   }
 
-  //PALABRAS QUE EMPIECEN 
+  //PALABRAS QUE EMPIECEN
   startTimer(){
     if(this.timeStart > 0){
       clearInterval(this.intervalStart);
@@ -177,6 +178,7 @@ export class EGLCO1012Component implements OnInit {
         let alarmInitRutina = <HTMLAudioElement>(
           document.getElementById('initEjerAudio')
         );
+        alarmInitRutina.volume = 0.2;
         alarmInitRutina.play();
         this.startDOM = false;
         this.includeDOM = true;
@@ -202,7 +204,7 @@ export class EGLCO1012Component implements OnInit {
       }
     },1000)
   }
-  
+
   //DESCANSO
   descanso(){
     if(this.timeDescanso > 0){
@@ -226,11 +228,12 @@ export class EGLCO1012Component implements OnInit {
     }
     this.palabraUsuario = '';
   }
-  
+
   revisar(){
     let alarmInitRutina = <HTMLAudioElement>(
       document.getElementById('finEjerAudio')
     );
+    alarmInitRutina.volume = 0.2;
     alarmInitRutina.play();
     var porcentaje = 0;
     this.startCalif = 0;
@@ -243,7 +246,7 @@ export class EGLCO1012Component implements OnInit {
         this.startCalif++;
         this.calificacion++;
       }
-    }    
+    }
     //Calificacion include
     for (let index = 0; index < this.include[this.ronda].respuestas.length; index++) {
       if(this.include[this.ronda].respuestas.includes(this.respuestasUsuarioInclude[index])){
@@ -256,41 +259,41 @@ export class EGLCO1012Component implements OnInit {
     this.cantidadFigurasIncludeDOM = this.include[this.ronda].respuestas.length;
     this.calificacionStartDOM = this.startCalif;
     this.calificacionIncludeDOM = this.includeCalif;
-  
+
       //LLENADO DE TABLA RESULTS INICIO
       this.round++;
       //StudentSessionId
       this.resultsTable.studentSessionId = this.studentSessionId;
-  
+
       //Grade
       var partialGrade = ((this.calificacion/gradeVar)*100);
       this.resultsTable.grade = partialGrade;
-  
+
       //Round
       this.resultsTable.round = this.round;
-  
+
       //level
       this.resultsTable.level = this.level+1;
-  
+
       //LLENADO DE TABLA RESULTS FIN
-  
+
       //LLENADO DE TABLA RESULTS DETAILS INICIO
       //Possible points
       this.resultsTable.resultDetails[0].possiblePoints = gradeVar;
-  
+
       //Points
       this.resultsTable.resultDetails[0].points = this.calificacion;
-  
+
       //Possible points description
       this.resultsTable.resultDetails[0].possiblePointsDescription = "Cantidad de posibles palabras creadas";
-  
+
       //Points description
       this.resultsTable.resultDetails[0].pointsDescription ="Cantidad de palabras correctas";
-  
+
       //Metodo para crear resultado
       this.addResult(this.resultsTable);
       //LLENADO DE TABLA RESULTS DETAILS FIN
-  
+
     porcentaje = gradeVar * .6;
     if(this.calificacion >= porcentaje){
       this.level++;
@@ -308,7 +311,7 @@ export class EGLCO1012Component implements OnInit {
       }else{
         this.ronda++;
       }
-      this.resultadosDOM = true;    
+      this.resultadosDOM = true;
       this.includeDOM = false;
     }
     this.calificacion = 0;
@@ -376,7 +379,7 @@ export class EGLCO1012Component implements OnInit {
     });
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });

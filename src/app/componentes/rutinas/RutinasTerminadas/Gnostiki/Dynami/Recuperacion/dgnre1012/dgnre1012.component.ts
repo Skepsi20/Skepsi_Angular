@@ -96,6 +96,7 @@ export class DGNRE1012Component implements OnInit {
         let alarmInitRutina = <HTMLAudioElement>(
           document.getElementById('initRutAudio')
         );
+        alarmInitRutina.volume = 0.2;
         alarmInitRutina.play();
         this.instrucciones  = false;
         clearInterval(this.interval);
@@ -153,6 +154,7 @@ export class DGNRE1012Component implements OnInit {
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('initEjerAudio')
           );
+          alarmInitRutina.volume = 0.2;
           alarmInitRutina.play();
         clearInterval(this.intervalTwo);
       }
@@ -160,7 +162,7 @@ export class DGNRE1012Component implements OnInit {
   }
 
   mostrar(valor : number){
-    
+
     if(valor < this.cantidadBanderas[this.level]){
       this.banderaVista[0] = this.items[valor];
     }else if(valor == this.cantidadBanderas[this.level]){
@@ -186,6 +188,7 @@ export class DGNRE1012Component implements OnInit {
     let alarmInitRutina = <HTMLAudioElement>(
       document.getElementById('finEjerAudio')
     );
+    alarmInitRutina.volume = 0.2;
     alarmInitRutina.play();
 
     var porcentaje = 0;
@@ -312,7 +315,7 @@ export class DGNRE1012Component implements OnInit {
     });
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });

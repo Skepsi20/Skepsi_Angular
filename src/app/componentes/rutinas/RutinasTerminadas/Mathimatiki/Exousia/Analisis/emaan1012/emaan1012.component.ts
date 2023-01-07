@@ -234,11 +234,13 @@ export class Emaan1012Component implements OnInit {
         let alarmInitRutina = <HTMLAudioElement>(
           document.getElementById('initRutAudio')
         );
+        alarmInitRutina.volume = 0.2;
         alarmInitRutina.play();
       } else {
         let alarmInitEjer = <HTMLAudioElement>(
           document.getElementById('initEjerAudio')
         );
+        alarmInitEjer.volume = 0.2;
         alarmInitEjer.play();
       }
     }
@@ -246,6 +248,7 @@ export class Emaan1012Component implements OnInit {
       let alarmFinEjer = <HTMLAudioElement>(
         document.getElementById('finEjerAudio')
       );
+      alarmFinEjer.volume = 0.2;
       alarmFinEjer.play();
     }
   }
@@ -636,7 +639,7 @@ export class Emaan1012Component implements OnInit {
     window.location.reload();
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });

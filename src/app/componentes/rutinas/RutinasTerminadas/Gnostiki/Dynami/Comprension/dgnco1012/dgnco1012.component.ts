@@ -22,7 +22,7 @@ export class DGNCO1012Component implements OnInit {
     round: 0,
     level: 0,
     resultDetails:[{
-      possiblePoints: 0,  
+      possiblePoints: 0,
       points: 0,
       possiblePointsDescription: '',
       pointsDescription: ''
@@ -49,11 +49,11 @@ export class DGNCO1012Component implements OnInit {
   secuenciasService: Array<dgnco> = [];
   consecuenciasService: Array<dgnco> = [];
   conjuntoActual: Array<any> = [];
-  secuenciaActual: Array<any> = []; 
+  secuenciaActual: Array<any> = [];
   consecuenciaActual: Array<any> = [];
   respuestaAux: any;
   respuestas: Array<any> = [];
-  respuestasCorrectas: Array<any> = [];  
+  respuestasCorrectas: Array<any> = [];
   calificacion = 0;
   calificacionDOM = 0;
   nivel = 0;
@@ -73,7 +73,7 @@ export class DGNCO1012Component implements OnInit {
   timeMostrar: number = 30;
   intervalMostrar:any;
 
-  
+
 /* VARIABLES DE RUTINA FIN */
 
 
@@ -81,8 +81,8 @@ export class DGNCO1012Component implements OnInit {
     private _resultsService: ResultsService,
     private agncoService: Agnco1012Service,
     private router: Router,
-  ) { 
-    
+  ) {
+
   }
 
   ngOnInit(): void {
@@ -140,6 +140,7 @@ export class DGNCO1012Component implements OnInit {
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('initRutAudio')
           );
+          alarmInitRutina.volume = 0.2;
           alarmInitRutina.play();
           this.instruccionesDOM = false;
           clearInterval(this.intervalInstructions);
@@ -224,11 +225,12 @@ export class DGNCO1012Component implements OnInit {
     },1000)
   }
 
-  revisar(){    
+  revisar(){
     this.descanso();
     let alarmInitRutina = <HTMLAudioElement>(
       document.getElementById('finEjerAudio')
     );
+    alarmInitRutina.volume = 0.2;
     alarmInitRutina.play();
 
     for (let index = 0; index < 3; index++) {
@@ -244,43 +246,43 @@ export class DGNCO1012Component implements OnInit {
       this.round++;
       //StudentSessionId
       this.resultsTable.studentSessionId = this.studentSessionId;
-  
+
       //Grade
       var partialGrade = ((this.calificacion/3)*100);
       this.resultsTable.grade = partialGrade;
-  
+
       //Round
       this.resultsTable.round = this.round;
-  
+
       //level
       this.resultsTable.level = this.level+1;
-  
+
       //LLENADO DE TABLA RESULTS FIN
-  
+
       //LLENADO DE TABLA RESULTS DETAILS INICIO
       //Possible points
       this.resultsTable.resultDetails[0].possiblePoints = 3;
-  
+
       //Points
       this.resultsTable.resultDetails[0].points = this.calificacion;
-  
+
       //Possible points description
       this.resultsTable.resultDetails[0].possiblePointsDescription = "Cantidad de posibles ejercicios resueltos";
-  
+
       //Points description
       this.resultsTable.resultDetails[0].pointsDescription ="Cantidad de ejercicios correctos";
-  
+
       //Metodo para crear resultado
       this.addResult(this.resultsTable);
       //LLENADO DE TABLA RESULTS DETAILS FIN
-  
+
    porcentaje = 2;
     if(this.calificacion >= porcentaje){
       this.level++;
       this.nivel++;
       this.resultadosDOM = true;
     }else{
-      this.resultadosDOM = true;    
+      this.resultadosDOM = true;
     }
     this.calificacion = 0;
   }
@@ -346,7 +348,7 @@ export class DGNCO1012Component implements OnInit {
     });
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });

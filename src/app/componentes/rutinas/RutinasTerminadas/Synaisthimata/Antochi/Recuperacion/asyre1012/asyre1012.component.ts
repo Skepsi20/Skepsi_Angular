@@ -275,6 +275,7 @@ export class Asyre1012Component implements OnInit {
         this.timeLeft--;
       } else {
         let alarmInitRutina = <HTMLAudioElement>(document.getElementById('initRutAudio'));
+        alarmInitRutina.volume = 0.2;
         alarmInitRutina.play();
         this.currentStep  = ASYRE1012Step.Introduction;
         clearInterval(this.interval);

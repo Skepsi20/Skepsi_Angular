@@ -59,7 +59,7 @@ export class Aglre1012Component implements OnInit {
     public reproducirAudios = false;
 
     respuestasDragAndDrop: Array<any> = [];
-    
+
     options: SortableData = {
           swapThreshold: 0.1,
           invertSwap: true,
@@ -121,6 +121,7 @@ export class Aglre1012Component implements OnInit {
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('initRutAudio')
           );
+          alarmInitRutina.volume = 0.2;
           alarmInitRutina.play();
         }
       } else {
@@ -305,7 +306,7 @@ export class Aglre1012Component implements OnInit {
 
 
   //RESULTADOS INICIO
-  
+
   getSession(){
     this._resultsService.getSession()
     .subscribe(
@@ -368,9 +369,9 @@ export class Aglre1012Component implements OnInit {
     });
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });
-  }  
+  }
 }

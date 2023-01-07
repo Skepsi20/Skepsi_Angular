@@ -160,6 +160,7 @@ export class DGLCO1012Component implements OnInit {
         let alarmInitRutina = <HTMLAudioElement>(
           document.getElementById('initRutAudio')
         );
+        alarmInitRutina.volume = 0.2;
         alarmInitRutina.play();
         this.instruccionesDOM = false;
         this.mostrarSilabasDOM = true;
@@ -198,6 +199,7 @@ export class DGLCO1012Component implements OnInit {
         let alarmInitRutina = <HTMLAudioElement>(
           document.getElementById('initEjerAudio')
         );
+        alarmInitRutina.volume = 0.2;
         alarmInitRutina.play();
       }
     },1000);
@@ -213,6 +215,7 @@ export class DGLCO1012Component implements OnInit {
     let alarmInitRutina = <HTMLAudioElement>(
       document.getElementById('finEjerAudio')
     );
+    alarmInitRutina.volume = 0.2;
     alarmInitRutina.play();
     var porcentaje = 0;
     for (let index = 0; index < this.respuestasRandom.length; index++) {
@@ -347,7 +350,7 @@ export class DGLCO1012Component implements OnInit {
     });
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });

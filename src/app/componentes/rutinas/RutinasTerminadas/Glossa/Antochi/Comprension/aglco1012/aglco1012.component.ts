@@ -48,8 +48,8 @@ export class AGLCO1012Component implements OnInit {
   public fonemas: Array<string> = [];
   public palabras: Array<string> = [];
   public frases: Array<string> = [];
-  
-  
+
+
   public fonemasR= 0;
   public palabrasR= 0;
   public frasesR= 0;
@@ -63,7 +63,7 @@ export class AGLCO1012Component implements OnInit {
   //Temporizador
   timeDescanso: number = 60;
   timeLeft: number = 10;
-  intervalDescanso:any;    
+  intervalDescanso:any;
   interval:any;
 
   constructor(
@@ -98,6 +98,7 @@ export class AGLCO1012Component implements OnInit {
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('initRutAudio')
           );
+          alarmInitRutina.volume = 0.2;
           alarmInitRutina.play();
         }
       } else {
@@ -235,7 +236,7 @@ export class AGLCO1012Component implements OnInit {
 
 
   //RESULTADOS INICIO
-  
+
   getSession(){
     this._resultsService.getSession()
     .subscribe(
@@ -299,10 +300,10 @@ export class AGLCO1012Component implements OnInit {
   }
 
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });
   }
-  
+
 }

@@ -237,11 +237,13 @@ export class EMARE1012Component implements OnInit {
         let alarmInitRutina = <HTMLAudioElement>(
           document.getElementById('initRutAudio')
         );
+        alarmInitRutina.volume = 0.2;
         alarmInitRutina.play();
       } else {
         let alarmInitEjer = <HTMLAudioElement>(
           document.getElementById('initEjerAudio')
         );
+        alarmInitEjer.volume = 0.2;
         alarmInitEjer.play();
       }
     }
@@ -249,6 +251,7 @@ export class EMARE1012Component implements OnInit {
       let alarmFinEjer = <HTMLAudioElement>(
         document.getElementById('finEjerAudio')
       );
+      alarmFinEjer.volume = 0.2;
       alarmFinEjer.play();
     }
   }

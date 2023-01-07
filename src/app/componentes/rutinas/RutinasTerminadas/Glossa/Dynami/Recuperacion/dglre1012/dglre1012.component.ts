@@ -114,6 +114,7 @@ export class DGLRE1012Component implements OnInit {
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('initRutAudio')
           );
+          alarmInitRutina.volume = 0.2;
           alarmInitRutina.play();
         }
       } else {
@@ -234,8 +235,8 @@ export class DGLRE1012Component implements OnInit {
       if(this.respuestas[index] == this.arregloDeAudios[index].nombre){
         this.calificacion++;
       }
-    }   
-  
+    }
+
     this.cantidadAudiosVista = this.cantidadAudios[this.level];
     this.calificacionVista = this.calificacion;
 
@@ -302,7 +303,7 @@ export class DGLRE1012Component implements OnInit {
     const phContainer = dropList.element.nativeElement;
     const phElement = phContainer.querySelector('.cdk-drag-placeholder');
 
-   
+
 
     if (phElement) {
       phContainer.removeChild(phElement);
@@ -310,7 +311,7 @@ export class DGLRE1012Component implements OnInit {
 
       moveItemInArray(this.arregloDeAudiosRandom, dragIndex, dropIndex);
     }
-    
+
     if((this.arregloDeAudiosRandom.length && this.arregloDeAudios.length && this.respuestas.length) == this.cantidadAudios[this.level]){
       this.readyToAnswers = true;
     }else{
@@ -352,7 +353,7 @@ export class DGLRE1012Component implements OnInit {
 
 
   //RESULTADOS INICIO
-  
+
   getSession(){
     this._resultsService.getSession()
     .subscribe(
@@ -415,7 +416,7 @@ export class DGLRE1012Component implements OnInit {
     });
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });

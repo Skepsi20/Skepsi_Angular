@@ -40,9 +40,9 @@ export class AMARE1012Component implements OnInit {
   public figurasControllerRandom: Array<amare> = [];
   public arregloFiguras: Array<amare> = [];
   public arregloFigurasRandom: Array<amare> = [];
-  public figuraDOM: any = [];  
+  public figuraDOM: any = [];
   public arregloRespuestas:any = [];
-  
+
   public instruccionesDOM: boolean = true;
   public mostrarFigurasDOM: boolean = false;
   public resultadosDOM: boolean = false;
@@ -63,7 +63,7 @@ export class AMARE1012Component implements OnInit {
   cantidadFigurasDOM: any;
   calificacion: number = 0;
   timeLeft: number = 10;
-  timeLeftTwo: number = 60; 
+  timeLeftTwo: number = 60;
   interval:any;
   intervalTwo:any;
 /* VARIABLES DE RUTINA FIN */
@@ -92,7 +92,7 @@ export class AMARE1012Component implements OnInit {
     this.creacionArreglos()
     //this.aprender();
   }
-  
+
   arregloRandom(cantidadDeAudios: any, arregloDestino:any, arregloFuente: any){
     var valor = cantidadDeAudios;
     var fuente = arregloFuente;
@@ -139,6 +139,7 @@ export class AMARE1012Component implements OnInit {
         let alarmInitRutina = <HTMLAudioElement>(
           document.getElementById('initRutAudio')
         );
+        alarmInitRutina.volume = 0.2;
         alarmInitRutina.play();
         this.instruccionesDOM = false;
         this.mostrarFigurasDOM = true;
@@ -159,6 +160,7 @@ export class AMARE1012Component implements OnInit {
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('initEjerAudio')
           );
+          alarmInitRutina.volume = 0.2;
           alarmInitRutina.play();
         clearInterval(this.intervalTwo);
       }
@@ -166,10 +168,10 @@ export class AMARE1012Component implements OnInit {
   }
 
   mostrarFigura(){
-    console.log("SIN RANDOM",this.figurasController)    
+    console.log("SIN RANDOM",this.figurasController)
     console.log("CON RANDOM",this.arregloFiguras)
     console.log("Para mostrar",this.arregloFigurasRandom)
-    
+
     var aux = 0;
     var tiempo = setInterval(()=>{
       if(aux < this.cantidadFiguras[this.level]){
@@ -183,9 +185,9 @@ export class AMARE1012Component implements OnInit {
         this.arregloRespuestas = this.arregloFigurasRandom;
       }
     },5000);
-    
+
   }
-  
+
   revisar(){
     var porcentaje = 0;
     for (let index = 0; index < this.cantidadFiguras[this.level]; index++) {
@@ -195,41 +197,41 @@ export class AMARE1012Component implements OnInit {
     }
     this.cantidadFigurasDOM = this.cantidadFiguras[this.level];
     this.calificacionDOM = this.calificacion;
-  
+
       //LLENADO DE TABLA RESULTS INICIO
       this.round++;
       //StudentSessionId
       this.resultsTable.studentSessionId = this.studentSessionId;
-  
+
       //Grade
       var partialGrade = ((this.calificacion/this.cantidadFiguras[this.level])*100);
       this.resultsTable.grade = partialGrade;
-  
+
       //Round
       this.resultsTable.round = this.round;
-  
+
       //level
       this.resultsTable.level = this.level+1;
-  
+
       //LLENADO DE TABLA RESULTS FIN
-  
+
       //LLENADO DE TABLA RESULTS DETAILS INICIO
       //Possible points
       this.resultsTable.resultDetails[0].possiblePoints = this.cantidadFiguras[this.level];
-  
+
       //Points
       this.resultsTable.resultDetails[0].points = this.calificacion;
-  
+
       //Possible points description
       this.resultsTable.resultDetails[0].possiblePointsDescription = "Cantidad de figuras geométricas mostradas";
-  
+
       //Points description
       this.resultsTable.resultDetails[0].pointsDescription ="Cantidad de figuras geométricas memorizadas";
-  
+
       //Metodo para crear resultado
       this.addResult(this.resultsTable);
       //LLENADO DE TABLA RESULTS DETAILS FIN
-  
+
     porcentaje = this.cantidadFiguras[this.level] * .6;
     if(this.calificacion >= porcentaje){
       this.level++;
@@ -308,7 +310,7 @@ export class AMARE1012Component implements OnInit {
     });
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });

@@ -71,6 +71,7 @@ export class Asyan1012Component implements OnInit {
             let alarmInitRutina = <HTMLAudioElement>(
               document.getElementById('initRutAudio')
             );
+            alarmInitRutina.volume = 0.2;
             alarmInitRutina.play();
             clearInterval(this.intervalInstructions);
             this.instruccionesDOM = false;

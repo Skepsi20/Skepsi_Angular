@@ -125,6 +125,7 @@ intervalTwo:any;
         let alarmInitRutina = <HTMLAudioElement>(
           document.getElementById('initRutAudio')
         );
+        alarmInitRutina.volume = 0.2;
         alarmInitRutina.play();
         this.instrucciones  = false;
         clearInterval(this.interval);
@@ -158,6 +159,7 @@ intervalTwo:any;
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('initEjerAudio')
           );
+          alarmInitRutina.volume = 0.2;
           alarmInitRutina.play();
         this.tiempoAprender  = false;
         clearInterval(this.intervalTwo);
@@ -194,10 +196,11 @@ intervalTwo:any;
       this.mostrarBN(this.posicionDeBandera);
   }
 
-  revisar(){    
+  revisar(){
     let alarmInitRutina = <HTMLAudioElement>(
       document.getElementById('finEjerAudio')
     );
+    alarmInitRutina.volume = 0.2;
     alarmInitRutina.play();
     var porcentaje = 0;
     for(let index = 0; index < this.cantidadBanderas[this.level]; index++){
@@ -315,7 +318,7 @@ intervalTwo:any;
     });
   }
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });

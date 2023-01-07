@@ -20,7 +20,7 @@ export class EGNCO1012Component implements OnInit {
     round: 0,
     level: 0,
     resultDetails:[{
-      possiblePoints: 0,  
+      possiblePoints: 0,
       points: 0,
       possiblePointsDescription: '',
       pointsDescription: ''
@@ -53,7 +53,7 @@ export class EGNCO1012Component implements OnInit {
 
   timerEjercicio: number = 300;
   intervalEjercicio:any;
-  
+
 /* VARIABLES DE RUTINA FIN */
 
 
@@ -69,8 +69,8 @@ export class EGNCO1012Component implements OnInit {
   }
 
   Inicializacion(){
-    this.timerDescanso = 60;  
-    this.timerEjercicio = 300;  
+    this.timerDescanso = 60;
+    this.timerEjercicio = 300;
     this.resultadosDOM = false;
     this.calificacionDOM = 0;
     this.reactivosService = this.egncoService.getReactivos();
@@ -100,6 +100,7 @@ export class EGNCO1012Component implements OnInit {
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('finEjerAudio')
           );
+          alarmInitRutina.volume = 0.2;
           //alarmInitRutina.play();
           clearInterval(this.intervalEjercicio);
           this.revisar();
@@ -110,7 +111,7 @@ export class EGNCO1012Component implements OnInit {
   elementosAMostrar(){
     this.elementoAMostrar = this.reactivosService[this.contadorDeEstado];
     if(this.elementoAMostrar[6]){
-      this.respuestasService.push(this.elementoAMostrar[6]) 
+      this.respuestasService.push(this.elementoAMostrar[6])
     }
   }
 
@@ -118,7 +119,7 @@ export class EGNCO1012Component implements OnInit {
     if(elemento){
       this.respuestas.push(elemento);
     }
-    this.contadorDeEstado++;    
+    this.contadorDeEstado++;
     this.elementosAMostrar();
   }
 
@@ -134,6 +135,7 @@ export class EGNCO1012Component implements OnInit {
           let alarmInitRutina = <HTMLAudioElement>(
             document.getElementById('initRutAudio')
           );
+          alarmInitRutina.volume = 0.2;
           //alarmInitRutina.play();
           clearInterval(this.intervalInstructions);
           this.instruccionesDOM = false;
@@ -160,11 +162,12 @@ export class EGNCO1012Component implements OnInit {
     },1000)
   }
 
-  revisar(){    
+  revisar(){
     this.descanso();
     let alarmInitRutina = <HTMLAudioElement>(
       document.getElementById('finEjerAudio')
     );
+    alarmInitRutina.volume = 0.2;
     alarmInitRutina.play();
 
     for (let index = 0; index < this.contadorDeEstado; index++) {
@@ -179,39 +182,39 @@ export class EGNCO1012Component implements OnInit {
       this.round++;
       //StudentSessionId
       this.resultsTable.studentSessionId = this.studentSessionId;
-  
+
       //Grade
       var partialGrade = ((this.calificacion/this.contadorDeEstado)*100);
       this.resultsTable.grade = partialGrade;
-  
+
       //Round
       this.resultsTable.round = this.round;
-  
+
       //level
       this.resultsTable.level = this.level+1;
-  
+
       //LLENADO DE TABLA RESULTS FIN
-  
+
       //LLENADO DE TABLA RESULTS DETAILS INICIO
       //Possible points
       this.resultsTable.resultDetails[0].possiblePoints = this.contadorDeEstado;
-  
+
       //Points
       this.resultsTable.resultDetails[0].points = this.calificacion;
-  
+
       //Possible points description
       this.resultsTable.resultDetails[0].possiblePointsDescription = "Cantidad de posibles ejercicios resueltos";
-  
+
       //Points description
       this.resultsTable.resultDetails[0].pointsDescription ="Cantidad de ejercicios contestados correctamente";
-  
+
       //Metodo para crear resultado
       this.addResult(this.resultsTable);
       //LLENADO DE TABLA RESULTS DETAILS FIN
-  
+
     this.level++;
     this.dadosYdomino = false;
-    this.resultadosDOM = true;    
+    this.resultadosDOM = true;
     this.calificacion = 0;
   }
 
@@ -277,7 +280,7 @@ export class EGNCO1012Component implements OnInit {
   }
 
   regresar(){
-    this.router.navigateByUrl(`/usuario`) 
+    this.router.navigateByUrl(`/usuario`)
     .then(() => {
       window.location.reload();
     });
