@@ -176,7 +176,7 @@ thead {
   top: 0;
 }
 
-/* Horizontal */
+/* Horizontal drag and drop*/
 .example-list-horizontal {
   width: 1000px;
   max-width: 100%;
@@ -204,6 +204,4 @@ thead {
   font-size: 14px;
   flex-grow: 1;
   flex-basis: 0;
-
 }
-

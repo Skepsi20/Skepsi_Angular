@@ -25,13 +25,65 @@
       </div>
     </div>
 
-    <!-- Paso 2: Mecanismos -->
-    <div *ngIf="currentStep == AGNAN1012Step.Mechanisms">
-      <div class="row">
-        <h2>A continuación verás una estructura</h2>
+    <!-- Paso 3: Presentación del mecanismo -->
+    <div *ngIf="currentStep == AGNAN1012Step.MechanismPresentation" class="full-parent-height">
+      Aquí va la imagen de cómo se verá el mecanismo final
+    </div>
+
+    <!-- Paso 4: Pasos del mecanismo -->
+    <div *ngIf="currentStep == AGNAN1012Step.MechanismSteps" class="full-parent-height">
+      <div class="row" style="height: 50px">
+        <h1 style="font-weight: bold">{{mechanisms[mechanismIndex].steps[stepIndex].text}}</h1>
       </div>
-      <div class="row">
-        <div style="display: flex; justify-content: center; margin-top: 30px;">
+      <div class="row" style="height:calc(100% - 110px);">
+        <div style="display:flex;">
+          <div style="width:40%; display: flex; justify-content: center; align-items: center;">
+            <img height="400" style="display:inline; max-width: 100%; height: 400px;" src="../assets/img/mecanismos/Mecanismo{{mechanismIndex + 1}}/Armado/Paso0.jpg">
+          </div>
+          <div style="width:60%;">
+            <div class="full-parent-height" style="display: flex; flex-direction: column; justify-content: space-around;">
+              <div id="all-parts" style="height: 100px; margin-top: 10px;">
+                <div
+                  cdkDropList
+                  #allPieces="cdkDropList"
+                  [cdkDropListConnectedTo]="[selectedPieces]"
+                  cdkDropListOrientation="horizontal"
+                  [cdkDropListData]="parts"
+                  class="example-list-horizontal"
+                  (cdkDropListDropped)="drop($event)">
+                  <div class="example-box-horizontal center-content" *ngFor="let part of parts" cdkDrag>
+                    <img height="80" [src]="'../assets/img/mecanismos/piezas/' + part + '.png'" alt="{{part}}"/>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h2 style="margin-bottom: 2px">Arrastra hacia abajo las piezas que crees que se utilizaron</h2>
+                <img width="40px" src="../assets/img/skepsi/iconos/DownArrow.png" alt="Down">
+              </div>
+              <div>
+                <h3 style="text-align:left">Piezas seleccionadas:</h3>
+                <div id="selected-parts" style="height: 100px; margin-top: 10px;">
+                  <div
+                    cdkDropList
+                    #selectedPieces="cdkDropList"
+                    [cdkDropListConnectedTo]="[allPieces]"
+                    cdkDropListOrientation="horizontal"
+                    [cdkDropListData]="mechanisms[mechanismIndex].steps[stepIndex].selectedParts"
+                    class="example-list-horizontal"
+                    (cdkDropListDropped)="drop($event)">
+                    <div class="example-box-horizontal center-content" *ngFor="let part of mechanisms[mechanismIndex].steps[stepIndex].selectedParts" cdkDrag>
+                      <img height="80" [src]="'../assets/img/mecanismos/piezas/' + part + '.png'" alt="{{part}}"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row" style="height: 50px; display: flex; align-items: flex-end;">
+        <div style="display: flex; justify-content: center; height: 40px;">
           <button style="width: 50%; max-width: 200px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
         </div>
       </div>

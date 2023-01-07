@@ -7,8 +7,30 @@ import { Router } from '@angular/router';
 // #region Tipos locales
 enum AGNAN1012Step {
   Instructions,
-  Mechanisms,
+  MechanismPresentation,
+  MechanismSteps,
+  Timeout,
   End
+}
+
+interface IMechanism {
+  numberOfSteps: number;
+  steps: IStep[];
+  mechanismIndex: number;
+}
+
+interface IStep {
+  selectedParts: string[];
+  correctParts: string[];
+  stepIndex: number;
+  relatedStepsIndexes: number[];
+  text: string;
+}
+
+interface IResources {
+  lblUnion: string;
+  lblBuild: string;
+  lblFromAToB: string;
 }
 
 // #endregion Tipos locales
@@ -26,7 +48,9 @@ export class Agnan1012Component implements OnInit {
   // #endregion públicas privadas de solo-lectura
 
   // #region Variables privadas de solo-lectura
-  private readonly exampleReadonlyVariable: string[] = []; // TODO: Delete if not used
+  private readonly partsDefault: string[] = ['Boton', 'Camilla', 'Dentada', 'Engrane', 'Gancho', 'LaminaAzul', 'LaminaMini', 'Lengueta', 'Llanta', 'Mascarilla',
+    'MiniPiezaU', 'Palanca', 'Perfil', 'PiezaBlanca', 'PiezaL', 'PiezaLAzul', 'PiezaU2', 'Pivote', 'Puentesito', 'Rondana', 'RondanaGorda', 'Seguro',
+    'Seguro2', 'Tornillo', 'Tornillo2', 'Triangulo', 'Tuerca', 'Varilla'];
   // #endregion Variables privadas de solo-lectura
 
   // #region Variables de resultados
@@ -50,6 +74,10 @@ export class Agnan1012Component implements OnInit {
 
   public currentStep: AGNAN1012Step;
   public mechanismIndex: number;
+  public stepIndex: number;
+  public mechanisms: IMechanism[];
+  public resources: IResources;
+  public parts: string[];
 
   public get AGNAN1012Step(): typeof AGNAN1012Step {
     return AGNAN1012Step;
@@ -64,7 +92,15 @@ export class Agnan1012Component implements OnInit {
     private router: Router
   ) {
     this.currentStep = AGNAN1012Step.Instructions;
-    this.mechanismIndex = 0;
+    this.mechanismIndex = 1;
+    this.stepIndex = 0;
+    this.resources = {
+      lblBuild: '¿Qué piezas se utilizaron para armar la imagen de la izquierda?',
+      lblFromAToB: '¿Qué piezas se utilizaron para pasar de la imagen A a la imagen B?',
+      lblUnion: '¿Qué piezas se utilizaron para unir los armados y llegar a la imagen resultado?'
+    }
+    this.mechanisms = this.initializeMechanisms();
+    this.parts = this.resetParts();
   }
 
   ngOnInit(): void {
@@ -79,11 +115,14 @@ export class Agnan1012Component implements OnInit {
   public nextStep(): void {
     switch(this.currentStep) {
       case AGNAN1012Step.Instructions:
-        this.currentStep  = AGNAN1012Step.Mechanisms;
+        this.currentStep  = AGNAN1012Step.MechanismPresentation;
         break;
 
-      case AGNAN1012Step.Mechanisms:
-        // TODO:
+      case AGNAN1012Step.MechanismPresentation:
+        this.currentStep  = AGNAN1012Step.MechanismSteps;
+        break;
+
+      case AGNAN1012Step.MechanismSteps:
         if (this.mechanismIndex < this.mechanismMaxIndex) {
           this.mechanismIndex++;
         }
@@ -92,7 +131,6 @@ export class Agnan1012Component implements OnInit {
           this.currentStep  = AGNAN1012Step.End;
         }
         break;
-
     }
   }
 
@@ -146,11 +184,206 @@ export class Agnan1012Component implements OnInit {
         this.timeLeft--;
       } else {
         let alarmInitRutina = <HTMLAudioElement>(document.getElementById('initRutAudio'));
+        alarmInitRutina.volume = 0.2;
         alarmInitRutina.play();
-        this.currentStep  = AGNAN1012Step.Mechanisms;
+        this.currentStep  = AGNAN1012Step.MechanismPresentation;
         clearInterval(this.interval);
       }
     }, 100) // TODO: Set back to 1000
+  }
+
+  private resetParts(): string[] {
+    return [...this.partsDefault];
+  }
+
+  private initializeMechanisms(): IMechanism[] {
+    return [
+      {
+        mechanismIndex: 0,
+        numberOfSteps: 13,
+        steps: []
+      },
+      {
+        mechanismIndex: 1,
+        numberOfSteps: 11,
+        steps: [
+          {
+            correctParts: ['Tuerca', 'Rondana', 'Perfil', 'MiniPiezaU', 'Tornillo'],
+            selectedParts: [],
+            stepIndex: 0,
+            relatedStepsIndexes: [],
+            text: this.resources.lblBuild
+          },
+          {
+            correctParts: ['Perfil', 'MiniPiezaU', 'Tornillo', 'Tuerca', 'Camilla'],
+            selectedParts: [],
+            stepIndex: 1,
+            relatedStepsIndexes: [0],
+            text: this.resources.lblFromAToB
+          },
+          {
+            correctParts: ['RondanaGorda', 'MiniPiezaU', 'Tornillo', 'Tuerca2', 'Boton'],
+            selectedParts: [],
+            stepIndex: 2,
+            relatedStepsIndexes: [1],
+            text: this.resources.lblFromAToB
+          },
+          {
+            correctParts: ['Llanta', 'Dentada', 'Tornillo2', 'Tuerca'],
+            selectedParts: [],
+            stepIndex: 3,
+            relatedStepsIndexes: [2],
+            text: this.resources.lblFromAToB
+          },
+          {
+            correctParts: ['MiniPiezaU', 'Tornillo', 'Tuerca'],
+            selectedParts: [],
+            stepIndex: 4,
+            relatedStepsIndexes: [3],
+            text: this.resources.lblFromAToB
+          },
+          {
+            correctParts: ['PiezaL', 'LaminaAzul', 'Tornillo', 'Tuerca'],
+            selectedParts: [],
+            stepIndex: 5,
+            relatedStepsIndexes: [],
+            text: this.resources.lblBuild
+          },
+          {
+            correctParts: ['PiezaL', 'LaminaAzul', 'Tornillo', 'Tuerca'],
+            selectedParts: [],
+            stepIndex: 6,
+            relatedStepsIndexes: [],
+            text: this.resources.lblBuild
+          },
+          {
+            correctParts: ['Tornillo', 'Tuerca'],
+            selectedParts: [],
+            stepIndex: 7,
+            relatedStepsIndexes: [4, 5, 6],
+            text: this.resources.lblUnion
+          },
+          {
+            correctParts: ['LaminaMini', 'Tornillo', 'Tuerca', 'Mascarilla', 'Lengueta'],
+            selectedParts: [],
+            stepIndex: 8,
+            relatedStepsIndexes: [],
+            text: this.resources.lblBuild
+          },
+          {
+            correctParts: ['LaminaAzul', 'Tornillo', 'Tuerca'],
+            selectedParts: [],
+            stepIndex: 9,
+            relatedStepsIndexes: [7, 8],
+            text: this.resources.lblUnion
+          },
+          {
+            correctParts: ['Varilla', 'Llanta', 'Tuerca', 'Seguro2', 'Seguro'],
+            selectedParts: [],
+            stepIndex: 10,
+            relatedStepsIndexes: [9],
+            text: this.resources.lblFromAToB
+          }
+        ]
+      },
+      {
+        mechanismIndex: 2,
+        numberOfSteps: 13,
+        steps: [
+          {
+            correctParts: ['Tornillo', 'Tuerca', 'Tornillo2', 'Dentada', 'PiezaL', 'MiniPiezaU', 'LaminaAzul', 'Rondana', 'Triangulo'],
+            selectedParts: [],
+            stepIndex: 0,
+            relatedStepsIndexes: [],
+            text: this.resources.lblBuild
+          },
+          {
+            correctParts: ['Tornillo', 'Tuerca', 'Tornillo2', 'Dentada', 'PiezaL', 'MiniPiezaU', 'LaminaAzul', 'Rondana', 'Triangulo'],
+            selectedParts: [],
+            stepIndex: 1,
+            relatedStepsIndexes: [0],
+            text: this.resources.lblFromAToB
+          },
+          {
+            correctParts: ['Perfil', 'Tornillo', 'Tuerca', 'Camilla'],
+            selectedParts: [],
+            stepIndex: 2,
+            relatedStepsIndexes: [],
+            text: this.resources.lblBuild
+          },
+          {
+            correctParts: ['Tornillo', 'Tuerca', 'Mascarilla'],
+            selectedParts: [],
+            stepIndex: 3,
+            relatedStepsIndexes: [2],
+            text: this.resources.lblFromAToB
+          },
+          {
+            correctParts: ['Tornillo', 'Tuerca', 'Mascarilla'],
+            selectedParts: [],
+            stepIndex: 4,
+            relatedStepsIndexes: [1, 3],
+            text: this.resources.lblUnion
+          },
+          {
+            correctParts: ['Lengueta', 'Tuerca', 'Tornillo2', 'Gancho'],
+            selectedParts: [],
+            stepIndex: 5,
+            relatedStepsIndexes: [4],
+            text: this.resources.lblFromAToB
+          },
+          {
+            correctParts: ['Varilla', 'Tornillo2', 'Tuerca', 'Palanca'],
+            selectedParts: [],
+            stepIndex: 6,
+            relatedStepsIndexes: [5],
+            text: this.resources.lblFromAToB
+          },
+          {
+            correctParts: ['LaminaAzul', 'Perfil', 'Tornillo', 'Tuerca', 'Rondana'],
+            selectedParts: [],
+            stepIndex: 7,
+            relatedStepsIndexes: [],
+            text: this.resources.lblBuild
+          },
+          {
+            correctParts: ['LaminaMini', 'Tornillo', 'Rondana', 'Tuerca', 'MiniPiezaU'],
+            selectedParts: [],
+            stepIndex: 8,
+            relatedStepsIndexes: [7],
+            text: this.resources.lblFromAToB
+          },
+          {
+            correctParts: ['Varilla', 'Perfil', 'MiniPiezaU', 'Tornillo', 'Tuerca', 'Engrane'],
+            selectedParts: [],
+            stepIndex: 9,
+            relatedStepsIndexes: [8],
+            text: this.resources.lblFromAToB
+          },
+          {
+            correctParts: ['Engrane', 'Tornillo', 'Boton', 'Tuerca', 'Rondana', 'PiezaU2'],
+            selectedParts: [],
+            stepIndex: 10,
+            relatedStepsIndexes: [6, 9],
+            text: this.resources.lblUnion
+          },
+          {
+            correctParts: ['LaminaMini', 'Tornillo', 'Rondana', 'Seguro', 'Seguro2', 'Tuerca', 'Tornillo', 'Pivote', 'Palanca'],
+            selectedParts: [],
+            stepIndex: 11,
+            relatedStepsIndexes: [10],
+            text: this.resources.lblFromAToB
+          },
+          {
+            correctParts: ['Llanta', 'Varilla', 'Boton', 'Seguro', 'Rondana'],
+            selectedParts: [],
+            stepIndex: 12,
+            relatedStepsIndexes: [11],
+            text: this.resources.lblFromAToB
+          }
+        ]
+      }
+    ];
   }
 
   // #region Funciones privadas con interacción con la API
