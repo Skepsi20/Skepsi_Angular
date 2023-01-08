@@ -93,11 +93,11 @@ export class Agnan1012Component implements OnInit {
   ) {
     this.currentStep = AGNAN1012Step.Instructions;
     this.mechanismIndex = 1;
-    this.stepIndex = 0;
+    this.stepIndex = 7; // TODO: Regresar a 0
     this.resources = {
-      lblBuild: '¿Qué piezas se utilizaron para armar la imagen de la izquierda?',
-      lblFromAToB: '¿Qué piezas se utilizaron para pasar de la imagen A a la imagen B?',
-      lblUnion: '¿Qué piezas se utilizaron para unir los armados y llegar a la imagen resultado?'
+      lblBuild: '¿Qué piezas se utilizaron para armar la imagen?',
+      lblFromAToB: '¿Qué piezas se utilizaron para pasar de la imagen de la izquierda a la imagen de la derecha?',
+      lblUnion: '¿Qué piezas se utilizaron para unir los armados de la izquierda y llegar a la imagen de la derecha?'
     }
     this.mechanisms = this.initializeMechanisms();
     this.parts = this.resetParts();
@@ -123,10 +123,14 @@ export class Agnan1012Component implements OnInit {
         break;
 
       case AGNAN1012Step.MechanismSteps:
-        if (this.mechanismIndex < this.mechanismMaxIndex) {
-          this.mechanismIndex++;
+        if (this.stepIndex < (this.mechanisms[this.mechanismIndex].numberOfSteps - 1)) {
+          this.stepIndex++;
         }
-        else {
+        else if (this.mechanismIndex < this.mechanismMaxIndex) {
+          this.startOneMinuteBreak();
+          this.currentStep = AGNAN1012Step.Timeout;
+        }
+        else{
           this.sendResult();
           this.currentStep  = AGNAN1012Step.End;
         }
@@ -194,6 +198,27 @@ export class Agnan1012Component implements OnInit {
 
   private resetParts(): string[] {
     return [...this.partsDefault];
+  }
+
+  private startOneMinuteBreak(): void {
+    if(this.timeLeft > 0) {
+      clearInterval(this.interval);
+    }
+
+    this.timeLeft = 600;
+
+    this.interval = setInterval(() => {
+      console.log(this.timeLeft);
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      }
+      else {
+        this.mechanismIndex++;
+        this.stepIndex = 0;
+        this.currentStep = AGNAN1012Step.MechanismPresentation;
+        clearInterval(this.interval);
+      }
+    }, 100);
   }
 
   private initializeMechanisms(): IMechanism[] {

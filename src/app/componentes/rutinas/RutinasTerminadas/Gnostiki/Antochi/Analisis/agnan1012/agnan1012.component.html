@@ -27,7 +27,20 @@
 
     <!-- Paso 3: Presentación del mecanismo -->
     <div *ngIf="currentStep == AGNAN1012Step.MechanismPresentation" class="full-parent-height">
-      Aquí va la imagen de cómo se verá el mecanismo final
+      <div class="row" style="height: 40px">
+        <h1 style="font-weight: bold">Observa la siguiente estructura</h1>
+      </div>
+      <div class="row" style="height:calc(100% - 170px); padding: 15px; display: flex; justify-content: center;">
+        <img style="height:100%; width:auto;" [src]="'../assets/img/mecanismos/Mecanismo' + (mechanismIndex + 1) + '/Armado/Paso' + (mechanisms[mechanismIndex].numberOfSteps - 1) + '.jpg'" alt="Mecanismo final"/>
+      </div>
+      <div class="row" style="height: 80px">
+        <h2 style="font-weight: bold">En las siguientes imágenes verás el proceso de cómo se va armando. Tendrás que identificar qué piezas se requieren en cada paso.</h2>
+      </div>
+      <div class="row" style="height: 50px; display: flex; align-items: flex-end;">
+        <div style="display: flex; justify-content: center; height: 40px;">
+          <button style="width: 50%; max-width: 200px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Comenzar</button>
+        </div>
+      </div>
     </div>
 
     <!-- Paso 4: Pasos del mecanismo -->
@@ -36,11 +49,45 @@
         <h1 style="font-weight: bold">{{mechanisms[mechanismIndex].steps[stepIndex].text}}</h1>
       </div>
       <div class="row" style="height:calc(100% - 110px);">
-        <div style="display:flex;">
-          <div style="width:40%; display: flex; justify-content: center; align-items: center;">
-            <img height="400" style="display:inline; max-width: 100%; height: 400px;" src="../assets/img/mecanismos/Mecanismo{{mechanismIndex + 1}}/Armado/Paso0.jpg">
+        <div class="full-parent-height" style="display:flex;">
+          <div style="width:45%;">
+            <div class="row" style="height:calc(100% - 25px); max-width: 100%;">
+              <div *ngIf="mechanisms[mechanismIndex].steps[stepIndex].relatedStepsIndexes.length == 0" class="full-parent-height" style="display: flex; justify-content: center; align-items: center; width:100%">
+                <img
+                  style="display:inline; max-width: 100%; height: 100%; width: auto;"
+                  src="../assets/img/mecanismos/Mecanismo{{mechanismIndex + 1}}/Armado/Paso{{stepIndex}}.jpg"
+                >
+              </div>
+              <div *ngIf="mechanisms[mechanismIndex].steps[stepIndex].relatedStepsIndexes.length == 1" class="full-parent-height">
+                <img
+                  style="padding:10px; display:inline; max-width: 35%; max-height: 100%; height: auto; width:35%;"
+                  src="../assets/img/mecanismos/Mecanismo{{mechanismIndex + 1}}/Armado/Paso{{mechanisms[mechanismIndex].steps[stepIndex].relatedStepsIndexes[0]}}.jpg"
+                >
+                <img
+                  style="padding:10px; display:inline; max-width: 65%; max-height: 100%; height: auto; width:65%;"
+                  src="../assets/img/mecanismos/Mecanismo{{mechanismIndex + 1}}/Armado/Paso{{stepIndex}}.jpg"
+                >
+              </div>
+              <div *ngIf="mechanisms[mechanismIndex].steps[stepIndex].relatedStepsIndexes.length > 1" class="full-parent-height" style="display:flex;">
+                <div style="max-width: 35%; padding: 10px">
+                  <img
+                    style="max-width: 100%; max-height: 100%; height: auto; width:100%;"
+                    src="../assets/img/mecanismos/Mecanismo{{mechanismIndex + 1}}/Armado/Paso{{mechanisms[mechanismIndex].steps[stepIndex].relatedStepsIndexes[0]}}.jpg"
+                  >
+                </div>
+                <div style="max-width: 65%; padding: 10px">
+                  <img
+                    style="max-width: 100%; max-height: 100%; height: auto; width:100%;"
+                    src="../assets/img/mecanismos/Mecanismo{{mechanismIndex + 1}}/Armado/Paso{{stepIndex}}.jpg"
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="row" style="height: 25px">
+              <p style="margin: 0">Paso {{stepIndex + 1}} de {{mechanisms[mechanismIndex].numberOfSteps}}</p>
+            </div>
           </div>
-          <div style="width:60%;">
+          <div style="width:55%;">
             <div class="full-parent-height" style="display: flex; flex-direction: column; justify-content: space-around;">
               <div id="all-parts" style="height: 100px; margin-top: 10px;">
                 <div
@@ -50,7 +97,8 @@
                   cdkDropListOrientation="horizontal"
                   [cdkDropListData]="parts"
                   class="example-list-horizontal"
-                  (cdkDropListDropped)="drop($event)">
+                  (cdkDropListDropped)="drop($event)"
+                >
                   <div class="example-box-horizontal center-content" *ngFor="let part of parts" cdkDrag>
                     <img height="80" [src]="'../assets/img/mecanismos/piezas/' + part + '.png'" alt="{{part}}"/>
                   </div>
@@ -70,7 +118,8 @@
                     cdkDropListOrientation="horizontal"
                     [cdkDropListData]="mechanisms[mechanismIndex].steps[stepIndex].selectedParts"
                     class="example-list-horizontal"
-                    (cdkDropListDropped)="drop($event)">
+                    (cdkDropListDropped)="drop($event)"
+                  >
                     <div class="example-box-horizontal center-content" *ngFor="let part of mechanisms[mechanismIndex].steps[stepIndex].selectedParts" cdkDrag>
                       <img height="80" [src]="'../assets/img/mecanismos/piezas/' + part + '.png'" alt="{{part}}"/>
                     </div>
@@ -78,13 +127,29 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
       <div class="row" style="height: 50px; display: flex; align-items: flex-end;">
         <div style="display: flex; justify-content: center; height: 40px;">
-          <button style="width: 50%; max-width: 200px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">Continuar</button>
+          <button style="width: 50%; max-width: 200px; min-width: 100px;" class="btn buttonSkepsi" (click)="nextStep()">
+            {{stepIndex === (mechanisms[mechanismIndex].numberOfSteps - 1) ? 'Continuar' : 'Siguiente paso'}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paso 5: Descanso de 1 minuto-->
+    <div *ngIf="currentStep == AGNAN1012Step.Timeout" class="row full-parent-height">
+      <div style="display:flex; flex-direction: column; justify-content:center; align-items: center; width: 100%" class="full-parent-height">
+        <div class="row" style="margin-bottom: 30px;">
+          <h1 class="titulo">Descanso de 1 minuto</h1>
+        </div>
+        <div class="row progress" style="width:100%">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            [attr.aria-valuenow]="timeLeft" [style.width]="((timeLeft*100)/600)+'%'" aria-valuemin="0" aria-valuemax="20"
+            style="margin:0px auto;">
+          </div>
         </div>
       </div>
     </div>
